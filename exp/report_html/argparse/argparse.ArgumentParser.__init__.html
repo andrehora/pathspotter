@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>argparse.ArgumentParser.__init__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: argparse.ArgumentParser.__init__</h1>
+                <span>Coverage: 66.7% (32/48),</span>
+                <span>Tests: 102, </span>
+                <span>Calls: 2094, </span>
+                <span>Exceptions: 3, </span>
+                <span>Paths: 9</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1308 calls (62.5%)</p>
+                <p><button class="input"><span>&#8594;</span> prog</button> None (1308) </p>
+                <p><button class="input"><span>&#8594;</span> usage</button> None (1296) 'USAGE' (12) </p>
+                <p><button class="input"><span>&#8594;</span> description</button> None (1296) 'DESCRIPTION' (6) 'D DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD DD D' (6) </p>
+                <p><button class="input"><span>&#8594;</span> epilog</button> None (1308) </p>
+                <p><button class="input"><span>&#8594;</span> parents</button> [] (1308) </p>
+                <p><button class="input"><span>&#8594;</span> formatter_class</button> HelpFormatter def (1308) </p>
+                <p><button class="input"><span>&#8594;</span> prefix_chars</button> '-' (1260) '+' (24) '+:/' (12) '-+' (12) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile_prefix_chars</button> None (1284) '@' (24) </p>
+                <p><button class="input"><span>&#8594;</span> argument_default</button> None (1284) 42 (12) '==SUPPRESS==' (12) </p>
+                <p><button class="input"><span>&#8594;</span> conflict_handler</button> 'error' (1308) </p>
+                <p><button class="input"><span>&#8594;</span> add_help</button> True (1308) </p>
+                <p><button class="input"><span>&#8594;</span> allow_abbrev</button> True (1260) False (48) </p>
+                <p><button class="input"><span>&#8594;</span> exit_on_error</button> True (1306) False (2) </p>
+            <button class="run" title="lines run...">28 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">prog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">usage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>                 <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>                 <span class="n">epilog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>                 <span class="n">parents</span><span class="o">=</span><span class="p">[],</span></span>
+<span class="num"><a href="#7">7</a></span><span>                 <span class="n">formatter_class</span><span class="o">=</span><span class="n">HelpFormatter</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>                 <span class="n">prefix_chars</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>                 <span class="n">fromfile_prefix_chars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>                 <span class="n">argument_default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>                 <span class="n">conflict_handler</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>                 <span class="n">add_help</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>                 <span class="n">allow_abbrev</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span>                 <span class="n">exit_on_error</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">superinit</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ArgumentParser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">superinit</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                  <span class="n">prefix_chars</span><span class="o">=</span><span class="n">prefix_chars</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                  <span class="n">argument_default</span><span class="o">=</span><span class="n">argument_default</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                  <span class="n">conflict_handler</span><span class="o">=</span><span class="n">conflict_handler</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># default setting for prog</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">prog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">prog</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prog</span> <span class="o">=</span> <span class="n">prog</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">epilog</span> <span class="o">=</span> <span class="n">epilog</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">formatter_class</span> <span class="o">=</span> <span class="n">formatter_class</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">fromfile_prefix_chars</span> <span class="o">=</span> <span class="n">fromfile_prefix_chars</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span> <span class="o">=</span> <span class="n">add_help</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">allow_abbrev</span> <span class="o">=</span> <span class="n">allow_abbrev</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span> <span class="o">=</span> <span class="n">exit_on_error</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">add_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_positionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;positional arguments&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_optionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;options&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1"># register types</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">string</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identity</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># add help argument if necessary</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># (using explicit default to override global argument_default)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="n">default_prefix</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="k">if</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">prefix_chars</span> <span class="k">else</span> <span class="n">prefix_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">                <span class="n">default_prefix</span><span class="o">+</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">default_prefix</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s1">&#39;help&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">                <span class="n">action</span><span class="o">=</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">SUPPRESS</span><span class="p">,</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">                <span class="n">help</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;show this help message and exit&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#53">53</a></span><span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="c1"># add parent arguments and defaults</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_add_container_actions</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                <span class="n">defaults</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">_defaults</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#61">61</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 580 calls (27.7%)</p>
+                <p><button class="input"><span>&#8594;</span> prog</button> 'PROG' (345) 'PROG bar 1' (50) 'PROG bar 2' (50) 'PROG bar 3' (49) 'PROG a' (12) 'PROG b' (12) 'PROG c' (12) 'PROG d' (12) 'PROG e' (12) 'PPPPPPPPPPPP...</p>
+                <p><button class="input"><span>&#8594;</span> usage</button> None (564) '==SUPPRESS==' (6) '%(prog)s FOO' (6) '' (4) </p>
+                <p><button class="input"><span>&#8594;</span> description</button> None (308) 'main description' (53) '1 description' (49) '2 description' (49) '3 description' (49) 'description' (18) 'DESCRIPTION' (18) 'Keep the form...</p>
+                <p><button class="input"><span>&#8594;</span> epilog</button> None (562) 'EPILOG' (18) </p>
+                <p><button class="input"><span>&#8594;</span> parents</button> [] (580) </p>
+                <p><button class="input"><span>&#8594;</span> formatter_class</button> HelpFormatter def (556) ArgumentDefaultsHelpFormatter def (6) MetavarTypeHelpFormatter def (6) RawDescriptionHelpFormatter def (6) RawTextHelpFormatte...</p>
+                <p><button class="input"><span>&#8594;</span> prefix_chars</button> '-' (578) '+:/' (1) '+:-' (1) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile_prefix_chars</button> None (580) </p>
+                <p><button class="input"><span>&#8594;</span> argument_default</button> None (580) </p>
+                <p><button class="input"><span>&#8594;</span> conflict_handler</button> 'error' (579) 'resolve' (1) </p>
+                <p><button class="input"><span>&#8594;</span> add_help</button> True (580) </p>
+                <p><button class="input"><span>&#8594;</span> allow_abbrev</button> True (580) </p>
+                <p><button class="input"><span>&#8594;</span> exit_on_error</button> True (580) </p>
+            <button class="run" title="lines run...">27 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">prog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">usage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>                 <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>                 <span class="n">epilog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>                 <span class="n">parents</span><span class="o">=</span><span class="p">[],</span></span>
+<span class="num"><a href="#7">7</a></span><span>                 <span class="n">formatter_class</span><span class="o">=</span><span class="n">HelpFormatter</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>                 <span class="n">prefix_chars</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>                 <span class="n">fromfile_prefix_chars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>                 <span class="n">argument_default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>                 <span class="n">conflict_handler</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>                 <span class="n">add_help</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>                 <span class="n">allow_abbrev</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span>                 <span class="n">exit_on_error</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">superinit</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ArgumentParser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">superinit</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                  <span class="n">prefix_chars</span><span class="o">=</span><span class="n">prefix_chars</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                  <span class="n">argument_default</span><span class="o">=</span><span class="n">argument_default</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                  <span class="n">conflict_handler</span><span class="o">=</span><span class="n">conflict_handler</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># default setting for prog</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">prog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">prog</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prog</span> <span class="o">=</span> <span class="n">prog</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">epilog</span> <span class="o">=</span> <span class="n">epilog</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">formatter_class</span> <span class="o">=</span> <span class="n">formatter_class</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">fromfile_prefix_chars</span> <span class="o">=</span> <span class="n">fromfile_prefix_chars</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span> <span class="o">=</span> <span class="n">add_help</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">allow_abbrev</span> <span class="o">=</span> <span class="n">allow_abbrev</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span> <span class="o">=</span> <span class="n">exit_on_error</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">add_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_positionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;positional arguments&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_optionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;options&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1"># register types</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">string</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identity</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># add help argument if necessary</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># (using explicit default to override global argument_default)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="n">default_prefix</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="k">if</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">prefix_chars</span> <span class="k">else</span> <span class="n">prefix_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">                <span class="n">default_prefix</span><span class="o">+</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">default_prefix</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s1">&#39;help&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">                <span class="n">action</span><span class="o">=</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">SUPPRESS</span><span class="p">,</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">                <span class="n">help</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;show this help message and exit&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#53">53</a></span><span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="c1"># add parent arguments and defaults</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_add_container_actions</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                <span class="n">defaults</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">_defaults</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#61">61</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 89 calls (4.3%)</p>
+                <p><button class="input"><span>&#8594;</span> prog</button> None (89) </p>
+                <p><button class="input"><span>&#8594;</span> usage</button> None (89) </p>
+                <p><button class="input"><span>&#8594;</span> description</button> None (89) </p>
+                <p><button class="input"><span>&#8594;</span> epilog</button> None (89) </p>
+                <p><button class="input"><span>&#8594;</span> parents</button> [] (89) </p>
+                <p><button class="input"><span>&#8594;</span> formatter_class</button> HelpFormatter def (89) </p>
+                <p><button class="input"><span>&#8594;</span> prefix_chars</button> '-' (65) '+:/' (12) '+-' (12) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile_prefix_chars</button> None (89) </p>
+                <p><button class="input"><span>&#8594;</span> argument_default</button> None (89) </p>
+                <p><button class="input"><span>&#8594;</span> conflict_handler</button> 'error' (89) </p>
+                <p><button class="input"><span>&#8594;</span> add_help</button> False (89) </p>
+                <p><button class="input"><span>&#8594;</span> allow_abbrev</button> True (89) </p>
+                <p><button class="input"><span>&#8594;</span> exit_on_error</button> True (89) </p>
+            <button class="run" title="lines run...">24 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">prog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">usage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>                 <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>                 <span class="n">epilog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>                 <span class="n">parents</span><span class="o">=</span><span class="p">[],</span></span>
+<span class="num"><a href="#7">7</a></span><span>                 <span class="n">formatter_class</span><span class="o">=</span><span class="n">HelpFormatter</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>                 <span class="n">prefix_chars</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>                 <span class="n">fromfile_prefix_chars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>                 <span class="n">argument_default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>                 <span class="n">conflict_handler</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>                 <span class="n">add_help</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>                 <span class="n">allow_abbrev</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span>                 <span class="n">exit_on_error</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">superinit</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ArgumentParser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">superinit</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                  <span class="n">prefix_chars</span><span class="o">=</span><span class="n">prefix_chars</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                  <span class="n">argument_default</span><span class="o">=</span><span class="n">argument_default</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                  <span class="n">conflict_handler</span><span class="o">=</span><span class="n">conflict_handler</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># default setting for prog</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">prog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">prog</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prog</span> <span class="o">=</span> <span class="n">prog</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">epilog</span> <span class="o">=</span> <span class="n">epilog</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">formatter_class</span> <span class="o">=</span> <span class="n">formatter_class</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">fromfile_prefix_chars</span> <span class="o">=</span> <span class="n">fromfile_prefix_chars</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span> <span class="o">=</span> <span class="n">add_help</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">allow_abbrev</span> <span class="o">=</span> <span class="n">allow_abbrev</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span> <span class="o">=</span> <span class="n">exit_on_error</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">add_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_positionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;positional arguments&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_optionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;options&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1"># register types</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">string</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identity</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># add help argument if necessary</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># (using explicit default to override global argument_default)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="n">default_prefix</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="k">if</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">prefix_chars</span> <span class="k">else</span> <span class="n">prefix_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="n">default_prefix</span><span class="o">+</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">default_prefix</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s1">&#39;help&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="n">action</span><span class="o">=</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">SUPPRESS</span><span class="p">,</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                <span class="n">help</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;show this help message and exit&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#53">53</a></span><span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="c1"># add parent arguments and defaults</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_add_container_actions</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                <span class="n">defaults</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">_defaults</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#61">61</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 56 calls (2.7%)</p>
+                <p><button class="input"><span>&#8594;</span> prog</button> 'PROG' (56) </p>
+                <p><button class="input"><span>&#8594;</span> usage</button> None (56) </p>
+                <p><button class="input"><span>&#8594;</span> description</button> None (56) </p>
+                <p><button class="input"><span>&#8594;</span> epilog</button> None (56) </p>
+                <p><button class="input"><span>&#8594;</span> parents</button> list (56) </p>
+                <p><button class="input"><span>&#8594;</span> formatter_class</button> HelpFormatter def (56) </p>
+                <p><button class="input"><span>&#8594;</span> prefix_chars</button> '-' (56) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile_prefix_chars</button> None (56) </p>
+                <p><button class="input"><span>&#8594;</span> argument_default</button> None (56) </p>
+                <p><button class="input"><span>&#8594;</span> conflict_handler</button> 'error' (56) </p>
+                <p><button class="input"><span>&#8594;</span> add_help</button> False (56) </p>
+                <p><button class="input"><span>&#8594;</span> allow_abbrev</button> True (56) </p>
+                <p><button class="input"><span>&#8594;</span> exit_on_error</button> True (56) </p>
+            <button class="run" title="lines run...">27 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">prog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">usage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>                 <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>                 <span class="n">epilog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>                 <span class="n">parents</span><span class="o">=</span><span class="p">[],</span></span>
+<span class="num"><a href="#7">7</a></span><span>                 <span class="n">formatter_class</span><span class="o">=</span><span class="n">HelpFormatter</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>                 <span class="n">prefix_chars</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>                 <span class="n">fromfile_prefix_chars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>                 <span class="n">argument_default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>                 <span class="n">conflict_handler</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>                 <span class="n">add_help</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>                 <span class="n">allow_abbrev</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span>                 <span class="n">exit_on_error</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">superinit</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ArgumentParser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">superinit</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                  <span class="n">prefix_chars</span><span class="o">=</span><span class="n">prefix_chars</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                  <span class="n">argument_default</span><span class="o">=</span><span class="n">argument_default</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                  <span class="n">conflict_handler</span><span class="o">=</span><span class="n">conflict_handler</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># default setting for prog</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">prog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">prog</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prog</span> <span class="o">=</span> <span class="n">prog</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">epilog</span> <span class="o">=</span> <span class="n">epilog</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">formatter_class</span> <span class="o">=</span> <span class="n">formatter_class</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">fromfile_prefix_chars</span> <span class="o">=</span> <span class="n">fromfile_prefix_chars</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span> <span class="o">=</span> <span class="n">add_help</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">allow_abbrev</span> <span class="o">=</span> <span class="n">allow_abbrev</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span> <span class="o">=</span> <span class="n">exit_on_error</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">add_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_positionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;positional arguments&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_optionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;options&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1"># register types</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">string</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identity</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># add help argument if necessary</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># (using explicit default to override global argument_default)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="n">default_prefix</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="k">if</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">prefix_chars</span> <span class="k">else</span> <span class="n">prefix_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="n">default_prefix</span><span class="o">+</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">default_prefix</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s1">&#39;help&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="n">action</span><span class="o">=</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">SUPPRESS</span><span class="p">,</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                <span class="n">help</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;show this help message and exit&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#53">53</a></span><span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="c1"># add parent arguments and defaults</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_add_container_actions</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">                <span class="n">defaults</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">_defaults</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#61">61</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 43 calls (2.1%)</p>
+                <p><button class="input"><span>&#8594;</span> prog</button> 'PROG' (37) 'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP' (6) </p>
+                <p><button class="input"><span>&#8594;</span> usage</button> None (43) </p>
+                <p><button class="input"><span>&#8594;</span> description</button> None (43) </p>
+                <p><button class="input"><span>&#8594;</span> epilog</button> None (43) </p>
+                <p><button class="input"><span>&#8594;</span> parents</button> [] (43) </p>
+                <p><button class="input"><span>&#8594;</span> formatter_class</button> HelpFormatter def (43) </p>
+                <p><button class="input"><span>&#8594;</span> prefix_chars</button> '-' (37) '^;' (6) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile_prefix_chars</button> None (43) </p>
+                <p><button class="input"><span>&#8594;</span> argument_default</button> None (43) </p>
+                <p><button class="input"><span>&#8594;</span> conflict_handler</button> 'error' (43) </p>
+                <p><button class="input"><span>&#8594;</span> add_help</button> False (43) </p>
+                <p><button class="input"><span>&#8594;</span> allow_abbrev</button> True (43) </p>
+                <p><button class="input"><span>&#8594;</span> exit_on_error</button> True (43) </p>
+            <button class="run" title="lines run...">23 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">prog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">usage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>                 <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>                 <span class="n">epilog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>                 <span class="n">parents</span><span class="o">=</span><span class="p">[],</span></span>
+<span class="num"><a href="#7">7</a></span><span>                 <span class="n">formatter_class</span><span class="o">=</span><span class="n">HelpFormatter</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>                 <span class="n">prefix_chars</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>                 <span class="n">fromfile_prefix_chars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>                 <span class="n">argument_default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>                 <span class="n">conflict_handler</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>                 <span class="n">add_help</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>                 <span class="n">allow_abbrev</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span>                 <span class="n">exit_on_error</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">superinit</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ArgumentParser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">superinit</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                  <span class="n">prefix_chars</span><span class="o">=</span><span class="n">prefix_chars</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                  <span class="n">argument_default</span><span class="o">=</span><span class="n">argument_default</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                  <span class="n">conflict_handler</span><span class="o">=</span><span class="n">conflict_handler</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># default setting for prog</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">prog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">prog</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prog</span> <span class="o">=</span> <span class="n">prog</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">epilog</span> <span class="o">=</span> <span class="n">epilog</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">formatter_class</span> <span class="o">=</span> <span class="n">formatter_class</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">fromfile_prefix_chars</span> <span class="o">=</span> <span class="n">fromfile_prefix_chars</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span> <span class="o">=</span> <span class="n">add_help</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">allow_abbrev</span> <span class="o">=</span> <span class="n">allow_abbrev</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span> <span class="o">=</span> <span class="n">exit_on_error</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">add_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_positionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;positional arguments&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_optionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;options&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1"># register types</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">string</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identity</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># add help argument if necessary</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># (using explicit default to override global argument_default)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="n">default_prefix</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="k">if</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">prefix_chars</span> <span class="k">else</span> <span class="n">prefix_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="n">default_prefix</span><span class="o">+</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">default_prefix</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s1">&#39;help&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="n">action</span><span class="o">=</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">SUPPRESS</span><span class="p">,</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                <span class="n">help</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;show this help message and exit&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#53">53</a></span><span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="c1"># add parent arguments and defaults</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_add_container_actions</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                <span class="n">defaults</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">_defaults</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#61">61</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 13 calls (0.6%)</p>
+                <p><button class="input"><span>&#8594;</span> prog</button> None (13) </p>
+                <p><button class="input"><span>&#8594;</span> usage</button> None (13) </p>
+                <p><button class="input"><span>&#8594;</span> description</button> None (13) </p>
+                <p><button class="input"><span>&#8594;</span> epilog</button> None (13) </p>
+                <p><button class="input"><span>&#8594;</span> parents</button> list (13) </p>
+                <p><button class="input"><span>&#8594;</span> formatter_class</button> HelpFormatter def (13) </p>
+                <p><button class="input"><span>&#8594;</span> prefix_chars</button> '-' (13) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile_prefix_chars</button> None (13) </p>
+                <p><button class="input"><span>&#8594;</span> argument_default</button> None (13) </p>
+                <p><button class="input"><span>&#8594;</span> conflict_handler</button> 'error' (13) </p>
+                <p><button class="input"><span>&#8594;</span> add_help</button> True (13) </p>
+                <p><button class="input"><span>&#8594;</span> allow_abbrev</button> True (13) </p>
+                <p><button class="input"><span>&#8594;</span> exit_on_error</button> True (13) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ArgumentError (2) </p>
+            <button class="run" title="lines run...">32 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">prog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">usage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>                 <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>                 <span class="n">epilog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>                 <span class="n">parents</span><span class="o">=</span><span class="p">[],</span></span>
+<span class="num"><a href="#7">7</a></span><span>                 <span class="n">formatter_class</span><span class="o">=</span><span class="n">HelpFormatter</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>                 <span class="n">prefix_chars</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>                 <span class="n">fromfile_prefix_chars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>                 <span class="n">argument_default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>                 <span class="n">conflict_handler</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>                 <span class="n">add_help</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>                 <span class="n">allow_abbrev</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span>                 <span class="n">exit_on_error</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">superinit</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ArgumentParser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">superinit</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                  <span class="n">prefix_chars</span><span class="o">=</span><span class="n">prefix_chars</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                  <span class="n">argument_default</span><span class="o">=</span><span class="n">argument_default</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                  <span class="n">conflict_handler</span><span class="o">=</span><span class="n">conflict_handler</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># default setting for prog</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">prog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">prog</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prog</span> <span class="o">=</span> <span class="n">prog</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">epilog</span> <span class="o">=</span> <span class="n">epilog</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">formatter_class</span> <span class="o">=</span> <span class="n">formatter_class</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">fromfile_prefix_chars</span> <span class="o">=</span> <span class="n">fromfile_prefix_chars</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span> <span class="o">=</span> <span class="n">add_help</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">allow_abbrev</span> <span class="o">=</span> <span class="n">allow_abbrev</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span> <span class="o">=</span> <span class="n">exit_on_error</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">add_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_positionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;positional arguments&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_optionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;options&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1"># register types</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">string</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identity</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># add help argument if necessary</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># (using explicit default to override global argument_default)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="n">default_prefix</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="k">if</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">prefix_chars</span> <span class="k">else</span> <span class="n">prefix_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">                <span class="n">default_prefix</span><span class="o">+</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">default_prefix</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s1">&#39;help&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">                <span class="n">action</span><span class="o">=</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">SUPPRESS</span><span class="p">,</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">                <span class="n">help</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;show this help message and exit&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#53">53</a></span><span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="c1"># add parent arguments and defaults</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_add_container_actions</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">                <span class="n">defaults</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">_defaults</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#61">61</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 7</b>: 3 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> prog</button> 'test_argparse.py bar' (2) 'test_argparse.py foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> usage</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> description</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> epilog</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> parents</button> list (3) </p>
+                <p><button class="input"><span>&#8594;</span> formatter_class</button> HelpFormatter def (3) </p>
+                <p><button class="input"><span>&#8594;</span> prefix_chars</button> '-' (3) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile_prefix_chars</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> argument_default</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> conflict_handler</button> 'error' (3) </p>
+                <p><button class="input"><span>&#8594;</span> add_help</button> True (3) </p>
+                <p><button class="input"><span>&#8594;</span> allow_abbrev</button> True (3) </p>
+                <p><button class="input"><span>&#8594;</span> exit_on_error</button> True (3) </p>
+            <button class="run" title="lines run...">31 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">prog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">usage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>                 <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>                 <span class="n">epilog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>                 <span class="n">parents</span><span class="o">=</span><span class="p">[],</span></span>
+<span class="num"><a href="#7">7</a></span><span>                 <span class="n">formatter_class</span><span class="o">=</span><span class="n">HelpFormatter</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>                 <span class="n">prefix_chars</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>                 <span class="n">fromfile_prefix_chars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>                 <span class="n">argument_default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>                 <span class="n">conflict_handler</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>                 <span class="n">add_help</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>                 <span class="n">allow_abbrev</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span>                 <span class="n">exit_on_error</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">superinit</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ArgumentParser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">superinit</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                  <span class="n">prefix_chars</span><span class="o">=</span><span class="n">prefix_chars</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                  <span class="n">argument_default</span><span class="o">=</span><span class="n">argument_default</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                  <span class="n">conflict_handler</span><span class="o">=</span><span class="n">conflict_handler</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># default setting for prog</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">prog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">prog</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prog</span> <span class="o">=</span> <span class="n">prog</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">epilog</span> <span class="o">=</span> <span class="n">epilog</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">formatter_class</span> <span class="o">=</span> <span class="n">formatter_class</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">fromfile_prefix_chars</span> <span class="o">=</span> <span class="n">fromfile_prefix_chars</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span> <span class="o">=</span> <span class="n">add_help</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">allow_abbrev</span> <span class="o">=</span> <span class="n">allow_abbrev</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span> <span class="o">=</span> <span class="n">exit_on_error</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">add_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_positionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;positional arguments&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_optionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;options&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1"># register types</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">string</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identity</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># add help argument if necessary</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># (using explicit default to override global argument_default)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="n">default_prefix</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="k">if</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">prefix_chars</span> <span class="k">else</span> <span class="n">prefix_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">                <span class="n">default_prefix</span><span class="o">+</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">default_prefix</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s1">&#39;help&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">                <span class="n">action</span><span class="o">=</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">SUPPRESS</span><span class="p">,</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">                <span class="n">help</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;show this help message and exit&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#53">53</a></span><span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="c1"># add parent arguments and defaults</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_add_container_actions</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">                <span class="n">defaults</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">_defaults</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#61">61</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 8</b>: 1 calls (0.0%)</p>
+                <p><button class="input"><span>&#8594;</span> prog</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> usage</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> description</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> epilog</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> parents</button> [] (1) </p>
+                <p><button class="input"><span>&#8594;</span> formatter_class</button> HelpFormatter def (1) </p>
+                <p><button class="input"><span>&#8594;</span> prefix_chars</button> '-' (1) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile_prefix_chars</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> argument_default</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> conflict_handler</button> 'foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> add_help</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> allow_abbrev</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> exit_on_error</button> True (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">30 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">prog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">usage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>                 <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>                 <span class="n">epilog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>                 <span class="n">parents</span><span class="o">=</span><span class="p">[],</span></span>
+<span class="num"><a href="#7">7</a></span><span>                 <span class="n">formatter_class</span><span class="o">=</span><span class="n">HelpFormatter</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>                 <span class="n">prefix_chars</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>                 <span class="n">fromfile_prefix_chars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>                 <span class="n">argument_default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>                 <span class="n">conflict_handler</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>                 <span class="n">add_help</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>                 <span class="n">allow_abbrev</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span>                 <span class="n">exit_on_error</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">superinit</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ArgumentParser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">superinit</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                  <span class="n">prefix_chars</span><span class="o">=</span><span class="n">prefix_chars</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                  <span class="n">argument_default</span><span class="o">=</span><span class="n">argument_default</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                  <span class="n">conflict_handler</span><span class="o">=</span><span class="n">conflict_handler</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># default setting for prog</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">prog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">prog</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">prog</span> <span class="o">=</span> <span class="n">prog</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">epilog</span> <span class="o">=</span> <span class="n">epilog</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">formatter_class</span> <span class="o">=</span> <span class="n">formatter_class</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">fromfile_prefix_chars</span> <span class="o">=</span> <span class="n">fromfile_prefix_chars</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span> <span class="o">=</span> <span class="n">add_help</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">allow_abbrev</span> <span class="o">=</span> <span class="n">allow_abbrev</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span> <span class="o">=</span> <span class="n">exit_on_error</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">        <span class="n">add_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_positionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;positional arguments&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_optionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;options&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1"># register types</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">        <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">string</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identity</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># add help argument if necessary</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># (using explicit default to override global argument_default)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="n">default_prefix</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="k">if</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">prefix_chars</span> <span class="k">else</span> <span class="n">prefix_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="n">default_prefix</span><span class="o">+</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">default_prefix</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s1">&#39;help&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="n">action</span><span class="o">=</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">SUPPRESS</span><span class="p">,</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                <span class="n">help</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;show this help message and exit&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#53">53</a></span><span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="c1"># add parent arguments and defaults</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_add_container_actions</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                <span class="n">defaults</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">_defaults</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#61">61</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 9</b>: 1 calls (0.0%)</p>
+                <p><button class="input"><span>&#8594;</span> prog</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> usage</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> description</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> epilog</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> parents</button> list (1) </p>
+                <p><button class="input"><span>&#8594;</span> formatter_class</button> HelpFormatter def (1) </p>
+                <p><button class="input"><span>&#8594;</span> prefix_chars</button> '-' (1) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile_prefix_chars</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> argument_default</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> conflict_handler</button> 'error' (1) </p>
+                <p><button class="input"><span>&#8594;</span> add_help</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> allow_abbrev</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> exit_on_error</button> True (1) </p>
+            <button class="run" title="lines run...">28 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">prog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">usage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>                 <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>                 <span class="n">epilog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>                 <span class="n">parents</span><span class="o">=</span><span class="p">[],</span></span>
+<span class="num"><a href="#7">7</a></span><span>                 <span class="n">formatter_class</span><span class="o">=</span><span class="n">HelpFormatter</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>                 <span class="n">prefix_chars</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>                 <span class="n">fromfile_prefix_chars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>                 <span class="n">argument_default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>                 <span class="n">conflict_handler</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>                 <span class="n">add_help</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>                 <span class="n">allow_abbrev</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span>                 <span class="n">exit_on_error</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">superinit</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ArgumentParser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">superinit</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                  <span class="n">prefix_chars</span><span class="o">=</span><span class="n">prefix_chars</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                  <span class="n">argument_default</span><span class="o">=</span><span class="n">argument_default</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                  <span class="n">conflict_handler</span><span class="o">=</span><span class="n">conflict_handler</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># default setting for prog</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">prog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">prog</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prog</span> <span class="o">=</span> <span class="n">prog</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">epilog</span> <span class="o">=</span> <span class="n">epilog</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">formatter_class</span> <span class="o">=</span> <span class="n">formatter_class</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">fromfile_prefix_chars</span> <span class="o">=</span> <span class="n">fromfile_prefix_chars</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span> <span class="o">=</span> <span class="n">add_help</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">allow_abbrev</span> <span class="o">=</span> <span class="n">allow_abbrev</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span> <span class="o">=</span> <span class="n">exit_on_error</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">add_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_positionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;positional arguments&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_optionals</span> <span class="o">=</span> <span class="n">add_group</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;options&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1"># register types</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">string</span><span class="p">):</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">string</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identity</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># add help argument if necessary</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># (using explicit default to override global argument_default)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="n">default_prefix</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="k">if</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">prefix_chars</span> <span class="k">else</span> <span class="n">prefix_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_help</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="n">default_prefix</span><span class="o">+</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">default_prefix</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s1">&#39;help&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="n">action</span><span class="o">=</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">SUPPRESS</span><span class="p">,</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                <span class="n">help</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;show this help message and exit&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#53">53</a></span><span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="c1"># add parent arguments and defaults</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_add_container_actions</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">                <span class="n">defaults</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">_defaults</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#61">61</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

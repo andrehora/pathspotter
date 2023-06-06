@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.logging.LoggingChecker._check_format_string</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.logging.LoggingChecker._check_format_string</h1>
+                <span>Coverage: 94.7% (36/38),</span>
+                <span>Tests: 1, </span>
+                <span>Calls: 59, </span>
+                <span>Exceptions: 2, </span>
+                <span>Paths: 10</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 15 calls (25.4%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (15) </p>
+                <p><button class="input"><span>&#8594;</span> format_arg</button> 0 (15) </p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_format_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">,</span> <span class="n">format_arg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks that format string tokens match the supplied arguments.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">          node: AST node to be checked.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">          format_arg: Index of the format string in the node arguments.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">num_args</span> <span class="o">=</span> <span class="n">_count_supplied_tokens</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="c1"># If no args were supplied the string is not interpolated and can contain</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># formatting characters - it&#39;s used verbatim. Don&#39;t check any further.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">format_string</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">required_num_args</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">format_string</span> <span class="o">=</span> <span class="n">format_string</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;old&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="n">keyword_args</span><span class="p">,</span> <span class="n">required_num_args</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_string</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="n">format_string</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">keyword_args</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span>                        <span class="c1"># Keyword checking on logging strings is complicated by</span></span>
+<span class="num"><a href="#26">26</a></span><span>                        <span class="c1"># special keywords - out of scope.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">return</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;new&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                    <span class="p">(</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                        <span class="n">keyword_arguments</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                        <span class="n">implicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                        <span class="n">explicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                    <span class="p">)</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_method_string</span><span class="p">(</span><span class="n">format_string</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                    <span class="n">keyword_args_cnt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                        <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">keyword_arguments</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)}</span></span>
+<span class="num"><a href="#37">37</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="n">required_num_args</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                        <span class="n">keyword_args_cnt</span> <span class="o">+</span> <span class="n">implicit_pos_args</span> <span class="o">+</span> <span class="n">explicit_pos_args</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">UnsupportedFormatCharacter</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">char</span> <span class="o">=</span> <span class="n">format_string</span><span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                    <span class="s2">&quot;logging-unsupported-format&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">),</span></span>
+<span class="num"><a href="#47">47</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">IncompleteFormatString</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-format-truncated&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="k">if</span> <span class="n">num_args</span> <span class="o">&gt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-many-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">        <span class="k">elif</span> <span class="n">num_args</span> <span class="o">&lt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-few-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 13 calls (22.0%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (13) </p>
+                <p><button class="input"><span>&#8594;</span> format_arg</button> 0 (13) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (13) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">35 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_format_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">,</span> <span class="n">format_arg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks that format string tokens match the supplied arguments.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">          node: AST node to be checked.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">          format_arg: Index of the format string in the node arguments.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">num_args</span> <span class="o">=</span> <span class="n">_count_supplied_tokens</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="c1"># If no args were supplied the string is not interpolated and can contain</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># formatting characters - it&#39;s used verbatim. Don&#39;t check any further.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="n">format_string</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="n">required_num_args</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">format_string</span> <span class="o">=</span> <span class="n">format_string</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;old&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="n">keyword_args</span><span class="p">,</span> <span class="n">required_num_args</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_string</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="n">format_string</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">keyword_args</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span>                        <span class="c1"># Keyword checking on logging strings is complicated by</span></span>
+<span class="num"><a href="#26">26</a></span><span>                        <span class="c1"># special keywords - out of scope.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">return</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;new&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="p">(</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">keyword_arguments</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="n">implicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                        <span class="n">explicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="p">)</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_method_string</span><span class="p">(</span><span class="n">format_string</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                    <span class="n">keyword_args_cnt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                        <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">keyword_arguments</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)}</span></span>
+<span class="num"><a href="#37">37</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="n">required_num_args</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="n">keyword_args_cnt</span> <span class="o">+</span> <span class="n">implicit_pos_args</span> <span class="o">+</span> <span class="n">explicit_pos_args</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">UnsupportedFormatCharacter</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">char</span> <span class="o">=</span> <span class="n">format_string</span><span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                    <span class="s2">&quot;logging-unsupported-format&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">),</span></span>
+<span class="num"><a href="#47">47</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">IncompleteFormatString</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-format-truncated&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">num_args</span> <span class="o">&gt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-many-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">num_args</span> <span class="o">&lt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-few-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 8 calls (13.6%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (8) </p>
+                <p><button class="input"><span>&#8594;</span> format_arg</button> 0 (8) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">25 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_format_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">,</span> <span class="n">format_arg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks that format string tokens match the supplied arguments.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">          node: AST node to be checked.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">          format_arg: Index of the format string in the node arguments.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">num_args</span> <span class="o">=</span> <span class="n">_count_supplied_tokens</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="c1"># If no args were supplied the string is not interpolated and can contain</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># formatting characters - it&#39;s used verbatim. Don&#39;t check any further.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">format_string</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">required_num_args</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">format_string</span> <span class="o">=</span> <span class="n">format_string</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;old&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="n">keyword_args</span><span class="p">,</span> <span class="n">required_num_args</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_string</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                        <span class="n">format_string</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="k">if</span> <span class="n">keyword_args</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span>                        <span class="c1"># Keyword checking on logging strings is complicated by</span></span>
+<span class="num"><a href="#26">26</a></span><span>                        <span class="c1"># special keywords - out of scope.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">return</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;new&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="p">(</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">keyword_arguments</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="n">implicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                        <span class="n">explicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="p">)</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_method_string</span><span class="p">(</span><span class="n">format_string</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                    <span class="n">keyword_args_cnt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                        <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">keyword_arguments</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)}</span></span>
+<span class="num"><a href="#37">37</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="n">required_num_args</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="n">keyword_args_cnt</span> <span class="o">+</span> <span class="n">implicit_pos_args</span> <span class="o">+</span> <span class="n">explicit_pos_args</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">UnsupportedFormatCharacter</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">char</span> <span class="o">=</span> <span class="n">format_string</span><span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                    <span class="s2">&quot;logging-unsupported-format&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">),</span></span>
+<span class="num"><a href="#47">47</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">IncompleteFormatString</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-format-truncated&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="k">if</span> <span class="n">num_args</span> <span class="o">&gt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-many-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">num_args</span> <span class="o">&lt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-few-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 7 calls (11.9%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (7) </p>
+                <p><button class="input"><span>&#8594;</span> format_arg</button> 0 (6) 1 (1) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">25 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_format_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">,</span> <span class="n">format_arg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks that format string tokens match the supplied arguments.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">          node: AST node to be checked.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">          format_arg: Index of the format string in the node arguments.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">num_args</span> <span class="o">=</span> <span class="n">_count_supplied_tokens</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="c1"># If no args were supplied the string is not interpolated and can contain</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># formatting characters - it&#39;s used verbatim. Don&#39;t check any further.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">format_string</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">required_num_args</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">format_string</span> <span class="o">=</span> <span class="n">format_string</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;old&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="n">keyword_args</span><span class="p">,</span> <span class="n">required_num_args</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_string</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                        <span class="n">format_string</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="k">if</span> <span class="n">keyword_args</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span>                        <span class="c1"># Keyword checking on logging strings is complicated by</span></span>
+<span class="num"><a href="#26">26</a></span><span>                        <span class="c1"># special keywords - out of scope.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">return</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;new&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="p">(</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">keyword_arguments</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="n">implicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                        <span class="n">explicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="p">)</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_method_string</span><span class="p">(</span><span class="n">format_string</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                    <span class="n">keyword_args_cnt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                        <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">keyword_arguments</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)}</span></span>
+<span class="num"><a href="#37">37</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="n">required_num_args</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="n">keyword_args_cnt</span> <span class="o">+</span> <span class="n">implicit_pos_args</span> <span class="o">+</span> <span class="n">explicit_pos_args</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">UnsupportedFormatCharacter</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">char</span> <span class="o">=</span> <span class="n">format_string</span><span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                    <span class="s2">&quot;logging-unsupported-format&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">),</span></span>
+<span class="num"><a href="#47">47</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">IncompleteFormatString</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-format-truncated&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="k">if</span> <span class="n">num_args</span> <span class="o">&gt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-many-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">        <span class="k">elif</span> <span class="n">num_args</span> <span class="o">&lt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-few-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 6 calls (10.2%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (6) </p>
+                <p><button class="input"><span>&#8594;</span> format_arg</button> 0 (6) </p>
+            <button class="run" title="lines run...">21 run</button>
+            <button class="not_run" title="lines not run...">17 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_format_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">,</span> <span class="n">format_arg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks that format string tokens match the supplied arguments.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">          node: AST node to be checked.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">          format_arg: Index of the format string in the node arguments.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">num_args</span> <span class="o">=</span> <span class="n">_count_supplied_tokens</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="c1"># If no args were supplied the string is not interpolated and can contain</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># formatting characters - it&#39;s used verbatim. Don&#39;t check any further.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">format_string</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">required_num_args</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">format_string</span> <span class="o">=</span> <span class="n">format_string</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;old&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="n">keyword_args</span><span class="p">,</span> <span class="n">required_num_args</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_string</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="n">format_string</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">keyword_args</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span>                        <span class="c1"># Keyword checking on logging strings is complicated by</span></span>
+<span class="num"><a href="#26">26</a></span><span>                        <span class="c1"># special keywords - out of scope.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">return</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;new&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                    <span class="p">(</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                        <span class="n">keyword_arguments</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                        <span class="n">implicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                        <span class="n">explicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                    <span class="p">)</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_method_string</span><span class="p">(</span><span class="n">format_string</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                    <span class="n">keyword_args_cnt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                        <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">keyword_arguments</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)}</span></span>
+<span class="num"><a href="#37">37</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="n">required_num_args</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                        <span class="n">keyword_args_cnt</span> <span class="o">+</span> <span class="n">implicit_pos_args</span> <span class="o">+</span> <span class="n">explicit_pos_args</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">UnsupportedFormatCharacter</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">char</span> <span class="o">=</span> <span class="n">format_string</span><span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                    <span class="s2">&quot;logging-unsupported-format&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">),</span></span>
+<span class="num"><a href="#47">47</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">IncompleteFormatString</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-format-truncated&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="k">if</span> <span class="n">num_args</span> <span class="o">&gt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-many-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">        <span class="k">elif</span> <span class="n">num_args</span> <span class="o">&lt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-few-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 5 calls (8.5%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (5) </p>
+                <p><button class="input"><span>&#8594;</span> format_arg</button> 0 (5) </p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_format_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">,</span> <span class="n">format_arg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks that format string tokens match the supplied arguments.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">          node: AST node to be checked.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">          format_arg: Index of the format string in the node arguments.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">num_args</span> <span class="o">=</span> <span class="n">_count_supplied_tokens</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="c1"># If no args were supplied the string is not interpolated and can contain</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># formatting characters - it&#39;s used verbatim. Don&#39;t check any further.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">format_string</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">required_num_args</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">format_string</span> <span class="o">=</span> <span class="n">format_string</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;old&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="n">keyword_args</span><span class="p">,</span> <span class="n">required_num_args</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_string</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="n">format_string</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">keyword_args</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span>                        <span class="c1"># Keyword checking on logging strings is complicated by</span></span>
+<span class="num"><a href="#26">26</a></span><span>                        <span class="c1"># special keywords - out of scope.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">return</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;new&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                    <span class="p">(</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                        <span class="n">keyword_arguments</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                        <span class="n">implicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                        <span class="n">explicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                    <span class="p">)</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_method_string</span><span class="p">(</span><span class="n">format_string</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                    <span class="n">keyword_args_cnt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                        <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">keyword_arguments</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)}</span></span>
+<span class="num"><a href="#37">37</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="n">required_num_args</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                        <span class="n">keyword_args_cnt</span> <span class="o">+</span> <span class="n">implicit_pos_args</span> <span class="o">+</span> <span class="n">explicit_pos_args</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">UnsupportedFormatCharacter</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">char</span> <span class="o">=</span> <span class="n">format_string</span><span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                    <span class="s2">&quot;logging-unsupported-format&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">),</span></span>
+<span class="num"><a href="#47">47</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">IncompleteFormatString</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-format-truncated&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="k">if</span> <span class="n">num_args</span> <span class="o">&gt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-many-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">num_args</span> <span class="o">&lt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-few-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 7</b>: 2 calls (3.4%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (2) </p>
+                <p><button class="input"><span>&#8594;</span> format_arg</button> 0 (2) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">24 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_format_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">,</span> <span class="n">format_arg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks that format string tokens match the supplied arguments.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">          node: AST node to be checked.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">          format_arg: Index of the format string in the node arguments.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">num_args</span> <span class="o">=</span> <span class="n">_count_supplied_tokens</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="c1"># If no args were supplied the string is not interpolated and can contain</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># formatting characters - it&#39;s used verbatim. Don&#39;t check any further.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">format_string</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">required_num_args</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">format_string</span> <span class="o">=</span> <span class="n">format_string</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;old&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="n">keyword_args</span><span class="p">,</span> <span class="n">required_num_args</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_string</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                        <span class="n">format_string</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="k">if</span> <span class="n">keyword_args</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span>                        <span class="c1"># Keyword checking on logging strings is complicated by</span></span>
+<span class="num"><a href="#26">26</a></span><span>                        <span class="c1"># special keywords - out of scope.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">return</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;new&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="p">(</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">keyword_arguments</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="n">implicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                        <span class="n">explicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="p">)</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_method_string</span><span class="p">(</span><span class="n">format_string</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                    <span class="n">keyword_args_cnt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                        <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">keyword_arguments</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)}</span></span>
+<span class="num"><a href="#37">37</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="n">required_num_args</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="n">keyword_args_cnt</span> <span class="o">+</span> <span class="n">implicit_pos_args</span> <span class="o">+</span> <span class="n">explicit_pos_args</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">UnsupportedFormatCharacter</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">char</span> <span class="o">=</span> <span class="n">format_string</span><span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                    <span class="s2">&quot;logging-unsupported-format&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">),</span></span>
+<span class="num"><a href="#47">47</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">IncompleteFormatString</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-format-truncated&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="k">if</span> <span class="n">num_args</span> <span class="o">&gt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-many-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">        <span class="k">elif</span> <span class="n">num_args</span> <span class="o">&lt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-few-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 8</b>: 1 calls (1.7%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (1) </p>
+                <p><button class="input"><span>&#8594;</span> format_arg</button> 0 (1) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">30 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_format_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">,</span> <span class="n">format_arg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks that format string tokens match the supplied arguments.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">          node: AST node to be checked.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">          format_arg: Index of the format string in the node arguments.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">num_args</span> <span class="o">=</span> <span class="n">_count_supplied_tokens</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="c1"># If no args were supplied the string is not interpolated and can contain</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># formatting characters - it&#39;s used verbatim. Don&#39;t check any further.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">format_string</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">required_num_args</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">format_string</span> <span class="o">=</span> <span class="n">format_string</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;old&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="n">keyword_args</span><span class="p">,</span> <span class="n">required_num_args</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_string</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="n">format_string</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">keyword_args</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span>                        <span class="c1"># Keyword checking on logging strings is complicated by</span></span>
+<span class="num"><a href="#26">26</a></span><span>                        <span class="c1"># special keywords - out of scope.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">return</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;new&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="p">(</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">keyword_arguments</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="n">implicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                        <span class="n">explicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="p">)</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_method_string</span><span class="p">(</span><span class="n">format_string</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                    <span class="n">keyword_args_cnt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                        <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">keyword_arguments</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)}</span></span>
+<span class="num"><a href="#37">37</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="n">required_num_args</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="n">keyword_args_cnt</span> <span class="o">+</span> <span class="n">implicit_pos_args</span> <span class="o">+</span> <span class="n">explicit_pos_args</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">UnsupportedFormatCharacter</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">char</span> <span class="o">=</span> <span class="n">format_string</span><span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                    <span class="s2">&quot;logging-unsupported-format&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">),</span></span>
+<span class="num"><a href="#47">47</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">IncompleteFormatString</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-format-truncated&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="k">if</span> <span class="n">num_args</span> <span class="o">&gt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-many-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">num_args</span> <span class="o">&lt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-few-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 9</b>: 1 calls (1.7%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (1) </p>
+                <p><button class="input"><span>&#8594;</span> format_arg</button> 0 (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> IncompleteFormatString (1) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">24 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_format_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">,</span> <span class="n">format_arg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks that format string tokens match the supplied arguments.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">          node: AST node to be checked.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">          format_arg: Index of the format string in the node arguments.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">num_args</span> <span class="o">=</span> <span class="n">_count_supplied_tokens</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="c1"># If no args were supplied the string is not interpolated and can contain</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># formatting characters - it&#39;s used verbatim. Don&#39;t check any further.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">format_string</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">required_num_args</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">format_string</span> <span class="o">=</span> <span class="n">format_string</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;old&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="n">keyword_args</span><span class="p">,</span> <span class="n">required_num_args</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_string</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                        <span class="n">format_string</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">keyword_args</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span>                        <span class="c1"># Keyword checking on logging strings is complicated by</span></span>
+<span class="num"><a href="#26">26</a></span><span>                        <span class="c1"># special keywords - out of scope.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">return</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;new&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="p">(</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">keyword_arguments</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="n">implicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                        <span class="n">explicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="p">)</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_method_string</span><span class="p">(</span><span class="n">format_string</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                    <span class="n">keyword_args_cnt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                        <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">keyword_arguments</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)}</span></span>
+<span class="num"><a href="#37">37</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="n">required_num_args</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="n">keyword_args_cnt</span> <span class="o">+</span> <span class="n">implicit_pos_args</span> <span class="o">+</span> <span class="n">explicit_pos_args</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">UnsupportedFormatCharacter</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">char</span> <span class="o">=</span> <span class="n">format_string</span><span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                    <span class="s2">&quot;logging-unsupported-format&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">),</span></span>
+<span class="num"><a href="#47">47</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">IncompleteFormatString</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-format-truncated&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">                <span class="k">return</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">num_args</span> <span class="o">&gt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-many-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">num_args</span> <span class="o">&lt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-few-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 10</b>: 1 calls (1.7%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (1) </p>
+                <p><button class="input"><span>&#8594;</span> format_arg</button> 0 (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UnsupportedFormatCharacter (1) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">21 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_format_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">,</span> <span class="n">format_arg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks that format string tokens match the supplied arguments.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">          node: AST node to be checked.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">          format_arg: Index of the format string in the node arguments.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">num_args</span> <span class="o">=</span> <span class="n">_count_supplied_tokens</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="c1"># If no args were supplied the string is not interpolated and can contain</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># formatting characters - it&#39;s used verbatim. Don&#39;t check any further.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">format_string</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">format_arg</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">required_num_args</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">format_string</span> <span class="o">=</span> <span class="n">format_string</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">format_string</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;old&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="n">keyword_args</span><span class="p">,</span> <span class="n">required_num_args</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_string</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                        <span class="n">format_string</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">keyword_args</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span>                        <span class="c1"># Keyword checking on logging strings is complicated by</span></span>
+<span class="num"><a href="#26">26</a></span><span>                        <span class="c1"># special keywords - out of scope.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">return</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_style</span> <span class="o">==</span> <span class="s2">&quot;new&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="p">(</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">keyword_arguments</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="n">implicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                        <span class="n">explicit_pos_args</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="p">)</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_format_method_string</span><span class="p">(</span><span class="n">format_string</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                    <span class="n">keyword_args_cnt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                        <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">keyword_arguments</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)}</span></span>
+<span class="num"><a href="#37">37</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="n">required_num_args</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="n">keyword_args_cnt</span> <span class="o">+</span> <span class="n">implicit_pos_args</span> <span class="o">+</span> <span class="n">explicit_pos_args</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">UnsupportedFormatCharacter</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">                <span class="n">char</span> <span class="o">=</span> <span class="n">format_string</span><span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                    <span class="s2">&quot;logging-unsupported-format&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">),</span></span>
+<span class="num"><a href="#47">47</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">                <span class="k">return</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">IncompleteFormatString</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-format-truncated&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">num_args</span> <span class="o">&gt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-many-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">num_args</span> <span class="o">&lt;</span> <span class="n">required_num_args</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;logging-too-few-args&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

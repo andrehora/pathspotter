@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>requests.utils.address_in_network</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: requests.utils.address_in_network</h1>
+                <span>Coverage: 100.0% (5/5),</span>
+                <span>Tests: 6, </span>
+                <span>Calls: 26, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 26 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> ip</button> '192.168.0.1' (8) '172.16.1.1' (8) '192.168.1.1' (5) '172.16.1.12' (4) '172.16.0.1' (1) </p>
+                <p><button class="input"><span>&#8594;</span> net</button> '192.168.0.0/24' (24) '192.168.1.0/24' (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (17) True (9) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">address_in_network</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="n">net</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;This function allows you to check if an IP belongs to a network subnet</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Example: returns True if ip = 192.168.1.1 and net = 192.168.1.0/24</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">             returns False if ip = 192.168.1.1 and net = 192.168.100.0/24</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    :rtype: bool</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="n">ipaddr</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;=L&quot;</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_aton</span><span class="p">(</span><span class="n">ip</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="n">netaddr</span><span class="p">,</span> <span class="n">bits</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="n">netmask</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;=L&quot;</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_aton</span><span class="p">(</span><span class="n">dotted_netmask</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="p">))))[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">network</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;=L&quot;</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_aton</span><span class="p">(</span><span class="n">netaddr</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">netmask</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">return</span> <span class="p">(</span><span class="n">ipaddr</span> <span class="o">&amp;</span> <span class="n">netmask</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">network</span> <span class="o">&amp;</span> <span class="n">netmask</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

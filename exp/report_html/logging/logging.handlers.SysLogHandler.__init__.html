@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>logging.handlers.SysLogHandler.__init__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: logging.handlers.SysLogHandler.__init__</h1>
+                <span>Coverage: 70.6% (24/34),</span>
+                <span>Tests: 1, </span>
+                <span>Calls: 4, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 2 calls (50.0%)</p>
+                <p><button class="input"><span>&#8594;</span> address</button> '/var/run/syslog' (1) '/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/test_logging_i1h17ia6.sock' (1) </p>
+                <p><button class="input"><span>&#8594;</span> facility</button> 1 (2) </p>
+                <p><button class="input"><span>&#8594;</span> socktype</button> None (2) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">25 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">SYSLOG_UDP_PORT</span><span class="p">),</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">facility</span><span class="o">=</span><span class="n">LOG_USER</span><span class="p">,</span> <span class="n">socktype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Initialize a handler.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        If address is specified as a string, a UNIX socket is used. To log to a</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        local syslogd, &quot;SysLogHandler(address=&quot;/dev/log&quot;)&quot; can be used.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        If facility is not specified, LOG_USER is used. If socktype is</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        specified as socket.SOCK_DGRAM or socket.SOCK_STREAM, that specific</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        socket type will be used. For Unix sockets, you can also specify a</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        socktype of None, in which case socket.SOCK_DGRAM will be used, falling</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        back to socket.SOCK_STREAM.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">logging</span><span class="o">.</span><span class="n">Handler</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">facility</span> <span class="o">=</span> <span class="n">facility</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">socktype</span> <span class="o">=</span> <span class="n">socktype</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">unixsocket</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="c1"># Syslog server may be unavailable during handler initialisation.</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="c1"># C&#39;s openlog() function also ignores connection errors.</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="c1"># Moreover, we ignore these errors while logging, so it not worse</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># to ignore it also here.</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_connect_unixsocket</span><span class="p">(</span><span class="n">address</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">unixsocket</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">socktype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="n">socktype</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">host</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">address</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">ress</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">getaddrinfo</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">socktype</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">ress</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;getaddrinfo returns an empty list&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">ress</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                <span class="n">af</span><span class="p">,</span> <span class="n">socktype</span><span class="p">,</span> <span class="n">proto</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">res</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                <span class="n">err</span> <span class="o">=</span> <span class="n">sock</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                    <span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">af</span><span class="p">,</span> <span class="n">socktype</span><span class="p">,</span> <span class="n">proto</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">socktype</span> <span class="o">==</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">:</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">sa</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                    <span class="k">break</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                    <span class="n">err</span> <span class="o">=</span> <span class="n">exc</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">sock</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                        <span class="n">sock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">err</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="k">raise</span> <span class="n">err</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">socket</span> <span class="o">=</span> <span class="n">sock</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">socktype</span> <span class="o">=</span> <span class="n">socktype</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2 calls (50.0%)</p>
+                <p><button class="input"><span>&#8594;</span> address</button> ('::1', 55821) (1) ('127.0.0.1', 53544) (1) </p>
+                <p><button class="input"><span>&#8594;</span> facility</button> 1 (2) </p>
+                <p><button class="input"><span>&#8594;</span> socktype</button> None (2) </p>
+            <button class="run" title="lines run...">21 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">SYSLOG_UDP_PORT</span><span class="p">),</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">facility</span><span class="o">=</span><span class="n">LOG_USER</span><span class="p">,</span> <span class="n">socktype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Initialize a handler.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        If address is specified as a string, a UNIX socket is used. To log to a</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        local syslogd, &quot;SysLogHandler(address=&quot;/dev/log&quot;)&quot; can be used.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        If facility is not specified, LOG_USER is used. If socktype is</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        specified as socket.SOCK_DGRAM or socket.SOCK_STREAM, that specific</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        socket type will be used. For Unix sockets, you can also specify a</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        socktype of None, in which case socket.SOCK_DGRAM will be used, falling</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        back to socket.SOCK_STREAM.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">logging</span><span class="o">.</span><span class="n">Handler</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">facility</span> <span class="o">=</span> <span class="n">facility</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">socktype</span> <span class="o">=</span> <span class="n">socktype</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">unixsocket</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="c1"># Syslog server may be unavailable during handler initialisation.</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="c1"># C&#39;s openlog() function also ignores connection errors.</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="c1"># Moreover, we ignore these errors while logging, so it not worse</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># to ignore it also here.</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_connect_unixsocket</span><span class="p">(</span><span class="n">address</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">unixsocket</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="k">if</span> <span class="n">socktype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="n">socktype</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">host</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">address</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">ress</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">getaddrinfo</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">socktype</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">ress</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;getaddrinfo returns an empty list&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">ress</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                <span class="n">af</span><span class="p">,</span> <span class="n">socktype</span><span class="p">,</span> <span class="n">proto</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">res</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                <span class="n">err</span> <span class="o">=</span> <span class="n">sock</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">                    <span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">af</span><span class="p">,</span> <span class="n">socktype</span><span class="p">,</span> <span class="n">proto</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">                    <span class="k">if</span> <span class="n">socktype</span> <span class="o">==</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">:</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">sa</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">                    <span class="k">break</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                    <span class="n">err</span> <span class="o">=</span> <span class="n">exc</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">sock</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                        <span class="n">sock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">            <span class="k">if</span> <span class="n">err</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="k">raise</span> <span class="n">err</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">socket</span> <span class="o">=</span> <span class="n">sock</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">socktype</span> <span class="o">=</span> <span class="n">socktype</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

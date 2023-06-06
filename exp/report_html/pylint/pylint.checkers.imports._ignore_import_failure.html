@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.imports._ignore_import_failure</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.imports._ignore_import_failure</h1>
+                <span>Coverage: 100.0% (6/6),</span>
+                <span>Tests: 4, </span>
+                <span>Calls: 286, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 265 calls (92.7%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Import (142) ImportFrom (123) </p>
+                <p><button class="input"><span>&#8594;</span> modname</button> 'nonexistent' (21) 'missing' (19) 'six' (18) 'unknown' (16) 'foo2' (7) 'foo' (6) 'classes' (5) 'foo.bar' (5) 'numpy' (5) 'UNINFERABLE' (4) </p>
+                <p><button class="input"><span>&#8594;</span> ignored_modules</button> () (240) ['external_module', 'fake_module.submodule', 'foo', 'bar'] (13) ['argparse'] (12) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (245) True (20) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_ignore_import_failure</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">node</span><span class="p">:</span> <span class="n">ImportNode</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">modname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">ignored_modules</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">for</span> <span class="n">submodule</span> <span class="ow">in</span> <span class="n">_qualified_names</span><span class="p">(</span><span class="n">modname</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">submodule</span> <span class="ow">in</span> <span class="n">ignored_modules</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">if</span> <span class="n">is_node_in_guarded_import_block</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Ignore import failure if part of guarded import block</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># I.e. `sys.version_info` or `typing.TYPE_CHECKING`</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">return</span> <span class="n">node_ignores_exception</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 12 calls (4.2%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Import (8) ImportFrom (4) </p>
+                <p><button class="input"><span>&#8594;</span> modname</button> 'stub_import' (4) 'some_module' (3) '_types' (2) 'some_module_alt' (2) '_TreeType' (1) </p>
+                <p><button class="input"><span>&#8594;</span> ignored_modules</button> ['external_module', 'fake_module.submodule', 'foo', 'bar'] (9) () (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (12) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_ignore_import_failure</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">node</span><span class="p">:</span> <span class="n">ImportNode</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">modname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">ignored_modules</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">for</span> <span class="n">submodule</span> <span class="ow">in</span> <span class="n">_qualified_names</span><span class="p">(</span><span class="n">modname</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">submodule</span> <span class="ow">in</span> <span class="n">ignored_modules</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">if</span> <span class="n">is_node_in_guarded_import_block</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Ignore import failure if part of guarded import block</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># I.e. `sys.version_info` or `typing.TYPE_CHECKING`</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">node_ignores_exception</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 9 calls (3.1%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Import (5) ImportFrom (4) </p>
+                <p><button class="input"><span>&#8594;</span> modname</button> 'external_module' (2) 'foo' (2) 'bar' (2) 'external_module.another_module' (1) 'fake_module.submodule' (1) 'fake_module.submodule.deeper' (1) </p>
+                <p><button class="input"><span>&#8594;</span> ignored_modules</button> ['external_module', 'fake_module.submodule', 'foo', 'bar'] (9) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (9) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_ignore_import_failure</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">node</span><span class="p">:</span> <span class="n">ImportNode</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">modname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">ignored_modules</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">for</span> <span class="n">submodule</span> <span class="ow">in</span> <span class="n">_qualified_names</span><span class="p">(</span><span class="n">modname</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">submodule</span> <span class="ow">in</span> <span class="n">ignored_modules</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">is_node_in_guarded_import_block</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Ignore import failure if part of guarded import block</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># I.e. `sys.version_info` or `typing.TYPE_CHECKING`</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">node_ignores_exception</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

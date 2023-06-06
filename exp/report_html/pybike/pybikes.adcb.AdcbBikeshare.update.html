@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pybikes.adcb.AdcbBikeshare.update</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pybikes.adcb.AdcbBikeshare.update</h1>
+                <span>Coverage: 16.7% (3/18),</span>
+                <span>Tests: 1, </span>
+                <span>Calls: 1, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> scraper</button> PyBikesScraper (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (1) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scraper</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="n">scraper</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="n">scraper</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">PyBikesScraper</span><span class="p">()</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">stations</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">scraper</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">feed_url</span><span class="p">))</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Each station is</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># {</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1">#     &quot;id&quot;:3,</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1">#     &quot;s&quot;:&quot;Yas Marina&quot;,</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1">#     &quot;n&quot;:&quot;Yas Marina&quot;,</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1">#     &quot;st&quot;:1,&quot;b&quot;:false,</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1">#     &quot;su&quot;:false,</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1">#     &quot;m&quot;:false,</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1">#     &quot;lu&quot;:1452259533032,</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1">#     &quot;lc&quot;:1452260047004,</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1">#     &quot;bk&quot;:true,</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1">#     &quot;bl&quot;:true,</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1">#     &quot;la&quot;:24.465793,</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1">#     &quot;lo&quot;:54.60961,</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1">#     &quot;da&quot;:6,</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1">#     &quot;dx&quot;:0,</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1">#     &quot;ba&quot;:4,</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1">#     &quot;bx&quot;:0</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># }</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;stations&#39;</span><span class="p">]:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">name</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="n">latitude</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;la&#39;</span><span class="p">])</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">longitude</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;lo&#39;</span><span class="p">])</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="n">bikes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;ba&#39;</span><span class="p">])</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">free</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;da&#39;</span><span class="p">])</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">extra</span> <span class="o">=</span> <span class="p">{</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="s1">&#39;online&#39;</span> <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;st&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;offline&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="s1">&#39;has_bike_keys&#39;</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;bk&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;bl&#39;</span><span class="p">],</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span></span>
+<span class="num"><a href="#37">37</a></span><span>            <span class="p">}</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="n">station</span> <span class="o">=</span> <span class="n">BikeShareStation</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">,</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                                       <span class="n">bikes</span><span class="p">,</span> <span class="n">free</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">stations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">station</span><span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">stations</span> <span class="o">=</span> <span class="n">stations</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

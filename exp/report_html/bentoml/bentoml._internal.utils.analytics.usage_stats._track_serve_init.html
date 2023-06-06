@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>bentoml._internal.utils.analytics.usage_stats._track_serve_init</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: bentoml._internal.utils.analytics.usage_stats._track_serve_init</h1>
+                <span>Coverage: 62.1% (18/29),</span>
+                <span>Tests: 0, </span>
+                <span>Calls: 5, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 5 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> svc</button> Service (5) </p>
+                <p><button class="input"><span>&#8594;</span> production</button> False (3) True (2) </p>
+                <p><button class="input"><span>&#8594;</span> serve_kind</button> 'http' (5) </p>
+                <p><button class="input"><span>&#8594;</span> serve_info</button> ServeInfo (5) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@inject</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="k">def</span> <span class="nf">_track_serve_init</span><span class="p">(</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">svc</span><span class="p">:</span> <span class="n">Service</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">production</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">serve_kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">serve_info</span><span class="p">:</span> <span class="n">ServeInfo</span> <span class="o">=</span> <span class="n">Provide</span><span class="p">[</span><span class="n">BentoMLContainer</span><span class="o">.</span><span class="n">serve_info</span><span class="p">],</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="k">if</span> <span class="n">svc</span><span class="o">.</span><span class="n">bento</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="n">bento</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">bento</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">event_properties</span> <span class="o">=</span> <span class="n">ServeInitEvent</span><span class="p">(</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="n">serve_id</span><span class="o">=</span><span class="n">serve_info</span><span class="o">.</span><span class="n">serve_id</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">serve_from_bento</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="n">production</span><span class="o">=</span><span class="n">production</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="n">serve_kind</span><span class="o">=</span><span class="n">serve_kind</span><span class="p">,</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">bento_creation_timestamp</span><span class="o">=</span><span class="n">bento</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">creation_time</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">num_of_models</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">bento</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">models</span><span class="p">),</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="n">num_of_runners</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">svc</span><span class="o">.</span><span class="n">runners</span><span class="p">),</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="n">num_of_apis</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">bento</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">apis</span><span class="p">),</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="n">model_types</span><span class="o">=</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">module</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">bento</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">models</span><span class="p">],</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="n">runnable_types</span><span class="o">=</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">runnable_type</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">bento</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">runners</span><span class="p">],</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">api_input_types</span><span class="o">=</span><span class="p">[</span><span class="n">api</span><span class="o">.</span><span class="n">input_type</span> <span class="k">for</span> <span class="n">api</span> <span class="ow">in</span> <span class="n">bento</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">apis</span><span class="p">],</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="n">api_output_types</span><span class="o">=</span><span class="p">[</span><span class="n">api</span><span class="o">.</span><span class="n">output_type</span> <span class="k">for</span> <span class="n">api</span> <span class="ow">in</span> <span class="n">bento</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">apis</span><span class="p">],</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="n">event_properties</span> <span class="o">=</span> <span class="n">ServeInitEvent</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">serve_id</span><span class="o">=</span><span class="n">serve_info</span><span class="o">.</span><span class="n">serve_id</span><span class="p">,</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="n">serve_from_bento</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="n">production</span><span class="o">=</span><span class="n">production</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="n">serve_kind</span><span class="o">=</span><span class="n">serve_kind</span><span class="p">,</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">bento_creation_timestamp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="n">num_of_models</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                <span class="nb">set</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                    <span class="n">svc</span><span class="o">.</span><span class="n">models</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                    <span class="o">+</span> <span class="p">[</span><span class="n">model</span> <span class="k">for</span> <span class="n">runner</span> <span class="ow">in</span> <span class="n">svc</span><span class="o">.</span><span class="n">runners</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">runner</span><span class="o">.</span><span class="n">models</span><span class="p">]</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="p">),</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="n">num_of_runners</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">svc</span><span class="o">.</span><span class="n">runners</span><span class="p">),</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="n">num_of_apis</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">svc</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">runnable_types</span><span class="o">=</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">runnable_class</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">svc</span><span class="o">.</span><span class="n">runners</span><span class="p">],</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="n">api_input_types</span><span class="o">=</span><span class="p">[</span><span class="n">api</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">api</span> <span class="ow">in</span> <span class="n">svc</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="n">api_output_types</span><span class="o">=</span><span class="p">[</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">                <span class="n">api</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">api</span> <span class="ow">in</span> <span class="n">svc</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">values</span><span class="p">()</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="p">],</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">        <span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run"></span>
+<span class="num"><a href="#46">46</a></span><span>    <span class="n">track</span><span class="p">(</span><span class="n">event_properties</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

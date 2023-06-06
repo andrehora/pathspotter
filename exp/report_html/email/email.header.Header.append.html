@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.header.Header.append</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.header.Header.append</h1>
+                <span>Coverage: 94.4% (17/18),</span>
+                <span>Tests: 171, </span>
+                <span>Calls: 2066, </span>
+                <span>Exceptions: 7, </span>
+                <span>Paths: 10</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1951 calls (94.4%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> '1.0' (140) 'Fri, 26 Nov 2004 19:41:44 -0800 (PST)' (81) '7bit' (78) 'failed' (78) '5.7.1' (75) 'smtp; 550 5.7.1 Message content rejected, id=01956-02...</p>
+                <p><button class="input"><span>&#8594;</span> charset</button> Charset (1951) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'strict' (1951) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Append a string to the MIME header.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset, if given, should be a Charset instance or the name</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        of a character set (which will be converted to a Charset instance).  A</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        value of None (the default) means that the charset given in the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        constructor is used.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        s may be a byte string or a Unicode string.  If it is a byte string</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        (i.e. isinstance(s, str) is false), then charset is the encoding of</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        that byte string, and a UnicodeError will be raised if the string</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        cannot be decoded with that charset.  If s is a Unicode string, then</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        charset is a hint specifying the character set of the characters in</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        the string.  In either case, when producing an RFC 2822 compliant</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        header using RFC 2047 rules, the string will be encoded using the</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        output codec of the charset.  If the string cannot be encoded to the</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        output codec, a UnicodeError will be raised.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        Optional `errors&#39; is passed as the errors argument to the decode</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        call if s is a byte string.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charset</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="n">input_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">input_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">input_charset</span> <span class="o">==</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># Ensure that the bytes we&#39;re storing can be decoded to the output</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># character set, otherwise an early error is raised.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="n">output_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="k">if</span> <span class="n">output_charset</span> <span class="o">!=</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">output_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">output_charset</span><span class="o">!=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">UTF8</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 2</b>: 52 calls (2.5%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> "text/plain; charset=us-ascii;\n title*=us-ascii'en'This%20is%20not%20f\udca7n" (19) 'b\udcc3\udca1z' (8) 'text/pl\udca7in; charset=utf-8' (7) 'Mainte...</p>
+                <p><button class="input"><span>&#8594;</span> charset</button> Charset (52) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'strict' (52) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Append a string to the MIME header.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset, if given, should be a Charset instance or the name</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        of a character set (which will be converted to a Charset instance).  A</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        value of None (the default) means that the charset given in the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        constructor is used.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        s may be a byte string or a Unicode string.  If it is a byte string</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        (i.e. isinstance(s, str) is false), then charset is the encoding of</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        that byte string, and a UnicodeError will be raised if the string</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        cannot be decoded with that charset.  If s is a Unicode string, then</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        charset is a hint specifying the character set of the characters in</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        the string.  In either case, when producing an RFC 2822 compliant</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        header using RFC 2047 rules, the string will be encoded using the</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        output codec of the charset.  If the string cannot be encoded to the</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        output codec, a UnicodeError will be raised.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        Optional `errors&#39; is passed as the errors argument to the decode</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        call if s is a byte string.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charset</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="n">input_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">input_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">input_charset</span> <span class="o">==</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># Ensure that the bytes we&#39;re storing can be decoded to the output</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># character set, otherwise an early error is raised.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="n">output_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="k">if</span> <span class="n">output_charset</span> <span class="o">!=</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">output_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">output_charset</span><span class="o">!=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">UTF8</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 3</b>: 25 calls (1.2%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> bytes (25) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> Charset (25) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'strict' (24) 'replace' (1) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Append a string to the MIME header.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset, if given, should be a Charset instance or the name</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        of a character set (which will be converted to a Charset instance).  A</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        value of None (the default) means that the charset given in the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        constructor is used.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        s may be a byte string or a Unicode string.  If it is a byte string</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        (i.e. isinstance(s, str) is false), then charset is the encoding of</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        that byte string, and a UnicodeError will be raised if the string</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        cannot be decoded with that charset.  If s is a Unicode string, then</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        charset is a hint specifying the character set of the characters in</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        the string.  In either case, when producing an RFC 2822 compliant</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        header using RFC 2047 rules, the string will be encoded using the</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        output codec of the charset.  If the string cannot be encoded to the</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        output codec, a UnicodeError will be raised.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        Optional `errors&#39; is passed as the errors argument to the decode</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        call if s is a byte string.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charset</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="n">input_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">input_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">if</span> <span class="n">input_charset</span> <span class="o">==</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># Ensure that the bytes we&#39;re storing can be decoded to the output</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># character set, otherwise an early error is raised.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="n">output_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="k">if</span> <span class="n">output_charset</span> <span class="o">!=</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">output_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">output_charset</span><span class="o">!=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">UTF8</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 4</b>: 15 calls (0.7%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> bytes (15) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> None (15) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'strict' (14) 'replace' (1) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Append a string to the MIME header.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset, if given, should be a Charset instance or the name</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        of a character set (which will be converted to a Charset instance).  A</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        value of None (the default) means that the charset given in the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        constructor is used.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        s may be a byte string or a Unicode string.  If it is a byte string</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        (i.e. isinstance(s, str) is false), then charset is the encoding of</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        that byte string, and a UnicodeError will be raised if the string</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        cannot be decoded with that charset.  If s is a Unicode string, then</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        charset is a hint specifying the character set of the characters in</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        the string.  In either case, when producing an RFC 2822 compliant</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        header using RFC 2047 rules, the string will be encoded using the</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        output codec of the charset.  If the string cannot be encoded to the</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        output codec, a UnicodeError will be raised.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        Optional `errors&#39; is passed as the errors argument to the decode</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        call if s is a byte string.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charset</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="n">input_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">input_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">if</span> <span class="n">input_charset</span> <span class="o">==</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># Ensure that the bytes we&#39;re storing can be decoded to the output</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># character set, otherwise an early error is raised.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="n">output_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="k">if</span> <span class="n">output_charset</span> <span class="o">!=</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">output_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">output_charset</span><span class="o">!=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">UTF8</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 5</b>: 11 calls (0.5%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx ' (4) 'world' (1) ' Goodbye World!' (1) 'Goodbye ...</p>
+                <p><button class="input"><span>&#8594;</span> charset</button> None (11) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'strict' (11) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Append a string to the MIME header.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset, if given, should be a Charset instance or the name</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        of a character set (which will be converted to a Charset instance).  A</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        value of None (the default) means that the charset given in the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        constructor is used.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        s may be a byte string or a Unicode string.  If it is a byte string</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        (i.e. isinstance(s, str) is false), then charset is the encoding of</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        that byte string, and a UnicodeError will be raised if the string</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        cannot be decoded with that charset.  If s is a Unicode string, then</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        charset is a hint specifying the character set of the characters in</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        the string.  In either case, when producing an RFC 2822 compliant</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        header using RFC 2047 rules, the string will be encoded using the</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        output codec of the charset.  If the string cannot be encoded to the</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        output codec, a UnicodeError will be raised.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        Optional `errors&#39; is passed as the errors argument to the decode</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        call if s is a byte string.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charset</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="n">input_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">input_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">input_charset</span> <span class="o">==</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># Ensure that the bytes we&#39;re storing can be decoded to the output</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># character set, otherwise an early error is raised.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="n">output_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="k">if</span> <span class="n">output_charset</span> <span class="o">!=</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">output_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">output_charset</span><span class="o">!=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">UTF8</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 6</b>: 5 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> '&#382;lu&#357;ou&#269;k&#253; k&#367;&#328;' (2) 'Britische Regierung gibt gr&#252;nes Licht f&#252;r Offshore-Windkraftprojekte <a-very-long-address@example.com>' (2) '&#201; test' (1) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> Charset (5) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'strict' (5) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UnicodeEncodeError (5) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Append a string to the MIME header.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset, if given, should be a Charset instance or the name</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        of a character set (which will be converted to a Charset instance).  A</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        value of None (the default) means that the charset given in the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        constructor is used.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        s may be a byte string or a Unicode string.  If it is a byte string</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        (i.e. isinstance(s, str) is false), then charset is the encoding of</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        that byte string, and a UnicodeError will be raised if the string</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        cannot be decoded with that charset.  If s is a Unicode string, then</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        charset is a hint specifying the character set of the characters in</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        the string.  In either case, when producing an RFC 2822 compliant</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        header using RFC 2047 rules, the string will be encoded using the</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        output codec of the charset.  If the string cannot be encoded to the</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        output codec, a UnicodeError will be raised.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        Optional `errors&#39; is passed as the errors argument to the decode</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        call if s is a byte string.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charset</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="n">input_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">input_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">input_charset</span> <span class="o">==</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># Ensure that the bytes we&#39;re storing can be decoded to the output</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># character set, otherwise an early error is raised.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="n">output_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="k">if</span> <span class="n">output_charset</span> <span class="o">!=</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">output_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                <span class="k">if</span> <span class="n">output_charset</span><span class="o">!=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">UTF8</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 7</b>: 3 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> bytes (3) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> Charset (3) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'strict' (3) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Append a string to the MIME header.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset, if given, should be a Charset instance or the name</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        of a character set (which will be converted to a Charset instance).  A</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        value of None (the default) means that the charset given in the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        constructor is used.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        s may be a byte string or a Unicode string.  If it is a byte string</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        (i.e. isinstance(s, str) is false), then charset is the encoding of</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        that byte string, and a UnicodeError will be raised if the string</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        cannot be decoded with that charset.  If s is a Unicode string, then</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        charset is a hint specifying the character set of the characters in</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        the string.  In either case, when producing an RFC 2822 compliant</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        header using RFC 2047 rules, the string will be encoded using the</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        output codec of the charset.  If the string cannot be encoded to the</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        output codec, a UnicodeError will be raised.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        Optional `errors&#39; is passed as the errors argument to the decode</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        call if s is a byte string.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charset</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="n">input_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">input_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">if</span> <span class="n">input_charset</span> <span class="o">==</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># Ensure that the bytes we&#39;re storing can be decoded to the output</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># character set, otherwise an early error is raised.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="n">output_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="k">if</span> <span class="n">output_charset</span> <span class="o">!=</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">output_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">output_charset</span><span class="o">!=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">UTF8</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 8</b>: 2 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> 'hello' (2) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> 'iso-8859-1' (2) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'strict' (2) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Append a string to the MIME header.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset, if given, should be a Charset instance or the name</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        of a character set (which will be converted to a Charset instance).  A</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        value of None (the default) means that the charset given in the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        constructor is used.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        s may be a byte string or a Unicode string.  If it is a byte string</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        (i.e. isinstance(s, str) is false), then charset is the encoding of</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        that byte string, and a UnicodeError will be raised if the string</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        cannot be decoded with that charset.  If s is a Unicode string, then</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        charset is a hint specifying the character set of the characters in</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        the string.  In either case, when producing an RFC 2822 compliant</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        header using RFC 2047 rules, the string will be encoded using the</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        output codec of the charset.  If the string cannot be encoded to the</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        output codec, a UnicodeError will be raised.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        Optional `errors&#39; is passed as the errors argument to the decode</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        call if s is a byte string.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charset</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="n">input_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">input_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">input_charset</span> <span class="o">==</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># Ensure that the bytes we&#39;re storing can be decoded to the output</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># character set, otherwise an early error is raised.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="n">output_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="k">if</span> <span class="n">output_charset</span> <span class="o">!=</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">output_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">output_charset</span><span class="o">!=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">UTF8</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 9</b>: 1 calls (0.0%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> bytes (1) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> Charset (1) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'strict' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UnicodeDecodeError (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Append a string to the MIME header.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset, if given, should be a Charset instance or the name</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        of a character set (which will be converted to a Charset instance).  A</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        value of None (the default) means that the charset given in the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        constructor is used.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        s may be a byte string or a Unicode string.  If it is a byte string</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        (i.e. isinstance(s, str) is false), then charset is the encoding of</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        that byte string, and a UnicodeError will be raised if the string</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        cannot be decoded with that charset.  If s is a Unicode string, then</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        charset is a hint specifying the character set of the characters in</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        the string.  In either case, when producing an RFC 2822 compliant</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        header using RFC 2047 rules, the string will be encoded using the</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        output codec of the charset.  If the string cannot be encoded to the</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        output codec, a UnicodeError will be raised.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        Optional `errors&#39; is passed as the errors argument to the decode</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        call if s is a byte string.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charset</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="n">input_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">input_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">if</span> <span class="n">input_charset</span> <span class="o">==</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># Ensure that the bytes we&#39;re storing can be decoded to the output</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># character set, otherwise an early error is raised.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">        <span class="n">output_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">output_charset</span> <span class="o">!=</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">output_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">output_charset</span><span class="o">!=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">UTF8</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 10</b>: 1 calls (0.0%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> bytes (1) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'strict' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UnicodeDecodeError (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Append a string to the MIME header.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset, if given, should be a Charset instance or the name</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        of a character set (which will be converted to a Charset instance).  A</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        value of None (the default) means that the charset given in the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        constructor is used.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        s may be a byte string or a Unicode string.  If it is a byte string</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        (i.e. isinstance(s, str) is false), then charset is the encoding of</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        that byte string, and a UnicodeError will be raised if the string</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        cannot be decoded with that charset.  If s is a Unicode string, then</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        charset is a hint specifying the character set of the characters in</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        the string.  In either case, when producing an RFC 2822 compliant</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        header using RFC 2047 rules, the string will be encoded using the</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        output codec of the charset.  If the string cannot be encoded to the</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        output codec, a UnicodeError will be raised.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        Optional `errors&#39; is passed as the errors argument to the decode</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        call if s is a byte string.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charset</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="n">input_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">input_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">if</span> <span class="n">input_charset</span> <span class="o">==</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># Ensure that the bytes we&#39;re storing can be decoded to the output</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># character set, otherwise an early error is raised.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">        <span class="n">output_charset</span> <span class="o">=</span> <span class="n">charset</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">output_charset</span> <span class="o">!=</span> <span class="n">_charset</span><span class="o">.</span><span class="n">UNKNOWN8BIT</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">output_charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">output_charset</span><span class="o">!=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">UTF8</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

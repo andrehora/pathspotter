@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.json.tag.TaggedJSONSerializer.untag</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.json.tag.TaggedJSONSerializer.untag</h1>
+                <span>Coverage: 100.0% (6/6),</span>
+                <span>Tests: 0, </span>
+                <span>Calls: 69, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 28 calls (40.6%)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> dict (18) {' m': '<em>Testing</em>'} (4) {' b': 'YQ=='} (1) {' b': '/w=='} (1) {' m': '<html>'} (1) {' u': '350dba7701d44d1fb83d4839a8cade47'} (1) {' ...</p>
+                <p><button class="output"><span>&#8617; return</span></button> Markup (5) ('message', 'Hello World') (4) ('error', 'Hello World') (4) tuple (4) (1, 2, 3) (4) bytes (2) dict (1) {' di': ' di'} (1) UUID (1) datetime...</p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">untag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a tagged representation back to the original type.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">value</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">key</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">value</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">to_python</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="n">key</span><span class="p">])</span></span>
+            </pre>
+            <p><b>Path 2</b>: 26 calls (37.7%)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> dict (9) {'test': 'test'} (6) {'testing': 42} (3) {'data': 'foo'} (3) {'value': '42'} (2) {'foo': 42} (1) {' di__': ' di'} (1) {'value': '616'} (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (9) {'test': 'test'} (6) {'testing': 42} (3) {'data': 'foo'} (3) {'value': '42'} (2) {'foo': 42} (1) {' di__': ' di'} (1) {'value': '616'} (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">untag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a tagged representation back to the original type.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">value</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">key</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">return</span> <span class="n">value</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">to_python</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="n">key</span><span class="p">])</span></span>
+            </pre>
+            <p><b>Path 3</b>: 15 calls (21.7%)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> {'_permanent': True, 'test': 42} (2) {'_permanent': True, 'foo': 1} (2) {'_permanent': True, 'foo': 2} (2) {'_permanent': True, 'foo': 3} (2) {'_perma...</p>
+                <p><button class="output"><span>&#8617; return</span></button> {'_permanent': True, 'test': 42} (2) {'_permanent': True, 'foo': 1} (2) {'_permanent': True, 'foo': 2} (2) {'_permanent': True, 'foo': 3} (2) {'_perma...</p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">untag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a tagged representation back to the original type.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">return</span> <span class="n">value</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">        <span class="n">key</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">value</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">to_python</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="n">key</span><span class="p">])</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>tarfile.TarInfo.create_ustar_header</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: tarfile.TarInfo.create_ustar_header</h1>
+                <span>Coverage: 100.0% (6/6),</span>
+                <span>Tests: 4, </span>
+                <span>Calls: 44, </span>
+                <span>Exceptions: 20, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 17 calls (38.6%)</p>
+                <p><button class="input"><span>&#8594;</span> info</button> dict (17) </p>
+                <p><button class="input"><span>&#8594;</span> encoding</button> 'utf-8' (13) 'iso8859-1' (2) 'ascii' (1) 'utf7' (1) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'surrogateescape' (13) 'strict' (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> bytes (15) None (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (1) UnicodeEncodeError (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">create_ustar_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the object as a ustar header block.</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">info</span><span class="p">[</span><span class="s2">&quot;magic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">POSIX_MAGIC</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;linkname&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">LENGTH_LINK</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;linkname is too long&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">LENGTH_NAME</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">info</span><span class="p">[</span><span class="s2">&quot;prefix&quot;</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_posix_split_name</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">USTAR_FORMAT</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 13 calls (29.5%)</p>
+                <p><button class="input"><span>&#8594;</span> info</button> dict (13) </p>
+                <p><button class="input"><span>&#8594;</span> encoding</button> 'utf-8' (13) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'surrogateescape' (13) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (13) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">create_ustar_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the object as a ustar header block.</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">info</span><span class="p">[</span><span class="s2">&quot;magic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">POSIX_MAGIC</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;linkname&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">LENGTH_LINK</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;linkname is too long&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">LENGTH_NAME</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">info</span><span class="p">[</span><span class="s2">&quot;prefix&quot;</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_posix_split_name</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">USTAR_FORMAT</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 9 calls (20.5%)</p>
+                <p><button class="input"><span>&#8594;</span> info</button> dict (9) </p>
+                <p><button class="input"><span>&#8594;</span> encoding</button> 'utf-8' (9) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'surrogateescape' (9) </p>
+                <p><button class="output"><span>&#8617; return</span></button> bytes (9) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">create_ustar_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the object as a ustar header block.</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">info</span><span class="p">[</span><span class="s2">&quot;magic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">POSIX_MAGIC</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;linkname&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">LENGTH_LINK</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;linkname is too long&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">LENGTH_NAME</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">info</span><span class="p">[</span><span class="s2">&quot;prefix&quot;</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_posix_split_name</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">USTAR_FORMAT</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 4 calls (9.1%)</p>
+                <p><button class="input"><span>&#8594;</span> info</button> dict (4) </p>
+                <p><button class="input"><span>&#8594;</span> encoding</button> 'utf-8' (4) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'surrogateescape' (4) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (4) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">create_ustar_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the object as a ustar header block.</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">info</span><span class="p">[</span><span class="s2">&quot;magic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">POSIX_MAGIC</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;linkname&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">LENGTH_LINK</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;linkname is too long&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">LENGTH_NAME</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">info</span><span class="p">[</span><span class="s2">&quot;prefix&quot;</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_posix_split_name</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">USTAR_FORMAT</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (2.3%)</p>
+                <p><button class="input"><span>&#8594;</span> info</button> dict (1) </p>
+                <p><button class="input"><span>&#8594;</span> encoding</button> 'ascii' (1) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'strict' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UnicodeEncodeError (1) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">create_ustar_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the object as a ustar header block.</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">info</span><span class="p">[</span><span class="s2">&quot;magic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">POSIX_MAGIC</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;linkname&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">LENGTH_LINK</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;linkname is too long&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">LENGTH_NAME</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">info</span><span class="p">[</span><span class="s2">&quot;prefix&quot;</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_posix_split_name</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">USTAR_FORMAT</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

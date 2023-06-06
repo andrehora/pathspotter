@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.lint.pylinter.PyLinter.generate_reports</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.lint.pylinter.PyLinter.generate_reports</h1>
+                <span>Coverage: 100.0% (17/17),</span>
+                <span>Tests: 28, </span>
+                <span>Calls: 234, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 114 calls (48.7%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> 7.5 (29) 0 (25) 10.0 (24) None (18) -10.0 (10) 9.523809523809524 (3) 7.777777777777778 (2) 9.285714285714286 (2) 9.642857142857142 (1) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">generate_reports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Close the whole package /module, it&#39;s time to make reports !</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        if persistent run, pickle results for later comparison</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># Display whatever messages are left on the reporter.</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">display_messages</span><span class="p">(</span><span class="n">report_nodes</span><span class="o">.</span><span class="n">Section</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># TODO: 3.0: Remove second half of if-statement</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_is_base_filestate</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># load previous results if any</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">previous_stats</span> <span class="o">=</span> <span class="n">load_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">on_close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">previous_stats</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">sect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_reports</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">previous_stats</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="n">sect</span> <span class="o">=</span> <span class="n">report_nodes</span><span class="o">.</span><span class="n">Section</span><span class="p">()</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">display_reports</span><span class="p">(</span><span class="n">sect</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">score_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_report_evaluation</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># save results if persistent run</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">persistent</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="n">save_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">on_close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">LinterStats</span><span class="p">())</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">score_value</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">score_value</span></span>
+            </pre>
+            <p><b>Path 2</b>: 97 calls (41.5%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> None (76) 10.0 (14) 0 (5) 5.0 (2) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">generate_reports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Close the whole package /module, it&#39;s time to make reports !</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        if persistent run, pickle results for later comparison</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># Display whatever messages are left on the reporter.</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">display_messages</span><span class="p">(</span><span class="n">report_nodes</span><span class="o">.</span><span class="n">Section</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># TODO: 3.0: Remove second half of if-statement</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_is_base_filestate</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># load previous results if any</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">previous_stats</span> <span class="o">=</span> <span class="n">load_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">on_close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">previous_stats</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">sect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_reports</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">previous_stats</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="n">sect</span> <span class="o">=</span> <span class="n">report_nodes</span><span class="o">.</span><span class="n">Section</span><span class="p">()</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">display_reports</span><span class="p">(</span><span class="n">sect</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">score_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_report_evaluation</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># save results if persistent run</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">persistent</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="n">save_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">on_close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">LinterStats</span><span class="p">())</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">score_value</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">score_value</span></span>
+            </pre>
+            <p><b>Path 3</b>: 20 calls (8.5%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> None (20) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">generate_reports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Close the whole package /module, it&#39;s time to make reports !</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        if persistent run, pickle results for later comparison</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># Display whatever messages are left on the reporter.</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">display_messages</span><span class="p">(</span><span class="n">report_nodes</span><span class="o">.</span><span class="n">Section</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># TODO: 3.0: Remove second half of if-statement</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_is_base_filestate</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># load previous results if any</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">previous_stats</span> <span class="o">=</span> <span class="n">load_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">on_close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">previous_stats</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">sect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_reports</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">previous_stats</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="n">sect</span> <span class="o">=</span> <span class="n">report_nodes</span><span class="o">.</span><span class="n">Section</span><span class="p">()</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">display_reports</span><span class="p">(</span><span class="n">sect</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">score_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_report_evaluation</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># save results if persistent run</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">persistent</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="n">save_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">on_close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">LinterStats</span><span class="p">())</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">score_value</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">score_value</span></span>
+            </pre>
+            <p><b>Path 4</b>: 3 calls (1.3%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> 0 (2) 7.5 (1) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">generate_reports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Close the whole package /module, it&#39;s time to make reports !</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        if persistent run, pickle results for later comparison</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># Display whatever messages are left on the reporter.</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">display_messages</span><span class="p">(</span><span class="n">report_nodes</span><span class="o">.</span><span class="n">Section</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># TODO: 3.0: Remove second half of if-statement</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_is_base_filestate</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># load previous results if any</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">previous_stats</span> <span class="o">=</span> <span class="n">load_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">on_close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">previous_stats</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">sect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_reports</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">previous_stats</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="n">sect</span> <span class="o">=</span> <span class="n">report_nodes</span><span class="o">.</span><span class="n">Section</span><span class="p">()</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">display_reports</span><span class="p">(</span><span class="n">sect</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">score_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_report_evaluation</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># save results if persistent run</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">persistent</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="n">save_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">on_close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">LinterStats</span><span class="p">())</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">score_value</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">score_value</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

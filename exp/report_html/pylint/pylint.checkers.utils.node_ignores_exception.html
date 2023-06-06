@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.utils.node_ignores_exception</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.utils.node_ignores_exception</h1>
+                <span>Coverage: 80.0% (4/5),</span>
+                <span>Tests: 13, </span>
+                <span>Calls: 877, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 851 calls (97.0%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Name (262) Attribute (202) Import (130) ImportFrom (121) Raise (116) Call (6) AssignName (6) DelName (4) BinOp (3) DelAttr (1) </p>
+                <p><button class="input"><span>&#8594;</span> exception</button> NameError def (272) ImportError def (251) AttributeError def (203) 'RuntimeError' (42) 'NameError' (23) 'error' (18) StopIteration def (12) 'ValueErro...</p>
+                <p><button class="output"><span>&#8617; return</span></button> False (845) True (6) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">node_ignores_exception</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="n">exception</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="ne">Exception</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if the node is in a TryExcept which handles the given exception.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    If the exception is not given, the function is going to look for bare</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    excepts.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="n">managing_handlers</span> <span class="o">=</span> <span class="n">get_exception_handlers</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">exception</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">if</span> <span class="n">managing_handlers</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">get_contextlib_suppressors</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">exception</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 2</b>: 26 calls (3.0%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Import (12) Attribute (5) Raise (3) ImportFrom (2) Call (2) Name (1) BinOp (1) </p>
+                <p><button class="input"><span>&#8594;</span> exception</button> ImportError def (14) AttributeError def (5) 'RuntimeError' (3) StopIteration def (2) NameError def (1) ZeroDivisionError def (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (26) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">node_ignores_exception</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="n">exception</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="ne">Exception</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if the node is in a TryExcept which handles the given exception.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    If the exception is not given, the function is going to look for bare</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    excepts.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="n">managing_handlers</span> <span class="o">=</span> <span class="n">get_exception_handlers</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">exception</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">if</span> <span class="n">managing_handlers</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">get_contextlib_suppressors</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">exception</span><span class="p">))</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

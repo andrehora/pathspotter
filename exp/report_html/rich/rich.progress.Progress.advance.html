@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>rich.progress.Progress.advance</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: rich.progress.Progress.advance</h1>
+                <span>Coverage: 90.0% (18/20),</span>
+                <span>Tests: 10, </span>
+                <span>Calls: 17, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 11 calls (64.7%)</p>
+                <p><button class="input"><span>&#8594;</span> task_id</button> 0 (8) 1 (3) </p>
+                <p><button class="input"><span>&#8594;</span> advance</button> 1 (7) 16 (3) 7 (1) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">advance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">:</span> <span class="n">TaskID</span><span class="p">,</span> <span class="n">advance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Advance task by a number of steps.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">            task_id (TaskID): ID of task.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">            advance (float): Number of steps to advance. Default is 1.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">current_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_time</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="p">[</span><span class="n">task_id</span><span class="p">]</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">completed_start</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">completed</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">task</span><span class="o">.</span><span class="n">completed</span> <span class="o">+=</span> <span class="n">advance</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="n">update_completed</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">completed</span> <span class="o">-</span> <span class="n">completed_start</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="n">old_sample_time</span> <span class="o">=</span> <span class="n">current_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed_estimate_period</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">_progress</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">_progress</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">popleft</span> <span class="o">=</span> <span class="n">_progress</span><span class="o">.</span><span class="n">popleft</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">while</span> <span class="n">_progress</span> <span class="ow">and</span> <span class="n">_progress</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&lt;</span> <span class="n">old_sample_time</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">popleft</span><span class="p">()</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">_progress</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">popleft</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">_progress</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ProgressSample</span><span class="p">(</span><span class="n">current_time</span><span class="p">,</span> <span class="n">update_completed</span><span class="p">))</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">task</span><span class="o">.</span><span class="n">total</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="ow">and</span> <span class="n">task</span><span class="o">.</span><span class="n">completed</span> <span class="o">&gt;=</span> <span class="n">task</span><span class="o">.</span><span class="n">total</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">task</span><span class="o">.</span><span class="n">finished_time</span> <span class="ow">is</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="n">task</span><span class="o">.</span><span class="n">finished_time</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">elapsed</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">task</span><span class="o">.</span><span class="n">finished_speed</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">speed</span></span>
+            </pre>
+            <p><b>Path 2</b>: 6 calls (35.3%)</p>
+                <p><button class="input"><span>&#8594;</span> task_id</button> 0 (6) </p>
+                <p><button class="input"><span>&#8594;</span> advance</button> 13 (4) 1 (2) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">advance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">:</span> <span class="n">TaskID</span><span class="p">,</span> <span class="n">advance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Advance task by a number of steps.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">            task_id (TaskID): ID of task.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">            advance (float): Number of steps to advance. Default is 1.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">current_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_time</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="p">[</span><span class="n">task_id</span><span class="p">]</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">completed_start</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">completed</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">task</span><span class="o">.</span><span class="n">completed</span> <span class="o">+=</span> <span class="n">advance</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="n">update_completed</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">completed</span> <span class="o">-</span> <span class="n">completed_start</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="n">old_sample_time</span> <span class="o">=</span> <span class="n">current_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed_estimate_period</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">_progress</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">_progress</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">popleft</span> <span class="o">=</span> <span class="n">_progress</span><span class="o">.</span><span class="n">popleft</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">while</span> <span class="n">_progress</span> <span class="ow">and</span> <span class="n">_progress</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&lt;</span> <span class="n">old_sample_time</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">popleft</span><span class="p">()</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">_progress</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">popleft</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">_progress</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ProgressSample</span><span class="p">(</span><span class="n">current_time</span><span class="p">,</span> <span class="n">update_completed</span><span class="p">))</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">task</span><span class="o">.</span><span class="n">total</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="ow">and</span> <span class="n">task</span><span class="o">.</span><span class="n">completed</span> <span class="o">&gt;=</span> <span class="n">task</span><span class="o">.</span><span class="n">total</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="ow">and</span> <span class="n">task</span><span class="o">.</span><span class="n">finished_time</span> <span class="ow">is</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="n">task</span><span class="o">.</span><span class="n">finished_time</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">elapsed</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="n">task</span><span class="o">.</span><span class="n">finished_speed</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">speed</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

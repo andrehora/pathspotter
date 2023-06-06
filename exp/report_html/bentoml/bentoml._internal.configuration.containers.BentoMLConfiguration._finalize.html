@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>bentoml._internal.configuration.containers.BentoMLConfiguration._finalize</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: bentoml._internal.configuration.containers.BentoMLConfiguration._finalize</h1>
+                <span>Coverage: 100.0% (13/13),</span>
+                <span>Tests: 9, </span>
+                <span>Calls: 18, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 15 calls (83.3%)</p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">RUNNER_CFG_KEYS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;batching&quot;</span><span class="p">,</span> <span class="s2">&quot;resources&quot;</span><span class="p">,</span> <span class="s2">&quot;logging&quot;</span><span class="p">,</span> <span class="s2">&quot;metrics&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">global_runner_cfg</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;runners&quot;</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">RUNNER_CFG_KEYS</span><span class="p">}</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">custom_runners_cfg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="nb">filter</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                <span class="k">lambda</span> <span class="n">kv</span><span class="p">:</span> <span class="n">kv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">RUNNER_CFG_KEYS</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;runners&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span></span>
+<span class="num"><a href="#8">8</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="n">custom_runners_cfg</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">runner_name</span><span class="p">,</span> <span class="n">runner_cfg</span> <span class="ow">in</span> <span class="n">custom_runners_cfg</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span>                <span class="c1"># key is a runner name</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">runner_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;resources&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;system&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="n">runner_cfg</span><span class="p">[</span><span class="s2">&quot;resources&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">system_resources</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;runners&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">config_merger</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="n">deepcopy</span><span class="p">(</span><span class="n">global_runner_cfg</span><span class="p">),</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">runner_cfg</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span>                <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 3 calls (16.7%)</p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">RUNNER_CFG_KEYS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;batching&quot;</span><span class="p">,</span> <span class="s2">&quot;resources&quot;</span><span class="p">,</span> <span class="s2">&quot;logging&quot;</span><span class="p">,</span> <span class="s2">&quot;metrics&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">global_runner_cfg</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;runners&quot;</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">RUNNER_CFG_KEYS</span><span class="p">}</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">custom_runners_cfg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="nb">filter</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                <span class="k">lambda</span> <span class="n">kv</span><span class="p">:</span> <span class="n">kv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">RUNNER_CFG_KEYS</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;runners&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span></span>
+<span class="num"><a href="#8">8</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="n">custom_runners_cfg</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">for</span> <span class="n">runner_name</span><span class="p">,</span> <span class="n">runner_cfg</span> <span class="ow">in</span> <span class="n">custom_runners_cfg</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span>                <span class="c1"># key is a runner name</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">if</span> <span class="n">runner_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;resources&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;system&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                    <span class="n">runner_cfg</span><span class="p">[</span><span class="s2">&quot;resources&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">system_resources</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;runners&quot;</span><span class="p">][</span><span class="n">runner_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">config_merger</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                    <span class="n">deepcopy</span><span class="p">(</span><span class="n">global_runner_cfg</span><span class="p">),</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="n">runner_cfg</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span>                <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

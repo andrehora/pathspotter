@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.scaffold.Scaffold.errorhandler</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.scaffold.Scaffold.errorhandler</h1>
+                <span>Coverage: 25.0% (2/8),</span>
+                <span>Tests: 0, </span>
+                <span>Calls: 52, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 52 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> code_or_exception</button> 403 (9) AppError def (7) BlueprintError def (7) 500 (7) Exception def (3) Forbidden def (3) HTTPException def (3) 404 (2) test_user_error_handling.<lo...</p>
+                <p><button class="output"><span>&#8617; return</span></button> Scaffold.errorhandler.<locals>.decorator def (52) </p>
+            <button class="run" title="lines run...">0 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@setupmethod</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="k">def</span> <span class="nf">errorhandler</span><span class="p">(</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">code_or_exception</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">T_error_handler</span><span class="p">],</span> <span class="n">T_error_handler</span><span class="p">]:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Register a function to handle errors by code or exception class.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        A decorator that is used to register a function given an</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        error code.  Example::</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            @app.errorhandler(404)</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            def page_not_found(error):</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">                return &#39;This page does not exist&#39;, 404</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        You can also register handlers for arbitrary exceptions::</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            @app.errorhandler(DatabaseError)</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">            def special_exception_handler(error):</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">                return &#39;Database connection failed&#39;, 500</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">            Use :meth:`register_error_handler` instead of modifying</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            :attr:`error_handler_spec` directly, for application wide error</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">            handlers.</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">           One can now additionally also register custom exception types</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">           that do not necessarily have to be a subclass of the</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">           :class:`~werkzeug.exceptions.HTTPException` class.</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">        :param code_or_exception: the code as integer for the handler, or</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">                                  an arbitrary exception</span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">T_error_handler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T_error_handler</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span>            <span class="bp">self</span><span class="o">.</span><span class="n">register_error_handler</span><span class="p">(</span><span class="n">code_or_exception</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span>            <span class="k">return</span> <span class="n">f</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="k">return</span> <span class="n">decorator</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

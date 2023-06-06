@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.cli.FlaskGroup.__init__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.cli.FlaskGroup.__init__</h1>
+                <span>Coverage: 76.2% (16/21),</span>
+                <span>Tests: 4, </span>
+                <span>Calls: 12, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 12 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> add_default_commands</button> True (12) </p>
+                <p><button class="input"><span>&#8594;</span> create_app</button> TestRoutes.invoke.<locals>.<lambda> def (3) None (2) test_flaskgroup_debug.<locals>.create_app def (2) test_app_cli_has_app_context.<locals>.<lambda> ...</p>
+                <p><button class="input"><span>&#8594;</span> add_version_option</button> True (12) </p>
+                <p><button class="input"><span>&#8594;</span> load_dotenv</button> True (12) </p>
+                <p><button class="input"><span>&#8594;</span> set_debug_flag</button> True (11) False (1) </p>
+                <p><button class="input"><span>&#8594;</span> extra</button> {} (7) dict (3) {'name': 'flask', 'help': "A general utility script for Flask applications.\n\nAn application to load must be given with the '--app' o...</p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">add_default_commands</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">create_app</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Flask</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">add_version_option</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">load_dotenv</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">set_debug_flag</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="o">**</span><span class="n">extra</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">extra</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;params&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">())</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Processing is done with option callbacks instead of a group</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># callback. This allows users to make a custom group callback</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># without losing the behavior. --env-file must come first so</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># that it is eagerly evaluated before --app.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">params</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="n">_env_file_option</span><span class="p">,</span> <span class="n">_app_option</span><span class="p">,</span> <span class="n">_debug_option</span><span class="p">))</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">add_version_option</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">version_option</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;context_settings&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">extra</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">extra</span><span class="p">[</span><span class="s2">&quot;context_settings&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="n">extra</span><span class="p">[</span><span class="s2">&quot;context_settings&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;auto_envvar_prefix&quot;</span><span class="p">,</span> <span class="s2">&quot;FLASK&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">extra</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">create_app</span> <span class="o">=</span> <span class="n">create_app</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">load_dotenv</span> <span class="o">=</span> <span class="n">load_dotenv</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">set_debug_flag</span> <span class="o">=</span> <span class="n">set_debug_flag</span></span>
+<span class="num"><a href="#30">30</a></span><span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">if</span> <span class="n">add_default_commands</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">run_command</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">shell_command</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">routes_command</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_plugin_commands</span> <span class="o">=</span> <span class="kc">False</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

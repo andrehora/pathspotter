@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.base64mime.header_length</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.base64mime.header_length</h1>
+                <span>Coverage: 100.0% (5/5),</span>
+                <span>Tests: 23, </span>
+                <span>Calls: 815, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 464 calls (56.9%)</p>
+                <p><button class="input"><span>&#8594;</span> bytearray</button> bytes (453) 'hello' (1) 'x' (1) 'xx' (1) 'xxxx' (1) 'xxxxx' (1) 'xxxxxxx' (1) 'xxxxxxxx' (1) 'xxxxxxxxxx' (1) 'xxxxxxxxxxx' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 8 (75) 4 (59) 12 (42) 16 (37) 20 (34) 24 (32) 28 (30) 32 (18) 48 (17) 56 (17) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_length</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the length of s when it is encoded with base64.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">groups_of_3</span><span class="p">,</span> <span class="n">leftover</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="c1"># 4 bytes out for each 3 bytes (or nonzero fraction thereof) in.</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">n</span> <span class="o">=</span> <span class="n">groups_of_3</span> <span class="o">*</span> <span class="mi">4</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">if</span> <span class="n">leftover</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">n</span> <span class="o">+=</span> <span class="mi">4</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">return</span> <span class="n">n</span></span>
+            </pre>
+            <p><b>Path 2</b>: 351 calls (43.1%)</p>
+                <p><button class="input"><span>&#8594;</span> bytearray</button> bytes (346) '' (1) 'xxx' (1) 'xxxxxx' (1) 'xxxxxxxxx' (1) 'xxxxxxxxxxxx' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 4 (56) 16 (32) 8 (32) 24 (29) 20 (29) 12 (28) 32 (18) 40 (17) 28 (17) 48 (15) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_length</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the length of s when it is encoded with base64.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">groups_of_3</span><span class="p">,</span> <span class="n">leftover</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="c1"># 4 bytes out for each 3 bytes (or nonzero fraction thereof) in.</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">n</span> <span class="o">=</span> <span class="n">groups_of_3</span> <span class="o">*</span> <span class="mi">4</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">if</span> <span class="n">leftover</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="n">n</span> <span class="o">+=</span> <span class="mi">4</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">return</span> <span class="n">n</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

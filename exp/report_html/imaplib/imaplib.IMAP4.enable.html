@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>imaplib.IMAP4.enable</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: imaplib.IMAP4.enable</h1>
+                <span>Coverage: 100.0% (6/6),</span>
+                <span>Tests: 10, </span>
+                <span>Calls: 20, </span>
+                <span>Exceptions: 12, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 8 calls (40.0%)</p>
+                <p><button class="input"><span>&#8594;</span> capability</button> 'UTF8=ACCEPT' (8) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (8) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">enable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capability</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Send an RFC5161 enable string to the server.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        (typ, [data]) = &lt;instance&gt;.enable(capability)</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;ENABLE&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">capabilities</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">IMAP4</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Server does not support ENABLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">typ</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simple_command</span><span class="p">(</span><span class="s1">&#39;ENABLE&#39;</span><span class="p">,</span> <span class="n">capability</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="s1">&#39;OK&#39;</span> <span class="ow">and</span> <span class="s1">&#39;UTF8=ACCEPT&#39;</span> <span class="ow">in</span> <span class="n">capability</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_mode_utf8</span><span class="p">()</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">return</span> <span class="n">typ</span><span class="p">,</span> <span class="n">data</span></span>
+            </pre>
+            <p><b>Path 2</b>: 8 calls (40.0%)</p>
+                <p><button class="input"><span>&#8594;</span> capability</button> 'UTF8=ACCEPT' (4) 'foo' (4) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> error (8) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">enable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capability</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Send an RFC5161 enable string to the server.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        (typ, [data]) = &lt;instance&gt;.enable(capability)</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;ENABLE&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">capabilities</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">raise</span> <span class="n">IMAP4</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Server does not support ENABLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="n">typ</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simple_command</span><span class="p">(</span><span class="s1">&#39;ENABLE&#39;</span><span class="p">,</span> <span class="n">capability</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="s1">&#39;OK&#39;</span> <span class="ow">and</span> <span class="s1">&#39;UTF8=ACCEPT&#39;</span> <span class="ow">in</span> <span class="n">capability</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_mode_utf8</span><span class="p">()</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">typ</span><span class="p">,</span> <span class="n">data</span></span>
+            </pre>
+            <p><b>Path 3</b>: 4 calls (20.0%)</p>
+                <p><button class="input"><span>&#8594;</span> capability</button> 'foo' (4) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> error (4) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">enable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capability</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Send an RFC5161 enable string to the server.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        (typ, [data]) = &lt;instance&gt;.enable(capability)</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;ENABLE&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">capabilities</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">IMAP4</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Server does not support ENABLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">typ</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simple_command</span><span class="p">(</span><span class="s1">&#39;ENABLE&#39;</span><span class="p">,</span> <span class="n">capability</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="s1">&#39;OK&#39;</span> <span class="ow">and</span> <span class="s1">&#39;UTF8=ACCEPT&#39;</span> <span class="ow">in</span> <span class="n">capability</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_mode_utf8</span><span class="p">()</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">typ</span><span class="p">,</span> <span class="n">data</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

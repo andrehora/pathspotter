@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>tarfile.TarFile.extractall</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: tarfile.TarFile.extractall</h1>
+                <span>Coverage: 81.8% (18/22),</span>
+                <span>Tests: 4, </span>
+                <span>Calls: 13, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 8 calls (61.5%)</p>
+                <p><button class="input"><span>&#8594;</span> path</button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/@test_18532_tmp&#230;-tardir/extractall' (4) PosixPath (4) </p>
+                <p><button class="input"><span>&#8594;</span> members</button> list (8) </p>
+                <p><button class="input"><span>&#8594;</span> numeric_owner</button> False (8) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extractall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">members</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">numeric_owner</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract all members from the archive to the current working</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">           directory and set owner, modification time and permissions on</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">           directories afterwards. `path&#39; specifies a different directory</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">           to extract to. `members&#39; is optional and must be a subset of the</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">           list returned by getmembers(). If `numeric_owner` is True, only</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">           the numbers for user/group names are used and not the names.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">directories</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">members</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">members</span> <span class="o">=</span> <span class="bp">self</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">for</span> <span class="n">tarinfo</span> <span class="ow">in</span> <span class="n">members</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">if</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">isdir</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="c1"># Extract directories with a safe mode.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="n">directories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">tarinfo</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">tarinfo</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="mo">0o700</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Do not set_attrs directories, as we will do that further down</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">set_attrs</span><span class="o">=</span><span class="ow">not</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">isdir</span><span class="p">(),</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                         <span class="n">numeric_owner</span><span class="o">=</span><span class="n">numeric_owner</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Reverse sort directories.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">directories</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">directories</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># Set correct owner, mtime and filemode on directories.</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">for</span> <span class="n">tarinfo</span> <span class="ow">in</span> <span class="n">directories</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">dirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">chown</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">numeric_owner</span><span class="o">=</span><span class="n">numeric_owner</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">utime</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">ExtractError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">errorlevel</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_dbg</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;tarfile: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 4 calls (30.8%)</p>
+                <p><button class="input"><span>&#8594;</span> path</button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/@test_18532_tmp&#230;-tardir/testsymlinks' (4) </p>
+                <p><button class="input"><span>&#8594;</span> members</button> None (4) </p>
+                <p><button class="input"><span>&#8594;</span> numeric_owner</button> False (4) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extractall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">members</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">numeric_owner</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract all members from the archive to the current working</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">           directory and set owner, modification time and permissions on</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">           directories afterwards. `path&#39; specifies a different directory</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">           to extract to. `members&#39; is optional and must be a subset of the</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">           list returned by getmembers(). If `numeric_owner` is True, only</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">           the numbers for user/group names are used and not the names.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">directories</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">members</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">members</span> <span class="o">=</span> <span class="bp">self</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">for</span> <span class="n">tarinfo</span> <span class="ow">in</span> <span class="n">members</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">if</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">isdir</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="c1"># Extract directories with a safe mode.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                <span class="n">directories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">tarinfo</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">tarinfo</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="mo">0o700</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Do not set_attrs directories, as we will do that further down</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">set_attrs</span><span class="o">=</span><span class="ow">not</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">isdir</span><span class="p">(),</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                         <span class="n">numeric_owner</span><span class="o">=</span><span class="n">numeric_owner</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Reverse sort directories.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">directories</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">directories</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># Set correct owner, mtime and filemode on directories.</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">for</span> <span class="n">tarinfo</span> <span class="ow">in</span> <span class="n">directories</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">dirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">chown</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">numeric_owner</span><span class="o">=</span><span class="n">numeric_owner</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">utime</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">ExtractError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">errorlevel</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_dbg</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;tarfile: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (7.7%)</p>
+                <p><button class="input"><span>&#8594;</span> path</button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/@test_18532_tmp&#230;-tardir' (1) </p>
+                <p><button class="input"><span>&#8594;</span> members</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> numeric_owner</button> True (1) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extractall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">members</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">numeric_owner</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract all members from the archive to the current working</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">           directory and set owner, modification time and permissions on</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">           directories afterwards. `path&#39; specifies a different directory</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">           to extract to. `members&#39; is optional and must be a subset of the</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">           list returned by getmembers(). If `numeric_owner` is True, only</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">           the numbers for user/group names are used and not the names.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">directories</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">members</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">members</span> <span class="o">=</span> <span class="bp">self</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">for</span> <span class="n">tarinfo</span> <span class="ow">in</span> <span class="n">members</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">if</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">isdir</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="c1"># Extract directories with a safe mode.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="n">directories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">tarinfo</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">tarinfo</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="mo">0o700</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Do not set_attrs directories, as we will do that further down</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">set_attrs</span><span class="o">=</span><span class="ow">not</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">isdir</span><span class="p">(),</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                         <span class="n">numeric_owner</span><span class="o">=</span><span class="n">numeric_owner</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Reverse sort directories.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">directories</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">directories</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># Set correct owner, mtime and filemode on directories.</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">for</span> <span class="n">tarinfo</span> <span class="ow">in</span> <span class="n">directories</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">dirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">chown</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">numeric_owner</span><span class="o">=</span><span class="n">numeric_owner</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">utime</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">ExtractError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">errorlevel</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_dbg</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;tarfile: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

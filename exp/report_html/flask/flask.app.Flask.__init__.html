@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.app.Flask.__init__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.app.Flask.__init__</h1>
+                <span>Coverage: 79.6% (39/49),</span>
+                <span>Tests: 63, </span>
+                <span>Calls: 452, </span>
+                <span>Exceptions: 3, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 446 calls (98.7%)</p>
+                <p><button class="input"><span>&#8594;</span> import_name</button> 'flask_test' (322) 'test_config' (22) 'test_basic' (17) 'test_helpers' (10) 'test_async' (8) 'test_templating' (7) 'testapp' (6) 'appname' (6) 'test_r...</p>
+                <p><button class="input"><span>&#8594;</span> static_url_path</button> None (443) '/foo' (1) '/foo/' (1) '' (1) </p>
+                <p><button class="input"><span>&#8594;</span> static_folder</button> 'static' (442) '' (2) PosixPath (1) 'static/' (1) </p>
+                <p><button class="input"><span>&#8594;</span> static_host</button> None (445) 'example.com' (1) </p>
+                <p><button class="input"><span>&#8594;</span> host_matching</button> False (445) True (1) </p>
+                <p><button class="input"><span>&#8594;</span> subdomain_matching</button> False (439) True (7) </p>
+                <p><button class="input"><span>&#8594;</span> template_folder</button> 'templates' (446) </p>
+                <p><button class="input"><span>&#8594;</span> instance_path</button> None (446) </p>
+                <p><button class="input"><span>&#8594;</span> instance_relative_config</button> False (446) </p>
+                <p><button class="input"><span>&#8594;</span> root_path</button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/flask/tests' (322) None (124) </p>
+            <button class="run" title="lines run...">35 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">import_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">static_url_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">static_folder</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">static_host</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">host_matching</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">subdomain_matching</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="n">template_folder</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;templates&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="n">instance_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="n">instance_relative_config</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">root_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">import_name</span><span class="o">=</span><span class="n">import_name</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">static_folder</span><span class="o">=</span><span class="n">static_folder</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">static_url_path</span><span class="o">=</span><span class="n">static_url_path</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="n">template_folder</span><span class="o">=</span><span class="n">template_folder</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">root_path</span><span class="o">=</span><span class="n">root_path</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">instance_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">instance_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_find_instance_path</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">instance_path</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="s2">&quot;If an instance path is provided it must be absolute.&quot;</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="s2">&quot; A relative path was given instead.&quot;</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1">#: Holds the path to the instance folder.</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1">#: .. versionadded:: 0.8</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">instance_path</span> <span class="o">=</span> <span class="n">instance_path</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1">#: The configuration dictionary as :class:`Config`.  This behaves</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1">#: exactly like a regular dictionary but supports additional methods</span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1">#: to load a config from files.</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_config</span><span class="p">(</span><span class="n">instance_relative_config</span><span class="p">)</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1">#: An instance of :attr:`aborter_class` created by</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="c1">#: :meth:`make_aborter`. This is called by :func:`flask.abort`</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="c1">#: to raise HTTP errors, and can be called directly as well.</span></span>
+<span class="num"><a href="#43">43</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1">#: .. versionadded:: 2.2</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1">#:     Moved from ``flask.abort``, which calls this object.</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">aborter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_aborter</span><span class="p">()</span></span>
+<span class="num"><a href="#47">47</a></span><span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">:</span> <span class="n">JSONProvider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_provider_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides access to JSON methods. Functions in ``flask.json``</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">        will call methods on this provider when the application context</span></span>
+<span class="num"><a href="#51">51</a></span><span><span class="sd">        is active. Used for handling JSON requests and responses.</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">        An instance of :attr:`json_provider_class`. Can be customized by</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">        changing that attribute on a subclass, or by assigning to this</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">        attribute afterwards.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        The default, :class:`~flask.json.provider.DefaultJSONProvider`,</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">        uses Python&#39;s built-in :mod:`json` library. A different provider</span></span>
+<span class="num"><a href="#59">59</a></span><span><span class="sd">        can use a different JSON library.</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">        .. versionadded:: 2.2</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#63">63</a></span><span></span>
+<span class="num"><a href="#64">64</a></span><span>        <span class="c1">#: A list of functions that are called by</span></span>
+<span class="num"><a href="#65">65</a></span><span>        <span class="c1">#: :meth:`handle_url_build_error` when :meth:`.url_for` raises a</span></span>
+<span class="num"><a href="#66">66</a></span><span>        <span class="c1">#: :exc:`~werkzeug.routing.BuildError`. Each function is called</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="c1">#: with ``error``, ``endpoint`` and ``values``. If a function</span></span>
+<span class="num"><a href="#68">68</a></span><span>        <span class="c1">#: returns ``None`` or raises a ``BuildError``, it is skipped.</span></span>
+<span class="num"><a href="#69">69</a></span><span>        <span class="c1">#: Otherwise, its return value is returned by ``url_for``.</span></span>
+<span class="num"><a href="#70">70</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#71">71</a></span><span>        <span class="c1">#: .. versionadded:: 0.9</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_build_error_handlers</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span></span>
+<span class="num"><a href="#73">73</a></span><span>            <span class="n">t</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="ne">Exception</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]],</span> <span class="nb">str</span><span class="p">]</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">        <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#75">75</a></span><span></span>
+<span class="num"><a href="#76">76</a></span><span>        <span class="c1">#: A list of functions that will be called at the beginning of the</span></span>
+<span class="num"><a href="#77">77</a></span><span>        <span class="c1">#: first request to this instance. To register a function, use the</span></span>
+<span class="num"><a href="#78">78</a></span><span>        <span class="c1">#: :meth:`before_first_request` decorator.</span></span>
+<span class="num"><a href="#79">79</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#80">80</a></span><span>        <span class="c1">#: .. deprecated:: 2.2</span></span>
+<span class="num"><a href="#81">81</a></span><span>        <span class="c1">#:     Will be removed in Flask 2.3. Run setup code when</span></span>
+<span class="num"><a href="#82">82</a></span><span>        <span class="c1">#:     creating the application instead.</span></span>
+<span class="num"><a href="#83">83</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#84">84</a></span><span>        <span class="c1">#: .. versionadded:: 0.8</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">BeforeFirstRequestCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#86">86</a></span><span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="c1">#: A list of functions that are called when the application context</span></span>
+<span class="num"><a href="#88">88</a></span><span>        <span class="c1">#: is destroyed.  Since the application context is also torn down</span></span>
+<span class="num"><a href="#89">89</a></span><span>        <span class="c1">#: if the request ends this is the place to store code that disconnects</span></span>
+<span class="num"><a href="#90">90</a></span><span>        <span class="c1">#: from databases.</span></span>
+<span class="num"><a href="#91">91</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#92">92</a></span><span>        <span class="c1">#: .. versionadded:: 0.9</span></span>
+<span class="num"><a href="#93">93</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">teardown_appcontext_funcs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">TeardownCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#94">94</a></span><span></span>
+<span class="num"><a href="#95">95</a></span><span>        <span class="c1">#: A list of shell context processor functions that should be run</span></span>
+<span class="num"><a href="#96">96</a></span><span>        <span class="c1">#: when a shell context is created.</span></span>
+<span class="num"><a href="#97">97</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#98">98</a></span><span>        <span class="c1">#: .. versionadded:: 0.11</span></span>
+<span class="num"><a href="#99">99</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">shell_context_processors</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">ShellContextProcessorCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#100">100</a></span><span></span>
+<span class="num"><a href="#101">101</a></span><span>        <span class="c1">#: Maps registered blueprint names to blueprint objects. The</span></span>
+<span class="num"><a href="#102">102</a></span><span>        <span class="c1">#: dict retains the order the blueprints were registered in.</span></span>
+<span class="num"><a href="#103">103</a></span><span>        <span class="c1">#: Blueprints can be registered multiple times, this dict does</span></span>
+<span class="num"><a href="#104">104</a></span><span>        <span class="c1">#: not track how often they were attached.</span></span>
+<span class="num"><a href="#105">105</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#106">106</a></span><span>        <span class="c1">#: .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#107">107</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">blueprints</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Blueprint&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#108">108</a></span><span></span>
+<span class="num"><a href="#109">109</a></span><span>        <span class="c1">#: a place where extensions can store application specific state.  For</span></span>
+<span class="num"><a href="#110">110</a></span><span>        <span class="c1">#: example this is where an extension could store database engines and</span></span>
+<span class="num"><a href="#111">111</a></span><span>        <span class="c1">#: similar things.</span></span>
+<span class="num"><a href="#112">112</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#113">113</a></span><span>        <span class="c1">#: The key must match the name of the extension module. For example in</span></span>
+<span class="num"><a href="#114">114</a></span><span>        <span class="c1">#: case of a &quot;Flask-Foo&quot; extension in `flask_foo`, the key would be</span></span>
+<span class="num"><a href="#115">115</a></span><span>        <span class="c1">#: ``&#39;foo&#39;``.</span></span>
+<span class="num"><a href="#116">116</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#117">117</a></span><span>        <span class="c1">#: .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#118">118</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#119">119</a></span><span></span>
+<span class="num"><a href="#120">120</a></span><span>        <span class="c1">#: The :class:`~werkzeug.routing.Map` for this instance.  You can use</span></span>
+<span class="num"><a href="#121">121</a></span><span>        <span class="c1">#: this to change the routing converters after the class was created</span></span>
+<span class="num"><a href="#122">122</a></span><span>        <span class="c1">#: but before any routes are connected.  Example::</span></span>
+<span class="num"><a href="#123">123</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#124">124</a></span><span>        <span class="c1">#:    from werkzeug.routing import BaseConverter</span></span>
+<span class="num"><a href="#125">125</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#126">126</a></span><span>        <span class="c1">#:    class ListConverter(BaseConverter):</span></span>
+<span class="num"><a href="#127">127</a></span><span>        <span class="c1">#:        def to_python(self, value):</span></span>
+<span class="num"><a href="#128">128</a></span><span>        <span class="c1">#:            return value.split(&#39;,&#39;)</span></span>
+<span class="num"><a href="#129">129</a></span><span>        <span class="c1">#:        def to_url(self, values):</span></span>
+<span class="num"><a href="#130">130</a></span><span>        <span class="c1">#:            return &#39;,&#39;.join(super(ListConverter, self).to_url(value)</span></span>
+<span class="num"><a href="#131">131</a></span><span>        <span class="c1">#:                            for value in values)</span></span>
+<span class="num"><a href="#132">132</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#133">133</a></span><span>        <span class="c1">#:    app = Flask(__name__)</span></span>
+<span class="num"><a href="#134">134</a></span><span>        <span class="c1">#:    app.url_map.converters[&#39;list&#39;] = ListConverter</span></span>
+<span class="num"><a href="#135">135</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map_class</span><span class="p">()</span></span>
+<span class="num"><a href="#136">136</a></span><span></span>
+<span class="num"><a href="#137">137</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">host_matching</span> <span class="o">=</span> <span class="n">host_matching</span></span>
+<span class="num"><a href="#138">138</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">subdomain_matching</span> <span class="o">=</span> <span class="n">subdomain_matching</span></span>
+<span class="num"><a href="#139">139</a></span><span></span>
+<span class="num"><a href="#140">140</a></span><span>        <span class="c1"># tracks internally if the application already handled at least one</span></span>
+<span class="num"><a href="#141">141</a></span><span>        <span class="c1"># request.</span></span>
+<span class="num"><a href="#142">142</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#143">143</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span></span>
+<span class="num"><a href="#144">144</a></span><span></span>
+<span class="num"><a href="#145">145</a></span><span>        <span class="c1"># Add a static route using the provided static_url_path, static_host,</span></span>
+<span class="num"><a href="#146">146</a></span><span>        <span class="c1"># and static_folder if there is a configured static_folder.</span></span>
+<span class="num"><a href="#147">147</a></span><span>        <span class="c1"># Note we do this without checking if static_folder exists.</span></span>
+<span class="num"><a href="#148">148</a></span><span>        <span class="c1"># For one, it might be created while the server is running (e.g. during</span></span>
+<span class="num"><a href="#149">149</a></span><span>        <span class="c1"># development). Also, Google App Engine stores static files somewhere</span></span>
+<span class="num"><a href="#150">150</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_static_folder</span><span class="p">:</span></span>
+<span class="num"><a href="#151">151</a></span><span class="full run">            <span class="k">assert</span> <span class="p">(</span></span>
+<span class="num"><a href="#152">152</a></span><span class="full run">                <span class="nb">bool</span><span class="p">(</span><span class="n">static_host</span><span class="p">)</span> <span class="o">==</span> <span class="n">host_matching</span></span>
+<span class="num"><a href="#153">153</a></span><span class="full not_run">            <span class="p">),</span> <span class="s2">&quot;Invalid static_host/host_matching combination&quot;</span></span>
+<span class="num"><a href="#154">154</a></span><span>            <span class="c1"># Use a weakref to avoid creating a reference cycle between the app</span></span>
+<span class="num"><a href="#155">155</a></span><span>            <span class="c1"># and the view function (see #3761).</span></span>
+<span class="num"><a href="#156">156</a></span><span class="full run">            <span class="n">self_ref</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#157">157</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_url_rule</span><span class="p">(</span></span>
+<span class="num"><a href="#158">158</a></span><span class="full run">                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">static_url_path</span><span class="si">}</span><span class="s2">/&lt;path:filename&gt;&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#159">159</a></span><span class="full run">                <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;static&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#160">160</a></span><span class="full run">                <span class="n">host</span><span class="o">=</span><span class="n">static_host</span><span class="p">,</span></span>
+<span class="num"><a href="#161">161</a></span><span class="full run">                <span class="n">view_func</span><span class="o">=</span><span class="k">lambda</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">self_ref</span><span class="p">()</span><span class="o">.</span><span class="n">send_static_file</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">),</span>  <span class="c1"># type: ignore # noqa: B950</span></span>
+<span class="num"><a href="#162">162</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#163">163</a></span><span></span>
+<span class="num"><a href="#164">164</a></span><span>        <span class="c1"># Set the name of the Click group in case someone wants to add</span></span>
+<span class="num"><a href="#165">165</a></span><span>        <span class="c1"># the app&#39;s commands to another CLI tool.</span></span>
+<span class="num"><a href="#166">166</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2 calls (0.4%)</p>
+                <p><button class="input"><span>&#8594;</span> import_name</button> 'test_basic' (2) </p>
+                <p><button class="input"><span>&#8594;</span> static_url_path</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> static_folder</button> 'static' (2) </p>
+                <p><button class="input"><span>&#8594;</span> static_host</button> 'example.com' (1) None (1) </p>
+                <p><button class="input"><span>&#8594;</span> host_matching</button> False (1) True (1) </p>
+                <p><button class="input"><span>&#8594;</span> subdomain_matching</button> False (2) </p>
+                <p><button class="input"><span>&#8594;</span> template_folder</button> 'templates' (2) </p>
+                <p><button class="input"><span>&#8594;</span> instance_path</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> instance_relative_config</button> False (2) </p>
+                <p><button class="input"><span>&#8594;</span> root_path</button> None (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AssertionError (2) </p>
+            <button class="run" title="lines run...">29 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">import_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">static_url_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">static_folder</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">static_host</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">host_matching</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">subdomain_matching</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="n">template_folder</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;templates&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="n">instance_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="n">instance_relative_config</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">root_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">import_name</span><span class="o">=</span><span class="n">import_name</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">static_folder</span><span class="o">=</span><span class="n">static_folder</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">static_url_path</span><span class="o">=</span><span class="n">static_url_path</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="n">template_folder</span><span class="o">=</span><span class="n">template_folder</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">root_path</span><span class="o">=</span><span class="n">root_path</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">instance_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">instance_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_find_instance_path</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">instance_path</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="s2">&quot;If an instance path is provided it must be absolute.&quot;</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="s2">&quot; A relative path was given instead.&quot;</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1">#: Holds the path to the instance folder.</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1">#: .. versionadded:: 0.8</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">instance_path</span> <span class="o">=</span> <span class="n">instance_path</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1">#: The configuration dictionary as :class:`Config`.  This behaves</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1">#: exactly like a regular dictionary but supports additional methods</span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1">#: to load a config from files.</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_config</span><span class="p">(</span><span class="n">instance_relative_config</span><span class="p">)</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1">#: An instance of :attr:`aborter_class` created by</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="c1">#: :meth:`make_aborter`. This is called by :func:`flask.abort`</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="c1">#: to raise HTTP errors, and can be called directly as well.</span></span>
+<span class="num"><a href="#43">43</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1">#: .. versionadded:: 2.2</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1">#:     Moved from ``flask.abort``, which calls this object.</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">aborter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_aborter</span><span class="p">()</span></span>
+<span class="num"><a href="#47">47</a></span><span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">:</span> <span class="n">JSONProvider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_provider_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides access to JSON methods. Functions in ``flask.json``</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">        will call methods on this provider when the application context</span></span>
+<span class="num"><a href="#51">51</a></span><span><span class="sd">        is active. Used for handling JSON requests and responses.</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">        An instance of :attr:`json_provider_class`. Can be customized by</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">        changing that attribute on a subclass, or by assigning to this</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">        attribute afterwards.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        The default, :class:`~flask.json.provider.DefaultJSONProvider`,</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">        uses Python&#39;s built-in :mod:`json` library. A different provider</span></span>
+<span class="num"><a href="#59">59</a></span><span><span class="sd">        can use a different JSON library.</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">        .. versionadded:: 2.2</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#63">63</a></span><span></span>
+<span class="num"><a href="#64">64</a></span><span>        <span class="c1">#: A list of functions that are called by</span></span>
+<span class="num"><a href="#65">65</a></span><span>        <span class="c1">#: :meth:`handle_url_build_error` when :meth:`.url_for` raises a</span></span>
+<span class="num"><a href="#66">66</a></span><span>        <span class="c1">#: :exc:`~werkzeug.routing.BuildError`. Each function is called</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="c1">#: with ``error``, ``endpoint`` and ``values``. If a function</span></span>
+<span class="num"><a href="#68">68</a></span><span>        <span class="c1">#: returns ``None`` or raises a ``BuildError``, it is skipped.</span></span>
+<span class="num"><a href="#69">69</a></span><span>        <span class="c1">#: Otherwise, its return value is returned by ``url_for``.</span></span>
+<span class="num"><a href="#70">70</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#71">71</a></span><span>        <span class="c1">#: .. versionadded:: 0.9</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_build_error_handlers</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span></span>
+<span class="num"><a href="#73">73</a></span><span>            <span class="n">t</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="ne">Exception</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]],</span> <span class="nb">str</span><span class="p">]</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">        <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#75">75</a></span><span></span>
+<span class="num"><a href="#76">76</a></span><span>        <span class="c1">#: A list of functions that will be called at the beginning of the</span></span>
+<span class="num"><a href="#77">77</a></span><span>        <span class="c1">#: first request to this instance. To register a function, use the</span></span>
+<span class="num"><a href="#78">78</a></span><span>        <span class="c1">#: :meth:`before_first_request` decorator.</span></span>
+<span class="num"><a href="#79">79</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#80">80</a></span><span>        <span class="c1">#: .. deprecated:: 2.2</span></span>
+<span class="num"><a href="#81">81</a></span><span>        <span class="c1">#:     Will be removed in Flask 2.3. Run setup code when</span></span>
+<span class="num"><a href="#82">82</a></span><span>        <span class="c1">#:     creating the application instead.</span></span>
+<span class="num"><a href="#83">83</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#84">84</a></span><span>        <span class="c1">#: .. versionadded:: 0.8</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">BeforeFirstRequestCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#86">86</a></span><span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="c1">#: A list of functions that are called when the application context</span></span>
+<span class="num"><a href="#88">88</a></span><span>        <span class="c1">#: is destroyed.  Since the application context is also torn down</span></span>
+<span class="num"><a href="#89">89</a></span><span>        <span class="c1">#: if the request ends this is the place to store code that disconnects</span></span>
+<span class="num"><a href="#90">90</a></span><span>        <span class="c1">#: from databases.</span></span>
+<span class="num"><a href="#91">91</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#92">92</a></span><span>        <span class="c1">#: .. versionadded:: 0.9</span></span>
+<span class="num"><a href="#93">93</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">teardown_appcontext_funcs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">TeardownCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#94">94</a></span><span></span>
+<span class="num"><a href="#95">95</a></span><span>        <span class="c1">#: A list of shell context processor functions that should be run</span></span>
+<span class="num"><a href="#96">96</a></span><span>        <span class="c1">#: when a shell context is created.</span></span>
+<span class="num"><a href="#97">97</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#98">98</a></span><span>        <span class="c1">#: .. versionadded:: 0.11</span></span>
+<span class="num"><a href="#99">99</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">shell_context_processors</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">ShellContextProcessorCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#100">100</a></span><span></span>
+<span class="num"><a href="#101">101</a></span><span>        <span class="c1">#: Maps registered blueprint names to blueprint objects. The</span></span>
+<span class="num"><a href="#102">102</a></span><span>        <span class="c1">#: dict retains the order the blueprints were registered in.</span></span>
+<span class="num"><a href="#103">103</a></span><span>        <span class="c1">#: Blueprints can be registered multiple times, this dict does</span></span>
+<span class="num"><a href="#104">104</a></span><span>        <span class="c1">#: not track how often they were attached.</span></span>
+<span class="num"><a href="#105">105</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#106">106</a></span><span>        <span class="c1">#: .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#107">107</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">blueprints</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Blueprint&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#108">108</a></span><span></span>
+<span class="num"><a href="#109">109</a></span><span>        <span class="c1">#: a place where extensions can store application specific state.  For</span></span>
+<span class="num"><a href="#110">110</a></span><span>        <span class="c1">#: example this is where an extension could store database engines and</span></span>
+<span class="num"><a href="#111">111</a></span><span>        <span class="c1">#: similar things.</span></span>
+<span class="num"><a href="#112">112</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#113">113</a></span><span>        <span class="c1">#: The key must match the name of the extension module. For example in</span></span>
+<span class="num"><a href="#114">114</a></span><span>        <span class="c1">#: case of a &quot;Flask-Foo&quot; extension in `flask_foo`, the key would be</span></span>
+<span class="num"><a href="#115">115</a></span><span>        <span class="c1">#: ``&#39;foo&#39;``.</span></span>
+<span class="num"><a href="#116">116</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#117">117</a></span><span>        <span class="c1">#: .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#118">118</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#119">119</a></span><span></span>
+<span class="num"><a href="#120">120</a></span><span>        <span class="c1">#: The :class:`~werkzeug.routing.Map` for this instance.  You can use</span></span>
+<span class="num"><a href="#121">121</a></span><span>        <span class="c1">#: this to change the routing converters after the class was created</span></span>
+<span class="num"><a href="#122">122</a></span><span>        <span class="c1">#: but before any routes are connected.  Example::</span></span>
+<span class="num"><a href="#123">123</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#124">124</a></span><span>        <span class="c1">#:    from werkzeug.routing import BaseConverter</span></span>
+<span class="num"><a href="#125">125</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#126">126</a></span><span>        <span class="c1">#:    class ListConverter(BaseConverter):</span></span>
+<span class="num"><a href="#127">127</a></span><span>        <span class="c1">#:        def to_python(self, value):</span></span>
+<span class="num"><a href="#128">128</a></span><span>        <span class="c1">#:            return value.split(&#39;,&#39;)</span></span>
+<span class="num"><a href="#129">129</a></span><span>        <span class="c1">#:        def to_url(self, values):</span></span>
+<span class="num"><a href="#130">130</a></span><span>        <span class="c1">#:            return &#39;,&#39;.join(super(ListConverter, self).to_url(value)</span></span>
+<span class="num"><a href="#131">131</a></span><span>        <span class="c1">#:                            for value in values)</span></span>
+<span class="num"><a href="#132">132</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#133">133</a></span><span>        <span class="c1">#:    app = Flask(__name__)</span></span>
+<span class="num"><a href="#134">134</a></span><span>        <span class="c1">#:    app.url_map.converters[&#39;list&#39;] = ListConverter</span></span>
+<span class="num"><a href="#135">135</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map_class</span><span class="p">()</span></span>
+<span class="num"><a href="#136">136</a></span><span></span>
+<span class="num"><a href="#137">137</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">host_matching</span> <span class="o">=</span> <span class="n">host_matching</span></span>
+<span class="num"><a href="#138">138</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">subdomain_matching</span> <span class="o">=</span> <span class="n">subdomain_matching</span></span>
+<span class="num"><a href="#139">139</a></span><span></span>
+<span class="num"><a href="#140">140</a></span><span>        <span class="c1"># tracks internally if the application already handled at least one</span></span>
+<span class="num"><a href="#141">141</a></span><span>        <span class="c1"># request.</span></span>
+<span class="num"><a href="#142">142</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#143">143</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span></span>
+<span class="num"><a href="#144">144</a></span><span></span>
+<span class="num"><a href="#145">145</a></span><span>        <span class="c1"># Add a static route using the provided static_url_path, static_host,</span></span>
+<span class="num"><a href="#146">146</a></span><span>        <span class="c1"># and static_folder if there is a configured static_folder.</span></span>
+<span class="num"><a href="#147">147</a></span><span>        <span class="c1"># Note we do this without checking if static_folder exists.</span></span>
+<span class="num"><a href="#148">148</a></span><span>        <span class="c1"># For one, it might be created while the server is running (e.g. during</span></span>
+<span class="num"><a href="#149">149</a></span><span>        <span class="c1"># development). Also, Google App Engine stores static files somewhere</span></span>
+<span class="num"><a href="#150">150</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_static_folder</span><span class="p">:</span></span>
+<span class="num"><a href="#151">151</a></span><span class="full run">            <span class="k">assert</span> <span class="p">(</span></span>
+<span class="num"><a href="#152">152</a></span><span class="full run">                <span class="nb">bool</span><span class="p">(</span><span class="n">static_host</span><span class="p">)</span> <span class="o">==</span> <span class="n">host_matching</span></span>
+<span class="num"><a href="#153">153</a></span><span class="full run">            <span class="p">),</span> <span class="s2">&quot;Invalid static_host/host_matching combination&quot;</span></span>
+<span class="num"><a href="#154">154</a></span><span>            <span class="c1"># Use a weakref to avoid creating a reference cycle between the app</span></span>
+<span class="num"><a href="#155">155</a></span><span>            <span class="c1"># and the view function (see #3761).</span></span>
+<span class="num"><a href="#156">156</a></span><span class="full not_run">            <span class="n">self_ref</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#157">157</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_url_rule</span><span class="p">(</span></span>
+<span class="num"><a href="#158">158</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">static_url_path</span><span class="si">}</span><span class="s2">/&lt;path:filename&gt;&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#159">159</a></span><span class="full not_run">                <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;static&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#160">160</a></span><span class="full not_run">                <span class="n">host</span><span class="o">=</span><span class="n">static_host</span><span class="p">,</span></span>
+<span class="num"><a href="#161">161</a></span><span class="full not_run">                <span class="n">view_func</span><span class="o">=</span><span class="k">lambda</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">self_ref</span><span class="p">()</span><span class="o">.</span><span class="n">send_static_file</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">),</span>  <span class="c1"># type: ignore # noqa: B950</span></span>
+<span class="num"><a href="#162">162</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#163">163</a></span><span></span>
+<span class="num"><a href="#164">164</a></span><span>        <span class="c1"># Set the name of the Click group in case someone wants to add</span></span>
+<span class="num"><a href="#165">165</a></span><span>        <span class="c1"># the app&#39;s commands to another CLI tool.</span></span>
+<span class="num"><a href="#166">166</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (0.4%)</p>
+                <p><button class="input"><span>&#8594;</span> import_name</button> 'test_basic' (1) 'test_cli' (1) </p>
+                <p><button class="input"><span>&#8594;</span> static_url_path</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> static_folder</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> static_host</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> host_matching</button> True (1) False (1) </p>
+                <p><button class="input"><span>&#8594;</span> subdomain_matching</button> False (2) </p>
+                <p><button class="input"><span>&#8594;</span> template_folder</button> 'templates' (2) </p>
+                <p><button class="input"><span>&#8594;</span> instance_path</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> instance_relative_config</button> False (2) </p>
+                <p><button class="input"><span>&#8594;</span> root_path</button> None (2) </p>
+            <button class="run" title="lines run...">27 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">import_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">static_url_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">static_folder</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">static_host</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">host_matching</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">subdomain_matching</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="n">template_folder</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;templates&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="n">instance_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="n">instance_relative_config</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">root_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">import_name</span><span class="o">=</span><span class="n">import_name</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">static_folder</span><span class="o">=</span><span class="n">static_folder</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">static_url_path</span><span class="o">=</span><span class="n">static_url_path</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="n">template_folder</span><span class="o">=</span><span class="n">template_folder</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">root_path</span><span class="o">=</span><span class="n">root_path</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">instance_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">instance_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_find_instance_path</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">instance_path</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="s2">&quot;If an instance path is provided it must be absolute.&quot;</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="s2">&quot; A relative path was given instead.&quot;</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1">#: Holds the path to the instance folder.</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1">#: .. versionadded:: 0.8</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">instance_path</span> <span class="o">=</span> <span class="n">instance_path</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1">#: The configuration dictionary as :class:`Config`.  This behaves</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1">#: exactly like a regular dictionary but supports additional methods</span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1">#: to load a config from files.</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_config</span><span class="p">(</span><span class="n">instance_relative_config</span><span class="p">)</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1">#: An instance of :attr:`aborter_class` created by</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="c1">#: :meth:`make_aborter`. This is called by :func:`flask.abort`</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="c1">#: to raise HTTP errors, and can be called directly as well.</span></span>
+<span class="num"><a href="#43">43</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1">#: .. versionadded:: 2.2</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1">#:     Moved from ``flask.abort``, which calls this object.</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">aborter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_aborter</span><span class="p">()</span></span>
+<span class="num"><a href="#47">47</a></span><span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">:</span> <span class="n">JSONProvider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_provider_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides access to JSON methods. Functions in ``flask.json``</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">        will call methods on this provider when the application context</span></span>
+<span class="num"><a href="#51">51</a></span><span><span class="sd">        is active. Used for handling JSON requests and responses.</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">        An instance of :attr:`json_provider_class`. Can be customized by</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">        changing that attribute on a subclass, or by assigning to this</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">        attribute afterwards.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        The default, :class:`~flask.json.provider.DefaultJSONProvider`,</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">        uses Python&#39;s built-in :mod:`json` library. A different provider</span></span>
+<span class="num"><a href="#59">59</a></span><span><span class="sd">        can use a different JSON library.</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">        .. versionadded:: 2.2</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#63">63</a></span><span></span>
+<span class="num"><a href="#64">64</a></span><span>        <span class="c1">#: A list of functions that are called by</span></span>
+<span class="num"><a href="#65">65</a></span><span>        <span class="c1">#: :meth:`handle_url_build_error` when :meth:`.url_for` raises a</span></span>
+<span class="num"><a href="#66">66</a></span><span>        <span class="c1">#: :exc:`~werkzeug.routing.BuildError`. Each function is called</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="c1">#: with ``error``, ``endpoint`` and ``values``. If a function</span></span>
+<span class="num"><a href="#68">68</a></span><span>        <span class="c1">#: returns ``None`` or raises a ``BuildError``, it is skipped.</span></span>
+<span class="num"><a href="#69">69</a></span><span>        <span class="c1">#: Otherwise, its return value is returned by ``url_for``.</span></span>
+<span class="num"><a href="#70">70</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#71">71</a></span><span>        <span class="c1">#: .. versionadded:: 0.9</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_build_error_handlers</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span></span>
+<span class="num"><a href="#73">73</a></span><span>            <span class="n">t</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="ne">Exception</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]],</span> <span class="nb">str</span><span class="p">]</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">        <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#75">75</a></span><span></span>
+<span class="num"><a href="#76">76</a></span><span>        <span class="c1">#: A list of functions that will be called at the beginning of the</span></span>
+<span class="num"><a href="#77">77</a></span><span>        <span class="c1">#: first request to this instance. To register a function, use the</span></span>
+<span class="num"><a href="#78">78</a></span><span>        <span class="c1">#: :meth:`before_first_request` decorator.</span></span>
+<span class="num"><a href="#79">79</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#80">80</a></span><span>        <span class="c1">#: .. deprecated:: 2.2</span></span>
+<span class="num"><a href="#81">81</a></span><span>        <span class="c1">#:     Will be removed in Flask 2.3. Run setup code when</span></span>
+<span class="num"><a href="#82">82</a></span><span>        <span class="c1">#:     creating the application instead.</span></span>
+<span class="num"><a href="#83">83</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#84">84</a></span><span>        <span class="c1">#: .. versionadded:: 0.8</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">BeforeFirstRequestCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#86">86</a></span><span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="c1">#: A list of functions that are called when the application context</span></span>
+<span class="num"><a href="#88">88</a></span><span>        <span class="c1">#: is destroyed.  Since the application context is also torn down</span></span>
+<span class="num"><a href="#89">89</a></span><span>        <span class="c1">#: if the request ends this is the place to store code that disconnects</span></span>
+<span class="num"><a href="#90">90</a></span><span>        <span class="c1">#: from databases.</span></span>
+<span class="num"><a href="#91">91</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#92">92</a></span><span>        <span class="c1">#: .. versionadded:: 0.9</span></span>
+<span class="num"><a href="#93">93</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">teardown_appcontext_funcs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">TeardownCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#94">94</a></span><span></span>
+<span class="num"><a href="#95">95</a></span><span>        <span class="c1">#: A list of shell context processor functions that should be run</span></span>
+<span class="num"><a href="#96">96</a></span><span>        <span class="c1">#: when a shell context is created.</span></span>
+<span class="num"><a href="#97">97</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#98">98</a></span><span>        <span class="c1">#: .. versionadded:: 0.11</span></span>
+<span class="num"><a href="#99">99</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">shell_context_processors</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">ShellContextProcessorCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#100">100</a></span><span></span>
+<span class="num"><a href="#101">101</a></span><span>        <span class="c1">#: Maps registered blueprint names to blueprint objects. The</span></span>
+<span class="num"><a href="#102">102</a></span><span>        <span class="c1">#: dict retains the order the blueprints were registered in.</span></span>
+<span class="num"><a href="#103">103</a></span><span>        <span class="c1">#: Blueprints can be registered multiple times, this dict does</span></span>
+<span class="num"><a href="#104">104</a></span><span>        <span class="c1">#: not track how often they were attached.</span></span>
+<span class="num"><a href="#105">105</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#106">106</a></span><span>        <span class="c1">#: .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#107">107</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">blueprints</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Blueprint&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#108">108</a></span><span></span>
+<span class="num"><a href="#109">109</a></span><span>        <span class="c1">#: a place where extensions can store application specific state.  For</span></span>
+<span class="num"><a href="#110">110</a></span><span>        <span class="c1">#: example this is where an extension could store database engines and</span></span>
+<span class="num"><a href="#111">111</a></span><span>        <span class="c1">#: similar things.</span></span>
+<span class="num"><a href="#112">112</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#113">113</a></span><span>        <span class="c1">#: The key must match the name of the extension module. For example in</span></span>
+<span class="num"><a href="#114">114</a></span><span>        <span class="c1">#: case of a &quot;Flask-Foo&quot; extension in `flask_foo`, the key would be</span></span>
+<span class="num"><a href="#115">115</a></span><span>        <span class="c1">#: ``&#39;foo&#39;``.</span></span>
+<span class="num"><a href="#116">116</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#117">117</a></span><span>        <span class="c1">#: .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#118">118</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#119">119</a></span><span></span>
+<span class="num"><a href="#120">120</a></span><span>        <span class="c1">#: The :class:`~werkzeug.routing.Map` for this instance.  You can use</span></span>
+<span class="num"><a href="#121">121</a></span><span>        <span class="c1">#: this to change the routing converters after the class was created</span></span>
+<span class="num"><a href="#122">122</a></span><span>        <span class="c1">#: but before any routes are connected.  Example::</span></span>
+<span class="num"><a href="#123">123</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#124">124</a></span><span>        <span class="c1">#:    from werkzeug.routing import BaseConverter</span></span>
+<span class="num"><a href="#125">125</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#126">126</a></span><span>        <span class="c1">#:    class ListConverter(BaseConverter):</span></span>
+<span class="num"><a href="#127">127</a></span><span>        <span class="c1">#:        def to_python(self, value):</span></span>
+<span class="num"><a href="#128">128</a></span><span>        <span class="c1">#:            return value.split(&#39;,&#39;)</span></span>
+<span class="num"><a href="#129">129</a></span><span>        <span class="c1">#:        def to_url(self, values):</span></span>
+<span class="num"><a href="#130">130</a></span><span>        <span class="c1">#:            return &#39;,&#39;.join(super(ListConverter, self).to_url(value)</span></span>
+<span class="num"><a href="#131">131</a></span><span>        <span class="c1">#:                            for value in values)</span></span>
+<span class="num"><a href="#132">132</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#133">133</a></span><span>        <span class="c1">#:    app = Flask(__name__)</span></span>
+<span class="num"><a href="#134">134</a></span><span>        <span class="c1">#:    app.url_map.converters[&#39;list&#39;] = ListConverter</span></span>
+<span class="num"><a href="#135">135</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map_class</span><span class="p">()</span></span>
+<span class="num"><a href="#136">136</a></span><span></span>
+<span class="num"><a href="#137">137</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">host_matching</span> <span class="o">=</span> <span class="n">host_matching</span></span>
+<span class="num"><a href="#138">138</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">subdomain_matching</span> <span class="o">=</span> <span class="n">subdomain_matching</span></span>
+<span class="num"><a href="#139">139</a></span><span></span>
+<span class="num"><a href="#140">140</a></span><span>        <span class="c1"># tracks internally if the application already handled at least one</span></span>
+<span class="num"><a href="#141">141</a></span><span>        <span class="c1"># request.</span></span>
+<span class="num"><a href="#142">142</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#143">143</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span></span>
+<span class="num"><a href="#144">144</a></span><span></span>
+<span class="num"><a href="#145">145</a></span><span>        <span class="c1"># Add a static route using the provided static_url_path, static_host,</span></span>
+<span class="num"><a href="#146">146</a></span><span>        <span class="c1"># and static_folder if there is a configured static_folder.</span></span>
+<span class="num"><a href="#147">147</a></span><span>        <span class="c1"># Note we do this without checking if static_folder exists.</span></span>
+<span class="num"><a href="#148">148</a></span><span>        <span class="c1"># For one, it might be created while the server is running (e.g. during</span></span>
+<span class="num"><a href="#149">149</a></span><span>        <span class="c1"># development). Also, Google App Engine stores static files somewhere</span></span>
+<span class="num"><a href="#150">150</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_static_folder</span><span class="p">:</span></span>
+<span class="num"><a href="#151">151</a></span><span class="full not_run">            <span class="k">assert</span> <span class="p">(</span></span>
+<span class="num"><a href="#152">152</a></span><span class="full not_run">                <span class="nb">bool</span><span class="p">(</span><span class="n">static_host</span><span class="p">)</span> <span class="o">==</span> <span class="n">host_matching</span></span>
+<span class="num"><a href="#153">153</a></span><span class="full not_run">            <span class="p">),</span> <span class="s2">&quot;Invalid static_host/host_matching combination&quot;</span></span>
+<span class="num"><a href="#154">154</a></span><span>            <span class="c1"># Use a weakref to avoid creating a reference cycle between the app</span></span>
+<span class="num"><a href="#155">155</a></span><span>            <span class="c1"># and the view function (see #3761).</span></span>
+<span class="num"><a href="#156">156</a></span><span class="full not_run">            <span class="n">self_ref</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#157">157</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_url_rule</span><span class="p">(</span></span>
+<span class="num"><a href="#158">158</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">static_url_path</span><span class="si">}</span><span class="s2">/&lt;path:filename&gt;&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#159">159</a></span><span class="full not_run">                <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;static&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#160">160</a></span><span class="full not_run">                <span class="n">host</span><span class="o">=</span><span class="n">static_host</span><span class="p">,</span></span>
+<span class="num"><a href="#161">161</a></span><span class="full not_run">                <span class="n">view_func</span><span class="o">=</span><span class="k">lambda</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">self_ref</span><span class="p">()</span><span class="o">.</span><span class="n">send_static_file</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">),</span>  <span class="c1"># type: ignore # noqa: B950</span></span>
+<span class="num"><a href="#162">162</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#163">163</a></span><span></span>
+<span class="num"><a href="#164">164</a></span><span>        <span class="c1"># Set the name of the Click group in case someone wants to add</span></span>
+<span class="num"><a href="#165">165</a></span><span>        <span class="c1"># the app&#39;s commands to another CLI tool.</span></span>
+<span class="num"><a href="#166">166</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> import_name</button> 'test_instance_config' (1) </p>
+                <p><button class="input"><span>&#8594;</span> static_url_path</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> static_folder</button> 'static' (1) </p>
+                <p><button class="input"><span>&#8594;</span> static_host</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> host_matching</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> subdomain_matching</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> template_folder</button> 'templates' (1) </p>
+                <p><button class="input"><span>&#8594;</span> instance_path</button> 'instance' (1) </p>
+                <p><button class="input"><span>&#8594;</span> instance_relative_config</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> root_path</button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (1) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">29 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">import_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">static_url_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">static_folder</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">static_host</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">host_matching</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">subdomain_matching</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="n">template_folder</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;templates&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="n">instance_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="n">instance_relative_config</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">root_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">import_name</span><span class="o">=</span><span class="n">import_name</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">static_folder</span><span class="o">=</span><span class="n">static_folder</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">static_url_path</span><span class="o">=</span><span class="n">static_url_path</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="n">template_folder</span><span class="o">=</span><span class="n">template_folder</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">root_path</span><span class="o">=</span><span class="n">root_path</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">instance_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">            <span class="n">instance_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_find_instance_path</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">instance_path</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="s2">&quot;If an instance path is provided it must be absolute.&quot;</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="s2">&quot; A relative path was given instead.&quot;</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1">#: Holds the path to the instance folder.</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1">#: .. versionadded:: 0.8</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">instance_path</span> <span class="o">=</span> <span class="n">instance_path</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1">#: The configuration dictionary as :class:`Config`.  This behaves</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1">#: exactly like a regular dictionary but supports additional methods</span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1">#: to load a config from files.</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_config</span><span class="p">(</span><span class="n">instance_relative_config</span><span class="p">)</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1">#: An instance of :attr:`aborter_class` created by</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="c1">#: :meth:`make_aborter`. This is called by :func:`flask.abort`</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="c1">#: to raise HTTP errors, and can be called directly as well.</span></span>
+<span class="num"><a href="#43">43</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1">#: .. versionadded:: 2.2</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1">#:     Moved from ``flask.abort``, which calls this object.</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">aborter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_aborter</span><span class="p">()</span></span>
+<span class="num"><a href="#47">47</a></span><span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">:</span> <span class="n">JSONProvider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_provider_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides access to JSON methods. Functions in ``flask.json``</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">        will call methods on this provider when the application context</span></span>
+<span class="num"><a href="#51">51</a></span><span><span class="sd">        is active. Used for handling JSON requests and responses.</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">        An instance of :attr:`json_provider_class`. Can be customized by</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">        changing that attribute on a subclass, or by assigning to this</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">        attribute afterwards.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        The default, :class:`~flask.json.provider.DefaultJSONProvider`,</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">        uses Python&#39;s built-in :mod:`json` library. A different provider</span></span>
+<span class="num"><a href="#59">59</a></span><span><span class="sd">        can use a different JSON library.</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">        .. versionadded:: 2.2</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#63">63</a></span><span></span>
+<span class="num"><a href="#64">64</a></span><span>        <span class="c1">#: A list of functions that are called by</span></span>
+<span class="num"><a href="#65">65</a></span><span>        <span class="c1">#: :meth:`handle_url_build_error` when :meth:`.url_for` raises a</span></span>
+<span class="num"><a href="#66">66</a></span><span>        <span class="c1">#: :exc:`~werkzeug.routing.BuildError`. Each function is called</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="c1">#: with ``error``, ``endpoint`` and ``values``. If a function</span></span>
+<span class="num"><a href="#68">68</a></span><span>        <span class="c1">#: returns ``None`` or raises a ``BuildError``, it is skipped.</span></span>
+<span class="num"><a href="#69">69</a></span><span>        <span class="c1">#: Otherwise, its return value is returned by ``url_for``.</span></span>
+<span class="num"><a href="#70">70</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#71">71</a></span><span>        <span class="c1">#: .. versionadded:: 0.9</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_build_error_handlers</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span></span>
+<span class="num"><a href="#73">73</a></span><span>            <span class="n">t</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="ne">Exception</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]],</span> <span class="nb">str</span><span class="p">]</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">        <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#75">75</a></span><span></span>
+<span class="num"><a href="#76">76</a></span><span>        <span class="c1">#: A list of functions that will be called at the beginning of the</span></span>
+<span class="num"><a href="#77">77</a></span><span>        <span class="c1">#: first request to this instance. To register a function, use the</span></span>
+<span class="num"><a href="#78">78</a></span><span>        <span class="c1">#: :meth:`before_first_request` decorator.</span></span>
+<span class="num"><a href="#79">79</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#80">80</a></span><span>        <span class="c1">#: .. deprecated:: 2.2</span></span>
+<span class="num"><a href="#81">81</a></span><span>        <span class="c1">#:     Will be removed in Flask 2.3. Run setup code when</span></span>
+<span class="num"><a href="#82">82</a></span><span>        <span class="c1">#:     creating the application instead.</span></span>
+<span class="num"><a href="#83">83</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#84">84</a></span><span>        <span class="c1">#: .. versionadded:: 0.8</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">BeforeFirstRequestCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#86">86</a></span><span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="c1">#: A list of functions that are called when the application context</span></span>
+<span class="num"><a href="#88">88</a></span><span>        <span class="c1">#: is destroyed.  Since the application context is also torn down</span></span>
+<span class="num"><a href="#89">89</a></span><span>        <span class="c1">#: if the request ends this is the place to store code that disconnects</span></span>
+<span class="num"><a href="#90">90</a></span><span>        <span class="c1">#: from databases.</span></span>
+<span class="num"><a href="#91">91</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#92">92</a></span><span>        <span class="c1">#: .. versionadded:: 0.9</span></span>
+<span class="num"><a href="#93">93</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">teardown_appcontext_funcs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">TeardownCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#94">94</a></span><span></span>
+<span class="num"><a href="#95">95</a></span><span>        <span class="c1">#: A list of shell context processor functions that should be run</span></span>
+<span class="num"><a href="#96">96</a></span><span>        <span class="c1">#: when a shell context is created.</span></span>
+<span class="num"><a href="#97">97</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#98">98</a></span><span>        <span class="c1">#: .. versionadded:: 0.11</span></span>
+<span class="num"><a href="#99">99</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">shell_context_processors</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">ShellContextProcessorCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#100">100</a></span><span></span>
+<span class="num"><a href="#101">101</a></span><span>        <span class="c1">#: Maps registered blueprint names to blueprint objects. The</span></span>
+<span class="num"><a href="#102">102</a></span><span>        <span class="c1">#: dict retains the order the blueprints were registered in.</span></span>
+<span class="num"><a href="#103">103</a></span><span>        <span class="c1">#: Blueprints can be registered multiple times, this dict does</span></span>
+<span class="num"><a href="#104">104</a></span><span>        <span class="c1">#: not track how often they were attached.</span></span>
+<span class="num"><a href="#105">105</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#106">106</a></span><span>        <span class="c1">#: .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#107">107</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">blueprints</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Blueprint&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#108">108</a></span><span></span>
+<span class="num"><a href="#109">109</a></span><span>        <span class="c1">#: a place where extensions can store application specific state.  For</span></span>
+<span class="num"><a href="#110">110</a></span><span>        <span class="c1">#: example this is where an extension could store database engines and</span></span>
+<span class="num"><a href="#111">111</a></span><span>        <span class="c1">#: similar things.</span></span>
+<span class="num"><a href="#112">112</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#113">113</a></span><span>        <span class="c1">#: The key must match the name of the extension module. For example in</span></span>
+<span class="num"><a href="#114">114</a></span><span>        <span class="c1">#: case of a &quot;Flask-Foo&quot; extension in `flask_foo`, the key would be</span></span>
+<span class="num"><a href="#115">115</a></span><span>        <span class="c1">#: ``&#39;foo&#39;``.</span></span>
+<span class="num"><a href="#116">116</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#117">117</a></span><span>        <span class="c1">#: .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#118">118</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#119">119</a></span><span></span>
+<span class="num"><a href="#120">120</a></span><span>        <span class="c1">#: The :class:`~werkzeug.routing.Map` for this instance.  You can use</span></span>
+<span class="num"><a href="#121">121</a></span><span>        <span class="c1">#: this to change the routing converters after the class was created</span></span>
+<span class="num"><a href="#122">122</a></span><span>        <span class="c1">#: but before any routes are connected.  Example::</span></span>
+<span class="num"><a href="#123">123</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#124">124</a></span><span>        <span class="c1">#:    from werkzeug.routing import BaseConverter</span></span>
+<span class="num"><a href="#125">125</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#126">126</a></span><span>        <span class="c1">#:    class ListConverter(BaseConverter):</span></span>
+<span class="num"><a href="#127">127</a></span><span>        <span class="c1">#:        def to_python(self, value):</span></span>
+<span class="num"><a href="#128">128</a></span><span>        <span class="c1">#:            return value.split(&#39;,&#39;)</span></span>
+<span class="num"><a href="#129">129</a></span><span>        <span class="c1">#:        def to_url(self, values):</span></span>
+<span class="num"><a href="#130">130</a></span><span>        <span class="c1">#:            return &#39;,&#39;.join(super(ListConverter, self).to_url(value)</span></span>
+<span class="num"><a href="#131">131</a></span><span>        <span class="c1">#:                            for value in values)</span></span>
+<span class="num"><a href="#132">132</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#133">133</a></span><span>        <span class="c1">#:    app = Flask(__name__)</span></span>
+<span class="num"><a href="#134">134</a></span><span>        <span class="c1">#:    app.url_map.converters[&#39;list&#39;] = ListConverter</span></span>
+<span class="num"><a href="#135">135</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map_class</span><span class="p">()</span></span>
+<span class="num"><a href="#136">136</a></span><span></span>
+<span class="num"><a href="#137">137</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">host_matching</span> <span class="o">=</span> <span class="n">host_matching</span></span>
+<span class="num"><a href="#138">138</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">subdomain_matching</span> <span class="o">=</span> <span class="n">subdomain_matching</span></span>
+<span class="num"><a href="#139">139</a></span><span></span>
+<span class="num"><a href="#140">140</a></span><span>        <span class="c1"># tracks internally if the application already handled at least one</span></span>
+<span class="num"><a href="#141">141</a></span><span>        <span class="c1"># request.</span></span>
+<span class="num"><a href="#142">142</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#143">143</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span></span>
+<span class="num"><a href="#144">144</a></span><span></span>
+<span class="num"><a href="#145">145</a></span><span>        <span class="c1"># Add a static route using the provided static_url_path, static_host,</span></span>
+<span class="num"><a href="#146">146</a></span><span>        <span class="c1"># and static_folder if there is a configured static_folder.</span></span>
+<span class="num"><a href="#147">147</a></span><span>        <span class="c1"># Note we do this without checking if static_folder exists.</span></span>
+<span class="num"><a href="#148">148</a></span><span>        <span class="c1"># For one, it might be created while the server is running (e.g. during</span></span>
+<span class="num"><a href="#149">149</a></span><span>        <span class="c1"># development). Also, Google App Engine stores static files somewhere</span></span>
+<span class="num"><a href="#150">150</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_static_folder</span><span class="p">:</span></span>
+<span class="num"><a href="#151">151</a></span><span class="full not_run">            <span class="k">assert</span> <span class="p">(</span></span>
+<span class="num"><a href="#152">152</a></span><span class="full not_run">                <span class="nb">bool</span><span class="p">(</span><span class="n">static_host</span><span class="p">)</span> <span class="o">==</span> <span class="n">host_matching</span></span>
+<span class="num"><a href="#153">153</a></span><span class="full not_run">            <span class="p">),</span> <span class="s2">&quot;Invalid static_host/host_matching combination&quot;</span></span>
+<span class="num"><a href="#154">154</a></span><span>            <span class="c1"># Use a weakref to avoid creating a reference cycle between the app</span></span>
+<span class="num"><a href="#155">155</a></span><span>            <span class="c1"># and the view function (see #3761).</span></span>
+<span class="num"><a href="#156">156</a></span><span class="full not_run">            <span class="n">self_ref</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#157">157</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_url_rule</span><span class="p">(</span></span>
+<span class="num"><a href="#158">158</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">static_url_path</span><span class="si">}</span><span class="s2">/&lt;path:filename&gt;&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#159">159</a></span><span class="full not_run">                <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;static&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#160">160</a></span><span class="full not_run">                <span class="n">host</span><span class="o">=</span><span class="n">static_host</span><span class="p">,</span></span>
+<span class="num"><a href="#161">161</a></span><span class="full not_run">                <span class="n">view_func</span><span class="o">=</span><span class="k">lambda</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">self_ref</span><span class="p">()</span><span class="o">.</span><span class="n">send_static_file</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">),</span>  <span class="c1"># type: ignore # noqa: B950</span></span>
+<span class="num"><a href="#162">162</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#163">163</a></span><span></span>
+<span class="num"><a href="#164">164</a></span><span>        <span class="c1"># Set the name of the Click group in case someone wants to add</span></span>
+<span class="num"><a href="#165">165</a></span><span>        <span class="c1"># the app&#39;s commands to another CLI tool.</span></span>
+<span class="num"><a href="#166">166</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> import_name</button> 'test_instance_config' (1) </p>
+                <p><button class="input"><span>&#8594;</span> static_url_path</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> static_folder</button> 'static' (1) </p>
+                <p><button class="input"><span>&#8594;</span> static_host</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> host_matching</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> subdomain_matching</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> template_folder</button> 'templates' (1) </p>
+                <p><button class="input"><span>&#8594;</span> instance_path</button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/flask/.tox/tmp/py310/test_explicit_instance_paths0/modules_tmpdir' (1) </p>
+                <p><button class="input"><span>&#8594;</span> instance_relative_config</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> root_path</button> None (1) </p>
+            <button class="run" title="lines run...">35 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">import_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">static_url_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">static_folder</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">static_host</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">host_matching</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">subdomain_matching</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="n">template_folder</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;templates&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="n">instance_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="n">instance_relative_config</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">root_path</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">import_name</span><span class="o">=</span><span class="n">import_name</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">static_folder</span><span class="o">=</span><span class="n">static_folder</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">static_url_path</span><span class="o">=</span><span class="n">static_url_path</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="n">template_folder</span><span class="o">=</span><span class="n">template_folder</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">root_path</span><span class="o">=</span><span class="n">root_path</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">if</span> <span class="n">instance_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">            <span class="n">instance_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_find_instance_path</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">instance_path</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="s2">&quot;If an instance path is provided it must be absolute.&quot;</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="s2">&quot; A relative path was given instead.&quot;</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1">#: Holds the path to the instance folder.</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1">#: .. versionadded:: 0.8</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">instance_path</span> <span class="o">=</span> <span class="n">instance_path</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1">#: The configuration dictionary as :class:`Config`.  This behaves</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1">#: exactly like a regular dictionary but supports additional methods</span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1">#: to load a config from files.</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_config</span><span class="p">(</span><span class="n">instance_relative_config</span><span class="p">)</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>        <span class="c1">#: An instance of :attr:`aborter_class` created by</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="c1">#: :meth:`make_aborter`. This is called by :func:`flask.abort`</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="c1">#: to raise HTTP errors, and can be called directly as well.</span></span>
+<span class="num"><a href="#43">43</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1">#: .. versionadded:: 2.2</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1">#:     Moved from ``flask.abort``, which calls this object.</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">aborter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_aborter</span><span class="p">()</span></span>
+<span class="num"><a href="#47">47</a></span><span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">:</span> <span class="n">JSONProvider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_provider_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides access to JSON methods. Functions in ``flask.json``</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">        will call methods on this provider when the application context</span></span>
+<span class="num"><a href="#51">51</a></span><span><span class="sd">        is active. Used for handling JSON requests and responses.</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">        An instance of :attr:`json_provider_class`. Can be customized by</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">        changing that attribute on a subclass, or by assigning to this</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">        attribute afterwards.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        The default, :class:`~flask.json.provider.DefaultJSONProvider`,</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">        uses Python&#39;s built-in :mod:`json` library. A different provider</span></span>
+<span class="num"><a href="#59">59</a></span><span><span class="sd">        can use a different JSON library.</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">        .. versionadded:: 2.2</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#63">63</a></span><span></span>
+<span class="num"><a href="#64">64</a></span><span>        <span class="c1">#: A list of functions that are called by</span></span>
+<span class="num"><a href="#65">65</a></span><span>        <span class="c1">#: :meth:`handle_url_build_error` when :meth:`.url_for` raises a</span></span>
+<span class="num"><a href="#66">66</a></span><span>        <span class="c1">#: :exc:`~werkzeug.routing.BuildError`. Each function is called</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="c1">#: with ``error``, ``endpoint`` and ``values``. If a function</span></span>
+<span class="num"><a href="#68">68</a></span><span>        <span class="c1">#: returns ``None`` or raises a ``BuildError``, it is skipped.</span></span>
+<span class="num"><a href="#69">69</a></span><span>        <span class="c1">#: Otherwise, its return value is returned by ``url_for``.</span></span>
+<span class="num"><a href="#70">70</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#71">71</a></span><span>        <span class="c1">#: .. versionadded:: 0.9</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_build_error_handlers</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span></span>
+<span class="num"><a href="#73">73</a></span><span>            <span class="n">t</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="ne">Exception</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]],</span> <span class="nb">str</span><span class="p">]</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">        <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#75">75</a></span><span></span>
+<span class="num"><a href="#76">76</a></span><span>        <span class="c1">#: A list of functions that will be called at the beginning of the</span></span>
+<span class="num"><a href="#77">77</a></span><span>        <span class="c1">#: first request to this instance. To register a function, use the</span></span>
+<span class="num"><a href="#78">78</a></span><span>        <span class="c1">#: :meth:`before_first_request` decorator.</span></span>
+<span class="num"><a href="#79">79</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#80">80</a></span><span>        <span class="c1">#: .. deprecated:: 2.2</span></span>
+<span class="num"><a href="#81">81</a></span><span>        <span class="c1">#:     Will be removed in Flask 2.3. Run setup code when</span></span>
+<span class="num"><a href="#82">82</a></span><span>        <span class="c1">#:     creating the application instead.</span></span>
+<span class="num"><a href="#83">83</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#84">84</a></span><span>        <span class="c1">#: .. versionadded:: 0.8</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">BeforeFirstRequestCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#86">86</a></span><span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="c1">#: A list of functions that are called when the application context</span></span>
+<span class="num"><a href="#88">88</a></span><span>        <span class="c1">#: is destroyed.  Since the application context is also torn down</span></span>
+<span class="num"><a href="#89">89</a></span><span>        <span class="c1">#: if the request ends this is the place to store code that disconnects</span></span>
+<span class="num"><a href="#90">90</a></span><span>        <span class="c1">#: from databases.</span></span>
+<span class="num"><a href="#91">91</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#92">92</a></span><span>        <span class="c1">#: .. versionadded:: 0.9</span></span>
+<span class="num"><a href="#93">93</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">teardown_appcontext_funcs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">TeardownCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#94">94</a></span><span></span>
+<span class="num"><a href="#95">95</a></span><span>        <span class="c1">#: A list of shell context processor functions that should be run</span></span>
+<span class="num"><a href="#96">96</a></span><span>        <span class="c1">#: when a shell context is created.</span></span>
+<span class="num"><a href="#97">97</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#98">98</a></span><span>        <span class="c1">#: .. versionadded:: 0.11</span></span>
+<span class="num"><a href="#99">99</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">shell_context_processors</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">ShellContextProcessorCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#100">100</a></span><span></span>
+<span class="num"><a href="#101">101</a></span><span>        <span class="c1">#: Maps registered blueprint names to blueprint objects. The</span></span>
+<span class="num"><a href="#102">102</a></span><span>        <span class="c1">#: dict retains the order the blueprints were registered in.</span></span>
+<span class="num"><a href="#103">103</a></span><span>        <span class="c1">#: Blueprints can be registered multiple times, this dict does</span></span>
+<span class="num"><a href="#104">104</a></span><span>        <span class="c1">#: not track how often they were attached.</span></span>
+<span class="num"><a href="#105">105</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#106">106</a></span><span>        <span class="c1">#: .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#107">107</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">blueprints</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Blueprint&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#108">108</a></span><span></span>
+<span class="num"><a href="#109">109</a></span><span>        <span class="c1">#: a place where extensions can store application specific state.  For</span></span>
+<span class="num"><a href="#110">110</a></span><span>        <span class="c1">#: example this is where an extension could store database engines and</span></span>
+<span class="num"><a href="#111">111</a></span><span>        <span class="c1">#: similar things.</span></span>
+<span class="num"><a href="#112">112</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#113">113</a></span><span>        <span class="c1">#: The key must match the name of the extension module. For example in</span></span>
+<span class="num"><a href="#114">114</a></span><span>        <span class="c1">#: case of a &quot;Flask-Foo&quot; extension in `flask_foo`, the key would be</span></span>
+<span class="num"><a href="#115">115</a></span><span>        <span class="c1">#: ``&#39;foo&#39;``.</span></span>
+<span class="num"><a href="#116">116</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#117">117</a></span><span>        <span class="c1">#: .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#118">118</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#119">119</a></span><span></span>
+<span class="num"><a href="#120">120</a></span><span>        <span class="c1">#: The :class:`~werkzeug.routing.Map` for this instance.  You can use</span></span>
+<span class="num"><a href="#121">121</a></span><span>        <span class="c1">#: this to change the routing converters after the class was created</span></span>
+<span class="num"><a href="#122">122</a></span><span>        <span class="c1">#: but before any routes are connected.  Example::</span></span>
+<span class="num"><a href="#123">123</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#124">124</a></span><span>        <span class="c1">#:    from werkzeug.routing import BaseConverter</span></span>
+<span class="num"><a href="#125">125</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#126">126</a></span><span>        <span class="c1">#:    class ListConverter(BaseConverter):</span></span>
+<span class="num"><a href="#127">127</a></span><span>        <span class="c1">#:        def to_python(self, value):</span></span>
+<span class="num"><a href="#128">128</a></span><span>        <span class="c1">#:            return value.split(&#39;,&#39;)</span></span>
+<span class="num"><a href="#129">129</a></span><span>        <span class="c1">#:        def to_url(self, values):</span></span>
+<span class="num"><a href="#130">130</a></span><span>        <span class="c1">#:            return &#39;,&#39;.join(super(ListConverter, self).to_url(value)</span></span>
+<span class="num"><a href="#131">131</a></span><span>        <span class="c1">#:                            for value in values)</span></span>
+<span class="num"><a href="#132">132</a></span><span>        <span class="c1">#:</span></span>
+<span class="num"><a href="#133">133</a></span><span>        <span class="c1">#:    app = Flask(__name__)</span></span>
+<span class="num"><a href="#134">134</a></span><span>        <span class="c1">#:    app.url_map.converters[&#39;list&#39;] = ListConverter</span></span>
+<span class="num"><a href="#135">135</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map_class</span><span class="p">()</span></span>
+<span class="num"><a href="#136">136</a></span><span></span>
+<span class="num"><a href="#137">137</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">host_matching</span> <span class="o">=</span> <span class="n">host_matching</span></span>
+<span class="num"><a href="#138">138</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">subdomain_matching</span> <span class="o">=</span> <span class="n">subdomain_matching</span></span>
+<span class="num"><a href="#139">139</a></span><span></span>
+<span class="num"><a href="#140">140</a></span><span>        <span class="c1"># tracks internally if the application already handled at least one</span></span>
+<span class="num"><a href="#141">141</a></span><span>        <span class="c1"># request.</span></span>
+<span class="num"><a href="#142">142</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#143">143</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span></span>
+<span class="num"><a href="#144">144</a></span><span></span>
+<span class="num"><a href="#145">145</a></span><span>        <span class="c1"># Add a static route using the provided static_url_path, static_host,</span></span>
+<span class="num"><a href="#146">146</a></span><span>        <span class="c1"># and static_folder if there is a configured static_folder.</span></span>
+<span class="num"><a href="#147">147</a></span><span>        <span class="c1"># Note we do this without checking if static_folder exists.</span></span>
+<span class="num"><a href="#148">148</a></span><span>        <span class="c1"># For one, it might be created while the server is running (e.g. during</span></span>
+<span class="num"><a href="#149">149</a></span><span>        <span class="c1"># development). Also, Google App Engine stores static files somewhere</span></span>
+<span class="num"><a href="#150">150</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_static_folder</span><span class="p">:</span></span>
+<span class="num"><a href="#151">151</a></span><span class="full run">            <span class="k">assert</span> <span class="p">(</span></span>
+<span class="num"><a href="#152">152</a></span><span class="full run">                <span class="nb">bool</span><span class="p">(</span><span class="n">static_host</span><span class="p">)</span> <span class="o">==</span> <span class="n">host_matching</span></span>
+<span class="num"><a href="#153">153</a></span><span class="full not_run">            <span class="p">),</span> <span class="s2">&quot;Invalid static_host/host_matching combination&quot;</span></span>
+<span class="num"><a href="#154">154</a></span><span>            <span class="c1"># Use a weakref to avoid creating a reference cycle between the app</span></span>
+<span class="num"><a href="#155">155</a></span><span>            <span class="c1"># and the view function (see #3761).</span></span>
+<span class="num"><a href="#156">156</a></span><span class="full run">            <span class="n">self_ref</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#157">157</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_url_rule</span><span class="p">(</span></span>
+<span class="num"><a href="#158">158</a></span><span class="full run">                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">static_url_path</span><span class="si">}</span><span class="s2">/&lt;path:filename&gt;&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#159">159</a></span><span class="full run">                <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;static&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#160">160</a></span><span class="full run">                <span class="n">host</span><span class="o">=</span><span class="n">static_host</span><span class="p">,</span></span>
+<span class="num"><a href="#161">161</a></span><span class="full run">                <span class="n">view_func</span><span class="o">=</span><span class="k">lambda</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">self_ref</span><span class="p">()</span><span class="o">.</span><span class="n">send_static_file</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">),</span>  <span class="c1"># type: ignore # noqa: B950</span></span>
+<span class="num"><a href="#162">162</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#163">163</a></span><span></span>
+<span class="num"><a href="#164">164</a></span><span>        <span class="c1"># Set the name of the Click group in case someone wants to add</span></span>
+<span class="num"><a href="#165">165</a></span><span>        <span class="c1"># the app&#39;s commands to another CLI tool.</span></span>
+<span class="num"><a href="#166">166</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

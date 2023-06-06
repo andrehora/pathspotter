@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.lint.message_state_handler._MessageStateHandler._set_one_msg_status</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.lint.message_state_handler._MessageStateHandler._set_one_msg_status</h1>
+                <span>Coverage: 100.0% (8/8),</span>
+                <span>Tests: 59, </span>
+                <span>Calls: 37320, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 33765 calls (90.5%)</p>
+                <p><button class="input"><span>&#8594;</span> scope</button> 'package' (33765) </p>
+                <p><button class="input"><span>&#8594;</span> msg</button> MessageDefinition (33765) </p>
+                <p><button class="input"><span>&#8594;</span> line</button> None (33765) </p>
+                <p><button class="input"><span>&#8594;</span> enable</button> False (21118) True (12647) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_set_one_msg_status</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">MessageDefinition</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">enable</span><span class="p">:</span> <span class="nb">bool</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the status of an individual message.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">scope</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;module&quot;</span><span class="p">,</span> <span class="s2">&quot;line&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>  <span class="c1"># should always be int inside module scope</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">set_msg_status</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">enable</span><span class="p">,</span> <span class="n">scope</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">enable</span> <span class="ow">and</span> <span class="n">msg</span><span class="o">.</span><span class="n">symbol</span> <span class="o">!=</span> <span class="s2">&quot;locally-disabled&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                    <span class="s2">&quot;locally-disabled&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="n">line</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">msgid</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="n">msgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">msgs</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">msgid</span><span class="p">]</span> <span class="o">=</span> <span class="n">enable</span></span>
+            </pre>
+            <p><b>Path 2</b>: 3469 calls (9.3%)</p>
+                <p><button class="input"><span>&#8594;</span> scope</button> 'module' (3453) 'line' (16) </p>
+                <p><button class="input"><span>&#8594;</span> msg</button> MessageDefinition (3469) </p>
+                <p><button class="input"><span>&#8594;</span> line</button> 1 (1430) 2 (757) 3 (474) 4 (228) 5 (110) 6 (90) 7 (66) 9 (30) 10 (26) 8 (21) </p>
+                <p><button class="input"><span>&#8594;</span> enable</button> False (3469) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_set_one_msg_status</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">MessageDefinition</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">enable</span><span class="p">:</span> <span class="nb">bool</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the status of an individual message.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">scope</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;module&quot;</span><span class="p">,</span> <span class="s2">&quot;line&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>  <span class="c1"># should always be int inside module scope</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">set_msg_status</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">enable</span><span class="p">,</span> <span class="n">scope</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">enable</span> <span class="ow">and</span> <span class="n">msg</span><span class="o">.</span><span class="n">symbol</span> <span class="o">!=</span> <span class="s2">&quot;locally-disabled&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                    <span class="s2">&quot;locally-disabled&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="n">line</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">msgid</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">msgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">msgs</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">msgid</span><span class="p">]</span> <span class="o">=</span> <span class="n">enable</span></span>
+            </pre>
+            <p><b>Path 3</b>: 86 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> scope</button> 'module' (86) </p>
+                <p><button class="input"><span>&#8594;</span> msg</button> MessageDefinition (86) </p>
+                <p><button class="input"><span>&#8594;</span> line</button> 1 (53) 2 (7) 10 (3) 18 (3) 8 (3) 20 (3) 14 (2) 22 (2) 11 (1) 45 (1) </p>
+                <p><button class="input"><span>&#8594;</span> enable</button> True (84) False (2) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_set_one_msg_status</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">MessageDefinition</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">enable</span><span class="p">:</span> <span class="nb">bool</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the status of an individual message.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">scope</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;module&quot;</span><span class="p">,</span> <span class="s2">&quot;line&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>  <span class="c1"># should always be int inside module scope</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">set_msg_status</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">enable</span><span class="p">,</span> <span class="n">scope</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">enable</span> <span class="ow">and</span> <span class="n">msg</span><span class="o">.</span><span class="n">symbol</span> <span class="o">!=</span> <span class="s2">&quot;locally-disabled&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                    <span class="s2">&quot;locally-disabled&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="n">line</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">msgid</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">msgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">msgs</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">msgid</span><span class="p">]</span> <span class="o">=</span> <span class="n">enable</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

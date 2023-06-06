@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>requests.models.PreparedRequest.prepare</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: requests.models.PreparedRequest.prepare</h1>
+                <span>Coverage: 41.2% (7/17),</span>
+                <span>Tests: 178, </span>
+                <span>Calls: 324, </span>
+                <span>Exceptions: 32, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 292 calls (90.1%)</p>
+                <p><button class="input"><span>&#8594;</span> method</button> 'GET' (229) 'POST' (47) 'HEAD' (5) 'PUT' (5) 'PATCH' (2) 'OPTIONS' (2) None (1) bytes (1) </p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://127.0.0.1:56775/post' (39) 'http://127.0.0.1:56775/get' (32) 'http://127.0.0.1:56775/' (11) bytes (11) 'http://example.com' (10) 'http://127.0...</p>
+                <p><button class="input"><span>&#8594;</span> headers</button> CaseInsensitiveDict (202) {} (77) None (11) {'Content-Length': 'not zero'} (1) {'unicode': 'blah', b'byte': 'blah'} (1) </p>
+                <p><button class="input"><span>&#8594;</span> files</button> [] (264) dict (15) None (11) {'random-file-1': None, 'random-file-2': 1} (1) {'b': 'foo'} (1) </p>
+                <p><button class="input"><span>&#8594;</span> data</button> {} (170) [] (67) None (6) BytesIO (5) '' (4) list_iterator (3) {'some': 'data'} (3) dict (3) {'a': 'this is a string'} (3) tuple (3) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> OrderedDict (202) {} (72) None (11) {'key': 'value'} (4) {'a': 'b'} (2) bytes (1) </p>
+                <p><button class="input"><span>&#8594;</span> auth</button> None (246) HTTPDigestAuth (30) ('user', 'pass') (9) tuple (2) ('wronguser', 'wrongpass') (2) (42, 42) (1) (None, None) (1) TestRequests.test_prepared_...</p>
+                <p><button class="input"><span>&#8594;</span> cookies</button> RequestsCookieJar (202) None (88) CookieJar (1) {'foo': 'bar'} (1) </p>
+                <p><button class="input"><span>&#8594;</span> hooks</button> dict (285) None (6) OrderedDict (1) </p>
+                <p><button class="input"><span>&#8594;</span> json</button> None (289) {'life': 42} (1) {'music': 'flute'} (1) {'key': 'value'} (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="n">auth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="n">cookies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="n">hooks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">json</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepares the entire request with the given parameters.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_method</span><span class="p">(</span><span class="n">method</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_headers</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_cookies</span><span class="p">(</span><span class="n">cookies</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_body</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">json</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_auth</span><span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1"># Note that prepare_auth must be last to enable authentication schemes</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># such as OAuth to work on a fully prepared request.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># This MUST go after prepare_auth. Authenticators could add a hook</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_hooks</span><span class="p">(</span><span class="n">hooks</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 18 calls (5.6%)</p>
+                <p><button class="input"><span>&#8594;</span> method</button> 'GET' (18) </p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://127.0.0.1:56775/get' (18) </p>
+                <p><button class="input"><span>&#8594;</span> headers</button> CaseInsensitiveDict (18) </p>
+                <p><button class="input"><span>&#8594;</span> files</button> [] (18) </p>
+                <p><button class="input"><span>&#8594;</span> data</button> {} (18) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> OrderedDict (18) </p>
+                <p><button class="input"><span>&#8594;</span> auth</button> None (18) </p>
+                <p><button class="input"><span>&#8594;</span> cookies</button> RequestsCookieJar (18) </p>
+                <p><button class="input"><span>&#8594;</span> hooks</button> dict (18) </p>
+                <p><button class="input"><span>&#8594;</span> json</button> None (18) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> InvalidHeader (18) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="n">auth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="n">cookies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="n">hooks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">json</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepares the entire request with the given parameters.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_method</span><span class="p">(</span><span class="n">method</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_headers</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_cookies</span><span class="p">(</span><span class="n">cookies</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_body</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">json</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_auth</span><span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1"># Note that prepare_auth must be last to enable authentication schemes</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># such as OAuth to work on a fully prepared request.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># This MUST go after prepare_auth. Authenticators could add a hook</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_hooks</span><span class="p">(</span><span class="n">hooks</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 10 calls (3.1%)</p>
+                <p><button class="input"><span>&#8594;</span> method</button> 'GET' (10) </p>
+                <p><button class="input"><span>&#8594;</span> url</button> bytes (2) 'hiwpefhipowhefopw' (1) 'http://' (1) 'http://*example.com' (1) 'http://.example.com' (1) 'http://fe80::5054:ff:fe5a:fc0' (1) 'http://*.goog...</p>
+                <p><button class="input"><span>&#8594;</span> headers</button> CaseInsensitiveDict (5) {} (5) </p>
+                <p><button class="input"><span>&#8594;</span> files</button> [] (10) </p>
+                <p><button class="input"><span>&#8594;</span> data</button> {} (5) [] (5) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> OrderedDict (5) {} (5) </p>
+                <p><button class="input"><span>&#8594;</span> auth</button> None (10) </p>
+                <p><button class="input"><span>&#8594;</span> cookies</button> RequestsCookieJar (5) None (5) </p>
+                <p><button class="input"><span>&#8594;</span> hooks</button> dict (10) </p>
+                <p><button class="input"><span>&#8594;</span> json</button> None (10) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> InvalidURL (9) MissingSchema (1) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="n">auth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="n">cookies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="n">hooks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">json</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepares the entire request with the given parameters.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_method</span><span class="p">(</span><span class="n">method</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_headers</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_cookies</span><span class="p">(</span><span class="n">cookies</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_body</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">json</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_auth</span><span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1"># Note that prepare_auth must be last to enable authentication schemes</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># such as OAuth to work on a fully prepared request.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># This MUST go after prepare_auth. Authenticators could add a hook</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_hooks</span><span class="p">(</span><span class="n">hooks</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 4 calls (1.2%)</p>
+                <p><button class="input"><span>&#8594;</span> method</button> 'POST' (4) </p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://127.0.0.1:56775/post' (4) </p>
+                <p><button class="input"><span>&#8594;</span> headers</button> CaseInsensitiveDict (4) </p>
+                <p><button class="input"><span>&#8594;</span> files</button> ['bad file data'] (2) dict (1) [] (1) </p>
+                <p><button class="input"><span>&#8594;</span> data</button> {} (3) '[{"some": "data"}]' (1) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> OrderedDict (4) </p>
+                <p><button class="input"><span>&#8594;</span> auth</button> None (4) </p>
+                <p><button class="input"><span>&#8594;</span> cookies</button> RequestsCookieJar (4) </p>
+                <p><button class="input"><span>&#8594;</span> hooks</button> dict (4) </p>
+                <p><button class="input"><span>&#8594;</span> json</button> None (3) {'foo': nan} (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (3) InvalidJSONError (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="n">auth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="n">cookies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="n">hooks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">json</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepares the entire request with the given parameters.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_method</span><span class="p">(</span><span class="n">method</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_headers</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_cookies</span><span class="p">(</span><span class="n">cookies</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_body</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">json</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_auth</span><span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1"># Note that prepare_auth must be last to enable authentication schemes</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># such as OAuth to work on a fully prepared request.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># This MUST go after prepare_auth. Authenticators could add a hook</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_hooks</span><span class="p">(</span><span class="n">hooks</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

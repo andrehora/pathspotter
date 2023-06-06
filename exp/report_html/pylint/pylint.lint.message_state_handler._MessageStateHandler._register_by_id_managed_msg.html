@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.lint.message_state_handler._MessageStateHandler._register_by_id_managed_msg</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.lint.message_state_handler._MessageStateHandler._register_by_id_managed_msg</h1>
+                <span>Coverage: 70.0% (7/10),</span>
+                <span>Tests: 60, </span>
+                <span>Calls: 6858, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 6700 calls (97.7%)</p>
+                <p><button class="input"><span>&#8594;</span> msgid_or_symbol</button> 'useless-suppression' (1019) 'locally-disabled' (986) 'suppressed-message' (982) 'missing-docstring' (414) 'too-few-public-methods' (353) 'I' (344) 'c...</p>
+                <p><button class="input"><span>&#8594;</span> line</button> None (4111) 1 (835) 2 (679) 3 (381) 4 (197) 5 (93) 6 (74) 7 (45) 10 (25) 9 (23) </p>
+                <p><button class="input"><span>&#8594;</span> is_disabled</button> True (6224) False (476) </p>
+            <button class="run" title="lines run...">1 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_register_by_id_managed_msg</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">msgid_or_symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">is_disabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;If the msgid is a numeric one, then register it to inform the user</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        it could furnish instead a symbolic msgid.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">msgid_or_symbol</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">msgs_store</span><span class="o">.</span><span class="n">message_id_store</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                    <span class="n">msgid</span><span class="o">=</span><span class="n">msgid_or_symbol</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">UnknownMessageError</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">managed</span> <span class="o">=</span> <span class="n">ManagedMessage</span><span class="p">(</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">current_name</span><span class="p">,</span> <span class="n">msgid_or_symbol</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">is_disabled</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">_by_id_managed_msgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 158 calls (2.3%)</p>
+                <p><button class="input"><span>&#8594;</span> msgid_or_symbol</button> 'R6104' (42) 'C0116' (17) 'E1101' (13) 'C0103' (8) 'W0718' (8) 'R0903' (7) 'C0111' (6) 'W0611' (5) 'W0404' (4) 'I0021' (4) </p>
+                <p><button class="input"><span>&#8594;</span> line</button> None (94) 1 (20) 16 (4) 20 (3) 7 (3) 2 (3) 18 (2) 22 (2) 4 (2) 3 (2) </p>
+                <p><button class="input"><span>&#8594;</span> is_disabled</button> True (106) False (52) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_register_by_id_managed_msg</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">msgid_or_symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">is_disabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;If the msgid is a numeric one, then register it to inform the user</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        it could furnish instead a symbolic msgid.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">msgid_or_symbol</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">msgs_store</span><span class="o">.</span><span class="n">message_id_store</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                    <span class="n">msgid</span><span class="o">=</span><span class="n">msgid_or_symbol</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">UnknownMessageError</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="n">managed</span> <span class="o">=</span> <span class="n">ManagedMessage</span><span class="p">(</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">current_name</span><span class="p">,</span> <span class="n">msgid_or_symbol</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">is_disabled</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">_by_id_managed_msgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>difflib.restore</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: difflib.restore</h1>
+                <span>Coverage: 66.7% (6/9),</span>
+                <span>Tests: 0, </span>
+                <span>Calls: 2, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 2 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> delta</button> ['- one\n', '?  ^\n', '+ ore\n', '?  ^\n', '- two\n', '- three\n', '?  -\n', '+ tree\n', '+ emu\n'] (2) </p>
+                <p><button class="input"><span>&#8594;</span> which</button> 1 (1) 2 (1) </p>
+                <p><button class="output"><span>&#8647; yield</span></button> 'one\n' (1) 'two\n' (1) 'three\n' (1) 'ore\n' (1) 'tree\n' (1) 'emu\n' (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">restore</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">which</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    Generate one of the two sequences that generated a delta.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    Given a `delta` produced by `Differ.compare()` or `ndiff()`, extract</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    lines originating from file 1 or 2 (parameter `which`), stripping off line</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    prefixes.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    Examples:</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    &gt;&gt;&gt; diff = ndiff(&#39;one\ntwo\nthree\n&#39;.splitlines(keepends=True),</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    ...              &#39;ore\ntree\nemu\n&#39;.splitlines(keepends=True))</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    &gt;&gt;&gt; diff = list(diff)</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    &gt;&gt;&gt; print(&#39;&#39;.join(restore(diff, 1)), end=&quot;&quot;)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    one</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    two</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    three</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    &gt;&gt;&gt; print(&#39;&#39;.join(restore(diff, 2)), end=&quot;&quot;)</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    ore</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">    tree</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    emu</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="n">tag</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;- &quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;+ &quot;</span><span class="p">}[</span><span class="nb">int</span><span class="p">(</span><span class="n">which</span><span class="p">)]</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;unknown delta choice (must be 1 or 2): </span><span class="si">%r</span><span class="s1">&#39;</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                           <span class="o">%</span> <span class="n">which</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="n">prefixes</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">delta</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="ow">in</span> <span class="n">prefixes</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="k">yield</span> <span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

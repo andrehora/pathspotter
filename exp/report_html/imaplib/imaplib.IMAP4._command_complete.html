@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>imaplib.IMAP4._command_complete</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: imaplib.IMAP4._command_complete</h1>
+                <span>Coverage: 78.6% (11/14),</span>
+                <span>Tests: 42, </span>
+                <span>Calls: 214, </span>
+                <span>Exceptions: 4, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 168 calls (78.5%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'CAPABILITY' (86) 'AUTHENTICATE' (38) 'LOGIN' (20) 'ENABLE' (8) 'SELECT' (6) 'APPEND' (4) 'LSUB' (2) 'UNSELECT' (2) 'STORE' (2) </p>
+                <p><button class="input"><span>&#8594;</span> tag</button> bytes (168) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (168) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_command_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">logout</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;LOGOUT&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># BYE is expected after LOGOUT</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">logout</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_bye</span><span class="p">()</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">typ</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_tagged_response</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">expect_bye</span><span class="o">=</span><span class="n">logout</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort</span> <span class="k">as</span> <span class="n">val</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort</span><span class="p">(</span><span class="s1">&#39;command: </span><span class="si">%s</span><span class="s1"> =&gt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="k">as</span> <span class="n">val</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;command: </span><span class="si">%s</span><span class="s1"> =&gt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">logout</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_bye</span><span class="p">()</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="s1">&#39;BAD&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> command error: </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">typ</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">return</span> <span class="n">typ</span><span class="p">,</span> <span class="n">data</span></span>
+            </pre>
+            <p><b>Path 2</b>: 42 calls (19.6%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'LOGOUT' (42) </p>
+                <p><button class="input"><span>&#8594;</span> tag</button> bytes (42) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (42) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_command_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">logout</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;LOGOUT&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># BYE is expected after LOGOUT</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">logout</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_bye</span><span class="p">()</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">typ</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_tagged_response</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">expect_bye</span><span class="o">=</span><span class="n">logout</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort</span> <span class="k">as</span> <span class="n">val</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort</span><span class="p">(</span><span class="s1">&#39;command: </span><span class="si">%s</span><span class="s1"> =&gt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="k">as</span> <span class="n">val</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;command: </span><span class="si">%s</span><span class="s1"> =&gt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">logout</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_bye</span><span class="p">()</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="s1">&#39;BAD&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> command error: </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">typ</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">return</span> <span class="n">typ</span><span class="p">,</span> <span class="n">data</span></span>
+            </pre>
+            <p><b>Path 3</b>: 4 calls (1.9%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'CAPABILITY' (4) </p>
+                <p><button class="input"><span>&#8594;</span> tag</button> bytes (4) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> abort (4) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_command_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">logout</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;LOGOUT&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># BYE is expected after LOGOUT</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">logout</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_bye</span><span class="p">()</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">typ</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_tagged_response</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">expect_bye</span><span class="o">=</span><span class="n">logout</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort</span> <span class="k">as</span> <span class="n">val</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort</span><span class="p">(</span><span class="s1">&#39;command: </span><span class="si">%s</span><span class="s1"> =&gt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="k">as</span> <span class="n">val</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;command: </span><span class="si">%s</span><span class="s1"> =&gt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">logout</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_bye</span><span class="p">()</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="s1">&#39;BAD&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> command error: </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">typ</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">typ</span><span class="p">,</span> <span class="n">data</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

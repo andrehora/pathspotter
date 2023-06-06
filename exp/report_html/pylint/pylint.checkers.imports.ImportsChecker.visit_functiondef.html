@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.imports.ImportsChecker.visit_functiondef</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.imports.ImportsChecker.visit_functiondef</h1>
+                <span>Coverage: 100.0% (11/11),</span>
+                <span>Tests: 14, </span>
+                <span>Calls: 5616, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 5062 calls (90.1%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (3183) ClassDef (1260) For (519) While (100) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (5062) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">visit_functiondef</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">While</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># If it is the first non import instruction of the module, record it.</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_non_import_node</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Check if the node belongs to an `If` or a `Try` block. If they</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># contain imports, skip recording this node.</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">scope</span><span class="p">(),</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="n">root</span> <span class="o">=</span> <span class="n">node</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">while</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">If</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">TryFinally</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">TryExcept</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">((</span><span class="n">nodes</span><span class="o">.</span><span class="n">Import</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">))):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_first_non_import_node</span> <span class="o">=</span> <span class="n">node</span></span>
+            </pre>
+            <p><b>Path 2</b>: 551 calls (9.8%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (284) ClassDef (260) While (4) For (3) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">visit_functiondef</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">While</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># If it is the first non import instruction of the module, record it.</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_non_import_node</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Check if the node belongs to an `If` or a `Try` block. If they</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># contain imports, skip recording this node.</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">scope</span><span class="p">(),</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">root</span> <span class="o">=</span> <span class="n">node</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">while</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">If</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">TryFinally</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">TryExcept</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">((</span><span class="n">nodes</span><span class="o">.</span><span class="n">Import</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">))):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_first_non_import_node</span> <span class="o">=</span> <span class="n">node</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (0.0%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> For (1) FunctionDef (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (2) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">visit_functiondef</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">While</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># If it is the first non import instruction of the module, record it.</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_non_import_node</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Check if the node belongs to an `If` or a `Try` block. If they</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># contain imports, skip recording this node.</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">scope</span><span class="p">(),</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="n">root</span> <span class="o">=</span> <span class="n">node</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">while</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">If</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">TryFinally</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">TryExcept</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">((</span><span class="n">nodes</span><span class="o">.</span><span class="n">Import</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">))):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_first_non_import_node</span> <span class="o">=</span> <span class="n">node</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.0%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (1) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">visit_functiondef</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">While</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># If it is the first non import instruction of the module, record it.</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_non_import_node</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Check if the node belongs to an `If` or a `Try` block. If they</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># contain imports, skip recording this node.</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">scope</span><span class="p">(),</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">root</span> <span class="o">=</span> <span class="n">node</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">while</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">If</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">TryFinally</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">TryExcept</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">((</span><span class="n">nodes</span><span class="o">.</span><span class="n">Import</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">))):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="k">return</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_first_non_import_node</span> <span class="o">=</span> <span class="n">node</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

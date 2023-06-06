@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>difflib.context_diff</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: difflib.context_diff</h1>
+                <span>Coverage: 96.3% (26/27),</span>
+                <span>Tests: 5, </span>
+                <span>Calls: 13, </span>
+                <span>Exceptions: 10, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 8 calls (61.5%)</p>
+                <p><button class="input"><span>&#8594;</span> a</button> ['hello', 'andr\udce9'] (3) ['\udca3odz is a city in Poland.'] (2) 'one' (2) ['one\n', 'two\n', 'three\n', 'four\n'] (1) </p>
+                <p><button class="input"><span>&#8594;</span> b</button> ['hello', 'andr\udcc3\udca9'] (3) ['\udcc5\udc81odz is a city in Poland.'] (2) 'two' (2) ['zero\n', 'one\n', 'tree\n', 'four\n'] (1) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile</button> 'Original' (3) 'a' (2) '\udcb3odz.txt' (2) '' (1) </p>
+                <p><button class="input"><span>&#8594;</span> tofile</button> 'Current' (3) 'b' (2) '\udcc5\udc82odz.txt' (2) '' (1) </p>
+                <p><button class="input"><span>&#8594;</span> fromfiledate</button> '' (5) '2005' (1) '2005-03-18' (1) '2005-01-26 23:30:50' (1) </p>
+                <p><button class="input"><span>&#8594;</span> tofiledate</button> '' (5) '2013' (1) '2005-03-19' (1) '2010-04-02 10:20:52' (1) </p>
+                <p><button class="input"><span>&#8594;</span> n</button> 3 (8) </p>
+                <p><button class="input"><span>&#8594;</span> lineterm</button> '\n' (6) '' (2) </p>
+                <p><button class="output"><span>&#8647; yield</span></button> '***************\n' (6) '  hello' (6) '  o' (4) '*** 1,2 ****\n' (3) '! andr\udce9' (3) '--- 1,2 ----\n' (3) '! andr\udcc3\udca9' (3) '*** 1 ****\n' (...</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> GeneratorExit (8) </p>
+            <button class="run" title="lines run...">26 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">context_diff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">fromfiledate</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofiledate</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lineterm</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Compare two sequences of lines; generate the delta as a context diff.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    Context diffs are a compact way of showing line changes and a few</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    lines of context.  The number of context lines is set by &#39;n&#39; which</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    defaults to three.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    By default, the diff control lines (those with *** or ---) are</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    created with a trailing newline.  This is helpful so that inputs</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    created from file.readlines() result in diffs that are suitable for</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    file.writelines() since both the inputs and outputs have trailing</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    newlines.</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    For inputs that do not have trailing newlines, set the lineterm</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    argument to &quot;&quot; so that the output will be uniformly newline free.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    The context diff format normally has a header for filenames and</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">    modification times.  Any or all of these may be specified using</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    strings for &#39;fromfile&#39;, &#39;tofile&#39;, &#39;fromfiledate&#39;, and &#39;tofiledate&#39;.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    The modification times are normally expressed in the ISO 8601 format.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">    If not specified, the strings default to blanks.</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">    Example:</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    &gt;&gt;&gt; print(&#39;&#39;.join(context_diff(&#39;one\ntwo\nthree\nfour\n&#39;.splitlines(True),</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">    ...       &#39;zero\none\ntree\nfour\n&#39;.splitlines(True), &#39;Original&#39;, &#39;Current&#39;)),</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">    ...       end=&quot;&quot;)</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">    *** Original</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">    --- Current</span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">    ***************</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">    *** 1,4 ****</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">      one</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">    ! two</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">    ! three</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">      four</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">    --- 1,4 ----</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">    + zero</span></span>
+<span class="num"><a href="#40">40</a></span><span><span class="sd">      one</span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">    ! tree</span></span>
+<span class="num"><a href="#42">42</a></span><span><span class="sd">      four</span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">    <span class="n">_check_types</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="p">,</span> <span class="n">tofile</span><span class="p">,</span> <span class="n">fromfiledate</span><span class="p">,</span> <span class="n">tofiledate</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">    <span class="n">prefix</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">insert</span><span class="o">=</span><span class="s1">&#39;+ &#39;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="s1">&#39;- &#39;</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="s1">&#39;! &#39;</span><span class="p">,</span> <span class="n">equal</span><span class="o">=</span><span class="s1">&#39;  &#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">    <span class="n">started</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">get_grouped_opcodes</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">started</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">            <span class="n">started</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">            <span class="n">fromdate</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fromfiledate</span><span class="p">)</span> <span class="k">if</span> <span class="n">fromfiledate</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">            <span class="n">todate</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tofiledate</span><span class="p">)</span> <span class="k">if</span> <span class="n">tofiledate</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">            <span class="k">yield</span> <span class="s1">&#39;*** </span><span class="si">{}{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fromfile</span><span class="p">,</span> <span class="n">fromdate</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">            <span class="k">yield</span> <span class="s1">&#39;--- </span><span class="si">{}{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tofile</span><span class="p">,</span> <span class="n">todate</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#55">55</a></span><span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">        <span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">group</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">        <span class="k">yield</span> <span class="s1">&#39;***************&#39;</span> <span class="o">+</span> <span class="n">lineterm</span></span>
+<span class="num"><a href="#58">58</a></span><span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">        <span class="n">file1_range</span> <span class="o">=</span> <span class="n">_format_range_context</span><span class="p">(</span><span class="n">first</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">last</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full run">        <span class="k">yield</span> <span class="s1">&#39;*** </span><span class="si">{}</span><span class="s1"> ****</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file1_range</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#61">61</a></span><span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">tag</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="s1">&#39;delete&#39;</span><span class="p">}</span> <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">):</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full run">            <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full run">                <span class="k">if</span> <span class="n">tag</span> <span class="o">!=</span> <span class="s1">&#39;insert&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">                    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">a</span><span class="p">[</span><span class="n">i1</span><span class="p">:</span><span class="n">i2</span><span class="p">]:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">                        <span class="k">yield</span> <span class="n">prefix</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">+</span> <span class="n">line</span></span>
+<span class="num"><a href="#67">67</a></span><span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">        <span class="n">file2_range</span> <span class="o">=</span> <span class="n">_format_range_context</span><span class="p">(</span><span class="n">first</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">last</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">        <span class="k">yield</span> <span class="s1">&#39;--- </span><span class="si">{}</span><span class="s1"> ----</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file2_range</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">tag</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="s1">&#39;insert&#39;</span><span class="p">}</span> <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">):</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full run">            <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span></span>
+<span class="num"><a href="#73">73</a></span><span class="full run">                <span class="k">if</span> <span class="n">tag</span> <span class="o">!=</span> <span class="s1">&#39;delete&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">                    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">b</span><span class="p">[</span><span class="n">j1</span><span class="p">:</span><span class="n">j2</span><span class="p">]:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full run">                        <span class="k">yield</span> <span class="n">prefix</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">+</span> <span class="n">line</span></span>
+            </pre>
+            <p><b>Path 2</b>: 3 calls (23.1%)</p>
+                <p><button class="input"><span>&#8594;</span> a</button> ['hello', 'andr\udce9'] (3) </p>
+                <p><button class="input"><span>&#8594;</span> b</button> ['hello', 'andr\udce9'] (3) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile</button> 'a' (2) '' (1) </p>
+                <p><button class="input"><span>&#8594;</span> tofile</button> 'a' (2) '' (1) </p>
+                <p><button class="input"><span>&#8594;</span> fromfiledate</button> '' (2) '2005' (1) </p>
+                <p><button class="input"><span>&#8594;</span> tofiledate</button> '' (2) '2013' (1) </p>
+                <p><button class="input"><span>&#8594;</span> n</button> 3 (3) </p>
+                <p><button class="input"><span>&#8594;</span> lineterm</button> '\n' (3) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">22 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">context_diff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">fromfiledate</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofiledate</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lineterm</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Compare two sequences of lines; generate the delta as a context diff.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    Context diffs are a compact way of showing line changes and a few</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    lines of context.  The number of context lines is set by &#39;n&#39; which</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    defaults to three.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    By default, the diff control lines (those with *** or ---) are</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    created with a trailing newline.  This is helpful so that inputs</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    created from file.readlines() result in diffs that are suitable for</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    file.writelines() since both the inputs and outputs have trailing</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    newlines.</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    For inputs that do not have trailing newlines, set the lineterm</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    argument to &quot;&quot; so that the output will be uniformly newline free.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    The context diff format normally has a header for filenames and</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">    modification times.  Any or all of these may be specified using</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    strings for &#39;fromfile&#39;, &#39;tofile&#39;, &#39;fromfiledate&#39;, and &#39;tofiledate&#39;.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    The modification times are normally expressed in the ISO 8601 format.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">    If not specified, the strings default to blanks.</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">    Example:</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    &gt;&gt;&gt; print(&#39;&#39;.join(context_diff(&#39;one\ntwo\nthree\nfour\n&#39;.splitlines(True),</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">    ...       &#39;zero\none\ntree\nfour\n&#39;.splitlines(True), &#39;Original&#39;, &#39;Current&#39;)),</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">    ...       end=&quot;&quot;)</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">    *** Original</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">    --- Current</span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">    ***************</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">    *** 1,4 ****</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">      one</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">    ! two</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">    ! three</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">      four</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">    --- 1,4 ----</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">    + zero</span></span>
+<span class="num"><a href="#40">40</a></span><span><span class="sd">      one</span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">    ! tree</span></span>
+<span class="num"><a href="#42">42</a></span><span><span class="sd">      four</span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">    <span class="n">_check_types</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="p">,</span> <span class="n">tofile</span><span class="p">,</span> <span class="n">fromfiledate</span><span class="p">,</span> <span class="n">tofiledate</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">    <span class="n">prefix</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">insert</span><span class="o">=</span><span class="s1">&#39;+ &#39;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="s1">&#39;- &#39;</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="s1">&#39;! &#39;</span><span class="p">,</span> <span class="n">equal</span><span class="o">=</span><span class="s1">&#39;  &#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">    <span class="n">started</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">get_grouped_opcodes</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">started</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">            <span class="n">started</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">            <span class="n">fromdate</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fromfiledate</span><span class="p">)</span> <span class="k">if</span> <span class="n">fromfiledate</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">            <span class="n">todate</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tofiledate</span><span class="p">)</span> <span class="k">if</span> <span class="n">tofiledate</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">yield</span> <span class="s1">&#39;*** </span><span class="si">{}{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fromfile</span><span class="p">,</span> <span class="n">fromdate</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">            <span class="k">yield</span> <span class="s1">&#39;--- </span><span class="si">{}{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tofile</span><span class="p">,</span> <span class="n">todate</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#55">55</a></span><span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">        <span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">group</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="k">yield</span> <span class="s1">&#39;***************&#39;</span> <span class="o">+</span> <span class="n">lineterm</span></span>
+<span class="num"><a href="#58">58</a></span><span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">        <span class="n">file1_range</span> <span class="o">=</span> <span class="n">_format_range_context</span><span class="p">(</span><span class="n">first</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">last</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">        <span class="k">yield</span> <span class="s1">&#39;*** </span><span class="si">{}</span><span class="s1"> ****</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file1_range</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#61">61</a></span><span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">tag</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="s1">&#39;delete&#39;</span><span class="p">}</span> <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">):</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">tag</span> <span class="o">!=</span> <span class="s1">&#39;insert&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">a</span><span class="p">[</span><span class="n">i1</span><span class="p">:</span><span class="n">i2</span><span class="p">]:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">                        <span class="k">yield</span> <span class="n">prefix</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">+</span> <span class="n">line</span></span>
+<span class="num"><a href="#67">67</a></span><span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">        <span class="n">file2_range</span> <span class="o">=</span> <span class="n">_format_range_context</span><span class="p">(</span><span class="n">first</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">last</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full not_run">        <span class="k">yield</span> <span class="s1">&#39;--- </span><span class="si">{}</span><span class="s1"> ----</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file2_range</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">tag</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="s1">&#39;insert&#39;</span><span class="p">}</span> <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">):</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span></span>
+<span class="num"><a href="#73">73</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">tag</span> <span class="o">!=</span> <span class="s1">&#39;delete&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">b</span><span class="p">[</span><span class="n">j1</span><span class="p">:</span><span class="n">j2</span><span class="p">]:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">                        <span class="k">yield</span> <span class="n">prefix</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">+</span> <span class="n">line</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (15.4%)</p>
+                <p><button class="input"><span>&#8594;</span> a</button> list (1) ['hello'] (1) </p>
+                <p><button class="input"><span>&#8594;</span> b</button> ['hello'] (1) list (1) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile</button> '' (2) </p>
+                <p><button class="input"><span>&#8594;</span> tofile</button> '' (2) </p>
+                <p><button class="input"><span>&#8594;</span> fromfiledate</button> '' (2) </p>
+                <p><button class="input"><span>&#8594;</span> tofiledate</button> '' (2) </p>
+                <p><button class="input"><span>&#8594;</span> n</button> 3 (2) </p>
+                <p><button class="input"><span>&#8594;</span> lineterm</button> '\n' (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (2) </p>
+            <button class="run" title="lines run...">1 run</button>
+            <button class="not_run" title="lines not run...">25 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">context_diff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">fromfiledate</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofiledate</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lineterm</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Compare two sequences of lines; generate the delta as a context diff.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    Context diffs are a compact way of showing line changes and a few</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    lines of context.  The number of context lines is set by &#39;n&#39; which</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    defaults to three.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    By default, the diff control lines (those with *** or ---) are</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    created with a trailing newline.  This is helpful so that inputs</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    created from file.readlines() result in diffs that are suitable for</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    file.writelines() since both the inputs and outputs have trailing</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    newlines.</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    For inputs that do not have trailing newlines, set the lineterm</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    argument to &quot;&quot; so that the output will be uniformly newline free.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    The context diff format normally has a header for filenames and</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">    modification times.  Any or all of these may be specified using</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    strings for &#39;fromfile&#39;, &#39;tofile&#39;, &#39;fromfiledate&#39;, and &#39;tofiledate&#39;.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    The modification times are normally expressed in the ISO 8601 format.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">    If not specified, the strings default to blanks.</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">    Example:</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    &gt;&gt;&gt; print(&#39;&#39;.join(context_diff(&#39;one\ntwo\nthree\nfour\n&#39;.splitlines(True),</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">    ...       &#39;zero\none\ntree\nfour\n&#39;.splitlines(True), &#39;Original&#39;, &#39;Current&#39;)),</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">    ...       end=&quot;&quot;)</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">    *** Original</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">    --- Current</span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">    ***************</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">    *** 1,4 ****</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">      one</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">    ! two</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">    ! three</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">      four</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">    --- 1,4 ----</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">    + zero</span></span>
+<span class="num"><a href="#40">40</a></span><span><span class="sd">      one</span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">    ! tree</span></span>
+<span class="num"><a href="#42">42</a></span><span><span class="sd">      four</span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">    <span class="n">_check_types</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="p">,</span> <span class="n">tofile</span><span class="p">,</span> <span class="n">fromfiledate</span><span class="p">,</span> <span class="n">tofiledate</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">    <span class="n">prefix</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">insert</span><span class="o">=</span><span class="s1">&#39;+ &#39;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="s1">&#39;- &#39;</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="s1">&#39;! &#39;</span><span class="p">,</span> <span class="n">equal</span><span class="o">=</span><span class="s1">&#39;  &#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">    <span class="n">started</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">get_grouped_opcodes</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">started</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">            <span class="n">started</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">            <span class="n">fromdate</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fromfiledate</span><span class="p">)</span> <span class="k">if</span> <span class="n">fromfiledate</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">            <span class="n">todate</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tofiledate</span><span class="p">)</span> <span class="k">if</span> <span class="n">tofiledate</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">yield</span> <span class="s1">&#39;*** </span><span class="si">{}{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fromfile</span><span class="p">,</span> <span class="n">fromdate</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">            <span class="k">yield</span> <span class="s1">&#39;--- </span><span class="si">{}{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tofile</span><span class="p">,</span> <span class="n">todate</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#55">55</a></span><span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">        <span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">group</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="k">yield</span> <span class="s1">&#39;***************&#39;</span> <span class="o">+</span> <span class="n">lineterm</span></span>
+<span class="num"><a href="#58">58</a></span><span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">        <span class="n">file1_range</span> <span class="o">=</span> <span class="n">_format_range_context</span><span class="p">(</span><span class="n">first</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">last</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">        <span class="k">yield</span> <span class="s1">&#39;*** </span><span class="si">{}</span><span class="s1"> ****</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file1_range</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#61">61</a></span><span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">tag</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="s1">&#39;delete&#39;</span><span class="p">}</span> <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">):</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">tag</span> <span class="o">!=</span> <span class="s1">&#39;insert&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">a</span><span class="p">[</span><span class="n">i1</span><span class="p">:</span><span class="n">i2</span><span class="p">]:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">                        <span class="k">yield</span> <span class="n">prefix</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">+</span> <span class="n">line</span></span>
+<span class="num"><a href="#67">67</a></span><span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">        <span class="n">file2_range</span> <span class="o">=</span> <span class="n">_format_range_context</span><span class="p">(</span><span class="n">first</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">last</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full not_run">        <span class="k">yield</span> <span class="s1">&#39;--- </span><span class="si">{}</span><span class="s1"> ----</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file2_range</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">tag</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="s1">&#39;insert&#39;</span><span class="p">}</span> <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">):</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span></span>
+<span class="num"><a href="#73">73</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">tag</span> <span class="o">!=</span> <span class="s1">&#39;delete&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">b</span><span class="p">[</span><span class="n">j1</span><span class="p">:</span><span class="n">j2</span><span class="p">]:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">                        <span class="k">yield</span> <span class="n">prefix</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">+</span> <span class="n">line</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

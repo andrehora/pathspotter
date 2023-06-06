@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.message.Message.set_payload</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.message.Message.set_payload</h1>
+                <span>Coverage: 100.0% (12/12),</span>
+                <span>Tests: 348, </span>
+                <span>Calls: 1454, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 6</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1242 calls (85.4%)</p>
+                <p><button class="input"><span>&#8594;</span> payload</button> '' (213) 'simple body\n\n' (80) '<p>simple body</p>\n\n' (80) 'bogus jpg body\n\n' (60) 'None\n' (46) 'test' (40) '\n' (38) 'another bogus jpg body\n\...</p>
+                <p><button class="input"><span>&#8594;</span> charset</button> None (1242) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (1242) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the payload to the given value.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset sets the message&#39;s default character set.  See</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        set_charset() for details.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;encode&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="n">payload</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">charset</span><span class="o">.</span><span class="n">output_charset</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;decode&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">set_charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 85 calls (5.8%)</p>
+                <p><button class="input"><span>&#8594;</span> payload</button> [] (61) list (12) None (12) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> None (85) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the payload to the given value.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset sets the message&#39;s default character set.  See</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        set_charset() for details.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;encode&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="n">payload</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">charset</span><span class="o">.</span><span class="n">output_charset</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;decode&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">set_charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 66 calls (4.5%)</p>
+                <p><button class="input"><span>&#8594;</span> payload</button> 'Hi there,\n\nThis is the dingus fish.\n' (19) 'hello there' (9) 'hello world' (7) '' (5) "j'ai un probl&#232;me de python. il est sorti de son vivarium.\n...</p>
+                <p><button class="input"><span>&#8594;</span> charset</button> 'us-ascii' (47) 'utf-8' (10) 'latin-1' (3) 'euc-jp' (2) 'iso-8859-1' (2) 'ISO-8859-1' (1) 'ISO-8859-2' (1) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the payload to the given value.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset sets the message&#39;s default character set.  See</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        set_charset() for details.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;encode&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="n">payload</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">charset</span><span class="o">.</span><span class="n">output_charset</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;decode&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">set_charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 54 calls (3.7%)</p>
+                <p><button class="input"><span>&#8594;</span> payload</button> bytes (54) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> None (54) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the payload to the given value.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset sets the message&#39;s default character set.  See</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        set_charset() for details.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;encode&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="n">payload</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">charset</span><span class="o">.</span><span class="n">output_charset</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;decode&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">set_charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 4 calls (0.3%)</p>
+                <p><button class="input"><span>&#8594;</span> payload</button> 'hello there' (1) 'This is a string payload' (1) '&#1040;&#1041;&#1042;' (1) 'hello world' (1) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> Charset (4) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the payload to the given value.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset sets the message&#39;s default character set.  See</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        set_charset() for details.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;encode&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="n">payload</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">charset</span><span class="o">.</span><span class="n">output_charset</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;decode&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">set_charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 3 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> payload</button> bytes (3) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> Charset (3) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the payload to the given value.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Optional charset sets the message&#39;s default character set.  See</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        set_charset() for details.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;encode&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">Charset</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">charset</span> <span class="o">=</span> <span class="n">Charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="n">payload</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">charset</span><span class="o">.</span><span class="n">output_charset</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;decode&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span> <span class="o">=</span> <span class="n">payload</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">set_charset</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

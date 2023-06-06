@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>jupyter_client.ssh.tunnel.select_random_ports</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: jupyter_client.ssh.tunnel.select_random_ports</h1>
+                <span>Coverage: 100.0% (10/10),</span>
+                <span>Tests: 2, </span>
+                <span>Calls: 4097, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 4097 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> n</button> 10 (4096) 1 (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [59655, 59656, 59657, 59658, 59659, 59660, 59661, 59662, 59663, 59664] (1) [59665, 59666, 59667, 59668, 59669, 59670, 59671, 59672, 59673, 59674] (1) ...</p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">select_random_ports</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Select and return n random ports that are available.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">ports</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">sockets</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">sock</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">ports</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">getsockname</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">sockets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sock</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">for</span> <span class="n">sock</span> <span class="ow">in</span> <span class="n">sockets</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">sock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">return</span> <span class="n">ports</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

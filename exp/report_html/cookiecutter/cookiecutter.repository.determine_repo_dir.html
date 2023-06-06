@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>cookiecutter.repository.determine_repo_dir</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: cookiecutter.repository.determine_repo_dir</h1>
+                <span>Coverage: 93.5% (29/31),</span>
+                <span>Tests: 29, </span>
+                <span>Calls: 50, </span>
+                <span>Exceptions: 5, </span>
+                <span>Paths: 7</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 38 calls (76.0%)</p>
+                <p><button class="input"><span>&#8594;</span> template</button> 'tests/fake-repo-pre/' (12) 'tests/fake-repo-pre' (4) 'tests/test-extensions/default/' (3) '.' (3) 'tests/fake-repo-tmpl/' (2) 'tests/undefined-variab...</p>
+                <p><button class="input"><span>&#8594;</span> abbreviations</button> {'gh': 'https://github.com/{0}.git', 'gl': 'https://gitlab.com/{0}.git', 'bb': 'https://bitbucket.org/{0}'} (36) {} (2) </p>
+                <p><button class="input"><span>&#8594;</span> clone_to_dir</button> '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-16/user_dir0/cookiecutters' (4) '/private/var/folders/yp/qx0crmvd...</p>
+                <p><button class="input"><span>&#8594;</span> checkout</button> None (38) </p>
+                <p><button class="input"><span>&#8594;</span> no_input</button> True (30) False (8) </p>
+                <p><button class="input"><span>&#8594;</span> password</button> None (38) </p>
+                <p><button class="input"><span>&#8594;</span> directory</button> None (38) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ('tests/fake-repo-pre/', False) (12) ('tests/fake-repo-pre', False) (4) ('tests/test-extensions/default/', False) (3) ('.', False) (3) ('tests/fake-re...</p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">20 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">determine_repo_dir</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">abbreviations</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    Locate the repository directory from a template reference.</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    Applies repository abbreviations to the template reference.</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    If the template refers to a repository URL, clone it.</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    If the template is a path to a local repository, use it.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    :param template: A directory containing a project template directory,</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        or a URL to a git repository.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    :param abbreviations: A dictionary of repository abbreviation</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        definitions.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    :param clone_to_dir: The directory to clone the repository into.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    :param checkout: The branch, tag or commit ID to checkout after clone.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">    :param no_input: Do not prompt for user input and eventually force a refresh of</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        cached resources.</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">    :param password: The password to use when extracting the repository.</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">    :param directory: Directory within repo where cookiecutter.json lives.</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    :return: A tuple containing the cookiecutter template directory, and</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">        a boolean describing whether that directory should be cleaned up</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">        after the template has been instantiated.</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">    :raises: `RepositoryNotFound` if a repository directory could not be found.</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">template</span> <span class="o">=</span> <span class="n">expand_abbreviations</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">abbreviations</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">    <span class="k">if</span> <span class="n">is_zip_file</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">        <span class="n">unzipped_dir</span> <span class="o">=</span> <span class="n">unzip</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="n">zip_uri</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="n">is_url</span><span class="o">=</span><span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">),</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">unzipped_dir</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">    <span class="k">elif</span> <span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">        <span class="n">cloned_repo</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">            <span class="n">repo_url</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">            <span class="n">checkout</span><span class="o">=</span><span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#50">50</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloned_repo</span><span class="p">]</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#53">53</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">template</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clone_to_dir</span><span class="p">,</span> <span class="n">template</span><span class="p">)]</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">    <span class="k">if</span> <span class="n">directory</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">repository_candidates</span></span>
+<span class="num"><a href="#60">60</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#61">61</a></span><span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">    <span class="k">for</span> <span class="n">repo_candidate</span> <span class="ow">in</span> <span class="n">repository_candidates</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full run">        <span class="k">if</span> <span class="n">repository_has_cookiecutter_json</span><span class="p">(</span><span class="n">repo_candidate</span><span class="p">):</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full run">            <span class="k">return</span> <span class="n">repo_candidate</span><span class="p">,</span> <span class="n">cleanup</span></span>
+<span class="num"><a href="#65">65</a></span><span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">    <span class="k">raise</span> <span class="n">RepositoryNotFound</span><span class="p">(</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">        <span class="s1">&#39;A valid repository for &quot;</span><span class="si">{}</span><span class="s1">&quot; could not be found in the following &#39;</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">        <span class="s1">&#39;locations:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">repository_candidates</span><span class="p">))</span></span>
+<span class="num"><a href="#69">69</a></span><span>    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 4 calls (8.0%)</p>
+                <p><button class="input"><span>&#8594;</span> template</button> 'tests/files/fake-repo-tmpl.zip' (1) '/path/to/zipfile.zip' (1) 'https://example.com/path/to/zipfile.zip' (1) 'http://example.com/path/to/zipfile.zip'...</p>
+                <p><button class="input"><span>&#8594;</span> abbreviations</button> {} (3) {'gh': 'https://github.com/{0}.git', 'gl': 'https://gitlab.com/{0}.git', 'bb': 'https://bitbucket.org/{0}'} (1) </p>
+                <p><button class="input"><span>&#8594;</span> clone_to_dir</button> '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-16/user_dir0/cookiecutters' (3) '/private/var/folders/yp/qx0crmvd...</p>
+                <p><button class="input"><span>&#8594;</span> checkout</button> None (4) </p>
+                <p><button class="input"><span>&#8594;</span> no_input</button> True (4) </p>
+                <p><button class="input"><span>&#8594;</span> password</button> None (4) </p>
+                <p><button class="input"><span>&#8594;</span> directory</button> None (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ('tests/fake-repo-tmpl', True) (3) ('fake-tmp/fake-repo-tmpl', True) (1) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">determine_repo_dir</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">abbreviations</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    Locate the repository directory from a template reference.</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    Applies repository abbreviations to the template reference.</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    If the template refers to a repository URL, clone it.</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    If the template is a path to a local repository, use it.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    :param template: A directory containing a project template directory,</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        or a URL to a git repository.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    :param abbreviations: A dictionary of repository abbreviation</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        definitions.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    :param clone_to_dir: The directory to clone the repository into.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    :param checkout: The branch, tag or commit ID to checkout after clone.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">    :param no_input: Do not prompt for user input and eventually force a refresh of</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        cached resources.</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">    :param password: The password to use when extracting the repository.</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">    :param directory: Directory within repo where cookiecutter.json lives.</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    :return: A tuple containing the cookiecutter template directory, and</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">        a boolean describing whether that directory should be cleaned up</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">        after the template has been instantiated.</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">    :raises: `RepositoryNotFound` if a repository directory could not be found.</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">template</span> <span class="o">=</span> <span class="n">expand_abbreviations</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">abbreviations</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">    <span class="k">if</span> <span class="n">is_zip_file</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">unzipped_dir</span> <span class="o">=</span> <span class="n">unzip</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="n">zip_uri</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="n">is_url</span><span class="o">=</span><span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">),</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">unzipped_dir</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">    <span class="k">elif</span> <span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">        <span class="n">cloned_repo</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">            <span class="n">repo_url</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">            <span class="n">checkout</span><span class="o">=</span><span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#50">50</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloned_repo</span><span class="p">]</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#53">53</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">template</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clone_to_dir</span><span class="p">,</span> <span class="n">template</span><span class="p">)]</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">    <span class="k">if</span> <span class="n">directory</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">repository_candidates</span></span>
+<span class="num"><a href="#60">60</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#61">61</a></span><span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">    <span class="k">for</span> <span class="n">repo_candidate</span> <span class="ow">in</span> <span class="n">repository_candidates</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full run">        <span class="k">if</span> <span class="n">repository_has_cookiecutter_json</span><span class="p">(</span><span class="n">repo_candidate</span><span class="p">):</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full run">            <span class="k">return</span> <span class="n">repo_candidate</span><span class="p">,</span> <span class="n">cleanup</span></span>
+<span class="num"><a href="#65">65</a></span><span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">    <span class="k">raise</span> <span class="n">RepositoryNotFound</span><span class="p">(</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">        <span class="s1">&#39;A valid repository for &quot;</span><span class="si">{}</span><span class="s1">&quot; could not be found in the following &#39;</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">        <span class="s1">&#39;locations:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">repository_candidates</span><span class="p">))</span></span>
+<span class="num"><a href="#69">69</a></span><span>    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 3 calls (6.0%)</p>
+                <p><button class="input"><span>&#8594;</span> template</button> 'definitely-not-a-valid-repo-dir' (1) 'tests/fake-repo-bad' (1) 'tests/unknown-repo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> abbreviations</button> {} (2) {'gh': 'https://github.com/{0}.git', 'gl': 'https://gitlab.com/{0}.git', 'bb': 'https://bitbucket.org/{0}'} (1) </p>
+                <p><button class="input"><span>&#8594;</span> clone_to_dir</button> '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-16/test_should_raise_error_if_rep0/home/.cookiecutters' (1) '/pri...</p>
+                <p><button class="input"><span>&#8594;</span> checkout</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> no_input</button> True (2) False (1) </p>
+                <p><button class="input"><span>&#8594;</span> password</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> directory</button> None (3) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> RepositoryNotFound (3) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">determine_repo_dir</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">abbreviations</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    Locate the repository directory from a template reference.</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    Applies repository abbreviations to the template reference.</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    If the template refers to a repository URL, clone it.</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    If the template is a path to a local repository, use it.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    :param template: A directory containing a project template directory,</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        or a URL to a git repository.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    :param abbreviations: A dictionary of repository abbreviation</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        definitions.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    :param clone_to_dir: The directory to clone the repository into.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    :param checkout: The branch, tag or commit ID to checkout after clone.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">    :param no_input: Do not prompt for user input and eventually force a refresh of</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        cached resources.</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">    :param password: The password to use when extracting the repository.</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">    :param directory: Directory within repo where cookiecutter.json lives.</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    :return: A tuple containing the cookiecutter template directory, and</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">        a boolean describing whether that directory should be cleaned up</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">        after the template has been instantiated.</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">    :raises: `RepositoryNotFound` if a repository directory could not be found.</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">template</span> <span class="o">=</span> <span class="n">expand_abbreviations</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">abbreviations</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">    <span class="k">if</span> <span class="n">is_zip_file</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">        <span class="n">unzipped_dir</span> <span class="o">=</span> <span class="n">unzip</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="n">zip_uri</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="n">is_url</span><span class="o">=</span><span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">),</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">unzipped_dir</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">    <span class="k">elif</span> <span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">        <span class="n">cloned_repo</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">            <span class="n">repo_url</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">            <span class="n">checkout</span><span class="o">=</span><span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#50">50</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloned_repo</span><span class="p">]</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#53">53</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">template</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clone_to_dir</span><span class="p">,</span> <span class="n">template</span><span class="p">)]</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">    <span class="k">if</span> <span class="n">directory</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">repository_candidates</span></span>
+<span class="num"><a href="#60">60</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#61">61</a></span><span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">    <span class="k">for</span> <span class="n">repo_candidate</span> <span class="ow">in</span> <span class="n">repository_candidates</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full run">        <span class="k">if</span> <span class="n">repository_has_cookiecutter_json</span><span class="p">(</span><span class="n">repo_candidate</span><span class="p">):</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">repo_candidate</span><span class="p">,</span> <span class="n">cleanup</span></span>
+<span class="num"><a href="#65">65</a></span><span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">    <span class="k">raise</span> <span class="n">RepositoryNotFound</span><span class="p">(</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">        <span class="s1">&#39;A valid repository for &quot;</span><span class="si">{}</span><span class="s1">&quot; could not be found in the following &#39;</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">        <span class="s1">&#39;locations:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">repository_candidates</span><span class="p">))</span></span>
+<span class="num"><a href="#69">69</a></span><span>    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 2 calls (4.0%)</p>
+                <p><button class="input"><span>&#8594;</span> template</button> 'tests/fake-repo-dir/' (1) 'cookiecutter-pytest-plugin' (1) </p>
+                <p><button class="input"><span>&#8594;</span> abbreviations</button> {'gh': 'https://github.com/{0}.git', 'gl': 'https://gitlab.com/{0}.git', 'bb': 'https://bitbucket.org/{0}'} (1) {} (1) </p>
+                <p><button class="input"><span>&#8594;</span> clone_to_dir</button> '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-16/test_directory_repo0/home/.cookiecutters' (1) '/private/var/fo...</p>
+                <p><button class="input"><span>&#8594;</span> checkout</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> no_input</button> True (2) </p>
+                <p><button class="input"><span>&#8594;</span> password</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> directory</button> 'my-dir' (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ('tests/fake-repo-dir/my-dir', False) (1) ('/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-16/user_dir0/cookiecut...</p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">determine_repo_dir</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">abbreviations</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    Locate the repository directory from a template reference.</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    Applies repository abbreviations to the template reference.</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    If the template refers to a repository URL, clone it.</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    If the template is a path to a local repository, use it.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    :param template: A directory containing a project template directory,</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        or a URL to a git repository.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    :param abbreviations: A dictionary of repository abbreviation</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        definitions.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    :param clone_to_dir: The directory to clone the repository into.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    :param checkout: The branch, tag or commit ID to checkout after clone.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">    :param no_input: Do not prompt for user input and eventually force a refresh of</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        cached resources.</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">    :param password: The password to use when extracting the repository.</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">    :param directory: Directory within repo where cookiecutter.json lives.</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    :return: A tuple containing the cookiecutter template directory, and</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">        a boolean describing whether that directory should be cleaned up</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">        after the template has been instantiated.</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">    :raises: `RepositoryNotFound` if a repository directory could not be found.</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">template</span> <span class="o">=</span> <span class="n">expand_abbreviations</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">abbreviations</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">    <span class="k">if</span> <span class="n">is_zip_file</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">        <span class="n">unzipped_dir</span> <span class="o">=</span> <span class="n">unzip</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="n">zip_uri</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="n">is_url</span><span class="o">=</span><span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">),</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">unzipped_dir</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">    <span class="k">elif</span> <span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">        <span class="n">cloned_repo</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">            <span class="n">repo_url</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">            <span class="n">checkout</span><span class="o">=</span><span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#50">50</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloned_repo</span><span class="p">]</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#53">53</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">template</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clone_to_dir</span><span class="p">,</span> <span class="n">template</span><span class="p">)]</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">    <span class="k">if</span> <span class="n">directory</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">repository_candidates</span></span>
+<span class="num"><a href="#60">60</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#61">61</a></span><span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">    <span class="k">for</span> <span class="n">repo_candidate</span> <span class="ow">in</span> <span class="n">repository_candidates</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full run">        <span class="k">if</span> <span class="n">repository_has_cookiecutter_json</span><span class="p">(</span><span class="n">repo_candidate</span><span class="p">):</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full run">            <span class="k">return</span> <span class="n">repo_candidate</span><span class="p">,</span> <span class="n">cleanup</span></span>
+<span class="num"><a href="#65">65</a></span><span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">    <span class="k">raise</span> <span class="n">RepositoryNotFound</span><span class="p">(</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">        <span class="s1">&#39;A valid repository for &quot;</span><span class="si">{}</span><span class="s1">&quot; could not be found in the following &#39;</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">        <span class="s1">&#39;locations:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">repository_candidates</span><span class="p">))</span></span>
+<span class="num"><a href="#69">69</a></span><span>    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (2.0%)</p>
+                <p><button class="input"><span>&#8594;</span> template</button> 'https://github.com/pytest-dev/cookiecutter-pytest-plugin.git' (1) </p>
+                <p><button class="input"><span>&#8594;</span> abbreviations</button> {} (1) </p>
+                <p><button class="input"><span>&#8594;</span> clone_to_dir</button> '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-16/user_dir0/cookiecutters' (1) </p>
+                <p><button class="input"><span>&#8594;</span> checkout</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> no_input</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> password</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> directory</button> None (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ('tests/fake-repo-tmpl', False) (1) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">determine_repo_dir</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">abbreviations</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    Locate the repository directory from a template reference.</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    Applies repository abbreviations to the template reference.</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    If the template refers to a repository URL, clone it.</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    If the template is a path to a local repository, use it.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    :param template: A directory containing a project template directory,</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        or a URL to a git repository.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    :param abbreviations: A dictionary of repository abbreviation</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        definitions.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    :param clone_to_dir: The directory to clone the repository into.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    :param checkout: The branch, tag or commit ID to checkout after clone.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">    :param no_input: Do not prompt for user input and eventually force a refresh of</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        cached resources.</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">    :param password: The password to use when extracting the repository.</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">    :param directory: Directory within repo where cookiecutter.json lives.</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    :return: A tuple containing the cookiecutter template directory, and</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">        a boolean describing whether that directory should be cleaned up</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">        after the template has been instantiated.</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">    :raises: `RepositoryNotFound` if a repository directory could not be found.</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">template</span> <span class="o">=</span> <span class="n">expand_abbreviations</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">abbreviations</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">    <span class="k">if</span> <span class="n">is_zip_file</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">        <span class="n">unzipped_dir</span> <span class="o">=</span> <span class="n">unzip</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="n">zip_uri</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="n">is_url</span><span class="o">=</span><span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">),</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">unzipped_dir</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">    <span class="k">elif</span> <span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="n">cloned_repo</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">            <span class="n">repo_url</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="n">checkout</span><span class="o">=</span><span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#50">50</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloned_repo</span><span class="p">]</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#53">53</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">template</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clone_to_dir</span><span class="p">,</span> <span class="n">template</span><span class="p">)]</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">    <span class="k">if</span> <span class="n">directory</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">repository_candidates</span></span>
+<span class="num"><a href="#60">60</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#61">61</a></span><span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">    <span class="k">for</span> <span class="n">repo_candidate</span> <span class="ow">in</span> <span class="n">repository_candidates</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full run">        <span class="k">if</span> <span class="n">repository_has_cookiecutter_json</span><span class="p">(</span><span class="n">repo_candidate</span><span class="p">):</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full run">            <span class="k">return</span> <span class="n">repo_candidate</span><span class="p">,</span> <span class="n">cleanup</span></span>
+<span class="num"><a href="#65">65</a></span><span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">    <span class="k">raise</span> <span class="n">RepositoryNotFound</span><span class="p">(</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">        <span class="s1">&#39;A valid repository for &quot;</span><span class="si">{}</span><span class="s1">&quot; could not be found in the following &#39;</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">        <span class="s1">&#39;locations:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">repository_candidates</span><span class="p">))</span></span>
+<span class="num"><a href="#69">69</a></span><span>    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 1 calls (2.0%)</p>
+                <p><button class="input"><span>&#8594;</span> template</button> 'https://github.com/pytest-dev/cookiecutter-pytest-plugin.git' (1) </p>
+                <p><button class="input"><span>&#8594;</span> abbreviations</button> {} (1) </p>
+                <p><button class="input"><span>&#8594;</span> clone_to_dir</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> checkout</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> no_input</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> password</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> directory</button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> RepositoryNotFound (1) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">determine_repo_dir</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">abbreviations</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    Locate the repository directory from a template reference.</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    Applies repository abbreviations to the template reference.</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    If the template refers to a repository URL, clone it.</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    If the template is a path to a local repository, use it.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    :param template: A directory containing a project template directory,</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        or a URL to a git repository.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    :param abbreviations: A dictionary of repository abbreviation</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        definitions.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    :param clone_to_dir: The directory to clone the repository into.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    :param checkout: The branch, tag or commit ID to checkout after clone.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">    :param no_input: Do not prompt for user input and eventually force a refresh of</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        cached resources.</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">    :param password: The password to use when extracting the repository.</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">    :param directory: Directory within repo where cookiecutter.json lives.</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    :return: A tuple containing the cookiecutter template directory, and</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">        a boolean describing whether that directory should be cleaned up</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">        after the template has been instantiated.</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">    :raises: `RepositoryNotFound` if a repository directory could not be found.</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">template</span> <span class="o">=</span> <span class="n">expand_abbreviations</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">abbreviations</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">    <span class="k">if</span> <span class="n">is_zip_file</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">        <span class="n">unzipped_dir</span> <span class="o">=</span> <span class="n">unzip</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="n">zip_uri</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="n">is_url</span><span class="o">=</span><span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">),</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">unzipped_dir</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">    <span class="k">elif</span> <span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="n">cloned_repo</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">            <span class="n">repo_url</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="n">checkout</span><span class="o">=</span><span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#50">50</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloned_repo</span><span class="p">]</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#53">53</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">template</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clone_to_dir</span><span class="p">,</span> <span class="n">template</span><span class="p">)]</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">    <span class="k">if</span> <span class="n">directory</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">repository_candidates</span></span>
+<span class="num"><a href="#60">60</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#61">61</a></span><span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">    <span class="k">for</span> <span class="n">repo_candidate</span> <span class="ow">in</span> <span class="n">repository_candidates</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full run">        <span class="k">if</span> <span class="n">repository_has_cookiecutter_json</span><span class="p">(</span><span class="n">repo_candidate</span><span class="p">):</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">repo_candidate</span><span class="p">,</span> <span class="n">cleanup</span></span>
+<span class="num"><a href="#65">65</a></span><span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">    <span class="k">raise</span> <span class="n">RepositoryNotFound</span><span class="p">(</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">        <span class="s1">&#39;A valid repository for &quot;</span><span class="si">{}</span><span class="s1">&quot; could not be found in the following &#39;</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">        <span class="s1">&#39;locations:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">repository_candidates</span><span class="p">))</span></span>
+<span class="num"><a href="#69">69</a></span><span>    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 7</b>: 1 calls (2.0%)</p>
+                <p><button class="input"><span>&#8594;</span> template</button> 'cookiecutter-pytest-plugin' (1) </p>
+                <p><button class="input"><span>&#8594;</span> abbreviations</button> {} (1) </p>
+                <p><button class="input"><span>&#8594;</span> clone_to_dir</button> '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-16/user_dir0/cookiecutters' (1) </p>
+                <p><button class="input"><span>&#8594;</span> checkout</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> no_input</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> password</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> directory</button> 'wrong-dir' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> RepositoryNotFound (1) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">16 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">determine_repo_dir</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">abbreviations</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    Locate the repository directory from a template reference.</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    Applies repository abbreviations to the template reference.</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    If the template refers to a repository URL, clone it.</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    If the template is a path to a local repository, use it.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    :param template: A directory containing a project template directory,</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        or a URL to a git repository.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    :param abbreviations: A dictionary of repository abbreviation</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        definitions.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    :param clone_to_dir: The directory to clone the repository into.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    :param checkout: The branch, tag or commit ID to checkout after clone.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">    :param no_input: Do not prompt for user input and eventually force a refresh of</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        cached resources.</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">    :param password: The password to use when extracting the repository.</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">    :param directory: Directory within repo where cookiecutter.json lives.</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    :return: A tuple containing the cookiecutter template directory, and</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">        a boolean describing whether that directory should be cleaned up</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">        after the template has been instantiated.</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">    :raises: `RepositoryNotFound` if a repository directory could not be found.</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">template</span> <span class="o">=</span> <span class="n">expand_abbreviations</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">abbreviations</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">    <span class="k">if</span> <span class="n">is_zip_file</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">        <span class="n">unzipped_dir</span> <span class="o">=</span> <span class="n">unzip</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="n">zip_uri</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="n">is_url</span><span class="o">=</span><span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">),</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">unzipped_dir</span><span class="p">]</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">    <span class="k">elif</span> <span class="n">is_repo_url</span><span class="p">(</span><span class="n">template</span><span class="p">):</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">        <span class="n">cloned_repo</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">            <span class="n">repo_url</span><span class="o">=</span><span class="n">template</span><span class="p">,</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">            <span class="n">checkout</span><span class="o">=</span><span class="n">checkout</span><span class="p">,</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="n">clone_to_dir</span><span class="o">=</span><span class="n">clone_to_dir</span><span class="p">,</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="n">no_input</span><span class="o">=</span><span class="n">no_input</span><span class="p">,</span></span>
+<span class="num"><a href="#50">50</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloned_repo</span><span class="p">]</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#53">53</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">template</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clone_to_dir</span><span class="p">,</span> <span class="n">template</span><span class="p">)]</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">    <span class="k">if</span> <span class="n">directory</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">        <span class="n">repository_candidates</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">repository_candidates</span></span>
+<span class="num"><a href="#60">60</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#61">61</a></span><span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">    <span class="k">for</span> <span class="n">repo_candidate</span> <span class="ow">in</span> <span class="n">repository_candidates</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full run">        <span class="k">if</span> <span class="n">repository_has_cookiecutter_json</span><span class="p">(</span><span class="n">repo_candidate</span><span class="p">):</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">repo_candidate</span><span class="p">,</span> <span class="n">cleanup</span></span>
+<span class="num"><a href="#65">65</a></span><span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">    <span class="k">raise</span> <span class="n">RepositoryNotFound</span><span class="p">(</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">        <span class="s1">&#39;A valid repository for &quot;</span><span class="si">{}</span><span class="s1">&quot; could not be found in the following &#39;</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">        <span class="s1">&#39;locations:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">repository_candidates</span><span class="p">))</span></span>
+<span class="num"><a href="#69">69</a></span><span>    <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

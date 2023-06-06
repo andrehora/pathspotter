@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pathlib._Flavour.join_parsed_parts</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pathlib._Flavour.join_parsed_parts</h1>
+                <span>Coverage: 100.0% (8/8),</span>
+                <span>Tests: 53, </span>
+                <span>Calls: 634, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 602 calls (95.0%)</p>
+                <p><button class="input"><span>&#8594;</span> drv</button> '' (596) 'C:' (5) 'D:' (1) </p>
+                <p><button class="input"><span>&#8594;</span> root</button> '/' (556) '' (37) '\\' (5) '//' (4) </p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['/', 'Users', 'andrehora', 'Documents', 'git', 'spotflow', 'lab', 'happypath', '@test_18611_tmp&#230;'] (305) ['a', 'b'] (28) ['/', 'Users', 'andrehora', ...</p>
+                <p><button class="input"><span>&#8594;</span> drv2</button> '' (602) </p>
+                <p><button class="input"><span>&#8594;</span> root2</button> '' (602) </p>
+                <p><button class="input"><span>&#8594;</span> parts2</button> ['fileA'] (104) ['d'] (68) ['dir1'] (64) ['dir2'] (64) ['dirA'] (38) ['linkA'] (22) ['bah'] (20) ['c'] (20) ['non-existing'] (16) ['linkB'] (14) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (602) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">join_parsed_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">drv2</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="n">parts2</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Join the two paths represented by the respective</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        (drive, root, parts) tuples.  Return a new (drive, root, parts) tuple.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">root2</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">drv2</span> <span class="ow">and</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="p">[</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root2</span><span class="p">]</span> <span class="o">+</span> <span class="n">parts2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">elif</span> <span class="n">drv2</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">drv2</span> <span class="o">==</span> <span class="n">drv</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">casefold</span><span class="p">(</span><span class="n">drv2</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">casefold</span><span class="p">(</span><span class="n">drv</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="c1"># Same drive =&gt; second path is relative to the first</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span> <span class="o">+</span> <span class="n">parts2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Second path is non-anchored (common case)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span> <span class="o">+</span> <span class="n">parts2</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">drv2</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="n">parts2</span></span>
+            </pre>
+            <p><b>Path 2</b>: 22 calls (3.5%)</p>
+                <p><button class="input"><span>&#8594;</span> drv</button> '' (16) 'C:' (6) </p>
+                <p><button class="input"><span>&#8594;</span> root</button> '' (8) '\\' (6) '/' (4) '//' (4) </p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['a', 'b'] (8) ['C:\\', 'a', 'b'] (6) ['/', 'a'] (4) ['//', 'a'] (4) </p>
+                <p><button class="input"><span>&#8594;</span> drv2</button> '' (16) 'D:' (2) '\\\\host\\share' (2) 'c:' (2) </p>
+                <p><button class="input"><span>&#8594;</span> root2</button> '/' (10) '\\' (8) '//' (4) </p>
+                <p><button class="input"><span>&#8594;</span> parts2</button> ['/', 'c'] (10) ['//', 'c'] (4) ['D:\\', 'x', 'y'] (2) ['\\\\host\\share\\', 'x', 'y'] (2) ['c:\\', 'x', 'y'] (2) ['\\', 'c'] (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (22) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">join_parsed_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">drv2</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="n">parts2</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Join the two paths represented by the respective</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        (drive, root, parts) tuples.  Return a new (drive, root, parts) tuple.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">root2</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">drv2</span> <span class="ow">and</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="p">[</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root2</span><span class="p">]</span> <span class="o">+</span> <span class="n">parts2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">drv2</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">drv2</span> <span class="o">==</span> <span class="n">drv</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">casefold</span><span class="p">(</span><span class="n">drv2</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">casefold</span><span class="p">(</span><span class="n">drv</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="c1"># Same drive =&gt; second path is relative to the first</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span> <span class="o">+</span> <span class="n">parts2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Second path is non-anchored (common case)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span> <span class="o">+</span> <span class="n">parts2</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">return</span> <span class="n">drv2</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="n">parts2</span></span>
+            </pre>
+            <p><b>Path 3</b>: 4 calls (0.6%)</p>
+                <p><button class="input"><span>&#8594;</span> drv</button> 'C:' (3) 'D:' (1) </p>
+                <p><button class="input"><span>&#8594;</span> root</button> '\\' (3) '' (1) </p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['C:\\', 'a', 'b'] (3) ['D:'] (1) </p>
+                <p><button class="input"><span>&#8594;</span> drv2</button> '' (4) </p>
+                <p><button class="input"><span>&#8594;</span> root2</button> '\\' (4) </p>
+                <p><button class="input"><span>&#8594;</span> parts2</button> ['\\', 'x', 'y'] (3) ['\\', 'x'] (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (4) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">join_parsed_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">drv2</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="n">parts2</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Join the two paths represented by the respective</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        (drive, root, parts) tuples.  Return a new (drive, root, parts) tuple.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">root2</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">drv2</span> <span class="ow">and</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="p">[</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root2</span><span class="p">]</span> <span class="o">+</span> <span class="n">parts2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">drv2</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">drv2</span> <span class="o">==</span> <span class="n">drv</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">casefold</span><span class="p">(</span><span class="n">drv2</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">casefold</span><span class="p">(</span><span class="n">drv</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="c1"># Same drive =&gt; second path is relative to the first</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span> <span class="o">+</span> <span class="n">parts2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Second path is non-anchored (common case)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span> <span class="o">+</span> <span class="n">parts2</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">drv2</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="n">parts2</span></span>
+            </pre>
+            <p><b>Path 4</b>: 4 calls (0.6%)</p>
+                <p><button class="input"><span>&#8594;</span> drv</button> 'C:' (4) </p>
+                <p><button class="input"><span>&#8594;</span> root</button> '\\' (4) </p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['C:\\', 'a', 'b'] (4) </p>
+                <p><button class="input"><span>&#8594;</span> drv2</button> 'D:' (4) </p>
+                <p><button class="input"><span>&#8594;</span> root2</button> '' (4) </p>
+                <p><button class="input"><span>&#8594;</span> parts2</button> ['D:', 'x', 'y'] (2) ['D:'] (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (4) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">join_parsed_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">drv2</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="n">parts2</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Join the two paths represented by the respective</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        (drive, root, parts) tuples.  Return a new (drive, root, parts) tuple.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">root2</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">drv2</span> <span class="ow">and</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="p">[</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root2</span><span class="p">]</span> <span class="o">+</span> <span class="n">parts2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">elif</span> <span class="n">drv2</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">drv2</span> <span class="o">==</span> <span class="n">drv</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">casefold</span><span class="p">(</span><span class="n">drv2</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">casefold</span><span class="p">(</span><span class="n">drv</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="c1"># Same drive =&gt; second path is relative to the first</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span> <span class="o">+</span> <span class="n">parts2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Second path is non-anchored (common case)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span> <span class="o">+</span> <span class="n">parts2</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">return</span> <span class="n">drv2</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="n">parts2</span></span>
+            </pre>
+            <p><b>Path 5</b>: 2 calls (0.3%)</p>
+                <p><button class="input"><span>&#8594;</span> drv</button> 'C:' (2) </p>
+                <p><button class="input"><span>&#8594;</span> root</button> '\\' (2) </p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['C:\\', 'a', 'b'] (2) </p>
+                <p><button class="input"><span>&#8594;</span> drv2</button> 'c:' (2) </p>
+                <p><button class="input"><span>&#8594;</span> root2</button> '' (2) </p>
+                <p><button class="input"><span>&#8594;</span> parts2</button> ['c:', 'x', 'y'] (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (2) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">join_parsed_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">drv2</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="n">parts2</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Join the two paths represented by the respective</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        (drive, root, parts) tuples.  Return a new (drive, root, parts) tuple.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">root2</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">drv2</span> <span class="ow">and</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="p">[</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root2</span><span class="p">]</span> <span class="o">+</span> <span class="n">parts2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">elif</span> <span class="n">drv2</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">drv2</span> <span class="o">==</span> <span class="n">drv</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">casefold</span><span class="p">(</span><span class="n">drv2</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">casefold</span><span class="p">(</span><span class="n">drv</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="c1"># Same drive =&gt; second path is relative to the first</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span> <span class="o">+</span> <span class="n">parts2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Second path is non-anchored (common case)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parts</span> <span class="o">+</span> <span class="n">parts2</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">drv2</span><span class="p">,</span> <span class="n">root2</span><span class="p">,</span> <span class="n">parts2</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

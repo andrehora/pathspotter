@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>tarfile._Stream.write</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: tarfile._Stream.write</h1>
+                <span>Coverage: 100.0% (6/6),</span>
+                <span>Tests: 6, </span>
+                <span>Calls: 54, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 26 calls (48.1%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> bytes (26) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Write string s to the stream.</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comptype</span> <span class="o">==</span> <span class="s2">&quot;gz&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">crc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zlib</span><span class="o">.</span><span class="n">crc32</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">crc</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comptype</span> <span class="o">!=</span> <span class="s2">&quot;tar&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmp</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">__write</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 15 calls (27.8%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> bytes (15) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Write string s to the stream.</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comptype</span> <span class="o">==</span> <span class="s2">&quot;gz&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">crc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zlib</span><span class="o">.</span><span class="n">crc32</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">crc</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comptype</span> <span class="o">!=</span> <span class="s2">&quot;tar&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmp</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">__write</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 13 calls (24.1%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> bytes (13) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Write string s to the stream.</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comptype</span> <span class="o">==</span> <span class="s2">&quot;gz&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">crc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zlib</span><span class="o">.</span><span class="n">crc32</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">crc</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comptype</span> <span class="o">!=</span> <span class="s2">&quot;tar&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmp</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">__write</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

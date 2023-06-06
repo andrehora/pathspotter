@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.generator.Generator.__init__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.generator.Generator.__init__</h1>
+                <span>Coverage: 85.7% (6/7),</span>
+                <span>Tests: 164, </span>
+                <span>Calls: 599, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 436 calls (72.8%)</p>
+                <p><button class="input"><span>&#8594;</span> outfp</button> StringIO (227) BytesIO (209) </p>
+                <p><button class="input"><span>&#8594;</span> mangle_from_</button> True (276) False (160) </p>
+                <p><button class="input"><span>&#8594;</span> maxheaderlen</button> None (330) 0 (54) 78 (30) 60 (20) 76 (1) 34 (1) </p>
+                <p><button class="input"><span>&#8594;</span> policy</button> Compat32 (346) EmailPolicy (85) None (5) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfp</span><span class="p">,</span> <span class="n">mangle_from_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxheaderlen</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">policy</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the generator for message flattening.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        outfp is the output file-like object for writing the message to.  It</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        must have a write() method.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        Optional mangle_from_ is a flag that, when True (the default if policy</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        is not set), escapes From_ lines in the body of the message by putting</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        a `&gt;&#39; in front of them.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        Optional maxheaderlen specifies the longest length for a non-continued</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        header.  When a header line is longer (in characters, with tabs</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        expanded to 8 spaces) than maxheaderlen, the header will split as</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        defined in the Header class.  Set maxheaderlen to zero to disable</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        header wrapping.  The default is 78, as recommended (but not required)</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        by RFC 2822.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        The policy keyword specifies a policy object that controls a number of</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        aspects of the generator&#39;s operation.  If no policy is specified,</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        the policy associated with the Message object passed to the</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        flatten method is used.</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">mangle_from_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="n">mangle_from_</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">policy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">policy</span><span class="o">.</span><span class="n">mangle_from_</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_fp</span> <span class="o">=</span> <span class="n">outfp</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_mangle_from_</span> <span class="o">=</span> <span class="n">mangle_from_</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span> <span class="o">=</span> <span class="n">maxheaderlen</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+            </pre>
+            <p><b>Path 2</b>: 163 calls (27.2%)</p>
+                <p><button class="input"><span>&#8594;</span> outfp</button> BytesIO (92) StringIO (71) </p>
+                <p><button class="input"><span>&#8594;</span> mangle_from_</button> None (163) </p>
+                <p><button class="input"><span>&#8594;</span> maxheaderlen</button> None (85) 0 (66) 100 (4) 20 (4) 40 (4) </p>
+                <p><button class="input"><span>&#8594;</span> policy</button> None (101) EmailPolicy (56) Compat32 (6) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfp</span><span class="p">,</span> <span class="n">mangle_from_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxheaderlen</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">policy</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the generator for message flattening.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        outfp is the output file-like object for writing the message to.  It</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        must have a write() method.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        Optional mangle_from_ is a flag that, when True (the default if policy</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        is not set), escapes From_ lines in the body of the message by putting</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        a `&gt;&#39; in front of them.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        Optional maxheaderlen specifies the longest length for a non-continued</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        header.  When a header line is longer (in characters, with tabs</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        expanded to 8 spaces) than maxheaderlen, the header will split as</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        defined in the Header class.  Set maxheaderlen to zero to disable</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        header wrapping.  The default is 78, as recommended (but not required)</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        by RFC 2822.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        The policy keyword specifies a policy object that controls a number of</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        aspects of the generator&#39;s operation.  If no policy is specified,</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        the policy associated with the Message object passed to the</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        flatten method is used.</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">mangle_from_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="n">mangle_from_</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">policy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">policy</span><span class="o">.</span><span class="n">mangle_from_</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_fp</span> <span class="o">=</span> <span class="n">outfp</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_mangle_from_</span> <span class="o">=</span> <span class="n">mangle_from_</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span> <span class="o">=</span> <span class="n">maxheaderlen</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

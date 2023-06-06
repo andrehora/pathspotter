@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.charset.Charset.header_encode</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.charset.Charset.header_encode</h1>
+                <span>Coverage: 100.0% (6/6),</span>
+                <span>Tests: 3, </span>
+                <span>Calls: 6, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 4 calls (66.7%)</p>
+                <p><button class="input"><span>&#8594;</span> string</button> 'H&#228;ns W&#252;rst' (3) '&#164;&#162;&#164;&#164;&#164;&#166;&#164;&#168;&#164;&#170;' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '=?utf-8?b?SMOkbnMgV8O8cnN0?=' (2) '=?utf-8?b?wqTCosKkwqTCpMKmwqTCqMKkwqo=?=' (1) '=?iso-8859-1?q?H=E4ns_W=FCrst?=' (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Header-encode a string by converting it first to bytes.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        The type of encoding (base64 or quoted-printable) will be based on</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        this charset&#39;s `header_encoding`.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        :param string: A unicode string for the header.  It must be possible</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">            to encode this string to bytes using the character set&#39;s</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            output codec.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        :return: The encoded string, with RFC 2047 chrome.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">codec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># 7bit/8bit encodings return the string unchanged (modulo conversions)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">encoder_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="n">encoder_module</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">string</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">return</span> <span class="n">encoder_module</span><span class="o">.</span><span class="n">header_encode</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (16.7%)</p>
+                <p><button class="input"><span>&#8594;</span> string</button> 'Hello World!' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'Hello World!' (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Header-encode a string by converting it first to bytes.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        The type of encoding (base64 or quoted-printable) will be based on</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        this charset&#39;s `header_encoding`.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        :param string: A unicode string for the header.  It must be possible</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">            to encode this string to bytes using the character set&#39;s</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            output codec.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        :return: The encoded string, with RFC 2047 chrome.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">codec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># 7bit/8bit encodings return the string unchanged (modulo conversions)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">encoder_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="n">encoder_module</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">return</span> <span class="n">string</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">encoder_module</span><span class="o">.</span><span class="n">header_encode</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (16.7%)</p>
+                <p><button class="input"><span>&#8594;</span> string</button> '&#164;&#162;&#164;&#164;&#164;&#166;&#164;&#168;&#164;&#170;' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UnicodeEncodeError (1) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Header-encode a string by converting it first to bytes.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        The type of encoding (base64 or quoted-printable) will be based on</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        this charset&#39;s `header_encoding`.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        :param string: A unicode string for the header.  It must be possible</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">            to encode this string to bytes using the character set&#39;s</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            output codec.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        :return: The encoded string, with RFC 2047 chrome.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">codec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># 7bit/8bit encodings return the string unchanged (modulo conversions)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="n">encoder_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">encoder_module</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">string</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">encoder_module</span><span class="o">.</span><span class="n">header_encode</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

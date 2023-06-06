@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pathlib._Flavour.parse_parts</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pathlib._Flavour.parse_parts</h1>
+                <span>Coverage: 100.0% (32/32),</span>
+                <span>Tests: 17, </span>
+                <span>Calls: 4457, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 10</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1286 calls (28.9%)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['a'] (223) ('d',) (212) ['fileA'] (108) ['d'] (66) ['dir1'] (64) ['dir2'] (64) ['dirA'] (38) ['c'] (36) ['b'] (31) ['a', 'b'] (25) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (1286) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">16 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">parsed</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">sep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sep</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">altsep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">altsep</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">drv</span> <span class="o">=</span> <span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">it</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">rel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">rel</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="k">if</span> <span class="n">rel</span> <span class="ow">and</span> <span class="n">rel</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">rel</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                    <span class="c1"># If no drive is present, try to find one in the previous</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="c1"># parts. This makes the result of parsing e.g.</span></span>
+<span class="num"><a href="#24">24</a></span><span>                    <span class="c1"># (&quot;C:&quot;, &quot;/&quot;, &quot;a&quot;) reasonably intuitive.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                            <span class="k">continue</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                            <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">drv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                            <span class="k">break</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">parsed</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parsed</span></span>
+            </pre>
+            <p><b>Path 2</b>: 690 calls (15.5%)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['a/b'] (207) ('*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*',) (200) ['a/b/c'] (45) ['a/b.py'] (33) ('a*/*.py',) (15) ['a/b/c/d'] (9) ...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (690) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">parsed</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">sep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sep</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">altsep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">altsep</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">drv</span> <span class="o">=</span> <span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">it</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">rel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">rel</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="k">if</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                        <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">rel</span> <span class="ow">and</span> <span class="n">rel</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">rel</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                    <span class="c1"># If no drive is present, try to find one in the previous</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="c1"># parts. This makes the result of parsing e.g.</span></span>
+<span class="num"><a href="#24">24</a></span><span>                    <span class="c1"># (&quot;C:&quot;, &quot;/&quot;, &quot;a&quot;) reasonably intuitive.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                            <span class="k">continue</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                            <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">drv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                            <span class="k">break</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">parsed</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parsed</span></span>
+            </pre>
+            <p><b>Path 3</b>: 578 calls (13.0%)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['/Users/andrehora/Documents/git/spotflow/lab/happypath/@test_18611_tmp&#230;'] (147) ['/a/b'] (108) ['/a/b.py'] (30) ['/a/b/c'] (27) ['/Users/andrehora'] ...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (578) </p>
+            <button class="run" title="lines run...">21 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">parsed</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">sep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sep</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">altsep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">altsep</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">drv</span> <span class="o">=</span> <span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">it</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">rel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">rel</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="k">if</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                        <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">rel</span> <span class="ow">and</span> <span class="n">rel</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">rel</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                    <span class="c1"># If no drive is present, try to find one in the previous</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="c1"># parts. This makes the result of parsing e.g.</span></span>
+<span class="num"><a href="#24">24</a></span><span>                    <span class="c1"># (&quot;C:&quot;, &quot;/&quot;, &quot;a&quot;) reasonably intuitive.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                            <span class="k">continue</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                            <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">drv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                            <span class="k">break</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">parsed</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parsed</span></span>
+            </pre>
+            <p><b>Path 4</b>: 225 calls (5.0%)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['/a'] (55) ['/c'] (26) ['/', 'a', 'b'] (24) ['/', 'Users', 'andrehora', 'Documents', 'git', 'spotflow', 'lab', 'happypath', '@test_18611_tmp&#230;', 'file...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (225) </p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">parsed</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">sep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sep</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">altsep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">altsep</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">drv</span> <span class="o">=</span> <span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">it</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">rel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">rel</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="k">if</span> <span class="n">rel</span> <span class="ow">and</span> <span class="n">rel</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">rel</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                    <span class="c1"># If no drive is present, try to find one in the previous</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="c1"># parts. This makes the result of parsing e.g.</span></span>
+<span class="num"><a href="#24">24</a></span><span>                    <span class="c1"># (&quot;C:&quot;, &quot;/&quot;, &quot;a&quot;) reasonably intuitive.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                            <span class="k">continue</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                            <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">drv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                            <span class="k">break</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">parsed</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parsed</span></span>
+            </pre>
+            <p><b>Path 5</b>: 205 calls (4.6%)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['c:a/b'] (36) ['c:/a/b'] (9) ['//a/b/c/d'] (8) ['C:/a/b/x/y'] (5) ['C:/x/y'] (5) ['D:x/y'] (5) ['D:/x/y'] (5) ['c:a/b.py'] (5) ['c:/a/b/'] (4) ['//ho...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (205) </p>
+            <button class="run" title="lines run...">21 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">parsed</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">sep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sep</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">altsep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">altsep</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">drv</span> <span class="o">=</span> <span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">it</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">rel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">rel</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="k">if</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                        <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">rel</span> <span class="ow">and</span> <span class="n">rel</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">rel</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                    <span class="c1"># If no drive is present, try to find one in the previous</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="c1"># parts. This makes the result of parsing e.g.</span></span>
+<span class="num"><a href="#24">24</a></span><span>                    <span class="c1"># (&quot;C:&quot;, &quot;/&quot;, &quot;a&quot;) reasonably intuitive.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                            <span class="k">continue</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                            <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">drv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                            <span class="k">break</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">parsed</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parsed</span></span>
+            </pre>
+            <p><b>Path 6</b>: 199 calls (4.5%)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['a'] (90) ['c'] (12) ['a', 'b'] (11) ('d.xml',) (10) ['Bar'] (9) ['b'] (8) ('d',) (8) ['a', 'b', 'c'] (4) ['Foo'] (4) ['b.py'] (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (199) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">parsed</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">sep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sep</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">altsep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">altsep</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">drv</span> <span class="o">=</span> <span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">it</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">rel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">rel</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="k">if</span> <span class="n">rel</span> <span class="ow">and</span> <span class="n">rel</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">rel</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                    <span class="c1"># If no drive is present, try to find one in the previous</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="c1"># parts. This makes the result of parsing e.g.</span></span>
+<span class="num"><a href="#24">24</a></span><span>                    <span class="c1"># (&quot;C:&quot;, &quot;/&quot;, &quot;a&quot;) reasonably intuitive.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                            <span class="k">continue</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                            <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">drv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                            <span class="k">break</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">parsed</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parsed</span></span>
+            </pre>
+            <p><b>Path 7</b>: 189 calls (4.2%)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['/Users/andrehora/Documents/git/spotflow/lab/happypath/@test_18611_tmp&#230;', 'fileA'] (18) ['/Users/andrehora/Documents/git/spotflow/lab/happypath/@test...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (189) </p>
+            <button class="run" title="lines run...">23 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">parsed</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">sep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sep</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">altsep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">altsep</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">drv</span> <span class="o">=</span> <span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">it</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">rel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">rel</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="k">if</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                        <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="k">if</span> <span class="n">rel</span> <span class="ow">and</span> <span class="n">rel</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">rel</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                    <span class="c1"># If no drive is present, try to find one in the previous</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="c1"># parts. This makes the result of parsing e.g.</span></span>
+<span class="num"><a href="#24">24</a></span><span>                    <span class="c1"># (&quot;C:&quot;, &quot;/&quot;, &quot;a&quot;) reasonably intuitive.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                            <span class="k">continue</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                            <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">drv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                            <span class="k">break</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">parsed</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parsed</span></span>
+            </pre>
+            <p><b>Path 8</b>: 156 calls (3.5%)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['a/b'] (68) ['a/b/c'] (16) ['a/b.py'] (8) ['Foo/Bar'] (7) ['a/'] (3) ['a/b/'] (3) ['x/y'] (3) ['a/b/c/d'] (3) ['a/.hgrc'] (3) ['a/.hg.rc'] (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (156) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">14 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">parsed</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">sep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sep</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">altsep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">altsep</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">drv</span> <span class="o">=</span> <span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">it</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">rel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">rel</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="k">if</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                        <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">rel</span> <span class="ow">and</span> <span class="n">rel</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">rel</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                    <span class="c1"># If no drive is present, try to find one in the previous</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="c1"># parts. This makes the result of parsing e.g.</span></span>
+<span class="num"><a href="#24">24</a></span><span>                    <span class="c1"># (&quot;C:&quot;, &quot;/&quot;, &quot;a&quot;) reasonably intuitive.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                            <span class="k">continue</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                            <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">drv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                            <span class="k">break</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">parsed</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parsed</span></span>
+            </pre>
+            <p><b>Path 9</b>: 148 calls (3.3%)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['//a/b/c'] (12) ['z:a'] (8) ['z:/a'] (8) ['c:a'] (6) ('c:/*.py',) (5) ['c:\\a'] (4) ['c:foO'] (4) ['//sErver/sHare/Foo'] (4) ('//some/share/*.py',) (...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (148) </p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">parsed</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">sep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sep</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">altsep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">altsep</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">drv</span> <span class="o">=</span> <span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">it</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">rel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">rel</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="k">if</span> <span class="n">rel</span> <span class="ow">and</span> <span class="n">rel</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">rel</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                    <span class="c1"># If no drive is present, try to find one in the previous</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="c1"># parts. This makes the result of parsing e.g.</span></span>
+<span class="num"><a href="#24">24</a></span><span>                    <span class="c1"># (&quot;C:&quot;, &quot;/&quot;, &quot;a&quot;) reasonably intuitive.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                            <span class="k">continue</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                            <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">drv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                            <span class="k">break</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">parsed</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parsed</span></span>
+            </pre>
+            <p><b>Path 10</b>: 129 calls (2.9%)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['c:'] (27) ['c:/'] (15) ['//a/b'] (14) ['d:'] (8) ['z:'] (7) ['z:/'] (7) ['//a/b/'] (6) ['c:\\'] (5) ['//sErver/sHare'] (4) ['//My.py/Share.php'] (3)...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (129) </p>
+            <button class="run" title="lines run...">19 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">parsed</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">sep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sep</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">altsep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">altsep</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">drv</span> <span class="o">=</span> <span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">it</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">rel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">rel</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="k">if</span> <span class="n">rel</span> <span class="ow">and</span> <span class="n">rel</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="n">rel</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                    <span class="c1"># If no drive is present, try to find one in the previous</span></span>
+<span class="num"><a href="#23">23</a></span><span>                    <span class="c1"># parts. This makes the result of parsing e.g.</span></span>
+<span class="num"><a href="#24">24</a></span><span>                    <span class="c1"># (&quot;C:&quot;, &quot;/&quot;, &quot;a&quot;) reasonably intuitive.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                            <span class="k">continue</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">altsep</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                            <span class="n">part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">altsep</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">drv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splitroot</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">drv</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                            <span class="k">break</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drv</span> <span class="o">+</span> <span class="n">root</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">parsed</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">return</span> <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parsed</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

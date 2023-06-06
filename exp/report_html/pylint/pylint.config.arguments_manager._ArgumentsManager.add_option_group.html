@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.config.arguments_manager._ArgumentsManager.add_option_group</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.config.arguments_manager._ArgumentsManager.add_option_group</h1>
+                <span>Coverage: 90.0% (18/20),</span>
+                <span>Tests: 0, </span>
+                <span>Calls: 1, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> group_name</button> '' (1) </p>
+                <p><button class="input"><span>&#8594;</span> _</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> options</button> list (1) </p>
+                <p><button class="input"><span>&#8594;</span> provider</button> SampleChecker (1) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">add_option_group</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">group_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">_</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">options</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">OptionDict</span><span class="p">]],</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">provider</span><span class="p">:</span> <span class="n">ConfigProvider</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;DEPRECATED.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="s2">&quot;add_option_group has been deprecated. Option groups should be &quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="s2">&quot;registered by initializing ArgumentsProvider. &quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="s2">&quot;This automatically registers the group on the ArgumentsManager.&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># add option group to the command line parser</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">group_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mygroups</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="n">group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mygroups</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">group</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionGroup</span><span class="p">(</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">cmdline_parser</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">group_name</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">cmdline_parser</span><span class="o">.</span><span class="n">add_option_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_mygroups</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">group</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># add section to the config file</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="n">group_name</span> <span class="o">!=</span> <span class="s2">&quot;DEFAULT&quot;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="ow">and</span> <span class="n">group_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfgfile_parser</span><span class="o">.</span><span class="n">_sections</span>  <span class="c1"># type: ignore[attr-defined]</span></span>
+<span class="num"><a href="#29">29</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">cfgfile_parser</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="n">group_name</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># add provider&#39;s specific options</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="k">for</span> <span class="n">opt</span><span class="p">,</span> <span class="n">optdict</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;action&quot;</span><span class="p">,</span> <span class="s2">&quot;store&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="n">optdict</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;callback&quot;</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_optik_option</span><span class="p">(</span><span class="n">provider</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">opt</span><span class="p">,</span> <span class="n">optdict</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

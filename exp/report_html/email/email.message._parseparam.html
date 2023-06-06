@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.message._parseparam</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.message._parseparam</h1>
+                <span>Coverage: 100.0% (16/16),</span>
+                <span>Tests: 225, </span>
+                <span>Calls: 953, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 832 calls (87.3%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> _ContentTypeHeader (353) 'text/plain; charset="us-ascii"' (100) 'multipart/mixed; boundary="BOUNDARY"' (47) 'text/plain; charset="utf-8"' (22) 'multip...</p>
+                <p><button class="output"><span>&#8617; return</span></button> ['text/plain', 'charset="us-ascii"'] (102) ['multipart/mixed', 'boundary="==="'] (81) ['multipart/related', 'boundary="+++"'] (52) ['text/plain', 'cha...</p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parseparam</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="c1"># RDM This might be a Header, so for now stringify it.</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">plist</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">while</span> <span class="n">s</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;;&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">end</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">while</span> <span class="n">end</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&quot;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">end</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">end</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">f</span> <span class="o">=</span> <span class="n">s</span><span class="p">[:</span><span class="n">end</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="n">i</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">plist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">end</span><span class="p">:]</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="k">return</span> <span class="n">plist</span></span>
+            </pre>
+            <p><b>Path 2</b>: 119 calls (12.5%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> _ContentTypeHeader (79) _ContentDispositionHeader (11) 'multipart/mixed' (8) 'application/octet-stream' (4) 'text/plain' (3) 'dns; cougar.noc.ucla.edu...</p>
+                <p><button class="output"><span>&#8617; return</span></button> ['text/plain'] (41) ['multipart/mixed'] (18) ['text/html'] (8) ['multipart/related'] (8) ['multipart/alternative'] (8) ['inline'] (7) ['multipart/alte...</p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parseparam</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="c1"># RDM This might be a Header, so for now stringify it.</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">plist</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">while</span> <span class="n">s</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;;&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">end</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">while</span> <span class="n">end</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&quot;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">end</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">end</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">f</span> <span class="o">=</span> <span class="n">s</span><span class="p">[:</span><span class="n">end</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">i</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">plist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">end</span><span class="p">:]</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="k">return</span> <span class="n">plist</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> 'image/pjpeg; name="Jim&amp;&amp;Jill"' (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['image/pjpeg', 'name="Jim&amp;&amp;Jill"'] (2) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parseparam</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="c1"># RDM This might be a Header, so for now stringify it.</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">plist</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">while</span> <span class="n">s</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;;&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">end</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">while</span> <span class="n">end</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&quot;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">end</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">end</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">f</span> <span class="o">=</span> <span class="n">s</span><span class="p">[:</span><span class="n">end</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="n">i</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">plist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">end</span><span class="p">:]</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="k">return</span> <span class="n">plist</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

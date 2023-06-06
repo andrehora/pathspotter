@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.utils.collapse_rfc2231_value</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.utils.collapse_rfc2231_value</h1>
+                <span>Coverage: 90.9% (10/11),</span>
+                <span>Tests: 110, </span>
+                <span>Calls: 456, </span>
+                <span>Exceptions: 9, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 437 calls (95.8%)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> '===' (111) 'BOUNDARY' (62) '+++' (30) '___' (30) 'abc' (24) '===============3344438784458119861==' (16) 'MS_Mac_OE_3071477847_720252_MIME_Part' (12) ...</p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'replace' (437) </p>
+                <p><button class="input"><span>&#8594;</span> fallback_charset</button> 'us-ascii' (437) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '===' (111) 'BOUNDARY' (62) '+++' (30) '___' (30) 'abc' (24) '===============3344438784458119861==' (16) 'MS_Mac_OE_3071477847_720252_MIME_Part' (12) ...</p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">collapse_rfc2231_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                           <span class="n">fallback_charset</span><span class="o">=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">return</span> <span class="n">unquote</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="c1"># While value comes to us as a unicode string, we need it to be a bytes</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="c1"># object.  We do not want bytes() normal utf-8 decoder, we want a straight</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="c1"># interpretation of the string as character bytes.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">    <span class="n">charset</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># Issue 17369: if charset/lang is None, decode_rfc2231 couldn&#39;t parse</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># the value, so use the fallback_charset.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="n">charset</span> <span class="o">=</span> <span class="n">fallback_charset</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">    <span class="n">rawbytes</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;raw-unicode-escape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">rawbytes</span><span class="p">,</span> <span class="n">charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">    <span class="k">except</span> <span class="ne">LookupError</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># charset is not a known codec.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">unquote</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 9 calls (2.0%)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> ('', '', 'This is even more ***fun*** is it not.pdf') (6) ('bogus', 'xx', 'This is even more ***fun*** is it not.pdf') (1) ('', '', 'This%20is%20even%...</p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'replace' (9) </p>
+                <p><button class="input"><span>&#8594;</span> fallback_charset</button> 'us-ascii' (9) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'This is even more ***fun*** is it not.pdf' (7) 'This%20is%20even%20more%20***fun*** is it not.pdf' (1) 'myfile.txt' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> LookupError (9) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">collapse_rfc2231_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                           <span class="n">fallback_charset</span><span class="o">=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">unquote</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="c1"># While value comes to us as a unicode string, we need it to be a bytes</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="c1"># object.  We do not want bytes() normal utf-8 decoder, we want a straight</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="c1"># interpretation of the string as character bytes.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="n">charset</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># Issue 17369: if charset/lang is None, decode_rfc2231 couldn&#39;t parse</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># the value, so use the fallback_charset.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="n">charset</span> <span class="o">=</span> <span class="n">fallback_charset</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">rawbytes</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;raw-unicode-escape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">rawbytes</span><span class="p">,</span> <span class="n">charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">except</span> <span class="ne">LookupError</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># charset is not a known codec.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">return</span> <span class="n">unquote</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 8 calls (1.8%)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> ('ansi-x3.4-1968', '', 'EeQfGwPcQSOJBaQU') (6) ('utf-8&#65533;&#65533;&#65533;', '', 'myfile.txt') (1) ('ascii', 'xx', 'This is even more ***fun*** is it not.pdf&#226;') (1) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'replace' (8) </p>
+                <p><button class="input"><span>&#8594;</span> fallback_charset</button> 'us-ascii' (8) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'EeQfGwPcQSOJBaQU' (6) 'myfile.txt' (1) 'This is even more ***fun*** is it not.pdf&#65533;' (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">collapse_rfc2231_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                           <span class="n">fallback_charset</span><span class="o">=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">unquote</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="c1"># While value comes to us as a unicode string, we need it to be a bytes</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="c1"># object.  We do not want bytes() normal utf-8 decoder, we want a straight</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="c1"># interpretation of the string as character bytes.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="n">charset</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># Issue 17369: if charset/lang is None, decode_rfc2231 couldn&#39;t parse</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># the value, so use the fallback_charset.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="n">charset</span> <span class="o">=</span> <span class="n">fallback_charset</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">rawbytes</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;raw-unicode-escape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">rawbytes</span><span class="p">,</span> <span class="n">charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">    <span class="k">except</span> <span class="ne">LookupError</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># charset is not a known codec.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">unquote</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 2 calls (0.4%)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> (None, None, "'This is broken") (1) (None, None, "'This is&#226;broken") (1) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'replace' (2) </p>
+                <p><button class="input"><span>&#8594;</span> fallback_charset</button> 'us-ascii' (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> "'This is broken" (1) "'This is&#65533;broken" (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">collapse_rfc2231_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                           <span class="n">fallback_charset</span><span class="o">=</span><span class="s1">&#39;us-ascii&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">unquote</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="c1"># While value comes to us as a unicode string, we need it to be a bytes</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="c1"># object.  We do not want bytes() normal utf-8 decoder, we want a straight</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="c1"># interpretation of the string as character bytes.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="n">charset</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="n">charset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># Issue 17369: if charset/lang is None, decode_rfc2231 couldn&#39;t parse</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># the value, so use the fallback_charset.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">charset</span> <span class="o">=</span> <span class="n">fallback_charset</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">rawbytes</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;raw-unicode-escape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">rawbytes</span><span class="p">,</span> <span class="n">charset</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">    <span class="k">except</span> <span class="ne">LookupError</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># charset is not a known codec.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">unquote</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

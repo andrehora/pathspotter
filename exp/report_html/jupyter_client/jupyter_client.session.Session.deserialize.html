@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>jupyter_client.session.Session.deserialize</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: jupyter_client.session.Session.deserialize</h1>
+                <span>Coverage: 57.8% (26/45),</span>
+                <span>Tests: 7, </span>
+                <span>Calls: 11, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 11 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> msg_list</button> list (11) </p>
+                <p><button class="input"><span>&#8594;</span> content</button> True (11) </p>
+                <p><button class="input"><span>&#8594;</span> copy</button> True (11) </p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (11) </p>
+            <button class="run" title="lines run...">26 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">msg_list</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">zmq</span><span class="o">.</span><span class="n">Message</span><span class="p">]],</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">content</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">copy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Unserialize a msg_list to a nested message dict.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        This is roughly the inverse of serialize. The serialize/deserialize</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        methods work with full message lists, whereas pack/unpack work with</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        the individual message parts in the message list.</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        Parameters</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        ----------</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        msg_list : list of bytes or Message objects</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            The list of message parts of the form [HMAC,p_header,p_parent,</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">            p_metadata,p_content,buffer1,buffer2,...].</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        content : bool (True)</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            Whether to unpack the content dict (True), or leave it packed</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">            (False).</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        copy : bool (True)</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            Whether msg_list contains bytes (True) or the non-copying Message</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">            objects in each place (False).</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        Returns</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">        -------</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">        msg : dict</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">            The nested message dict with top-level keys [header, parent_header,</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">            content, buffers].  The buffers are returned as memoryviews.</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="n">minlen</span> <span class="o">=</span> <span class="mi">5</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">message</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">copy</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span>            <span class="c1"># pyzmq didn&#39;t copy the first parts of the message, so we&#39;ll do it</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg_list</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">zmq</span><span class="o">.</span><span class="n">Message</span><span class="p">],</span> <span class="n">msg_list</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="n">msg_list_beginning</span> <span class="o">=</span> <span class="p">[</span><span class="nb">bytes</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">bytes</span><span class="p">)</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">msg_list</span><span class="p">[:</span><span class="n">minlen</span><span class="p">]]</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="n">msg_list</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">msg_list</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="n">msg_list</span> <span class="o">=</span> <span class="n">msg_list_beginning</span> <span class="o">+</span> <span class="n">msg_list</span><span class="p">[</span><span class="n">minlen</span><span class="p">:]</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="n">msg_list</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">msg_list</span><span class="p">)</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="n">signature</span> <span class="o">=</span> <span class="n">msg_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">signature</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unsigned Message&quot;</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="k">if</span> <span class="n">signature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">digest_history</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Duplicate Signature: </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">signature</span><span class="p">)</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="k">if</span> <span class="n">content</span><span class="p">:</span></span>
+<span class="num"><a href="#48">48</a></span><span>                <span class="c1"># Only store signature if we are unpacking content, don&#39;t store if just peeking.</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_add_digest</span><span class="p">(</span><span class="n">signature</span><span class="p">)</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">            <span class="n">check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">msg_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">compare_digest</span><span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">check</span><span class="p">):</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid Signature: </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">signature</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg_list</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">minlen</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;malformed message, must have at least </span><span class="si">%i</span><span class="s2"> elements&quot;</span> <span class="o">%</span> <span class="n">minlen</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">        <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">msg_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">        <span class="n">message</span><span class="p">[</span><span class="s2">&quot;header&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract_dates</span><span class="p">(</span><span class="n">header</span><span class="p">)</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">        <span class="n">message</span><span class="p">[</span><span class="s2">&quot;msg_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s2">&quot;msg_id&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full run">        <span class="n">message</span><span class="p">[</span><span class="s2">&quot;msg_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s2">&quot;msg_type&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">        <span class="n">message</span><span class="p">[</span><span class="s2">&quot;parent_header&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract_dates</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">msg_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">        <span class="n">message</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">msg_list</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full run">        <span class="k">if</span> <span class="n">content</span><span class="p">:</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full run">            <span class="n">message</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">msg_list</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span></span>
+<span class="num"><a href="#65">65</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">            <span class="n">message</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg_list</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">        <span class="n">buffers</span> <span class="o">=</span> <span class="p">[</span><span class="nb">memoryview</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">msg_list</span><span class="p">[</span><span class="mi">5</span><span class="p">:]]</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">        <span class="k">if</span> <span class="n">buffers</span> <span class="ow">and</span> <span class="n">buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#69">69</a></span><span>            <span class="c1"># force copy to workaround pyzmq #646</span></span>
+<span class="num"><a href="#70">70</a></span><span class="full not_run">            <span class="n">msg_list</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">zmq</span><span class="o">.</span><span class="n">Message</span><span class="p">],</span> <span class="n">msg_list</span><span class="p">)</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">            <span class="n">buffers</span> <span class="o">=</span> <span class="p">[</span><span class="nb">memoryview</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">bytes</span><span class="p">))</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">msg_list</span><span class="p">[</span><span class="mi">5</span><span class="p">:]]</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full run">        <span class="n">message</span><span class="p">[</span><span class="s2">&quot;buffers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">buffers</span></span>
+<span class="num"><a href="#73">73</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">            <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>  <span class="c1"># noqa</span></span>
+<span class="num"><a href="#75">75</a></span><span>        <span class="c1"># adapt to the current version</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full run">        <span class="k">return</span> <span class="n">adapt</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

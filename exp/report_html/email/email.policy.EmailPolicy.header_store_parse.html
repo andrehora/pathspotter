@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.policy.EmailPolicy.header_store_parse</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.policy.EmailPolicy.header_store_parse</h1>
+                <span>Coverage: 100.0% (5/5),</span>
+                <span>Tests: 80, </span>
+                <span>Calls: 1002, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 976 calls (97.4%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'Content-Type' (388) 'To' (85) 'From' (80) 'Content-Transfer-Encoding' (80) 'MIME-Version' (78) 'X-Random-Header' (72) 'X-Trump' (72) 'Content-Disposi...</p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'text/plain' (93) '1.0' (78) 'foo@bar.com' (72) 'bar@foo.com' (72) 'Corwin' (72) 'Random' (72) 'multipart/mixed' (55) 'multipart/alternative' (46) 'mu...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (976) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_store_parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;+</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        The name is returned unchanged.  If the input value has a &#39;name&#39;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        attribute and it matches the name ignoring case, the value is returned</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        unchanged.  Otherwise the name and value are passed to header_factory</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        method, and the resulting custom header object is returned as the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        value.  In this case a ValueError is raised if the input value contains</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        CR or LF characters.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># XXX this error message isn&#39;t quite right when we use splitlines</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># (see issue 22233), but I&#39;m not sure what should happen here.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Header values may not contain linefeed &quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span>                             <span class="s2">&quot;or carriage return characters&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">return</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_factory</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 2</b>: 25 calls (2.5%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'To' (7) 'From' (7) 'Content-Transfer-Encoding' (4) 'Content-Type' (4) 'Subject' (1) 'X-Foo-Header' (1) 'X-Bar-Header' (1) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> _UniqueAddressHeader (14) _ContentTransferEncodingHeader (4) _ContentTypeHeader (4) _UnstructuredHeader (2) _UniqueUnstructuredHeader (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (25) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_store_parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;+</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        The name is returned unchanged.  If the input value has a &#39;name&#39;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        attribute and it matches the name ignoring case, the value is returned</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        unchanged.  Otherwise the name and value are passed to header_factory</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        method, and the resulting custom header object is returned as the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        value.  In this case a ValueError is raised if the input value contains</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        CR or LF characters.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">return</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># XXX this error message isn&#39;t quite right when we use splitlines</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># (see issue 22233), but I&#39;m not sure what should happen here.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Header values may not contain linefeed &quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span>                             <span class="s2">&quot;or carriage return characters&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">return</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_factory</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'From' (1) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'spam\negg@foo.py' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (1) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_store_parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;+</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        The name is returned unchanged.  If the input value has a &#39;name&#39;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        attribute and it matches the name ignoring case, the value is returned</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        unchanged.  Otherwise the name and value are passed to header_factory</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        method, and the resulting custom header object is returned as the</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        value.  In this case a ValueError is raised if the input value contains</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        CR or LF characters.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># XXX this error message isn&#39;t quite right when we use splitlines</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># (see issue 22233), but I&#39;m not sure what should happen here.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Header values may not contain linefeed &quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span>                             <span class="s2">&quot;or carriage return characters&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">return</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_factory</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>logging.config.listen</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: logging.config.listen</h1>
+                <span>Coverage: 5.4% (4/74),</span>
+                <span>Tests: 3, </span>
+                <span>Calls: 5, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 5 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> port</button> 0 (5) </p>
+                <p><button class="input"><span>&#8594;</span> verify</button> None (3) ConfigDictTest.test_listen_verify.<locals>.verify_fail def (1) ConfigDictTest.test_listen_verify.<locals>.verify_reverse def (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> listen.<locals>.Server (5) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">70 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">listen</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_LOGGING_CONFIG_PORT</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    Start up a socket server on the specified port, and listen for new</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    configurations.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    These will be sent as a file suitable for processing by fileConfig().</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    Returns a Thread object on which you can call start() to start the server,</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    and which you can join() when appropriate. To stop the server, call</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    stopListening().</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    Use the ``verify`` argument to verify any bytes received across the wire</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    from a client. If specified, it should be a callable which receives a</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    single argument - the bytes of configuration data received across the</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    network - and it should return either ``None``, to indicate that the</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    passed in bytes could not be verified and should be discarded, or a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    byte string which is then passed to the configuration machinery as</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    normal. Note that you can return transformed bytes, e.g. by decrypting</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    the bytes passed in.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">    <span class="k">class</span> <span class="nc">ConfigStreamHandler</span><span class="p">(</span><span class="n">StreamRequestHandler</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        Handler for a logging configuration request.</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        It expects a completely new logging configuration and uses fileConfig</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">        to install it.</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="w">            </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">            Handle a request.</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">            Each request is expected to be a 4-byte length, packed using</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">            struct.pack(&quot;&gt;L&quot;, n), followed by the config file.</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">            Uses fileConfig() to do the grunt work.</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">            &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                <span class="n">chunk</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                    <span class="n">slen</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;L&quot;</span><span class="p">,</span> <span class="n">chunk</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                    <span class="n">chunk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">slen</span><span class="p">)</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">slen</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                        <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span> <span class="o">+</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">slen</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">))</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">verify</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                        <span class="n">chunk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">chunk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># verified, can process</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                        <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                            <span class="kn">import</span> <span class="nn">json</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                            <span class="n">d</span> <span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                            <span class="n">dictConfig</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">                        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span>                            <span class="c1">#Apply new configuration.</span></span>
+<span class="num"><a href="#55">55</a></span><span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">                            <span class="n">file</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                                <span class="n">fileConfig</span><span class="p">(</span><span class="n">file</span><span class="p">)</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">                                <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">ready</span><span class="p">:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">set</span><span class="p">()</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">!=</span> <span class="n">RESET_ERROR</span><span class="p">:</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                    <span class="k">raise</span></span>
+<span class="num"><a href="#66">66</a></span><span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">    <span class="k">class</span> <span class="nc">ConfigSocketReceiver</span><span class="p">(</span><span class="n">ThreadingTCPServer</span><span class="p">):</span></span>
+<span class="num"><a href="#68">68</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#69">69</a></span><span><span class="sd">        A simple TCP socket-based logging config receiver.</span></span>
+<span class="num"><a href="#70">70</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#71">71</a></span><span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">        <span class="n">allow_reuse_address</span> <span class="o">=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_LOGGING_CONFIG_PORT</span><span class="p">,</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">                     <span class="n">handler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ready</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full not_run">            <span class="n">ThreadingTCPServer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">),</span> <span class="n">handler</span><span class="p">)</span></span>
+<span class="num"><a href="#77">77</a></span><span class="full not_run">            <span class="n">logging</span><span class="o">.</span><span class="n">_acquireLock</span><span class="p">()</span></span>
+<span class="num"><a href="#78">78</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">abort</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">            <span class="n">logging</span><span class="o">.</span><span class="n">_releaseLock</span><span class="p">()</span></span>
+<span class="num"><a href="#80">80</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#81">81</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">ready</span> <span class="o">=</span> <span class="n">ready</span></span>
+<span class="num"><a href="#82">82</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">verify</span> <span class="o">=</span> <span class="n">verify</span></span>
+<span class="num"><a href="#83">83</a></span><span></span>
+<span class="num"><a href="#84">84</a></span><span class="full not_run">        <span class="k">def</span> <span class="nf">serve_until_stopped</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">            <span class="kn">import</span> <span class="nn">select</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">            <span class="n">abort</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#87">87</a></span><span class="full not_run">            <span class="k">while</span> <span class="ow">not</span> <span class="n">abort</span><span class="p">:</span></span>
+<span class="num"><a href="#88">88</a></span><span class="full not_run">                <span class="n">rd</span><span class="p">,</span> <span class="n">wr</span><span class="p">,</span> <span class="n">ex</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">select</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">fileno</span><span class="p">()],</span></span>
+<span class="num"><a href="#89">89</a></span><span class="full not_run">                                           <span class="p">[],</span> <span class="p">[],</span></span>
+<span class="num"><a href="#90">90</a></span><span class="full not_run">                                           <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span></span>
+<span class="num"><a href="#91">91</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">rd</span><span class="p">:</span></span>
+<span class="num"><a href="#92">92</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">handle_request</span><span class="p">()</span></span>
+<span class="num"><a href="#93">93</a></span><span class="full not_run">                <span class="n">logging</span><span class="o">.</span><span class="n">_acquireLock</span><span class="p">()</span></span>
+<span class="num"><a href="#94">94</a></span><span class="full not_run">                <span class="n">abort</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort</span></span>
+<span class="num"><a href="#95">95</a></span><span class="full not_run">                <span class="n">logging</span><span class="o">.</span><span class="n">_releaseLock</span><span class="p">()</span></span>
+<span class="num"><a href="#96">96</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">server_close</span><span class="p">()</span></span>
+<span class="num"><a href="#97">97</a></span><span></span>
+<span class="num"><a href="#98">98</a></span><span class="full run">    <span class="k">class</span> <span class="nc">Server</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span></span>
+<span class="num"><a href="#99">99</a></span><span></span>
+<span class="num"><a href="#100">100</a></span><span class="full not_run">        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rcvr</span><span class="p">,</span> <span class="n">hdlr</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">verify</span><span class="p">):</span></span>
+<span class="num"><a href="#101">101</a></span><span class="full not_run">            <span class="nb">super</span><span class="p">(</span><span class="n">Server</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span></span>
+<span class="num"><a href="#102">102</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">rcvr</span> <span class="o">=</span> <span class="n">rcvr</span></span>
+<span class="num"><a href="#103">103</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">hdlr</span> <span class="o">=</span> <span class="n">hdlr</span></span>
+<span class="num"><a href="#104">104</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span></span>
+<span class="num"><a href="#105">105</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">verify</span> <span class="o">=</span> <span class="n">verify</span></span>
+<span class="num"><a href="#106">106</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">ready</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span></span>
+<span class="num"><a href="#107">107</a></span><span></span>
+<span class="num"><a href="#108">108</a></span><span class="full not_run">        <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#109">109</a></span><span class="full not_run">            <span class="n">server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rcvr</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">handler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hdlr</span><span class="p">,</span></span>
+<span class="num"><a href="#110">110</a></span><span class="full not_run">                               <span class="n">ready</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ready</span><span class="p">,</span></span>
+<span class="num"><a href="#111">111</a></span><span class="full not_run">                               <span class="n">verify</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span></span>
+<span class="num"><a href="#112">112</a></span><span class="full not_run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#113">113</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">server_address</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#114">114</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">set</span><span class="p">()</span></span>
+<span class="num"><a href="#115">115</a></span><span>            <span class="k">global</span> <span class="n">_listener</span></span>
+<span class="num"><a href="#116">116</a></span><span class="full not_run">            <span class="n">logging</span><span class="o">.</span><span class="n">_acquireLock</span><span class="p">()</span></span>
+<span class="num"><a href="#117">117</a></span><span class="full not_run">            <span class="n">_listener</span> <span class="o">=</span> <span class="n">server</span></span>
+<span class="num"><a href="#118">118</a></span><span class="full not_run">            <span class="n">logging</span><span class="o">.</span><span class="n">_releaseLock</span><span class="p">()</span></span>
+<span class="num"><a href="#119">119</a></span><span class="full not_run">            <span class="n">server</span><span class="o">.</span><span class="n">serve_until_stopped</span><span class="p">()</span></span>
+<span class="num"><a href="#120">120</a></span><span></span>
+<span class="num"><a href="#121">121</a></span><span class="full run">    <span class="k">return</span> <span class="n">Server</span><span class="p">(</span><span class="n">ConfigSocketReceiver</span><span class="p">,</span> <span class="n">ConfigStreamHandler</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">verify</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

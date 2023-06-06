@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.message._formatparam</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.message._formatparam</h1>
+                <span>Coverage: 100.0% (15/15),</span>
+                <span>Tests: 93, </span>
+                <span>Calls: 390, </span>
+                <span>Exceptions: 15, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 290 calls (74.4%)</p>
+                <p><button class="input"><span>&#8594;</span> param</button> 'charset' (184) 'boundary' (46) 'filename' (30) 'name' (19) 'abc' (6) 'title' (3) 'report-type' (1) 'importance' (1) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'us-ascii' (102) 'utf-8' (63) 'dingusfish.gif' (39) 'abc' (24) 'BOUNDARY' (21) 'iso-8859-1' (11) 'xyz' (6) 'iso-2022-jp' (3) 'bar.txt' (2) 'bud.gif' (...</p>
+                <p><button class="input"><span>&#8594;</span> quote</button> True (289) False (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'charset="us-ascii"' (102) 'charset="utf-8"' (63) 'boundary="abc"' (24) 'boundary="BOUNDARY"' (21) 'filename="dingusfish.gif"' (20) 'name="dingusfish....</p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_formatparam</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience function to format and return a key=value pair.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    This will quote the value if needed or if quote is true.  If value is a</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    three tuple (charset, language, value), it will be encoded according</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    to RFC2231 rules.  If it contains non-ascii characters it will likewise</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    be encoded according to RFC2231 rules, using the utf-8 charset and</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    a null language.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># A tuple is used for RFC 2231 encoded parameter values where items</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># are (charset, language, value).  charset is a string, not a Charset</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># instance.  RFC 2231 encoded values are never quoted, per RFC.</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># Encode as per RFC 2231</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">param</span> <span class="o">+=</span> <span class="s1">&#39;*&#39;</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">encode_rfc2231</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">param</span> <span class="o">+=</span> <span class="s1">&#39;*&#39;</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">encode_rfc2231</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># BAW: Please check this.  I think that if quote is set it should</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># force quoting even if not necessary.</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">if</span> <span class="n">quote</span> <span class="ow">or</span> <span class="n">tspecials</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">utils</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">param</span></span>
+            </pre>
+            <p><b>Path 2</b>: 77 calls (19.7%)</p>
+                <p><button class="input"><span>&#8594;</span> param</button> 'text/plain' (73) 'text/text' (2) 'multipart/report' (1) 'attachment' (1) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> '' (77) </p>
+                <p><button class="input"><span>&#8594;</span> quote</button> True (75) False (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'text/plain' (73) 'text/text' (2) 'multipart/report' (1) 'attachment' (1) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_formatparam</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience function to format and return a key=value pair.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    This will quote the value if needed or if quote is true.  If value is a</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    three tuple (charset, language, value), it will be encoded according</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    to RFC2231 rules.  If it contains non-ascii characters it will likewise</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    be encoded according to RFC2231 rules, using the utf-8 charset and</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    a null language.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># A tuple is used for RFC 2231 encoded parameter values where items</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># are (charset, language, value).  charset is a string, not a Charset</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># instance.  RFC 2231 encoded values are never quoted, per RFC.</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># Encode as per RFC 2231</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">param</span> <span class="o">+=</span> <span class="s1">&#39;*&#39;</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">encode_rfc2231</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">param</span> <span class="o">+=</span> <span class="s1">&#39;*&#39;</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">encode_rfc2231</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># BAW: Please check this.  I think that if quote is set it should</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># force quoting even if not necessary.</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">quote</span> <span class="ow">or</span> <span class="n">tspecials</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">utils</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">return</span> <span class="n">param</span></span>
+            </pre>
+            <p><b>Path 3</b>: 15 calls (3.8%)</p>
+                <p><button class="input"><span>&#8594;</span> param</button> 'filename' (9) 'foo' (6) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'b&#225;r.txt' (6) 'b&#225;r' (6) '&#225;b&#225;r&#238;.txt' (1) 'Fu&#223;baller.ppt' (1) 'Fu&#223;baller [filename].ppt' (1) </p>
+                <p><button class="input"><span>&#8594;</span> quote</button> True (15) </p>
+                <p><button class="output"><span>&#8617; return</span></button> "filename*=utf-8''b%C3%A1r.txt" (6) "foo*=utf-8''b%C3%A1r" (6) "filename*=utf-8''%C3%A1b%C3%A1r%C3%AE.txt" (1) "filename*=utf-8''Fu%C3%9Fballer.ppt" (...</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UnicodeEncodeError (15) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_formatparam</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience function to format and return a key=value pair.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    This will quote the value if needed or if quote is true.  If value is a</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    three tuple (charset, language, value), it will be encoded according</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    to RFC2231 rules.  If it contains non-ascii characters it will likewise</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    be encoded according to RFC2231 rules, using the utf-8 charset and</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    a null language.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># A tuple is used for RFC 2231 encoded parameter values where items</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># are (charset, language, value).  charset is a string, not a Charset</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># instance.  RFC 2231 encoded values are never quoted, per RFC.</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># Encode as per RFC 2231</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">param</span> <span class="o">+=</span> <span class="s1">&#39;*&#39;</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">encode_rfc2231</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">param</span> <span class="o">+=</span> <span class="s1">&#39;*&#39;</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">encode_rfc2231</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># BAW: Please check this.  I think that if quote is set it should</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># force quoting even if not necessary.</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">quote</span> <span class="ow">or</span> <span class="n">tspecials</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">utils</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">param</span></span>
+            </pre>
+            <p><b>Path 4</b>: 7 calls (1.8%)</p>
+                <p><button class="input"><span>&#8594;</span> param</button> 'title' (5) 'filename' (1) 'foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> ('us-ascii', 'en', "This is even more ***fun*** isn't it!") (4) ('iso-8859-1', '', 'Fu&#223;baller.ppt') (1) ('us-ascii', 'en', 'bar') (1) ('us-ascii', '',...</p>
+                <p><button class="input"><span>&#8594;</span> quote</button> True (7) </p>
+                <p><button class="output"><span>&#8617; return</span></button> "title*=us-ascii'en'This%20is%20even%20more%20%2A%2A%2Afun%2A%2A%2A%20isn%27t%20it%21" (4) "filename*=iso-8859-1''Fu%DFballer.ppt" (1) "foo*=us-ascii'...</p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_formatparam</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience function to format and return a key=value pair.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    This will quote the value if needed or if quote is true.  If value is a</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    three tuple (charset, language, value), it will be encoded according</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    to RFC2231 rules.  If it contains non-ascii characters it will likewise</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    be encoded according to RFC2231 rules, using the utf-8 charset and</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    a null language.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># A tuple is used for RFC 2231 encoded parameter values where items</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># are (charset, language, value).  charset is a string, not a Charset</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># instance.  RFC 2231 encoded values are never quoted, per RFC.</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># Encode as per RFC 2231</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">param</span> <span class="o">+=</span> <span class="s1">&#39;*&#39;</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">encode_rfc2231</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">param</span> <span class="o">+=</span> <span class="s1">&#39;*&#39;</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">encode_rfc2231</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># BAW: Please check this.  I think that if quote is set it should</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># force quoting even if not necessary.</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">quote</span> <span class="ow">or</span> <span class="n">tspecials</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">utils</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">param</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (0.3%)</p>
+                <p><button class="input"><span>&#8594;</span> param</button> 'title' (1) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'bar' (1) </p>
+                <p><button class="input"><span>&#8594;</span> quote</button> False (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'title=bar' (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_formatparam</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience function to format and return a key=value pair.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    This will quote the value if needed or if quote is true.  If value is a</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    three tuple (charset, language, value), it will be encoded according</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    to RFC2231 rules.  If it contains non-ascii characters it will likewise</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    be encoded according to RFC2231 rules, using the utf-8 charset and</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    a null language.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># A tuple is used for RFC 2231 encoded parameter values where items</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># are (charset, language, value).  charset is a string, not a Charset</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># instance.  RFC 2231 encoded values are never quoted, per RFC.</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># Encode as per RFC 2231</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">param</span> <span class="o">+=</span> <span class="s1">&#39;*&#39;</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">encode_rfc2231</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">param</span> <span class="o">+=</span> <span class="s1">&#39;*&#39;</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">encode_rfc2231</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># BAW: Please check this.  I think that if quote is set it should</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># force quoting even if not necessary.</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">if</span> <span class="n">quote</span> <span class="ow">or</span> <span class="n">tspecials</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">utils</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">param</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.ctx.RequestContext.__init__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.ctx.RequestContext.__init__</h1>
+                <span>Coverage: 73.7% (14/19),</span>
+                <span>Tests: 196, </span>
+                <span>Calls: 494, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 493 calls (99.8%)</p>
+                <p><button class="input"><span>&#8594;</span> app</button> Flask (485) test_session_dynamic_cookie_name.<locals>.CustomFlask (4) TestSendfile.test_static_file.<locals>.StaticFileApp (1) test_session_error_pops...</p>
+                <p><button class="input"><span>&#8594;</span> environ</button> dict (493) </p>
+                <p><button class="input"><span>&#8594;</span> request</button> None (493) </p>
+                <p><button class="input"><span>&#8594;</span> session</button> None (493) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">app</span><span class="p">:</span> <span class="s2">&quot;Flask&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">environ</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">request</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Request&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">session</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;SessionMixin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">request</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">request</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">request_class</span><span class="p">(</span><span class="n">environ</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">request</span><span class="o">.</span><span class="n">json_module</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">json</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">=</span> <span class="n">request</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_adapter</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">url_adapter</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">create_url_adapter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">except</span> <span class="n">HTTPException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">routing_exception</span> <span class="o">=</span> <span class="n">e</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">flashes</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;SessionMixin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">session</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># Functions that should be executed after the request on the response</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># object.  These will be called before the regular &quot;after_request&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># functions.</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_after_request_functions</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">AfterRequestCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_cv_tokens</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="n">contextvars</span><span class="o">.</span><span class="n">Token</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">AppContext</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> app</button> Flask (1) </p>
+                <p><button class="input"><span>&#8594;</span> environ</button> dict (1) </p>
+                <p><button class="input"><span>&#8594;</span> request</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> session</button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> BadHost (1) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">app</span><span class="p">:</span> <span class="s2">&quot;Flask&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">environ</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">request</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Request&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">session</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;SessionMixin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">request</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">request</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">request_class</span><span class="p">(</span><span class="n">environ</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">request</span><span class="o">.</span><span class="n">json_module</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">json</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">=</span> <span class="n">request</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url_adapter</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">url_adapter</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">create_url_adapter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">except</span> <span class="n">HTTPException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">routing_exception</span> <span class="o">=</span> <span class="n">e</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">flashes</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;SessionMixin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">session</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># Functions that should be executed after the request on the response</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># object.  These will be called before the regular &quot;after_request&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># functions.</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_after_request_functions</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">AfterRequestCallable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_cv_tokens</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="n">contextvars</span><span class="o">.</span><span class="n">Token</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">AppContext</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

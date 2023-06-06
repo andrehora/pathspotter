@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>logging.Logger.makeRecord</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: logging.Logger.makeRecord</h1>
+                <span>Coverage: 88.9% (8/9),</span>
+                <span>Tests: 67, </span>
+                <span>Calls: 580, </span>
+                <span>Exceptions: 22, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 553 calls (95.3%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'root' (79) 'mem' (48) 'compiler.parser' (38) 'que' (11) 'compiler.lexer' (10) 'slh' (9) 'DEB' (5) 'blah' (5) 'test_logger_with_id___main__.QueueListe...</p>
+                <p><button class="input"><span>&#8594;</span> level</button> 20 (352) 40 (73) 30 (42) 10 (36) 50 (14) 115 (4) 116 (4) 117 (4) 118 (4) 119 (4) </p>
+                <p><button class="input"><span>&#8594;</span> fn</button> '/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/test/test_logging.py' (551) '/Library/Frameworks/Python.framework/Versions/3.10/lib...</p>
+                <p><button class="input"><span>&#8594;</span> lno</button> 3683 (60) 3684 (60) 3685 (60) 3686 (60) 3687 (60) 467 (36) 1129 (18) 1190 (10) 1191 (10) 4298 (5) </p>
+                <p><button class="input"><span>&#8594;</span> msg</button> 'one' (60) 'two' (60) 'three' (60) 'four' (60) 'five' (60) '2' (32) '1' (28) '3' (19) '4' (16) 'sp&#228;m' (13) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> () (540) tuple (11) ('/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/test/test_logging.py:2169: UserWarning: I\'m warning you...\n ...</p>
+                <p><button class="input"><span>&#8594;</span> exc_info</button> None (543) tuple (10) </p>
+                <p><button class="input"><span>&#8594;</span> func</button> 'setup_and_log' (300) 'log_at_all_levels' (36) 'test_flush' (24) 'test_output' (21) 'test_race_between_set_target_and_flush' (20) 'test_config1_ok' (1...</p>
+                <p><button class="input"><span>&#8594;</span> extra</button> None (553) </p>
+                <p><button class="input"><span>&#8594;</span> sinfo</button> None (551) 'Stack (most recent call last):\n  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/runpy.py", line 196, in _run_mod...</p>
+                <p><button class="output"><span>&#8617; return</span></button> LogRecord (552) DerivedLogRecord (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">makeRecord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lno</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">exc_info</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                   <span class="n">func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        A factory method which can be overridden in subclasses to create</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        specialized LogRecords.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">rv</span> <span class="o">=</span> <span class="n">_logRecordFactory</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lno</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">exc_info</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                             <span class="n">sinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">extra</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">extra</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;asctime&quot;</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="n">rv</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Attempt to overwrite </span><span class="si">%r</span><span class="s2"> in LogRecord&quot;</span> <span class="o">%</span> <span class="n">key</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">rv</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">extra</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">return</span> <span class="n">rv</span></span>
+            </pre>
+            <p><b>Path 2</b>: 22 calls (3.8%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'my record' (22) </p>
+                <p><button class="input"><span>&#8594;</span> level</button> 13 (22) </p>
+                <p><button class="input"><span>&#8594;</span> fn</button> None (22) </p>
+                <p><button class="input"><span>&#8594;</span> lno</button> None (22) </p>
+                <p><button class="input"><span>&#8594;</span> msg</button> None (22) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> None (22) </p>
+                <p><button class="input"><span>&#8594;</span> exc_info</button> None (22) </p>
+                <p><button class="input"><span>&#8594;</span> func</button> None (22) </p>
+                <p><button class="input"><span>&#8594;</span> extra</button> {'message': 'some value'} (1) {'asctime': 'some value'} (1) {'name': 'some value'} (1) {'msg': 'some value'} (1) {'args': 'some value'} (1) {'levelnam...</p>
+                <p><button class="input"><span>&#8594;</span> sinfo</button> None (22) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (22) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">makeRecord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lno</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">exc_info</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                   <span class="n">func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        A factory method which can be overridden in subclasses to create</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        specialized LogRecords.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">rv</span> <span class="o">=</span> <span class="n">_logRecordFactory</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lno</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">exc_info</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                             <span class="n">sinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">extra</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">extra</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;asctime&quot;</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="n">rv</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Attempt to overwrite </span><span class="si">%r</span><span class="s2"> in LogRecord&quot;</span> <span class="o">%</span> <span class="n">key</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">rv</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">extra</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">rv</span></span>
+            </pre>
+            <p><b>Path 3</b>: 4 calls (0.7%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'INF' (4) </p>
+                <p><button class="input"><span>&#8594;</span> level</button> 50 (1) 40 (1) 30 (1) 20 (1) </p>
+                <p><button class="input"><span>&#8594;</span> fn</button> '/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/test/test_logging.py' (4) </p>
+                <p><button class="input"><span>&#8594;</span> lno</button> 205 (1) 206 (1) 207 (1) 208 (1) </p>
+                <p><button class="input"><span>&#8594;</span> msg</button> '3' (1) '4' (1) '5' (1) '6' (1) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> () (4) </p>
+                <p><button class="input"><span>&#8594;</span> exc_info</button> None (4) </p>
+                <p><button class="input"><span>&#8594;</span> func</button> 'test_flat' (4) </p>
+                <p><button class="input"><span>&#8594;</span> extra</button> {} (4) </p>
+                <p><button class="input"><span>&#8594;</span> sinfo</button> None (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> LogRecord (4) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">makeRecord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lno</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">exc_info</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                   <span class="n">func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        A factory method which can be overridden in subclasses to create</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        specialized LogRecords.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">rv</span> <span class="o">=</span> <span class="n">_logRecordFactory</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lno</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">exc_info</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                             <span class="n">sinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">extra</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">extra</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;asctime&quot;</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="n">rv</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Attempt to overwrite </span><span class="si">%r</span><span class="s2"> in LogRecord&quot;</span> <span class="o">%</span> <span class="n">key</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">rv</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">extra</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">return</span> <span class="n">rv</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'my record' (1) </p>
+                <p><button class="input"><span>&#8594;</span> level</button> 13 (1) </p>
+                <p><button class="input"><span>&#8594;</span> fn</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> lno</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> msg</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> exc_info</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> func</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> extra</button> {'valid_key': 'some value'} (1) </p>
+                <p><button class="input"><span>&#8594;</span> sinfo</button> None (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> LogRecord (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">makeRecord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lno</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">exc_info</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                   <span class="n">func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        A factory method which can be overridden in subclasses to create</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        specialized LogRecords.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">rv</span> <span class="o">=</span> <span class="n">_logRecordFactory</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lno</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">exc_info</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                             <span class="n">sinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">extra</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">extra</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;asctime&quot;</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="n">rv</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Attempt to overwrite </span><span class="si">%r</span><span class="s2"> in LogRecord&quot;</span> <span class="o">%</span> <span class="n">key</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="n">rv</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">extra</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">return</span> <span class="n">rv</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

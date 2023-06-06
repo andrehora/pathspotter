@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.headerregistry.Group.__str__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.headerregistry.Group.__str__</h1>
+                <span>Coverage: 100.0% (8/8),</span>
+                <span>Tests: 8, </span>
+                <span>Calls: 307, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 277 calls (90.2%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> 'foo@bar.com' (72) 'bar@foo.com' (72) 'nobody_you_want_to_know@example.com' (20) 'whom_it_may_concern@example.com' (14) 'foo@example.com' (11) 'bar@si...</p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">        <span class="n">disp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_name</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">disp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">parser</span><span class="o">.</span><span class="n">SPECIALS</span><span class="o">.</span><span class="n">isdisjoint</span><span class="p">(</span><span class="n">disp</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="n">disp</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">quote_string</span><span class="p">(</span><span class="n">disp</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="n">adrstr</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="n">adrstr</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">adrstr</span> <span class="k">if</span> <span class="n">adrstr</span> <span class="k">else</span> <span class="n">adrstr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2">;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disp</span><span class="p">,</span> <span class="n">adrstr</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 28 calls (9.1%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> 'foo bar:;' (2) 'foo:;' (2) 'foo: &#201;ric <foo@example.com>;' (2) 'bing: fiz <z@b.com>, zif <f@c.com>;' (2) 'a: k@b.com, y@z.com;' (2) 'foo: b <b@c>, a <...</p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">disp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_name</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">disp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">parser</span><span class="o">.</span><span class="n">SPECIALS</span><span class="o">.</span><span class="n">isdisjoint</span><span class="p">(</span><span class="n">disp</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="n">disp</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">quote_string</span><span class="p">(</span><span class="n">disp</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">adrstr</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">adrstr</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">adrstr</span> <span class="k">if</span> <span class="n">adrstr</span> <span class="k">else</span> <span class="n">adrstr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2">;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disp</span><span class="p">,</span> <span class="n">adrstr</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (0.7%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> '"foo.bar":;' (1) '"A \\"list\\"": "A (Special) Person" <person@dom.ain>, "Arthur \\\\Backslash\\\\ Foobar" <person@dom.ain>;' (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">disp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_name</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">disp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">parser</span><span class="o">.</span><span class="n">SPECIALS</span><span class="o">.</span><span class="n">isdisjoint</span><span class="p">(</span><span class="n">disp</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">disp</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">quote_string</span><span class="p">(</span><span class="n">disp</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">adrstr</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">adrstr</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">adrstr</span> <span class="k">if</span> <span class="n">adrstr</span> <span class="k">else</span> <span class="n">adrstr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2">;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disp</span><span class="p">,</span> <span class="n">adrstr</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

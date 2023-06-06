@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.lint.pylinter._load_reporter_by_class</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.lint.pylinter._load_reporter_by_class</h1>
+                <span>Coverage: 100.0% (7/7),</span>
+                <span>Tests: 0, </span>
+                <span>Calls: 4, </span>
+                <span>Exceptions: 3, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1 calls (25.0%)</p>
+                <p><button class="input"><span>&#8594;</span> reporter_class</button> 'missing.module.Class' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ImportError (1) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_load_reporter_by_class</span><span class="p">(</span><span class="n">reporter_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseReporter</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">qname</span> <span class="o">=</span> <span class="n">reporter_class</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">module_part</span> <span class="o">=</span> <span class="n">astroid</span><span class="o">.</span><span class="n">modutils</span><span class="o">.</span><span class="n">get_module_part</span><span class="p">(</span><span class="n">qname</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">    <span class="n">module</span> <span class="o">=</span> <span class="n">astroid</span><span class="o">.</span><span class="n">modutils</span><span class="o">.</span><span class="n">load_module_from_name</span><span class="p">(</span><span class="n">module_part</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">    <span class="n">class_name</span> <span class="o">=</span> <span class="n">qname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">    <span class="n">klass</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">    <span class="k">assert</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">klass</span><span class="p">,</span> <span class="n">BaseReporter</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">klass</span><span class="si">}</span><span class="s2"> is not a BaseReporter&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">klass</span>  <span class="c1"># type: ignore[no-any-return]</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (25.0%)</p>
+                <p><button class="input"><span>&#8594;</span> reporter_class</button> 'lint.unittest_lint._CustomPyLinter' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AssertionError (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_load_reporter_by_class</span><span class="p">(</span><span class="n">reporter_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseReporter</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">qname</span> <span class="o">=</span> <span class="n">reporter_class</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">module_part</span> <span class="o">=</span> <span class="n">astroid</span><span class="o">.</span><span class="n">modutils</span><span class="o">.</span><span class="n">get_module_part</span><span class="p">(</span><span class="n">qname</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">module</span> <span class="o">=</span> <span class="n">astroid</span><span class="o">.</span><span class="n">modutils</span><span class="o">.</span><span class="n">load_module_from_name</span><span class="p">(</span><span class="n">module_part</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">class_name</span> <span class="o">=</span> <span class="n">qname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">klass</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">assert</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">klass</span><span class="p">,</span> <span class="n">BaseReporter</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">klass</span><span class="si">}</span><span class="s2"> is not a BaseReporter&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">klass</span>  <span class="c1"># type: ignore[no-any-return]</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (25.0%)</p>
+                <p><button class="input"><span>&#8594;</span> reporter_class</button> 'lint.unittest_lint.MyReporter' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_load_reporter_by_class</span><span class="p">(</span><span class="n">reporter_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseReporter</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">qname</span> <span class="o">=</span> <span class="n">reporter_class</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">module_part</span> <span class="o">=</span> <span class="n">astroid</span><span class="o">.</span><span class="n">modutils</span><span class="o">.</span><span class="n">get_module_part</span><span class="p">(</span><span class="n">qname</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">module</span> <span class="o">=</span> <span class="n">astroid</span><span class="o">.</span><span class="n">modutils</span><span class="o">.</span><span class="n">load_module_from_name</span><span class="p">(</span><span class="n">module_part</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">class_name</span> <span class="o">=</span> <span class="n">qname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">klass</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">    <span class="k">assert</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">klass</span><span class="p">,</span> <span class="n">BaseReporter</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">klass</span><span class="si">}</span><span class="s2"> is not a BaseReporter&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">klass</span>  <span class="c1"># type: ignore[no-any-return]</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (25.0%)</p>
+                <p><button class="input"><span>&#8594;</span> reporter_class</button> 'unittest_reporting.NopReporter' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> NopReporter def (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_load_reporter_by_class</span><span class="p">(</span><span class="n">reporter_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseReporter</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">qname</span> <span class="o">=</span> <span class="n">reporter_class</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">module_part</span> <span class="o">=</span> <span class="n">astroid</span><span class="o">.</span><span class="n">modutils</span><span class="o">.</span><span class="n">get_module_part</span><span class="p">(</span><span class="n">qname</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">module</span> <span class="o">=</span> <span class="n">astroid</span><span class="o">.</span><span class="n">modutils</span><span class="o">.</span><span class="n">load_module_from_name</span><span class="p">(</span><span class="n">module_part</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">class_name</span> <span class="o">=</span> <span class="n">qname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">klass</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">assert</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">klass</span><span class="p">,</span> <span class="n">BaseReporter</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">klass</span><span class="si">}</span><span class="s2"> is not a BaseReporter&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">return</span> <span class="n">klass</span>  <span class="c1"># type: ignore[no-any-return]</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

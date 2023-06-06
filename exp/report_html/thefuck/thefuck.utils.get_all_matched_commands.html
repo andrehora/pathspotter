@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>thefuck.utils.get_all_matched_commands</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: thefuck.utils.get_all_matched_commands</h1>
+                <span>Coverage: 90.9% (10/11),</span>
+                <span>Tests: 0, </span>
+                <span>Calls: 12, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 8 calls (66.7%)</p>
+                <p><button class="input"><span>&#8594;</span> stderr</button> "git: 'cone' is not a git command. See 'git --help'.\n\nDid you mean one of these?\n\tclone" (1) "git: 're' is not a git command. See 'git --help'.\n\...</p>
+                <p><button class="input"><span>&#8594;</span> separator</button> 'Did you mean' (7) 'Did you mean this?' (1) </p>
+                <p><button class="output"><span>&#8647; yield</span></button> 'app-log' (2) 'clone' (1) 'rebase' (1) 'reset' (1) 'grep' (1) 'rm' (1) 'service-add' (1) 'service-bind' (1) 'service-doc' (1) 'service-info' (1) </p>
+            <button class="run" title="lines run...">0 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@eager</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="k">def</span> <span class="nf">get_all_matched_commands</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="s1">&#39;Did you mean&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">separator</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">separator</span> <span class="o">=</span> <span class="p">[</span><span class="n">separator</span><span class="p">]</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">should_yield</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">stderr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="k">for</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">separator</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span>            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span>                <span class="n">should_yield</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#10">10</a></span><span>                <span class="k">break</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="k">if</span> <span class="n">should_yield</span> <span class="ow">and</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="k">yield</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 2</b>: 4 calls (33.3%)</p>
+                <p><button class="input"><span>&#8594;</span> stderr</button> '\nError: unknown command "evn" for "git-lfs"\n\nDid you mean this?\n        env\n        ext\n\nRun \'git-lfs --help\' for usage.\n    ' (1) "git: 'b...</p>
+                <p><button class="input"><span>&#8594;</span> separator</button> ['The most similar command', 'Did you mean'] (3) ['Did you mean', ' for usage.'] (1) </p>
+                <p><button class="output"><span>&#8647; yield</span></button> 'stage' (2) 'env' (1) 'ext' (1) '' (1) 'branch' (1) 'status' (1) 'reset' (1) 'stash' (1) 'stats' (1) 'tag' (1) </p>
+            <button class="run" title="lines run...">0 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@eager</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="k">def</span> <span class="nf">get_all_matched_commands</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="s1">&#39;Did you mean&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">separator</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">separator</span> <span class="o">=</span> <span class="p">[</span><span class="n">separator</span><span class="p">]</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">should_yield</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">stderr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="k">for</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">separator</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span>            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span>                <span class="n">should_yield</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#10">10</a></span><span>                <span class="k">break</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="k">if</span> <span class="n">should_yield</span> <span class="ow">and</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="k">yield</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

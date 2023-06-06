@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.imports.ImportsChecker._record_import</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.imports.ImportsChecker._record_import</h1>
+                <span>Coverage: 100.0% (8/8),</span>
+                <span>Tests: 17, </span>
+                <span>Calls: 1194, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 543 calls (45.5%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ImportFrom (543) </p>
+                <p><button class="input"><span>&#8594;</span> importedmodnode</button> Module (434) None (109) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_record_import</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">node</span><span class="p">:</span> <span class="n">ImportNode</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">importedmodnode</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Record the package `node` imports from.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">modname</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">importedmodnode</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">importedmodnode</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">importedname</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">level</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># We need the importedname with first point to detect local package</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># Example of node:</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1">#  &#39;from .my_package1 import MyClass1&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1">#  the output should be &#39;.my_package1&#39; instead of &#39;my_package1&#39;</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># Example of node:</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1">#  &#39;from . import my_package2&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1">#  the output should be &#39;.my_package2&#39; instead of &#39;{pyfile}&#39;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">importedname</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">importedname</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_imports_stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node</span><span class="p">,</span> <span class="n">importedname</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 2</b>: 421 calls (35.3%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Import (421) </p>
+                <p><button class="input"><span>&#8594;</span> importedmodnode</button> Module (421) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_record_import</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">node</span><span class="p">:</span> <span class="n">ImportNode</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">importedmodnode</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Record the package `node` imports from.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">modname</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">importedmodnode</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">importedmodnode</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">importedname</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">level</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># We need the importedname with first point to detect local package</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># Example of node:</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1">#  &#39;from .my_package1 import MyClass1&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1">#  the output should be &#39;.my_package1&#39; instead of &#39;my_package1&#39;</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># Example of node:</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1">#  &#39;from . import my_package2&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1">#  the output should be &#39;.my_package2&#39; instead of &#39;{pyfile}&#39;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">importedname</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">importedname</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_imports_stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node</span><span class="p">,</span> <span class="n">importedname</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 3</b>: 150 calls (12.6%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Import (150) </p>
+                <p><button class="input"><span>&#8594;</span> importedmodnode</button> None (150) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_record_import</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">node</span><span class="p">:</span> <span class="n">ImportNode</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">importedmodnode</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Record the package `node` imports from.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">modname</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">importedmodnode</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">importedmodnode</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">importedname</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">level</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># We need the importedname with first point to detect local package</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># Example of node:</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1">#  &#39;from .my_package1 import MyClass1&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1">#  the output should be &#39;.my_package1&#39; instead of &#39;my_package1&#39;</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># Example of node:</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1">#  &#39;from . import my_package2&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1">#  the output should be &#39;.my_package2&#39; instead of &#39;{pyfile}&#39;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">importedname</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">importedname</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_imports_stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node</span><span class="p">,</span> <span class="n">importedname</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 4</b>: 50 calls (4.2%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ImportFrom (50) </p>
+                <p><button class="input"><span>&#8594;</span> importedmodnode</button> Module (30) None (20) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_record_import</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">node</span><span class="p">:</span> <span class="n">ImportNode</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">importedmodnode</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Record the package `node` imports from.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">modname</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">importedmodnode</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">importedmodnode</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">importedname</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">level</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># We need the importedname with first point to detect local package</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># Example of node:</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1">#  &#39;from .my_package1 import MyClass1&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1">#  the output should be &#39;.my_package1&#39; instead of &#39;my_package1&#39;</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># Example of node:</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1">#  &#39;from . import my_package2&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1">#  the output should be &#39;.my_package2&#39; instead of &#39;{pyfile}&#39;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">importedname</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">importedname</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_imports_stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node</span><span class="p">,</span> <span class="n">importedname</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 5</b>: 30 calls (2.5%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ImportFrom (30) </p>
+                <p><button class="input"><span>&#8594;</span> importedmodnode</button> Module (27) None (3) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_record_import</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">node</span><span class="p">:</span> <span class="n">ImportNode</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">importedmodnode</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Record the package `node` imports from.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">modname</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">importedmodnode</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">importedmodnode</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">importedname</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">importedname</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">level</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># We need the importedname with first point to detect local package</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># Example of node:</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1">#  &#39;from .my_package1 import MyClass1&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1">#  the output should be &#39;.my_package1&#39; instead of &#39;my_package1&#39;</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># Example of node:</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1">#  &#39;from . import my_package2&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1">#  the output should be &#39;.my_package2&#39; instead of &#39;{pyfile}&#39;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">importedname</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">importedname</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_imports_stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node</span><span class="p">,</span> <span class="n">importedname</span><span class="p">))</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

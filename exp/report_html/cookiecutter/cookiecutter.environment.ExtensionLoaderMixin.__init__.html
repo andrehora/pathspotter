@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>cookiecutter.environment.ExtensionLoaderMixin.__init__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: cookiecutter.environment.ExtensionLoaderMixin.__init__</h1>
+                <span>Coverage: 100.0% (7/7),</span>
+                <span>Tests: 72, </span>
+                <span>Calls: 159, </span>
+                <span>Exceptions: 3, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 156 calls (98.1%)</p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> dict (156) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the Jinja2 Environment object while loading extensions.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Does the following:</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        1. Establishes default_extensions (currently just a Time feature)</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        2. Reads extensions set in the cookiecutter.json _extensions key.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        3. Attempts to load the extensions. Provides useful error if fails.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">context</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;context&#39;</span><span class="p">,</span> <span class="p">{})</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">default_extensions</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="s1">&#39;cookiecutter.extensions.JsonifyExtension&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="s1">&#39;cookiecutter.extensions.RandomStringExtension&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="s1">&#39;cookiecutter.extensions.SlugifyExtension&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="s1">&#39;cookiecutter.extensions.UUIDExtension&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="s1">&#39;jinja2_time.TimeExtension&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">extensions</span> <span class="o">=</span> <span class="n">default_extensions</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_extensions</span><span class="p">(</span><span class="n">context</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">extensions</span><span class="o">=</span><span class="n">extensions</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">UnknownExtension</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unable to load extension: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+            </pre>
+            <p><b>Path 2</b>: 3 calls (1.9%)</p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> dict (3) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UnknownExtension (3) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the Jinja2 Environment object while loading extensions.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Does the following:</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        1. Establishes default_extensions (currently just a Time feature)</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        2. Reads extensions set in the cookiecutter.json _extensions key.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        3. Attempts to load the extensions. Provides useful error if fails.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">context</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;context&#39;</span><span class="p">,</span> <span class="p">{})</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">default_extensions</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="s1">&#39;cookiecutter.extensions.JsonifyExtension&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="s1">&#39;cookiecutter.extensions.RandomStringExtension&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="s1">&#39;cookiecutter.extensions.SlugifyExtension&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="s1">&#39;cookiecutter.extensions.UUIDExtension&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="s1">&#39;jinja2_time.TimeExtension&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">extensions</span> <span class="o">=</span> <span class="n">default_extensions</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_extensions</span><span class="p">(</span><span class="n">context</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">extensions</span><span class="o">=</span><span class="n">extensions</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">raise</span> <span class="n">UnknownExtension</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unable to load extension: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

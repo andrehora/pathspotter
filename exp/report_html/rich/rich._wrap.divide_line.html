@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>rich._wrap.divide_line</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: rich._wrap.divide_line</h1>
+                <span>Coverage: 100.0% (24/24),</span>
+                <span>Tests: 95, </span>
+                <span>Calls: 1464, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 9</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1173 calls (80.1%)</p>
+                <p><button class="input"><span>&#8594;</span> text</button> 'Step 0' (77) 'Step 1' (70) 'Step 2' (63) 'Step 3' (56) 'Step 4' (49) 'foo' (45) 'Step 5' (42) 'bar' (39) 'Step 6' (35) 'Step 7' (28) </p>
+                <p><button class="input"><span>&#8594;</span> width</button> 60 (490) 80 (85) 100 (67) 3 (55) 88 (40) 1 (39) 8 (27) 7 (27) 4 (24) 20 (24) </p>
+                <p><button class="input"><span>&#8594;</span> fold</button> True (865) False (308) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [] (1173) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">divide_line</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">fold</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">divides</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">divides</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">line_position</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">_cell_len</span> <span class="o">=</span> <span class="n">cell_len</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">_end</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">(</span><span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">word_length</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">line_position</span> <span class="o">+</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">fold</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                    <span class="n">chopped_words</span> <span class="o">=</span> <span class="n">chop_cells</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">last</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">loop_last</span><span class="p">(</span><span class="n">chopped_words</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                            <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">last</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                            <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span>                        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                            <span class="n">start</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line_position</span> <span class="ow">and</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="n">line_position</span> <span class="o">+=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">    <span class="k">return</span> <span class="n">divides</span></span>
+            </pre>
+            <p><b>Path 2</b>: 206 calls (14.1%)</p>
+                <p><button class="input"><span>&#8594;</span> text</button> '' (195) '                   ' (4) '                        ' (4) '      ' (2) '    ' (1) </p>
+                <p><button class="input"><span>&#8594;</span> width</button> 60 (79) 3 (25) 8 (18) 96 (18) 46 (11) 100 (11) 15 (8) 88 (6) 30 (5) 19 (4) </p>
+                <p><button class="input"><span>&#8594;</span> fold</button> True (140) False (66) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [] (206) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">divide_line</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">fold</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">divides</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">divides</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">line_position</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">_cell_len</span> <span class="o">=</span> <span class="n">cell_len</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">_end</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">(</span><span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="n">word_length</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">line_position</span> <span class="o">+</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">fold</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                    <span class="n">chopped_words</span> <span class="o">=</span> <span class="n">chop_cells</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">last</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">loop_last</span><span class="p">(</span><span class="n">chopped_words</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                            <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">last</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                            <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span>                        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                            <span class="n">start</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line_position</span> <span class="ow">and</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">line_position</span> <span class="o">+=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">    <span class="k">return</span> <span class="n">divides</span></span>
+            </pre>
+            <p><b>Path 3</b>: 55 calls (3.8%)</p>
+                <p><button class="input"><span>&#8594;</span> text</button> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in metus sed sapien ultricies pretium a at justo. Maecenas luctus velit et auctor ma...</p>
+                <p><button class="input"><span>&#8594;</span> width</button> 96 (15) 46 (11) 27 (6) 20 (3) 31 (3) 85 (2) 42 (2) 60 (2) 4 (2) 30 (1) </p>
+                <p><button class="input"><span>&#8594;</span> fold</button> True (37) False (18) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [96] (11) [31] (4) [18, 28, 40, 57, 78, 95, 115, 131, 147] (3) [95] (3) [80] (2) [29] (2) [45] (2) [37] (2) [7] (2) [58] (2) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">divide_line</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">fold</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">divides</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">divides</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">line_position</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">_cell_len</span> <span class="o">=</span> <span class="n">cell_len</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">_end</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">(</span><span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">word_length</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">line_position</span> <span class="o">+</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">fold</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                    <span class="n">chopped_words</span> <span class="o">=</span> <span class="n">chop_cells</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">last</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">loop_last</span><span class="p">(</span><span class="n">chopped_words</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                            <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">last</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                            <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span>                        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                            <span class="n">start</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">elif</span> <span class="n">line_position</span> <span class="ow">and</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="n">line_position</span> <span class="o">+=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">    <span class="k">return</span> <span class="n">divides</span></span>
+            </pre>
+            <p><b>Path 4</b>: 15 calls (1.0%)</p>
+                <p><button class="input"><span>&#8594;</span> text</button> 'class test_can_handle_special_characters_in_docstrings.<locals>.Something():' (5) '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/ric...</p>
+                <p><button class="input"><span>&#8594;</span> width</button> 46 (5) 88 (3) 87 (2) 4 (2) 7 (1) 10 (1) 76 (1) </p>
+                <p><button class="input"><span>&#8594;</span> fold</button> True (15) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [6, 52] (5) [88] (3) [87] (2) [5, 12] (1) [3, 7, 11] (1) [7, 17] (1) [2, 6, 10] (1) [76] (1) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">divide_line</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">fold</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">divides</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">divides</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">line_position</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">_cell_len</span> <span class="o">=</span> <span class="n">cell_len</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">_end</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">(</span><span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">word_length</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">line_position</span> <span class="o">+</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">if</span> <span class="n">fold</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                    <span class="n">chopped_words</span> <span class="o">=</span> <span class="n">chop_cells</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                    <span class="k">for</span> <span class="n">last</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">loop_last</span><span class="p">(</span><span class="n">chopped_words</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                        <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                            <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                        <span class="k">if</span> <span class="n">last</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                            <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span>                        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                            <span class="n">start</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line_position</span> <span class="ow">and</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="n">line_position</span> <span class="o">+=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">    <span class="k">return</span> <span class="n">divides</span></span>
+            </pre>
+            <p><b>Path 5</b>: 10 calls (0.7%)</p>
+                <p><button class="input"><span>&#8594;</span> text</button> 'Layout(' (3) "    name='foo'" (2) '&#12431;&#12373;&#12403;' (2) "    name='bar'" (1) 'abracadabra' (1) ' xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...</p>
+                <p><button class="input"><span>&#8594;</span> width</button> 6 (6) 4 (2) 3 (1) 100 (1) </p>
+                <p><button class="input"><span>&#8594;</span> fold</button> True (10) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [6] (3) [6, 12] (3) [2] (1) [1, 2] (1) [4, 8] (1) [100] (1) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">divide_line</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">fold</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">divides</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">divides</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">line_position</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">_cell_len</span> <span class="o">=</span> <span class="n">cell_len</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">_end</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">(</span><span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">word_length</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">line_position</span> <span class="o">+</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">if</span> <span class="n">fold</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                    <span class="n">chopped_words</span> <span class="o">=</span> <span class="n">chop_cells</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                    <span class="k">for</span> <span class="n">last</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">loop_last</span><span class="p">(</span><span class="n">chopped_words</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                        <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                            <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                        <span class="k">if</span> <span class="n">last</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                            <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span>                        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                            <span class="n">start</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line_position</span> <span class="ow">and</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">line_position</span> <span class="o">+=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">    <span class="k">return</span> <span class="n">divides</span></span>
+            </pre>
+            <p><b>Path 6</b>: 2 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> text</button> 'baz' (1) 'bigwordbigwordbigwordbigwordbigwordbigwordbigwordbigwordbigwordbigword' (1) </p>
+                <p><button class="input"><span>&#8594;</span> width</button> 2 (1) 4 (1) </p>
+                <p><button class="input"><span>&#8594;</span> fold</button> False (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [] (2) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">divide_line</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">fold</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">divides</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">divides</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">line_position</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">_cell_len</span> <span class="o">=</span> <span class="n">cell_len</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">_end</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">(</span><span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">word_length</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">line_position</span> <span class="o">+</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">if</span> <span class="n">fold</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                    <span class="n">chopped_words</span> <span class="o">=</span> <span class="n">chop_cells</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">last</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">loop_last</span><span class="p">(</span><span class="n">chopped_words</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                            <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">last</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                            <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span>                        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                            <span class="n">start</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line_position</span> <span class="ow">and</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">line_position</span> <span class="o">+=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">    <span class="k">return</span> <span class="n">divides</span></span>
+            </pre>
+            <p><b>Path 7</b>: 1 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> text</button> 'banana pancakes' (1) </p>
+                <p><button class="input"><span>&#8594;</span> width</button> 3 (1) </p>
+                <p><button class="input"><span>&#8594;</span> fold</button> False (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [7] (1) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">divide_line</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">fold</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">divides</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">divides</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">line_position</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">_cell_len</span> <span class="o">=</span> <span class="n">cell_len</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">_end</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">(</span><span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">word_length</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">line_position</span> <span class="o">+</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">if</span> <span class="n">fold</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                    <span class="n">chopped_words</span> <span class="o">=</span> <span class="n">chop_cells</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">last</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">loop_last</span><span class="p">(</span><span class="n">chopped_words</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                            <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">last</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                            <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span>                        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                            <span class="n">start</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                        <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line_position</span> <span class="ow">and</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">line_position</span> <span class="o">+=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">    <span class="k">return</span> <span class="n">divides</span></span>
+            </pre>
+            <p><b>Path 8</b>: 1 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> text</button> 'banana pancakes' (1) </p>
+                <p><button class="input"><span>&#8594;</span> width</button> 7 (1) </p>
+                <p><button class="input"><span>&#8594;</span> fold</button> False (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [7] (1) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">divide_line</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">fold</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">divides</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">divides</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">line_position</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">_cell_len</span> <span class="o">=</span> <span class="n">cell_len</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">_end</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">(</span><span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">word_length</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">line_position</span> <span class="o">+</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">if</span> <span class="n">fold</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                    <span class="n">chopped_words</span> <span class="o">=</span> <span class="n">chop_cells</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">last</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">loop_last</span><span class="p">(</span><span class="n">chopped_words</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                            <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">last</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                            <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span>                        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                            <span class="n">start</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                        <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line_position</span> <span class="ow">and</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="n">line_position</span> <span class="o">+=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">    <span class="k">return</span> <span class="n">divides</span></span>
+            </pre>
+            <p><b>Path 9</b>: 1 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> text</button> 'Some more words' (1) </p>
+                <p><button class="input"><span>&#8594;</span> width</button> 4 (1) </p>
+                <p><button class="input"><span>&#8594;</span> fold</button> False (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [5, 10] (1) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">divide_line</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">fold</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">divides</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">divides</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">line_position</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">_cell_len</span> <span class="o">=</span> <span class="n">cell_len</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">_end</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">(</span><span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">word_length</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">line_position</span> <span class="o">+</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">word_length</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">if</span> <span class="n">fold</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                    <span class="n">chopped_words</span> <span class="o">=</span> <span class="n">chop_cells</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">last</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">loop_last</span><span class="p">(</span><span class="n">chopped_words</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                            <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">last</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                            <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span>                        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                            <span class="n">start</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="k">if</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                        <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">elif</span> <span class="n">line_position</span> <span class="ow">and</span> <span class="n">start</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="n">line_position</span> <span class="o">=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="n">line_position</span> <span class="o">+=</span> <span class="n">_cell_len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">    <span class="k">return</span> <span class="n">divides</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>dateutil.parser._parser.parser.parse</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: dateutil.parser._parser.parser.parse</h1>
+                <span>Coverage: 94.4% (17/18),</span>
+                <span>Tests: 375, </span>
+                <span>Calls: 1160, </span>
+                <span>Exceptions: 36, </span>
+                <span>Paths: 10</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 966 calls (83.3%)</p>
+                <p><button class="input"><span>&#8594;</span> timestr</button> '19970902T090000' (261) '090107' (7) '19970904T090000' (7) '19970909T090000' (6) '19970911T090000' (6) '19970918T090000' (6) '2014 January 19 09:00 UT...</p>
+                <p><button class="input"><span>&#8594;</span> default</button> None (966) </p>
+                <p><button class="input"><span>&#8594;</span> ignoretz</button> False (966) </p>
+                <p><button class="input"><span>&#8594;</span> tzinfos</button> None (957) dict (2) {'BRST': -10800} (2) {'BRST': None} (1) TestTzinfoInputTypes.test_tzinfos_callable_could_return_none.<locals>.<lambda> def (1) {'U...</p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (942) {'fuzzy': True} (7) {'dayfirst': True} (6) {'yearfirst': True} (6) {'yearfirst': False, 'dayfirst': True} (1) {'yearfirst': True, 'dayfirst':...</p>
+                <p><button class="output"><span>&#8617; return</span></button> datetime (964) FakeDatetime (2) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>              <span class="n">ignoretz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tzinfos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Parse the date/time string into a :class:`datetime.datetime` object.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param timestr:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            Any date/time string using the supported formats.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param default:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            The default datetime object, if this is a datetime object and not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            ``None``, elements specified in ``timestr`` replace elements in the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            default object.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param ignoretz:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            If set ``True``, time zones in parsed strings are ignored and a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            naive :class:`datetime.datetime` object is returned.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param tzinfos:</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            Additional time zone names / aliases which may be present in the</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">            string. This argument maps time zone names (and optionally offsets</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">            from those time zones) to time zones. This parameter can be a</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            dictionary with timezone aliases mapping time zone names to time</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">            zones or a function taking two parameters (``tzname`` and</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">            ``tzoffset``) and returning a time zone.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">            The timezones to which the names are mapped can be an integer</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">            offset from UTC in seconds or a :class:`tzinfo` object.</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">            .. doctest::</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">               :options: +NORMALIZE_WHITESPACE</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.tz import gettz</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">                &gt;&gt;&gt; tzinfos = {&quot;BRST&quot;: -7200, &quot;CST&quot;: gettz(&quot;America/Chicago&quot;)}</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 BRST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21, tzinfo=tzoffset(u&#39;BRST&#39;, -7200))</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 CST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21,</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">                                  tzinfo=tzfile(&#39;/usr/share/zoneinfo/America/Chicago&#39;))</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">            This parameter is ignored if ``ignoretz`` is set.</span></span>
+<span class="num"><a href="#42">42</a></span><span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">        :param \\*\\*kwargs:</span></span>
+<span class="num"><a href="#44">44</a></span><span><span class="sd">            Keyword arguments as passed to ``_parse()``.</span></span>
+<span class="num"><a href="#45">45</a></span><span></span>
+<span class="num"><a href="#46">46</a></span><span><span class="sd">        :return:</span></span>
+<span class="num"><a href="#47">47</a></span><span><span class="sd">            Returns a :class:`datetime.datetime` object or, if the</span></span>
+<span class="num"><a href="#48">48</a></span><span><span class="sd">            ``fuzzy_with_tokens`` option is ``True``, returns a tuple, the</span></span>
+<span class="num"><a href="#49">49</a></span><span><span class="sd">            first element being a :class:`datetime.datetime` object, the second</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">            a tuple containing the fuzzy tokens.</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span><span class="sd">        :raises ParserError:</span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">            Raised for invalid or unknown string format, if the provided</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">            :class:`tzinfo` is not in a valid format, or if an invalid date</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">            would be created.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        :raises TypeError:</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">            Raised for non-string or character stream input.</span></span>
+<span class="num"><a href="#59">59</a></span><span></span>
+<span class="num"><a href="#60">60</a></span><span><span class="sd">        :raises OverflowError:</span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">            Raised if the parsed date exceeds the largest valid C integer on</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">            your system.</span></span>
+<span class="num"><a href="#63">63</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#64">64</a></span><span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">            <span class="n">default</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">                                                      <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">        <span class="n">res</span><span class="p">,</span> <span class="n">skipped_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;Unknown string format: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;String does not contain a date: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#76">76</a></span><span></span>
+<span class="num"><a href="#77">77</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#78">78</a></span><span class="full run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_naive</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#80">80</a></span><span class="full not_run">            <span class="n">six</span><span class="o">.</span><span class="n">raise_from</span><span class="p">(</span><span class="n">ParserError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#81">81</a></span><span></span>
+<span class="num"><a href="#82">82</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">ignoretz</span><span class="p">:</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tzaware</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">tzinfos</span><span class="p">)</span></span>
+<span class="num"><a href="#84">84</a></span><span></span>
+<span class="num"><a href="#85">85</a></span><span class="full run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fuzzy_with_tokens&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span><span class="p">,</span> <span class="n">skipped_tokens</span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#88">88</a></span><span class="full run">            <span class="k">return</span> <span class="n">ret</span></span>
+            </pre>
+            <p><b>Path 2</b>: 99 calls (8.5%)</p>
+                <p><button class="input"><span>&#8594;</span> timestr</button> '19971029T020000' (39) '19980301T020000' (31) '19980301T030000' (8) '19671029T020000' (5) '19870405T020000' (5) 'Thu Sep 25 10:36:28 BRST 2003' (1) '1...</p>
+                <p><button class="input"><span>&#8594;</span> default</button> None (99) </p>
+                <p><button class="input"><span>&#8594;</span> ignoretz</button> True (99) </p>
+                <p><button class="input"><span>&#8594;</span> tzinfos</button> None (99) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (99) </p>
+                <p><button class="output"><span>&#8617; return</span></button> datetime (99) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>              <span class="n">ignoretz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tzinfos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Parse the date/time string into a :class:`datetime.datetime` object.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param timestr:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            Any date/time string using the supported formats.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param default:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            The default datetime object, if this is a datetime object and not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            ``None``, elements specified in ``timestr`` replace elements in the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            default object.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param ignoretz:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            If set ``True``, time zones in parsed strings are ignored and a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            naive :class:`datetime.datetime` object is returned.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param tzinfos:</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            Additional time zone names / aliases which may be present in the</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">            string. This argument maps time zone names (and optionally offsets</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">            from those time zones) to time zones. This parameter can be a</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            dictionary with timezone aliases mapping time zone names to time</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">            zones or a function taking two parameters (``tzname`` and</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">            ``tzoffset``) and returning a time zone.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">            The timezones to which the names are mapped can be an integer</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">            offset from UTC in seconds or a :class:`tzinfo` object.</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">            .. doctest::</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">               :options: +NORMALIZE_WHITESPACE</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.tz import gettz</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">                &gt;&gt;&gt; tzinfos = {&quot;BRST&quot;: -7200, &quot;CST&quot;: gettz(&quot;America/Chicago&quot;)}</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 BRST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21, tzinfo=tzoffset(u&#39;BRST&#39;, -7200))</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 CST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21,</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">                                  tzinfo=tzfile(&#39;/usr/share/zoneinfo/America/Chicago&#39;))</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">            This parameter is ignored if ``ignoretz`` is set.</span></span>
+<span class="num"><a href="#42">42</a></span><span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">        :param \\*\\*kwargs:</span></span>
+<span class="num"><a href="#44">44</a></span><span><span class="sd">            Keyword arguments as passed to ``_parse()``.</span></span>
+<span class="num"><a href="#45">45</a></span><span></span>
+<span class="num"><a href="#46">46</a></span><span><span class="sd">        :return:</span></span>
+<span class="num"><a href="#47">47</a></span><span><span class="sd">            Returns a :class:`datetime.datetime` object or, if the</span></span>
+<span class="num"><a href="#48">48</a></span><span><span class="sd">            ``fuzzy_with_tokens`` option is ``True``, returns a tuple, the</span></span>
+<span class="num"><a href="#49">49</a></span><span><span class="sd">            first element being a :class:`datetime.datetime` object, the second</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">            a tuple containing the fuzzy tokens.</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span><span class="sd">        :raises ParserError:</span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">            Raised for invalid or unknown string format, if the provided</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">            :class:`tzinfo` is not in a valid format, or if an invalid date</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">            would be created.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        :raises TypeError:</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">            Raised for non-string or character stream input.</span></span>
+<span class="num"><a href="#59">59</a></span><span></span>
+<span class="num"><a href="#60">60</a></span><span><span class="sd">        :raises OverflowError:</span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">            Raised if the parsed date exceeds the largest valid C integer on</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">            your system.</span></span>
+<span class="num"><a href="#63">63</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#64">64</a></span><span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">            <span class="n">default</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">                                                      <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">        <span class="n">res</span><span class="p">,</span> <span class="n">skipped_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;Unknown string format: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;String does not contain a date: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#76">76</a></span><span></span>
+<span class="num"><a href="#77">77</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#78">78</a></span><span class="full run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_naive</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#80">80</a></span><span class="full not_run">            <span class="n">six</span><span class="o">.</span><span class="n">raise_from</span><span class="p">(</span><span class="n">ParserError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#81">81</a></span><span></span>
+<span class="num"><a href="#82">82</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">ignoretz</span><span class="p">:</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tzaware</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">tzinfos</span><span class="p">)</span></span>
+<span class="num"><a href="#84">84</a></span><span></span>
+<span class="num"><a href="#85">85</a></span><span class="full run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fuzzy_with_tokens&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span><span class="p">,</span> <span class="n">skipped_tokens</span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#88">88</a></span><span class="full run">            <span class="k">return</span> <span class="n">ret</span></span>
+            </pre>
+            <p><b>Path 3</b>: 54 calls (4.7%)</p>
+                <p><button class="input"><span>&#8594;</span> timestr</button> 'Thu Sep 25 10:36:28' (1) 'Thu Sep 10:36:28' (1) 'Thu 10:36:28' (1) 'Sep 10:36:28' (1) '10:36:28' (1) '10:36' (1) 'Sep 2003' (1) 'Sep' (1) '2003' (1) ...</p>
+                <p><button class="input"><span>&#8594;</span> default</button> datetime (54) </p>
+                <p><button class="input"><span>&#8594;</span> ignoretz</button> False (54) </p>
+                <p><button class="input"><span>&#8594;</span> tzinfos</button> None (54) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (53) {'fuzzy': True} (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> datetime (54) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>              <span class="n">ignoretz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tzinfos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Parse the date/time string into a :class:`datetime.datetime` object.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param timestr:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            Any date/time string using the supported formats.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param default:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            The default datetime object, if this is a datetime object and not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            ``None``, elements specified in ``timestr`` replace elements in the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            default object.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param ignoretz:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            If set ``True``, time zones in parsed strings are ignored and a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            naive :class:`datetime.datetime` object is returned.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param tzinfos:</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            Additional time zone names / aliases which may be present in the</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">            string. This argument maps time zone names (and optionally offsets</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">            from those time zones) to time zones. This parameter can be a</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            dictionary with timezone aliases mapping time zone names to time</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">            zones or a function taking two parameters (``tzname`` and</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">            ``tzoffset``) and returning a time zone.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">            The timezones to which the names are mapped can be an integer</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">            offset from UTC in seconds or a :class:`tzinfo` object.</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">            .. doctest::</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">               :options: +NORMALIZE_WHITESPACE</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.tz import gettz</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">                &gt;&gt;&gt; tzinfos = {&quot;BRST&quot;: -7200, &quot;CST&quot;: gettz(&quot;America/Chicago&quot;)}</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 BRST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21, tzinfo=tzoffset(u&#39;BRST&#39;, -7200))</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 CST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21,</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">                                  tzinfo=tzfile(&#39;/usr/share/zoneinfo/America/Chicago&#39;))</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">            This parameter is ignored if ``ignoretz`` is set.</span></span>
+<span class="num"><a href="#42">42</a></span><span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">        :param \\*\\*kwargs:</span></span>
+<span class="num"><a href="#44">44</a></span><span><span class="sd">            Keyword arguments as passed to ``_parse()``.</span></span>
+<span class="num"><a href="#45">45</a></span><span></span>
+<span class="num"><a href="#46">46</a></span><span><span class="sd">        :return:</span></span>
+<span class="num"><a href="#47">47</a></span><span><span class="sd">            Returns a :class:`datetime.datetime` object or, if the</span></span>
+<span class="num"><a href="#48">48</a></span><span><span class="sd">            ``fuzzy_with_tokens`` option is ``True``, returns a tuple, the</span></span>
+<span class="num"><a href="#49">49</a></span><span><span class="sd">            first element being a :class:`datetime.datetime` object, the second</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">            a tuple containing the fuzzy tokens.</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span><span class="sd">        :raises ParserError:</span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">            Raised for invalid or unknown string format, if the provided</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">            :class:`tzinfo` is not in a valid format, or if an invalid date</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">            would be created.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        :raises TypeError:</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">            Raised for non-string or character stream input.</span></span>
+<span class="num"><a href="#59">59</a></span><span></span>
+<span class="num"><a href="#60">60</a></span><span><span class="sd">        :raises OverflowError:</span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">            Raised if the parsed date exceeds the largest valid C integer on</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">            your system.</span></span>
+<span class="num"><a href="#63">63</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#64">64</a></span><span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">            <span class="n">default</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">                                                      <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">        <span class="n">res</span><span class="p">,</span> <span class="n">skipped_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;Unknown string format: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;String does not contain a date: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#76">76</a></span><span></span>
+<span class="num"><a href="#77">77</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#78">78</a></span><span class="full run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_naive</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#80">80</a></span><span class="full not_run">            <span class="n">six</span><span class="o">.</span><span class="n">raise_from</span><span class="p">(</span><span class="n">ParserError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#81">81</a></span><span></span>
+<span class="num"><a href="#82">82</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">ignoretz</span><span class="p">:</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tzaware</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">tzinfos</span><span class="p">)</span></span>
+<span class="num"><a href="#84">84</a></span><span></span>
+<span class="num"><a href="#85">85</a></span><span class="full run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fuzzy_with_tokens&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span><span class="p">,</span> <span class="n">skipped_tokens</span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#88">88</a></span><span class="full run">            <span class="k">return</span> <span class="n">ret</span></span>
+            </pre>
+            <p><b>Path 4</b>: 17 calls (1.5%)</p>
+                <p><button class="input"><span>&#8594;</span> timestr</button> '2014-15-25' (2) '2014-02-28 22:64' (2) '2014-02-28 22:14:64' (2) 'Jan 20, 2015 PM' (1) '2020-13-97T44:61:83' (1) '0000 Jun 20' (1) 'Feb 30, 2007' (1)...</p>
+                <p><button class="input"><span>&#8594;</span> default</button> None (17) </p>
+                <p><button class="input"><span>&#8594;</span> ignoretz</button> False (17) </p>
+                <p><button class="input"><span>&#8594;</span> tzinfos</button> None (17) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (9) {'fuzzy': True} (4) {'fuzzy': False} (3) {'fuzzy_with_tokens': True} (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ParserError (17) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>              <span class="n">ignoretz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tzinfos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Parse the date/time string into a :class:`datetime.datetime` object.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param timestr:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            Any date/time string using the supported formats.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param default:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            The default datetime object, if this is a datetime object and not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            ``None``, elements specified in ``timestr`` replace elements in the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            default object.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param ignoretz:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            If set ``True``, time zones in parsed strings are ignored and a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            naive :class:`datetime.datetime` object is returned.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param tzinfos:</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            Additional time zone names / aliases which may be present in the</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">            string. This argument maps time zone names (and optionally offsets</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">            from those time zones) to time zones. This parameter can be a</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            dictionary with timezone aliases mapping time zone names to time</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">            zones or a function taking two parameters (``tzname`` and</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">            ``tzoffset``) and returning a time zone.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">            The timezones to which the names are mapped can be an integer</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">            offset from UTC in seconds or a :class:`tzinfo` object.</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">            .. doctest::</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">               :options: +NORMALIZE_WHITESPACE</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.tz import gettz</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">                &gt;&gt;&gt; tzinfos = {&quot;BRST&quot;: -7200, &quot;CST&quot;: gettz(&quot;America/Chicago&quot;)}</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 BRST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21, tzinfo=tzoffset(u&#39;BRST&#39;, -7200))</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 CST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21,</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">                                  tzinfo=tzfile(&#39;/usr/share/zoneinfo/America/Chicago&#39;))</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">            This parameter is ignored if ``ignoretz`` is set.</span></span>
+<span class="num"><a href="#42">42</a></span><span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">        :param \\*\\*kwargs:</span></span>
+<span class="num"><a href="#44">44</a></span><span><span class="sd">            Keyword arguments as passed to ``_parse()``.</span></span>
+<span class="num"><a href="#45">45</a></span><span></span>
+<span class="num"><a href="#46">46</a></span><span><span class="sd">        :return:</span></span>
+<span class="num"><a href="#47">47</a></span><span><span class="sd">            Returns a :class:`datetime.datetime` object or, if the</span></span>
+<span class="num"><a href="#48">48</a></span><span><span class="sd">            ``fuzzy_with_tokens`` option is ``True``, returns a tuple, the</span></span>
+<span class="num"><a href="#49">49</a></span><span><span class="sd">            first element being a :class:`datetime.datetime` object, the second</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">            a tuple containing the fuzzy tokens.</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span><span class="sd">        :raises ParserError:</span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">            Raised for invalid or unknown string format, if the provided</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">            :class:`tzinfo` is not in a valid format, or if an invalid date</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">            would be created.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        :raises TypeError:</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">            Raised for non-string or character stream input.</span></span>
+<span class="num"><a href="#59">59</a></span><span></span>
+<span class="num"><a href="#60">60</a></span><span><span class="sd">        :raises OverflowError:</span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">            Raised if the parsed date exceeds the largest valid C integer on</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">            your system.</span></span>
+<span class="num"><a href="#63">63</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#64">64</a></span><span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">            <span class="n">default</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">                                                      <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">        <span class="n">res</span><span class="p">,</span> <span class="n">skipped_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;Unknown string format: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;String does not contain a date: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#76">76</a></span><span></span>
+<span class="num"><a href="#77">77</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#78">78</a></span><span class="full run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_naive</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full run">        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#80">80</a></span><span class="full run">            <span class="n">six</span><span class="o">.</span><span class="n">raise_from</span><span class="p">(</span><span class="n">ParserError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#81">81</a></span><span></span>
+<span class="num"><a href="#82">82</a></span><span class="full not_run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">ignoretz</span><span class="p">:</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tzaware</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">tzinfos</span><span class="p">)</span></span>
+<span class="num"><a href="#84">84</a></span><span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fuzzy_with_tokens&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span><span class="p">,</span> <span class="n">skipped_tokens</span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#88">88</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span></span>
+            </pre>
+            <p><b>Path 5</b>: 15 calls (1.3%)</p>
+                <p><button class="input"><span>&#8594;</span> timestr</button> 'AM' (1) '13:44 AM' (1) 'January 25, 1921 23:13 PM' (1) '04/04/32/423' (1) '04/04/04 +32423' (1) '04/04/0d4' (1) 'shouldfail' (1) '201A-01-01T23:58:39...</p>
+                <p><button class="input"><span>&#8594;</span> default</button> None (15) </p>
+                <p><button class="input"><span>&#8594;</span> ignoretz</button> False (15) </p>
+                <p><button class="input"><span>&#8594;</span> tzinfos</button> None (15) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (10) {'fuzzy_with_tokens': True} (4) {'fuzzy': False} (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ParserError (15) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>              <span class="n">ignoretz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tzinfos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Parse the date/time string into a :class:`datetime.datetime` object.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param timestr:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            Any date/time string using the supported formats.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param default:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            The default datetime object, if this is a datetime object and not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            ``None``, elements specified in ``timestr`` replace elements in the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            default object.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param ignoretz:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            If set ``True``, time zones in parsed strings are ignored and a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            naive :class:`datetime.datetime` object is returned.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param tzinfos:</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            Additional time zone names / aliases which may be present in the</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">            string. This argument maps time zone names (and optionally offsets</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">            from those time zones) to time zones. This parameter can be a</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            dictionary with timezone aliases mapping time zone names to time</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">            zones or a function taking two parameters (``tzname`` and</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">            ``tzoffset``) and returning a time zone.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">            The timezones to which the names are mapped can be an integer</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">            offset from UTC in seconds or a :class:`tzinfo` object.</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">            .. doctest::</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">               :options: +NORMALIZE_WHITESPACE</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.tz import gettz</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">                &gt;&gt;&gt; tzinfos = {&quot;BRST&quot;: -7200, &quot;CST&quot;: gettz(&quot;America/Chicago&quot;)}</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 BRST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21, tzinfo=tzoffset(u&#39;BRST&#39;, -7200))</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 CST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21,</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">                                  tzinfo=tzfile(&#39;/usr/share/zoneinfo/America/Chicago&#39;))</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">            This parameter is ignored if ``ignoretz`` is set.</span></span>
+<span class="num"><a href="#42">42</a></span><span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">        :param \\*\\*kwargs:</span></span>
+<span class="num"><a href="#44">44</a></span><span><span class="sd">            Keyword arguments as passed to ``_parse()``.</span></span>
+<span class="num"><a href="#45">45</a></span><span></span>
+<span class="num"><a href="#46">46</a></span><span><span class="sd">        :return:</span></span>
+<span class="num"><a href="#47">47</a></span><span><span class="sd">            Returns a :class:`datetime.datetime` object or, if the</span></span>
+<span class="num"><a href="#48">48</a></span><span><span class="sd">            ``fuzzy_with_tokens`` option is ``True``, returns a tuple, the</span></span>
+<span class="num"><a href="#49">49</a></span><span><span class="sd">            first element being a :class:`datetime.datetime` object, the second</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">            a tuple containing the fuzzy tokens.</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span><span class="sd">        :raises ParserError:</span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">            Raised for invalid or unknown string format, if the provided</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">            :class:`tzinfo` is not in a valid format, or if an invalid date</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">            would be created.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        :raises TypeError:</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">            Raised for non-string or character stream input.</span></span>
+<span class="num"><a href="#59">59</a></span><span></span>
+<span class="num"><a href="#60">60</a></span><span><span class="sd">        :raises OverflowError:</span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">            Raised if the parsed date exceeds the largest valid C integer on</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">            your system.</span></span>
+<span class="num"><a href="#63">63</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#64">64</a></span><span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">            <span class="n">default</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">                                                      <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">        <span class="n">res</span><span class="p">,</span> <span class="n">skipped_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;Unknown string format: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;String does not contain a date: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#76">76</a></span><span></span>
+<span class="num"><a href="#77">77</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#78">78</a></span><span class="full not_run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_naive</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#80">80</a></span><span class="full not_run">            <span class="n">six</span><span class="o">.</span><span class="n">raise_from</span><span class="p">(</span><span class="n">ParserError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#81">81</a></span><span></span>
+<span class="num"><a href="#82">82</a></span><span class="full not_run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">ignoretz</span><span class="p">:</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tzaware</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">tzinfos</span><span class="p">)</span></span>
+<span class="num"><a href="#84">84</a></span><span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fuzzy_with_tokens&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span><span class="p">,</span> <span class="n">skipped_tokens</span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#88">88</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span></span>
+            </pre>
+            <p><b>Path 6</b>: 4 calls (0.3%)</p>
+                <p><button class="input"><span>&#8594;</span> timestr</button> 'Today is 25 of September of 2003, exactly at 10:49:41 with timezone -03:00.' (1) 'http://biz.yahoo.com/ipo/p/600221.html' (1) "2011 MARTIN CHILDREN'S...</p>
+                <p><button class="input"><span>&#8594;</span> default</button> None (4) </p>
+                <p><button class="input"><span>&#8594;</span> ignoretz</button> False (4) </p>
+                <p><button class="input"><span>&#8594;</span> tzinfos</button> None (4) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {'fuzzy_with_tokens': True} (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (4) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>              <span class="n">ignoretz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tzinfos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Parse the date/time string into a :class:`datetime.datetime` object.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param timestr:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            Any date/time string using the supported formats.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param default:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            The default datetime object, if this is a datetime object and not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            ``None``, elements specified in ``timestr`` replace elements in the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            default object.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param ignoretz:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            If set ``True``, time zones in parsed strings are ignored and a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            naive :class:`datetime.datetime` object is returned.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param tzinfos:</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            Additional time zone names / aliases which may be present in the</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">            string. This argument maps time zone names (and optionally offsets</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">            from those time zones) to time zones. This parameter can be a</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            dictionary with timezone aliases mapping time zone names to time</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">            zones or a function taking two parameters (``tzname`` and</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">            ``tzoffset``) and returning a time zone.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">            The timezones to which the names are mapped can be an integer</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">            offset from UTC in seconds or a :class:`tzinfo` object.</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">            .. doctest::</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">               :options: +NORMALIZE_WHITESPACE</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.tz import gettz</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">                &gt;&gt;&gt; tzinfos = {&quot;BRST&quot;: -7200, &quot;CST&quot;: gettz(&quot;America/Chicago&quot;)}</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 BRST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21, tzinfo=tzoffset(u&#39;BRST&#39;, -7200))</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 CST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21,</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">                                  tzinfo=tzfile(&#39;/usr/share/zoneinfo/America/Chicago&#39;))</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">            This parameter is ignored if ``ignoretz`` is set.</span></span>
+<span class="num"><a href="#42">42</a></span><span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">        :param \\*\\*kwargs:</span></span>
+<span class="num"><a href="#44">44</a></span><span><span class="sd">            Keyword arguments as passed to ``_parse()``.</span></span>
+<span class="num"><a href="#45">45</a></span><span></span>
+<span class="num"><a href="#46">46</a></span><span><span class="sd">        :return:</span></span>
+<span class="num"><a href="#47">47</a></span><span><span class="sd">            Returns a :class:`datetime.datetime` object or, if the</span></span>
+<span class="num"><a href="#48">48</a></span><span><span class="sd">            ``fuzzy_with_tokens`` option is ``True``, returns a tuple, the</span></span>
+<span class="num"><a href="#49">49</a></span><span><span class="sd">            first element being a :class:`datetime.datetime` object, the second</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">            a tuple containing the fuzzy tokens.</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span><span class="sd">        :raises ParserError:</span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">            Raised for invalid or unknown string format, if the provided</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">            :class:`tzinfo` is not in a valid format, or if an invalid date</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">            would be created.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        :raises TypeError:</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">            Raised for non-string or character stream input.</span></span>
+<span class="num"><a href="#59">59</a></span><span></span>
+<span class="num"><a href="#60">60</a></span><span><span class="sd">        :raises OverflowError:</span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">            Raised if the parsed date exceeds the largest valid C integer on</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">            your system.</span></span>
+<span class="num"><a href="#63">63</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#64">64</a></span><span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">            <span class="n">default</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">                                                      <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">        <span class="n">res</span><span class="p">,</span> <span class="n">skipped_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;Unknown string format: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;String does not contain a date: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#76">76</a></span><span></span>
+<span class="num"><a href="#77">77</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#78">78</a></span><span class="full run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_naive</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#80">80</a></span><span class="full not_run">            <span class="n">six</span><span class="o">.</span><span class="n">raise_from</span><span class="p">(</span><span class="n">ParserError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#81">81</a></span><span></span>
+<span class="num"><a href="#82">82</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">ignoretz</span><span class="p">:</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tzaware</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">tzinfos</span><span class="p">)</span></span>
+<span class="num"><a href="#84">84</a></span><span></span>
+<span class="num"><a href="#85">85</a></span><span class="full run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fuzzy_with_tokens&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full run">            <span class="k">return</span> <span class="n">ret</span><span class="p">,</span> <span class="n">skipped_tokens</span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#88">88</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span></span>
+            </pre>
+            <p><b>Path 7</b>: 2 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> timestr</button> None (1) 13 (1) </p>
+                <p><button class="input"><span>&#8594;</span> default</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> ignoretz</button> False (2) </p>
+                <p><button class="input"><span>&#8594;</span> tzinfos</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (2) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>              <span class="n">ignoretz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tzinfos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Parse the date/time string into a :class:`datetime.datetime` object.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param timestr:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            Any date/time string using the supported formats.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param default:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            The default datetime object, if this is a datetime object and not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            ``None``, elements specified in ``timestr`` replace elements in the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            default object.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param ignoretz:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            If set ``True``, time zones in parsed strings are ignored and a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            naive :class:`datetime.datetime` object is returned.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param tzinfos:</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            Additional time zone names / aliases which may be present in the</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">            string. This argument maps time zone names (and optionally offsets</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">            from those time zones) to time zones. This parameter can be a</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            dictionary with timezone aliases mapping time zone names to time</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">            zones or a function taking two parameters (``tzname`` and</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">            ``tzoffset``) and returning a time zone.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">            The timezones to which the names are mapped can be an integer</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">            offset from UTC in seconds or a :class:`tzinfo` object.</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">            .. doctest::</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">               :options: +NORMALIZE_WHITESPACE</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.tz import gettz</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">                &gt;&gt;&gt; tzinfos = {&quot;BRST&quot;: -7200, &quot;CST&quot;: gettz(&quot;America/Chicago&quot;)}</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 BRST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21, tzinfo=tzoffset(u&#39;BRST&#39;, -7200))</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 CST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21,</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">                                  tzinfo=tzfile(&#39;/usr/share/zoneinfo/America/Chicago&#39;))</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">            This parameter is ignored if ``ignoretz`` is set.</span></span>
+<span class="num"><a href="#42">42</a></span><span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">        :param \\*\\*kwargs:</span></span>
+<span class="num"><a href="#44">44</a></span><span><span class="sd">            Keyword arguments as passed to ``_parse()``.</span></span>
+<span class="num"><a href="#45">45</a></span><span></span>
+<span class="num"><a href="#46">46</a></span><span><span class="sd">        :return:</span></span>
+<span class="num"><a href="#47">47</a></span><span><span class="sd">            Returns a :class:`datetime.datetime` object or, if the</span></span>
+<span class="num"><a href="#48">48</a></span><span><span class="sd">            ``fuzzy_with_tokens`` option is ``True``, returns a tuple, the</span></span>
+<span class="num"><a href="#49">49</a></span><span><span class="sd">            first element being a :class:`datetime.datetime` object, the second</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">            a tuple containing the fuzzy tokens.</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span><span class="sd">        :raises ParserError:</span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">            Raised for invalid or unknown string format, if the provided</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">            :class:`tzinfo` is not in a valid format, or if an invalid date</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">            would be created.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        :raises TypeError:</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">            Raised for non-string or character stream input.</span></span>
+<span class="num"><a href="#59">59</a></span><span></span>
+<span class="num"><a href="#60">60</a></span><span><span class="sd">        :raises OverflowError:</span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">            Raised if the parsed date exceeds the largest valid C integer on</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">            your system.</span></span>
+<span class="num"><a href="#63">63</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#64">64</a></span><span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">            <span class="n">default</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">                                                      <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">        <span class="n">res</span><span class="p">,</span> <span class="n">skipped_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;Unknown string format: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;String does not contain a date: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#76">76</a></span><span></span>
+<span class="num"><a href="#77">77</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#78">78</a></span><span class="full not_run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_naive</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#80">80</a></span><span class="full not_run">            <span class="n">six</span><span class="o">.</span><span class="n">raise_from</span><span class="p">(</span><span class="n">ParserError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#81">81</a></span><span></span>
+<span class="num"><a href="#82">82</a></span><span class="full not_run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">ignoretz</span><span class="p">:</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tzaware</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">tzinfos</span><span class="p">)</span></span>
+<span class="num"><a href="#84">84</a></span><span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fuzzy_with_tokens&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span><span class="p">,</span> <span class="n">skipped_tokens</span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#88">88</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span></span>
+            </pre>
+            <p><b>Path 8</b>: 1 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> timestr</button> '' (1) </p>
+                <p><button class="input"><span>&#8594;</span> default</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> ignoretz</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> tzinfos</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ParserError (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>              <span class="n">ignoretz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tzinfos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Parse the date/time string into a :class:`datetime.datetime` object.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param timestr:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            Any date/time string using the supported formats.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param default:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            The default datetime object, if this is a datetime object and not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            ``None``, elements specified in ``timestr`` replace elements in the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            default object.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param ignoretz:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            If set ``True``, time zones in parsed strings are ignored and a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            naive :class:`datetime.datetime` object is returned.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param tzinfos:</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            Additional time zone names / aliases which may be present in the</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">            string. This argument maps time zone names (and optionally offsets</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">            from those time zones) to time zones. This parameter can be a</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            dictionary with timezone aliases mapping time zone names to time</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">            zones or a function taking two parameters (``tzname`` and</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">            ``tzoffset``) and returning a time zone.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">            The timezones to which the names are mapped can be an integer</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">            offset from UTC in seconds or a :class:`tzinfo` object.</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">            .. doctest::</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">               :options: +NORMALIZE_WHITESPACE</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.tz import gettz</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">                &gt;&gt;&gt; tzinfos = {&quot;BRST&quot;: -7200, &quot;CST&quot;: gettz(&quot;America/Chicago&quot;)}</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 BRST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21, tzinfo=tzoffset(u&#39;BRST&#39;, -7200))</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 CST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21,</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">                                  tzinfo=tzfile(&#39;/usr/share/zoneinfo/America/Chicago&#39;))</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">            This parameter is ignored if ``ignoretz`` is set.</span></span>
+<span class="num"><a href="#42">42</a></span><span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">        :param \\*\\*kwargs:</span></span>
+<span class="num"><a href="#44">44</a></span><span><span class="sd">            Keyword arguments as passed to ``_parse()``.</span></span>
+<span class="num"><a href="#45">45</a></span><span></span>
+<span class="num"><a href="#46">46</a></span><span><span class="sd">        :return:</span></span>
+<span class="num"><a href="#47">47</a></span><span><span class="sd">            Returns a :class:`datetime.datetime` object or, if the</span></span>
+<span class="num"><a href="#48">48</a></span><span><span class="sd">            ``fuzzy_with_tokens`` option is ``True``, returns a tuple, the</span></span>
+<span class="num"><a href="#49">49</a></span><span><span class="sd">            first element being a :class:`datetime.datetime` object, the second</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">            a tuple containing the fuzzy tokens.</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span><span class="sd">        :raises ParserError:</span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">            Raised for invalid or unknown string format, if the provided</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">            :class:`tzinfo` is not in a valid format, or if an invalid date</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">            would be created.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        :raises TypeError:</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">            Raised for non-string or character stream input.</span></span>
+<span class="num"><a href="#59">59</a></span><span></span>
+<span class="num"><a href="#60">60</a></span><span><span class="sd">        :raises OverflowError:</span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">            Raised if the parsed date exceeds the largest valid C integer on</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">            your system.</span></span>
+<span class="num"><a href="#63">63</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#64">64</a></span><span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">            <span class="n">default</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">                                                      <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">        <span class="n">res</span><span class="p">,</span> <span class="n">skipped_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;Unknown string format: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;String does not contain a date: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#76">76</a></span><span></span>
+<span class="num"><a href="#77">77</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#78">78</a></span><span class="full not_run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_naive</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#80">80</a></span><span class="full not_run">            <span class="n">six</span><span class="o">.</span><span class="n">raise_from</span><span class="p">(</span><span class="n">ParserError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#81">81</a></span><span></span>
+<span class="num"><a href="#82">82</a></span><span class="full not_run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">ignoretz</span><span class="p">:</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tzaware</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">tzinfos</span><span class="p">)</span></span>
+<span class="num"><a href="#84">84</a></span><span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fuzzy_with_tokens&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span><span class="p">,</span> <span class="n">skipped_tokens</span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#88">88</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span></span>
+            </pre>
+            <p><b>Path 9</b>: 1 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> timestr</button> '2014 January 19 09:00 UTC' (1) </p>
+                <p><button class="input"><span>&#8594;</span> default</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> ignoretz</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> tzinfos</button> dict (1) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (1) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>              <span class="n">ignoretz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tzinfos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Parse the date/time string into a :class:`datetime.datetime` object.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param timestr:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            Any date/time string using the supported formats.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param default:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            The default datetime object, if this is a datetime object and not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            ``None``, elements specified in ``timestr`` replace elements in the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            default object.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param ignoretz:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            If set ``True``, time zones in parsed strings are ignored and a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            naive :class:`datetime.datetime` object is returned.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param tzinfos:</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            Additional time zone names / aliases which may be present in the</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">            string. This argument maps time zone names (and optionally offsets</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">            from those time zones) to time zones. This parameter can be a</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            dictionary with timezone aliases mapping time zone names to time</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">            zones or a function taking two parameters (``tzname`` and</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">            ``tzoffset``) and returning a time zone.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">            The timezones to which the names are mapped can be an integer</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">            offset from UTC in seconds or a :class:`tzinfo` object.</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">            .. doctest::</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">               :options: +NORMALIZE_WHITESPACE</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.tz import gettz</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">                &gt;&gt;&gt; tzinfos = {&quot;BRST&quot;: -7200, &quot;CST&quot;: gettz(&quot;America/Chicago&quot;)}</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 BRST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21, tzinfo=tzoffset(u&#39;BRST&#39;, -7200))</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 CST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21,</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">                                  tzinfo=tzfile(&#39;/usr/share/zoneinfo/America/Chicago&#39;))</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">            This parameter is ignored if ``ignoretz`` is set.</span></span>
+<span class="num"><a href="#42">42</a></span><span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">        :param \\*\\*kwargs:</span></span>
+<span class="num"><a href="#44">44</a></span><span><span class="sd">            Keyword arguments as passed to ``_parse()``.</span></span>
+<span class="num"><a href="#45">45</a></span><span></span>
+<span class="num"><a href="#46">46</a></span><span><span class="sd">        :return:</span></span>
+<span class="num"><a href="#47">47</a></span><span><span class="sd">            Returns a :class:`datetime.datetime` object or, if the</span></span>
+<span class="num"><a href="#48">48</a></span><span><span class="sd">            ``fuzzy_with_tokens`` option is ``True``, returns a tuple, the</span></span>
+<span class="num"><a href="#49">49</a></span><span><span class="sd">            first element being a :class:`datetime.datetime` object, the second</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">            a tuple containing the fuzzy tokens.</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span><span class="sd">        :raises ParserError:</span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">            Raised for invalid or unknown string format, if the provided</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">            :class:`tzinfo` is not in a valid format, or if an invalid date</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">            would be created.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        :raises TypeError:</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">            Raised for non-string or character stream input.</span></span>
+<span class="num"><a href="#59">59</a></span><span></span>
+<span class="num"><a href="#60">60</a></span><span><span class="sd">        :raises OverflowError:</span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">            Raised if the parsed date exceeds the largest valid C integer on</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">            your system.</span></span>
+<span class="num"><a href="#63">63</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#64">64</a></span><span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">            <span class="n">default</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">                                                      <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">        <span class="n">res</span><span class="p">,</span> <span class="n">skipped_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;Unknown string format: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;String does not contain a date: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#76">76</a></span><span></span>
+<span class="num"><a href="#77">77</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#78">78</a></span><span class="full run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_naive</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#80">80</a></span><span class="full not_run">            <span class="n">six</span><span class="o">.</span><span class="n">raise_from</span><span class="p">(</span><span class="n">ParserError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#81">81</a></span><span></span>
+<span class="num"><a href="#82">82</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">ignoretz</span><span class="p">:</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tzaware</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">tzinfos</span><span class="p">)</span></span>
+<span class="num"><a href="#84">84</a></span><span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fuzzy_with_tokens&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span><span class="p">,</span> <span class="n">skipped_tokens</span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#88">88</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span></span>
+            </pre>
+            <p><b>Path 10</b>: 1 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> timestr</button> '0:00 PM, PST' (1) </p>
+                <p><button class="input"><span>&#8594;</span> default</button> datetime (1) </p>
+                <p><button class="input"><span>&#8594;</span> ignoretz</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> tzinfos</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> datetime (1) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>              <span class="n">ignoretz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tzinfos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Parse the date/time string into a :class:`datetime.datetime` object.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param timestr:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            Any date/time string using the supported formats.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param default:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            The default datetime object, if this is a datetime object and not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            ``None``, elements specified in ``timestr`` replace elements in the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            default object.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param ignoretz:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            If set ``True``, time zones in parsed strings are ignored and a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            naive :class:`datetime.datetime` object is returned.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param tzinfos:</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            Additional time zone names / aliases which may be present in the</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">            string. This argument maps time zone names (and optionally offsets</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">            from those time zones) to time zones. This parameter can be a</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            dictionary with timezone aliases mapping time zone names to time</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">            zones or a function taking two parameters (``tzname`` and</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">            ``tzoffset``) and returning a time zone.</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">            The timezones to which the names are mapped can be an integer</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">            offset from UTC in seconds or a :class:`tzinfo` object.</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">            .. doctest::</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">               :options: +NORMALIZE_WHITESPACE</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">                &gt;&gt;&gt; from dateutil.tz import gettz</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">                &gt;&gt;&gt; tzinfos = {&quot;BRST&quot;: -7200, &quot;CST&quot;: gettz(&quot;America/Chicago&quot;)}</span></span>
+<span class="num"><a href="#35">35</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 BRST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21, tzinfo=tzoffset(u&#39;BRST&#39;, -7200))</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 CST&quot;, tzinfos=tzinfos)</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">                datetime.datetime(2012, 1, 19, 17, 21,</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">                                  tzinfo=tzfile(&#39;/usr/share/zoneinfo/America/Chicago&#39;))</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span><span class="sd">            This parameter is ignored if ``ignoretz`` is set.</span></span>
+<span class="num"><a href="#42">42</a></span><span></span>
+<span class="num"><a href="#43">43</a></span><span><span class="sd">        :param \\*\\*kwargs:</span></span>
+<span class="num"><a href="#44">44</a></span><span><span class="sd">            Keyword arguments as passed to ``_parse()``.</span></span>
+<span class="num"><a href="#45">45</a></span><span></span>
+<span class="num"><a href="#46">46</a></span><span><span class="sd">        :return:</span></span>
+<span class="num"><a href="#47">47</a></span><span><span class="sd">            Returns a :class:`datetime.datetime` object or, if the</span></span>
+<span class="num"><a href="#48">48</a></span><span><span class="sd">            ``fuzzy_with_tokens`` option is ``True``, returns a tuple, the</span></span>
+<span class="num"><a href="#49">49</a></span><span><span class="sd">            first element being a :class:`datetime.datetime` object, the second</span></span>
+<span class="num"><a href="#50">50</a></span><span><span class="sd">            a tuple containing the fuzzy tokens.</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span><span class="sd">        :raises ParserError:</span></span>
+<span class="num"><a href="#53">53</a></span><span><span class="sd">            Raised for invalid or unknown string format, if the provided</span></span>
+<span class="num"><a href="#54">54</a></span><span><span class="sd">            :class:`tzinfo` is not in a valid format, or if an invalid date</span></span>
+<span class="num"><a href="#55">55</a></span><span><span class="sd">            would be created.</span></span>
+<span class="num"><a href="#56">56</a></span><span></span>
+<span class="num"><a href="#57">57</a></span><span><span class="sd">        :raises TypeError:</span></span>
+<span class="num"><a href="#58">58</a></span><span><span class="sd">            Raised for non-string or character stream input.</span></span>
+<span class="num"><a href="#59">59</a></span><span></span>
+<span class="num"><a href="#60">60</a></span><span><span class="sd">        :raises OverflowError:</span></span>
+<span class="num"><a href="#61">61</a></span><span><span class="sd">            Raised if the parsed date exceeds the largest valid C integer on</span></span>
+<span class="num"><a href="#62">62</a></span><span><span class="sd">            your system.</span></span>
+<span class="num"><a href="#63">63</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#64">64</a></span><span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">            <span class="n">default</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">                                                      <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">        <span class="n">res</span><span class="p">,</span> <span class="n">skipped_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#70">70</a></span><span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;Unknown string format: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">ParserError</span><span class="p">(</span><span class="s2">&quot;String does not contain a date: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">)</span></span>
+<span class="num"><a href="#76">76</a></span><span></span>
+<span class="num"><a href="#77">77</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#78">78</a></span><span class="full run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_naive</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#80">80</a></span><span class="full not_run">            <span class="n">six</span><span class="o">.</span><span class="n">raise_from</span><span class="p">(</span><span class="n">ParserError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">timestr</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#81">81</a></span><span></span>
+<span class="num"><a href="#82">82</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">ignoretz</span><span class="p">:</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_tzaware</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">tzinfos</span><span class="p">)</span></span>
+<span class="num"><a href="#84">84</a></span><span></span>
+<span class="num"><a href="#85">85</a></span><span class="full run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fuzzy_with_tokens&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ret</span><span class="p">,</span> <span class="n">skipped_tokens</span></span>
+<span class="num"><a href="#87">87</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#88">88</a></span><span class="full run">            <span class="k">return</span> <span class="n">ret</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>bentoml._internal.store.Store._recreate_latest</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: bentoml._internal.store.Store._recreate_latest</h1>
+                <span>Coverage: 41.7% (5/12),</span>
+                <span>Tests: 1, </span>
+                <span>Calls: 2, </span>
+                <span>Exceptions: 2, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 2 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> tag</button> Tag (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> NotFound (2) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_recreate_latest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="n">Tag</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">except</span> <span class="n">NotFound</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                <span class="sa">f</span><span class="s2">&quot;no </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_item_type</span><span class="o">.</span><span class="n">get_typename</span><span class="p">()</span><span class="si">}</span><span class="s2">s with name &#39;</span><span class="si">{</span><span class="n">tag</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; exist in BentoML store </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_fs</span><span class="si">}</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot;no </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_item_type</span><span class="o">.</span><span class="n">get_typename</span><span class="p">()</span><span class="si">}</span><span class="s2">s with name &#39;</span><span class="si">{</span><span class="n">tag</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; exist in BentoML store </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_fs</span><span class="si">}</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="n">items</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="o">.</span><span class="n">creation_time</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="n">tag</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">version</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">latest_path</span><span class="p">(),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">latest_file</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="n">latest_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">version</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>
