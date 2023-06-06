@@ -1,6 +1,6 @@
 import os
-from lab.happypath.libs.templite import Templite
-from spotflow.utils import full_filename, full_dir, ensure_dir, copy_files, read_file, write_html
+from libs.templite import Templite
+from utils import full_filename, full_dir, ensure_dir, copy_files, read_file, write_html
 
 
 REPORT_DIR = 'happypath_html'
