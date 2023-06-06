@@ -1,17 +1,19 @@
 from spotflow.model import CallContainer
 from spotflow.info import Analysis, PathInfo
 from spotflow.utils import ratio
-from lab.happypath import report
-
+from report import Report
 
 def spotflow_post(monitored_program, *args):
 
     compute_paths(monitored_program)
 
-    output_dir = args[0]
-    rep = report.Report(monitored_program)
-    # rep.html_report(output_dir)
-    rep.csv_report(output_dir)
+    project_name = args[0]
+    html_dir = 'html/' + project_name
+    csv_dir = 'csv/' + project_name
+
+    rep = Report(monitored_program)
+    rep.html_report(html_dir)
+    rep.csv_report(csv_dir)
 
 
 def compute_paths(monitored_program):

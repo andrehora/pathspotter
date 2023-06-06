@@ -1,6 +1,7 @@
 import os
+import re
 from libs.templite import Templite
-from utils import full_filename, full_dir, ensure_dir, copy_files, read_file, write_html
+from spotflow.utils import full_filename, full_dir, ensure_dir, copy_files, read_file, write_html
 
 
 REPORT_DIR = 'happypath_html'
@@ -13,6 +14,12 @@ STATIC_FILES = [
     "style.css",
     "coverage_html.js"
 ]
+
+
+def write_html(filename, content):
+    html = re.sub(r"(\A\s+)|(\s+$)", "", content, flags=re.MULTILINE) + "\n"
+    with open(filename, "wb") as fout:
+        fout.write(html.encode("ascii", "xmlcharrefreplace"))
 
 
 class HTMLCodeReport:

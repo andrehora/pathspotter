@@ -1,5 +1,5 @@
 import os
-from utils import write_csv, full_dir, ensure_dir
+from spotflow.utils import write_csv, full_dir, ensure_dir
 
 
 REPORT_DIR = 'happypath_csv'
