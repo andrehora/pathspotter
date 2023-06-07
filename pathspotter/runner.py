@@ -1,21 +1,32 @@
-from spotflow.model import CallContainer
-from spotflow.info import Analysis, PathInfo
-from spotflow.utils import ratio
+from spotflow.info import Analysis, MethodPath
 from pathspotter.report import Report
 from pathspotter.utils import get_html_lines
 
+
 def spotflow_after(monitored_program, *args):
 
-    configure_html(monitored_program)
+    print(args)
+
+    project_name = 'noname'
+    report_type = 'both'
+    
+    if len(args) == 1:
+        project_name = args[0]
+    if len(args) == 2:
+        project_name = args[0]
+        report_type = args[1]
+
     compute_paths(monitored_program)
-
-    project_name = args[0]
-    html_dir = 'report_html/' + project_name
-    csv_dir = 'report_csv/' + project_name
-
     rep = Report(monitored_program)
-    rep.html_report(html_dir)
-    rep.csv_report(csv_dir)
+
+    if report_type == 'both' or report_type == 'html':
+        configure_html(monitored_program)
+        html_dir = './report_html/' + project_name
+        rep.html_report(html_dir)
+
+    if report_type == 'both' or report_type == 'csv':
+        csv_dir = './report_csv/' + project_name
+        rep.csv_report(csv_dir)
 
 
 def configure_html(monitored_program):
@@ -75,25 +86,3 @@ def select_equivalent_calls(monitored_method, distinct_lines):
     return calls
 
 
-class MethodPath(CallContainer):
-
-    def __init__(self, pos, distinct_run_lines, calls, monitored_method):
-        super().__init__(calls)
-        self.pos = pos
-        self.distinct_run_lines = distinct_run_lines
-        self.monitored_method = monitored_method
-        self.path_info = PathInfo(self.monitored_method, self.calls[0])
-
-        self.call_count = len(self.calls)
-
-        total_calls = len(self.monitored_method.calls)
-        self.call_ratio = ratio(self.call_count, total_calls)
-
-        run_lines_count = len(self.distinct_run_lines)
-        executable_lines_count = self.monitored_method.info.executable_lines_count
-        self.run_lines_ratio = ratio(run_lines_count, executable_lines_count)
-
-        self.arg_values = Analysis(self).most_common_args_pretty()
-        self.return_values = Analysis(self).most_common_return_values_pretty()
-        self.yield_values = Analysis(self).most_common_yield_values_pretty()
-        self.exception_values = Analysis(self).most_common_exception_values_pretty()

@@ -46,7 +46,7 @@ class CSVIndexReport:
 
         content = []
         line = ['full_name', "is_generator",
-                'coverage_ratio', 'run_lines_count', 'executable_lines_count',
+                'run_lines_count', 'executable_lines_count',
                 'total_tests', 'total_calls', 'total_exceptions', 'total_paths',
                 'top1_path_calls', 'top1_path_ratio', 'top1_path_run_lines', 'top1_path_run_lines_ratio',
                 'top2_path_calls', 'top2_path_ratio', 'top2_path_run_lines', 'top2_path_run_lines_ratio']
@@ -60,7 +60,6 @@ class CSVIndexReport:
                     monitored_method.info.full_name,
                     monitored_method.info.is_generator_func,
 
-                    monitored_method.info.coverage_ratio,
                     monitored_method.info.run_lines_count,
                     monitored_method.info.executable_lines_count,
 
