@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.extensions.docparams.DocstringParameterChecker._compare_missing_args</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.extensions.docparams.DocstringParameterChecker._compare_missing_args</h1>
+                <span>Coverage: 100.0% (14/14),</span>
+                <span>Tests: 1, </span>
+                <span>Calls: 250, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 173 calls (69.2%)</p>
+                <p><button class="input"><span>&#8594;</span> found_argument_names</button> {'named_arg'} (39) {'doc_type'} (20) {'arg'} (12) set() (11) {'par1'} (6) {'yarg', 'warg', 'zarg', 'xarg'} (6) {'y', 'z', 'x'} (5) {'_some_private_par...</p>
+                <p><button class="input"><span>&#8594;</span> message_id</button> 'missing-type-doc' (90) 'missing-param-doc' (83) </p>
+                <p><button class="input"><span>&#8594;</span> not_needed_names</button> {'cls', 'self'} (126) {'cls', '*args', 'self'} (12) {'cls', '**kwargs', 'self'} (11) {'cls', '_some_private_param', 'self'} (6) {'cls', '_new', 'self'...</p>
+                <p><button class="input"><span>&#8594;</span> expected_argument_names</button> {'named_arg'} (20) {'doc_type', 'self'} (20) {'**kwargs', 'named_arg'} (15) {'*args', 'named_arg'} (11) {'par1'} (9) {'self'} (8) {'_some_private_para...</p>
+                <p><button class="input"><span>&#8594;</span> warning_node</button> FunctionDef (171) ClassDef (2) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_compare_missing_args</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">found_argument_names</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">message_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">not_needed_names</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">expected_argument_names</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">warning_node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Compare the found argument names with the expected ones and</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        generate a message if there are arguments missing.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        :param found_argument_names: argument names found in the docstring</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param message_id: pylint message id</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        :param not_needed_names: names that may be omitted</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param expected_argument_names: Expected argument names</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        :param warning_node: The node to be analyzed</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">potential_missing_argument_names</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">expected_argument_names</span> <span class="o">-</span> <span class="n">found_argument_names</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="p">)</span> <span class="o">-</span> <span class="n">not_needed_names</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># Handle variadic and keyword args without asterisks</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">missing_argument_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">potential_missing_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">found_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="n">missing_argument_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">missing_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">message_id</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">missing_argument_names</span><span class="p">)),),</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">warning_node</span><span class="p">,</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#39">39</a></span><span>            <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 73 calls (29.2%)</p>
+                <p><button class="input"><span>&#8594;</span> found_argument_names</button> set() (22) {'y'} (12) {'named_arg'} (8) {'yarg', 'xarg1', 'zarg1'} (5) {'arg1'} (3) {'arg2', 'arg1'} (3) {'z', 'x'} (3) {'z'} (3) {'x'} (3) {'arg3', '...</p>
+                <p><button class="input"><span>&#8594;</span> message_id</button> 'missing-param-doc' (38) 'missing-type-doc' (35) </p>
+                <p><button class="input"><span>&#8594;</span> not_needed_names</button> {'cls', 'self'} (72) {'cls', '*args', 'self'} (1) </p>
+                <p><button class="input"><span>&#8594;</span> expected_argument_names</button> {'y', 'self', 'x'} (30) {'arg2', 'arg3', 'arg1'} (7) {'y', 'z', 'x'} (7) {'yarg', 'zarg', 'xarg'} (6) {'*args', 'named_arg'} (4) {'**kwargs', 'named_a...</p>
+                <p><button class="input"><span>&#8594;</span> warning_node</button> FunctionDef (61) ClassDef (12) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_compare_missing_args</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">found_argument_names</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">message_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">not_needed_names</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">expected_argument_names</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">warning_node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Compare the found argument names with the expected ones and</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        generate a message if there are arguments missing.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        :param found_argument_names: argument names found in the docstring</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param message_id: pylint message id</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        :param not_needed_names: names that may be omitted</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param expected_argument_names: Expected argument names</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        :param warning_node: The node to be analyzed</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">potential_missing_argument_names</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">expected_argument_names</span> <span class="o">-</span> <span class="n">found_argument_names</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="p">)</span> <span class="o">-</span> <span class="n">not_needed_names</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># Handle variadic and keyword args without asterisks</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">missing_argument_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">potential_missing_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">found_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="n">missing_argument_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">missing_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="n">message_id</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">missing_argument_names</span><span class="p">)),),</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="n">node</span><span class="o">=</span><span class="n">warning_node</span><span class="p">,</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#39">39</a></span><span>            <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 4 calls (1.6%)</p>
+                <p><button class="input"><span>&#8594;</span> found_argument_names</button> {'kwargs', 'named_arg'} (3) {'args', 'named_arg'} (1) </p>
+                <p><button class="input"><span>&#8594;</span> message_id</button> 'missing-param-doc' (4) </p>
+                <p><button class="input"><span>&#8594;</span> not_needed_names</button> {'cls', 'self'} (4) </p>
+                <p><button class="input"><span>&#8594;</span> expected_argument_names</button> {'**kwargs', 'named_arg'} (3) {'*args', 'named_arg'} (1) </p>
+                <p><button class="input"><span>&#8594;</span> warning_node</button> FunctionDef (4) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_compare_missing_args</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">found_argument_names</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">message_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">not_needed_names</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">expected_argument_names</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">warning_node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Compare the found argument names with the expected ones and</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        generate a message if there are arguments missing.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        :param found_argument_names: argument names found in the docstring</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param message_id: pylint message id</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        :param not_needed_names: names that may be omitted</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        :param expected_argument_names: Expected argument names</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        :param warning_node: The node to be analyzed</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">potential_missing_argument_names</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">expected_argument_names</span> <span class="o">-</span> <span class="n">found_argument_names</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="p">)</span> <span class="o">-</span> <span class="n">not_needed_names</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># Handle variadic and keyword args without asterisks</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">missing_argument_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">potential_missing_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">found_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="k">continue</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="n">missing_argument_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">missing_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">message_id</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">missing_argument_names</span><span class="p">)),),</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">warning_node</span><span class="p">,</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#39">39</a></span><span>            <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.config._pylint_config.help_message.get_subparser_help</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.config._pylint_config.help_message.get_subparser_help</h1>
+                <span>Coverage: 87.5% (7/8),</span>
+                <span>Tests: 1, </span>
+                <span>Calls: 1, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> linter</button> PyLinter (1) </p>
+                <p><button class="input"><span>&#8594;</span> command</button> 'generate' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'usage: pylint-config [options] generate [-h] [--interactive]\n\noptions:\n  -h, --help     show this help message and exit\n  --interactive' (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_subparser_help</span><span class="p">(</span><span class="n">linter</span><span class="p">:</span> <span class="n">PyLinter</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the help message for one of the subcommands.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="c1"># Make sure subparsers are initialized properly</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">assert</span> <span class="n">linter</span><span class="o">.</span><span class="n">_arg_parser</span><span class="o">.</span><span class="n">_subparsers</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">subparser_action</span> <span class="o">=</span> <span class="n">linter</span><span class="o">.</span><span class="n">_arg_parser</span><span class="o">.</span><span class="n">_subparsers</span><span class="o">.</span><span class="n">_group_actions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subparser_action</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">subparser</span> <span class="ow">in</span> <span class="n">subparser_action</span><span class="o">.</span><span class="n">choices</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subparser</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">command</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># Remove last character which is an extra new line</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">return</span> <span class="n">subparser</span><span class="o">.</span><span class="n">format_help</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">    <span class="k">return</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># pragma: no cover</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

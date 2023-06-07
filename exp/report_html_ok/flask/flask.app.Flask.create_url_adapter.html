@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.app.Flask.create_url_adapter</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.app.Flask.create_url_adapter</h1>
+                <span>Coverage: 87.5% (14/16),</span>
+                <span>Tests: 224, </span>
+                <span>Calls: 1045, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 511 calls (48.9%)</p>
+                <p><button class="input"><span>&#8594;</span> request</button> None (511) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (511) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">create_url_adapter</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">Request</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">MapAdapter</span><span class="p">]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates a URL adapter for the given request. The URL adapter</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        is created at a point where the request context is not yet set</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        up so the request is passed explicitly.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        .. versionadded:: 0.6</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        .. versionchanged:: 0.9</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">           This can now also be called without a request object when the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">           URL adapter is created for the application context.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        .. versionchanged:: 1.0</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            :data:`SERVER_NAME` no longer implicitly enables subdomain</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            matching. Use :attr:`subdomain_matching` instead.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">request</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># If subdomain matching is disabled (the default), use the</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># default subdomain in all cases. This should be the default</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1"># in Werkzeug but it currently does not have that feature.</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">subdomain_matching</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">subdomain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">default_subdomain</span> <span class="ow">or</span> <span class="kc">None</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">subdomain</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">bind_to_environ</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">server_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="n">subdomain</span><span class="o">=</span><span class="n">subdomain</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># We need at the very least the server name to be set for this</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># to work.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="n">script_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;APPLICATION_ROOT&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                <span class="n">url_scheme</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;PREFERRED_URL_SCHEME&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#39">39</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 2</b>: 477 calls (45.6%)</p>
+                <p><button class="input"><span>&#8594;</span> request</button> Request (476) test_modified_url_encoding.<locals>.ModifiedRequest (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> MapAdapter (476) None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> BadHost (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">create_url_adapter</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">Request</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">MapAdapter</span><span class="p">]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates a URL adapter for the given request. The URL adapter</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        is created at a point where the request context is not yet set</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        up so the request is passed explicitly.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        .. versionadded:: 0.6</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        .. versionchanged:: 0.9</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">           This can now also be called without a request object when the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">           URL adapter is created for the application context.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        .. versionchanged:: 1.0</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            :data:`SERVER_NAME` no longer implicitly enables subdomain</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            matching. Use :attr:`subdomain_matching` instead.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">request</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># If subdomain matching is disabled (the default), use the</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># default subdomain in all cases. This should be the default</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1"># in Werkzeug but it currently does not have that feature.</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">subdomain_matching</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">subdomain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">default_subdomain</span> <span class="ow">or</span> <span class="kc">None</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">subdomain</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">bind_to_environ</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="n">server_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">subdomain</span><span class="o">=</span><span class="n">subdomain</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># We need at the very least the server name to be set for this</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># to work.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="n">script_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;APPLICATION_ROOT&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                <span class="n">url_scheme</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;PREFERRED_URL_SCHEME&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#39">39</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 3</b>: 40 calls (3.8%)</p>
+                <p><button class="input"><span>&#8594;</span> request</button> None (40) </p>
+                <p><button class="output"><span>&#8617; return</span></button> MapAdapter (40) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">create_url_adapter</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">Request</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">MapAdapter</span><span class="p">]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates a URL adapter for the given request. The URL adapter</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        is created at a point where the request context is not yet set</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        up so the request is passed explicitly.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        .. versionadded:: 0.6</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        .. versionchanged:: 0.9</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">           This can now also be called without a request object when the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">           URL adapter is created for the application context.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        .. versionchanged:: 1.0</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            :data:`SERVER_NAME` no longer implicitly enables subdomain</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            matching. Use :attr:`subdomain_matching` instead.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">request</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># If subdomain matching is disabled (the default), use the</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># default subdomain in all cases. This should be the default</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1"># in Werkzeug but it currently does not have that feature.</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">subdomain_matching</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">subdomain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">default_subdomain</span> <span class="ow">or</span> <span class="kc">None</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">subdomain</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">bind_to_environ</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">server_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="n">subdomain</span><span class="o">=</span><span class="n">subdomain</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># We need at the very least the server name to be set for this</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># to work.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="n">script_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;APPLICATION_ROOT&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                <span class="n">url_scheme</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;PREFERRED_URL_SCHEME&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#39">39</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 4</b>: 17 calls (1.6%)</p>
+                <p><button class="input"><span>&#8594;</span> request</button> Request (17) </p>
+                <p><button class="output"><span>&#8617; return</span></button> MapAdapter (17) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">create_url_adapter</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">Request</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">MapAdapter</span><span class="p">]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates a URL adapter for the given request. The URL adapter</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        is created at a point where the request context is not yet set</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        up so the request is passed explicitly.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        .. versionadded:: 0.6</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        .. versionchanged:: 0.9</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">           This can now also be called without a request object when the</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">           URL adapter is created for the application context.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        .. versionchanged:: 1.0</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            :data:`SERVER_NAME` no longer implicitly enables subdomain</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            matching. Use :attr:`subdomain_matching` instead.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">request</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># If subdomain matching is disabled (the default), use the</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># default subdomain in all cases. This should be the default</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1"># in Werkzeug but it currently does not have that feature.</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">subdomain_matching</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">subdomain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">default_subdomain</span> <span class="ow">or</span> <span class="kc">None</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">subdomain</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">bind_to_environ</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="n">server_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">subdomain</span><span class="o">=</span><span class="n">subdomain</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># We need at the very least the server name to be set for this</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># to work.</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="n">script_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;APPLICATION_ROOT&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                <span class="n">url_scheme</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;PREFERRED_URL_SCHEME&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#39">39</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.utils.utils.get_module_and_frameid</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.utils.utils.get_module_and_frameid</h1>
+                <span>Coverage: 100.0% (12/12),</span>
+                <span>Tests: 14, </span>
+                <span>Calls: 3598, </span>
+                <span>Exceptions: 3598, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1996 calls (55.5%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (522) Name (220) Call (215) ClassDef (168) AssignName (165) Attribute (88) Const (57) Raise (48) If (46) Compare (44) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ('string_formatting', 'pprint_bad') (37) ('fail_under_minus10', 'loop') (24) ('fail_under_plus7_5', 'func') (18) ('functional.l.logical_tautology', 'f...</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (1996) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_module_and_frameid</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the module name and the frame id in the module.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">frame</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">module</span><span class="p">,</span> <span class="n">obj</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="p">[]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">while</span> <span class="n">frame</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">Module</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">module</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;lambda&gt;&quot;</span><span class="p">))</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">break</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">obj</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">return</span> <span class="n">module</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1602 calls (44.5%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (390) Import (183) Name (142) AssignName (107) Compare (99) Attribute (86) ImportFrom (81) Assign (66) BoolOp (45) Subscript (40) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ('input.hide_code_with_imports', '') (65) ('functional.a.arguments', '') (35) ('functional.u.unspecified_encoding_py38', '') (33) ('invalid_envvar_val...</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (1602) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_module_and_frameid</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the module name and the frame id in the module.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">frame</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">module</span><span class="p">,</span> <span class="n">obj</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="p">[]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">while</span> <span class="n">frame</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">Module</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">module</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">obj</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;lambda&gt;&quot;</span><span class="p">))</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">break</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">obj</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">return</span> <span class="n">module</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

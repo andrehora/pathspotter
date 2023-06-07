@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.generator.Generator.flatten</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.generator.Generator.flatten</h1>
+                <span>Coverage: 100.0% (22/22),</span>
+                <span>Tests: 164, </span>
+                <span>Calls: 597, </span>
+                <span>Exceptions: 2, </span>
+                <span>Paths: 8</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 302 calls (50.6%)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> Message (279) MIMEText (14) EmailMessage (5) MIMEMessage (4) </p>
+                <p><button class="input"><span>&#8594;</span> unixfrom</button> False (302) </p>
+                <p><button class="input"><span>&#8594;</span> linesep</button> '\n' (204) '\r\n' (98) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">unixfrom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">linesep</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Print the message object tree rooted at msg to the output file</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        specified when the Generator instance was created.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        unixfrom is a flag that forces the printing of a Unix From_ delimiter</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        before the first object in the message tree.  If the original message</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        has no From_ delimiter, a `standard&#39; one is crafted.  By default, this</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        is False to inhibit the printing of any From_ delimiter.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        Note that for subobjects, no From_ line is printed.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        linesep specifies the characters used to indicate a new line in</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        the output.  The default value is determined by the policy specified</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        when the Generator instance was created or, if none was specified,</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        from the policy associated with the msg.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># We use the _XXX constants for operating on data that comes directly</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># from the msg, and _encoded_XXX constants for operating on data that</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># has already been converted (to bytes in the BytesGenerator) and</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># inserted into a temporary buffer.</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">linesep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">linesep</span><span class="o">=</span><span class="n">linesep</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">max_line_length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">linesep</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_NL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_EMPTY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># Because we use clone (below) when we recursively process message</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># subparts, and because clone uses the computed policy (not None),</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># submessages will automatically get set to the computed policy when</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># they are processed by this code.</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">old_gen_policy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">old_msg_policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">if</span> <span class="n">unixfrom</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">ufrom</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">get_unixfrom</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">ufrom</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                    <span class="n">ufrom</span> <span class="o">=</span> <span class="s1">&#39;From nobody &#39;</span> <span class="o">+</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ufrom</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="k">finally</span><span class="p">:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_gen_policy</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_msg_policy</span></span>
+            </pre>
+            <p><b>Path 2</b>: 141 calls (23.6%)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> Message (68) EmailMessage (56) MIMEBase (8) MIMEText (6) MIMEMultipart (3) </p>
+                <p><button class="input"><span>&#8594;</span> unixfrom</button> False (139) 0 (2) </p>
+                <p><button class="input"><span>&#8594;</span> linesep</button> None (141) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> HeaderParseError (2) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">unixfrom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">linesep</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Print the message object tree rooted at msg to the output file</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        specified when the Generator instance was created.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        unixfrom is a flag that forces the printing of a Unix From_ delimiter</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        before the first object in the message tree.  If the original message</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        has no From_ delimiter, a `standard&#39; one is crafted.  By default, this</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        is False to inhibit the printing of any From_ delimiter.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        Note that for subobjects, no From_ line is printed.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        linesep specifies the characters used to indicate a new line in</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        the output.  The default value is determined by the policy specified</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        when the Generator instance was created or, if none was specified,</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        from the policy associated with the msg.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># We use the _XXX constants for operating on data that comes directly</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># from the msg, and _encoded_XXX constants for operating on data that</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># has already been converted (to bytes in the BytesGenerator) and</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># inserted into a temporary buffer.</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">linesep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">linesep</span><span class="o">=</span><span class="n">linesep</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">max_line_length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">linesep</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_NL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_EMPTY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># Because we use clone (below) when we recursively process message</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># subparts, and because clone uses the computed policy (not None),</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># submessages will automatically get set to the computed policy when</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># they are processed by this code.</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">old_gen_policy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">old_msg_policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">if</span> <span class="n">unixfrom</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">ufrom</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">get_unixfrom</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">ufrom</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                    <span class="n">ufrom</span> <span class="o">=</span> <span class="s1">&#39;From nobody &#39;</span> <span class="o">+</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ufrom</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="k">finally</span><span class="p">:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_gen_policy</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_msg_policy</span></span>
+            </pre>
+            <p><b>Path 3</b>: 109 calls (18.3%)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> EmailMessage (72) Message (30) MIMEApplication (5) MIMEText (1) MIMEMessage (1) </p>
+                <p><button class="input"><span>&#8594;</span> unixfrom</button> False (109) </p>
+                <p><button class="input"><span>&#8594;</span> linesep</button> None (109) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">unixfrom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">linesep</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Print the message object tree rooted at msg to the output file</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        specified when the Generator instance was created.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        unixfrom is a flag that forces the printing of a Unix From_ delimiter</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        before the first object in the message tree.  If the original message</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        has no From_ delimiter, a `standard&#39; one is crafted.  By default, this</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        is False to inhibit the printing of any From_ delimiter.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        Note that for subobjects, no From_ line is printed.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        linesep specifies the characters used to indicate a new line in</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        the output.  The default value is determined by the policy specified</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        when the Generator instance was created or, if none was specified,</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        from the policy associated with the msg.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># We use the _XXX constants for operating on data that comes directly</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># from the msg, and _encoded_XXX constants for operating on data that</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># has already been converted (to bytes in the BytesGenerator) and</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># inserted into a temporary buffer.</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">linesep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">linesep</span><span class="o">=</span><span class="n">linesep</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">max_line_length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">linesep</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_NL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_EMPTY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># Because we use clone (below) when we recursively process message</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># subparts, and because clone uses the computed policy (not None),</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># submessages will automatically get set to the computed policy when</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># they are processed by this code.</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">old_gen_policy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">old_msg_policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">if</span> <span class="n">unixfrom</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">ufrom</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">get_unixfrom</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">ufrom</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                    <span class="n">ufrom</span> <span class="o">=</span> <span class="s1">&#39;From nobody &#39;</span> <span class="o">+</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ufrom</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="k">finally</span><span class="p">:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_gen_policy</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_msg_policy</span></span>
+            </pre>
+            <p><b>Path 4</b>: 38 calls (6.4%)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> Message (38) </p>
+                <p><button class="input"><span>&#8594;</span> unixfrom</button> False (38) </p>
+                <p><button class="input"><span>&#8594;</span> linesep</button> '\r\n' (19) '\n' (19) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">unixfrom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">linesep</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Print the message object tree rooted at msg to the output file</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        specified when the Generator instance was created.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        unixfrom is a flag that forces the printing of a Unix From_ delimiter</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        before the first object in the message tree.  If the original message</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        has no From_ delimiter, a `standard&#39; one is crafted.  By default, this</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        is False to inhibit the printing of any From_ delimiter.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        Note that for subobjects, no From_ line is printed.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        linesep specifies the characters used to indicate a new line in</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        the output.  The default value is determined by the policy specified</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        when the Generator instance was created or, if none was specified,</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        from the policy associated with the msg.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># We use the _XXX constants for operating on data that comes directly</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># from the msg, and _encoded_XXX constants for operating on data that</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># has already been converted (to bytes in the BytesGenerator) and</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># inserted into a temporary buffer.</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">linesep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">linesep</span><span class="o">=</span><span class="n">linesep</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">max_line_length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">linesep</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_NL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_EMPTY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># Because we use clone (below) when we recursively process message</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># subparts, and because clone uses the computed policy (not None),</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># submessages will automatically get set to the computed policy when</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># they are processed by this code.</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">old_gen_policy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">old_msg_policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">if</span> <span class="n">unixfrom</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">ufrom</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">get_unixfrom</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">ufrom</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                    <span class="n">ufrom</span> <span class="o">=</span> <span class="s1">&#39;From nobody &#39;</span> <span class="o">+</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ufrom</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="k">finally</span><span class="p">:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_gen_policy</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_msg_policy</span></span>
+            </pre>
+            <p><b>Path 5</b>: 2 calls (0.3%)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> Message (2) </p>
+                <p><button class="input"><span>&#8594;</span> unixfrom</button> True (2) </p>
+                <p><button class="input"><span>&#8594;</span> linesep</button> None (2) </p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">unixfrom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">linesep</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Print the message object tree rooted at msg to the output file</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        specified when the Generator instance was created.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        unixfrom is a flag that forces the printing of a Unix From_ delimiter</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        before the first object in the message tree.  If the original message</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        has no From_ delimiter, a `standard&#39; one is crafted.  By default, this</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        is False to inhibit the printing of any From_ delimiter.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        Note that for subobjects, no From_ line is printed.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        linesep specifies the characters used to indicate a new line in</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        the output.  The default value is determined by the policy specified</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        when the Generator instance was created or, if none was specified,</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        from the policy associated with the msg.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># We use the _XXX constants for operating on data that comes directly</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># from the msg, and _encoded_XXX constants for operating on data that</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># has already been converted (to bytes in the BytesGenerator) and</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># inserted into a temporary buffer.</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">linesep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">linesep</span><span class="o">=</span><span class="n">linesep</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">max_line_length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">linesep</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_NL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_EMPTY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># Because we use clone (below) when we recursively process message</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># subparts, and because clone uses the computed policy (not None),</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># submessages will automatically get set to the computed policy when</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># they are processed by this code.</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">old_gen_policy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">old_msg_policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">if</span> <span class="n">unixfrom</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                <span class="n">ufrom</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">get_unixfrom</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">ufrom</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">                    <span class="n">ufrom</span> <span class="o">=</span> <span class="s1">&#39;From nobody &#39;</span> <span class="o">+</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ufrom</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="k">finally</span><span class="p">:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_gen_policy</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_msg_policy</span></span>
+            </pre>
+            <p><b>Path 6</b>: 2 calls (0.3%)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> Message (2) </p>
+                <p><button class="input"><span>&#8594;</span> unixfrom</button> True (2) </p>
+                <p><button class="input"><span>&#8594;</span> linesep</button> '\r\n' (1) '\n' (1) </p>
+            <button class="run" title="lines run...">21 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">unixfrom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">linesep</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Print the message object tree rooted at msg to the output file</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        specified when the Generator instance was created.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        unixfrom is a flag that forces the printing of a Unix From_ delimiter</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        before the first object in the message tree.  If the original message</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        has no From_ delimiter, a `standard&#39; one is crafted.  By default, this</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        is False to inhibit the printing of any From_ delimiter.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        Note that for subobjects, no From_ line is printed.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        linesep specifies the characters used to indicate a new line in</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        the output.  The default value is determined by the policy specified</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        when the Generator instance was created or, if none was specified,</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        from the policy associated with the msg.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># We use the _XXX constants for operating on data that comes directly</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># from the msg, and _encoded_XXX constants for operating on data that</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># has already been converted (to bytes in the BytesGenerator) and</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># inserted into a temporary buffer.</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">linesep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">linesep</span><span class="o">=</span><span class="n">linesep</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">max_line_length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">linesep</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_NL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_EMPTY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># Because we use clone (below) when we recursively process message</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># subparts, and because clone uses the computed policy (not None),</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># submessages will automatically get set to the computed policy when</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># they are processed by this code.</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">old_gen_policy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">old_msg_policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">if</span> <span class="n">unixfrom</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                <span class="n">ufrom</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">get_unixfrom</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">ufrom</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                    <span class="n">ufrom</span> <span class="o">=</span> <span class="s1">&#39;From nobody &#39;</span> <span class="o">+</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ufrom</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="k">finally</span><span class="p">:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_gen_policy</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_msg_policy</span></span>
+            </pre>
+            <p><b>Path 7</b>: 2 calls (0.3%)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> Message (1) EmailMessage (1) </p>
+                <p><button class="input"><span>&#8594;</span> unixfrom</button> True (2) </p>
+                <p><button class="input"><span>&#8594;</span> linesep</button> None (2) </p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">unixfrom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">linesep</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Print the message object tree rooted at msg to the output file</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        specified when the Generator instance was created.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        unixfrom is a flag that forces the printing of a Unix From_ delimiter</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        before the first object in the message tree.  If the original message</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        has no From_ delimiter, a `standard&#39; one is crafted.  By default, this</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        is False to inhibit the printing of any From_ delimiter.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        Note that for subobjects, no From_ line is printed.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        linesep specifies the characters used to indicate a new line in</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        the output.  The default value is determined by the policy specified</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        when the Generator instance was created or, if none was specified,</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        from the policy associated with the msg.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># We use the _XXX constants for operating on data that comes directly</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># from the msg, and _encoded_XXX constants for operating on data that</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># has already been converted (to bytes in the BytesGenerator) and</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># inserted into a temporary buffer.</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">linesep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">linesep</span><span class="o">=</span><span class="n">linesep</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">max_line_length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">linesep</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_NL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_EMPTY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># Because we use clone (below) when we recursively process message</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># subparts, and because clone uses the computed policy (not None),</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># submessages will automatically get set to the computed policy when</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># they are processed by this code.</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">old_gen_policy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">old_msg_policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">if</span> <span class="n">unixfrom</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                <span class="n">ufrom</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">get_unixfrom</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">ufrom</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                    <span class="n">ufrom</span> <span class="o">=</span> <span class="s1">&#39;From nobody &#39;</span> <span class="o">+</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ufrom</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="k">finally</span><span class="p">:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_gen_policy</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_msg_policy</span></span>
+            </pre>
+            <p><b>Path 8</b>: 1 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> Message (1) </p>
+                <p><button class="input"><span>&#8594;</span> unixfrom</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> linesep</button> None (1) </p>
+            <button class="run" title="lines run...">21 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">unixfrom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">linesep</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Print the message object tree rooted at msg to the output file</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        specified when the Generator instance was created.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        unixfrom is a flag that forces the printing of a Unix From_ delimiter</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        before the first object in the message tree.  If the original message</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        has no From_ delimiter, a `standard&#39; one is crafted.  By default, this</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        is False to inhibit the printing of any From_ delimiter.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        Note that for subobjects, no From_ line is printed.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        linesep specifies the characters used to indicate a new line in</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        the output.  The default value is determined by the policy specified</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        when the Generator instance was created or, if none was specified,</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        from the policy associated with the msg.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># We use the _XXX constants for operating on data that comes directly</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># from the msg, and _encoded_XXX constants for operating on data that</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># has already been converted (to bytes in the BytesGenerator) and</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># inserted into a temporary buffer.</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">linesep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">linesep</span><span class="o">=</span><span class="n">linesep</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">max_line_length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maxheaderlen</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">linesep</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_NL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_encoded_EMPTY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_EMPTY</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># Because we use clone (below) when we recursively process message</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># subparts, and because clone uses the computed policy (not None),</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># submessages will automatically get set to the computed policy when</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># they are processed by this code.</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">old_gen_policy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">old_msg_policy</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">policy</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">if</span> <span class="n">unixfrom</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                <span class="n">ufrom</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">get_unixfrom</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">ufrom</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">                    <span class="n">ufrom</span> <span class="o">=</span> <span class="s1">&#39;From nobody &#39;</span> <span class="o">+</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ufrom</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NL</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="k">finally</span><span class="p">:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_gen_policy</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">old_msg_policy</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

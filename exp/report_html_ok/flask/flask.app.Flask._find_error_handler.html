@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.app.Flask._find_error_handler</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.app.Flask._find_error_handler</h1>
+                <span>Coverage: 100.0% (12/12),</span>
+                <span>Tests: 59, </span>
+                <span>Calls: 130, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 68 calls (52.3%)</p>
+                <p><button class="input"><span>&#8594;</span> e</button> MethodNotAllowed (15) NotFound (14) ZeroDivisionError (11) InternalServerError (8) BadRequest (6) Exception (3) BadRequestKeyError (3) TestGenericHand...</p>
+                <p><button class="output"><span>&#8617; return</span></button> None (68) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_error_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">ErrorHandlerCallable</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a registered error handler for an exception in this order:</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        blueprint handler for a specific code, app handler for a specific code,</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        blueprint handler for an exception class, app handler for an exception</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        class, or ``None`` if a suitable handler is not found.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">exc_class</span><span class="p">,</span> <span class="n">code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_exc_class_and_code</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">request</span><span class="o">.</span><span class="n">blueprints</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="kc">None</span><span class="p">,):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">handler_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_handler_spec</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">c</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">handler_map</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">exc_class</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="n">handler</span> <span class="o">=</span> <span class="n">handler_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                        <span class="k">return</span> <span class="n">handler</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 2</b>: 50 calls (38.5%)</p>
+                <p><button class="input"><span>&#8594;</span> e</button> InternalServerError (16) Forbidden (13) NotFound (2) Exception (1) AppError (1) BlueprintError (1) test_user_error_handling.<locals>.MyException (1) t...</p>
+                <p><button class="output"><span>&#8617; return</span></button> TestGenericHandlers.test_handle_class_or_code.<locals>.handle_500 def (8) test_http_error_subclass_handling.<locals>.handle_403 def (2) test_error_han...</p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_error_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">ErrorHandlerCallable</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a registered error handler for an exception in this order:</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        blueprint handler for a specific code, app handler for a specific code,</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        blueprint handler for an exception class, app handler for an exception</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        class, or ``None`` if a suitable handler is not found.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">exc_class</span><span class="p">,</span> <span class="n">code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_exc_class_and_code</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">request</span><span class="o">.</span><span class="n">blueprints</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="kc">None</span><span class="p">,):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">handler_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_handler_spec</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">c</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">handler_map</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">exc_class</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="n">handler</span> <span class="o">=</span> <span class="n">handler_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                    <span class="k">if</span> <span class="n">handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                        <span class="k">return</span> <span class="n">handler</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 3</b>: 10 calls (7.7%)</p>
+                <p><button class="input"><span>&#8594;</span> e</button> NotFound (4) Forbidden (3) InternalServerError (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> TestGenericHandlers.test_handle_generic_http.<locals>.handle_http def (3) TestGenericHandlers.test_handle_generic.<locals>.handle_exception def (2) te...</p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_error_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">ErrorHandlerCallable</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a registered error handler for an exception in this order:</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        blueprint handler for a specific code, app handler for a specific code,</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        blueprint handler for an exception class, app handler for an exception</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        class, or ``None`` if a suitable handler is not found.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">exc_class</span><span class="p">,</span> <span class="n">code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_exc_class_and_code</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">request</span><span class="o">.</span><span class="n">blueprints</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="kc">None</span><span class="p">,):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">handler_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_handler_spec</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">c</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">handler_map</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">exc_class</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="n">handler</span> <span class="o">=</span> <span class="n">handler_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                    <span class="k">if</span> <span class="n">handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                        <span class="k">return</span> <span class="n">handler</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 4</b>: 2 calls (1.5%)</p>
+                <p><button class="input"><span>&#8594;</span> e</button> KeyError (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (2) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_error_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">ErrorHandlerCallable</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a registered error handler for an exception in this order:</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        blueprint handler for a specific code, app handler for a specific code,</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        blueprint handler for an exception class, app handler for an exception</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        class, or ``None`` if a suitable handler is not found.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">exc_class</span><span class="p">,</span> <span class="n">code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_exc_class_and_code</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">request</span><span class="o">.</span><span class="n">blueprints</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="kc">None</span><span class="p">,):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">handler_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_handler_spec</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">c</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">handler_map</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">exc_class</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="n">handler</span> <span class="o">=</span> <span class="n">handler_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                    <span class="k">if</span> <span class="n">handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                        <span class="k">return</span> <span class="n">handler</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.scaffold._find_package_path</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.scaffold._find_package_path</h1>
+                <span>Coverage: 63.6% (21/33),</span>
+                <span>Tests: 0, </span>
+                <span>Calls: 450, </span>
+                <span>Exceptions: 349, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 349 calls (77.6%)</p>
+                <p><button class="input"><span>&#8594;</span> import_name</button> 'flask_test' (322) 'testapp' (6) 'appname' (6) 'app' (4) 'appname1' (3) 'flaskgroup' (3) 'app2_foo_bar' (2) 'appname2' (1) 'createapp' (1) 'testappgro...</p>
+                <p><button class="output"><span>&#8617; return</span></button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/flask' (349) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (349) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">23 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_package_path</span><span class="p">(</span><span class="n">import_name</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the path that contains the package or module.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">root_mod_name</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">import_name</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">root_spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">root_spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not found&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="c1"># ImportError: the machinery told us it does not exist</span></span>
+<span class="num"><a href="#11">11</a></span><span>    <span class="c1"># ValueError:</span></span>
+<span class="num"><a href="#12">12</a></span><span>    <span class="c1">#    - the module name was invalid</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="c1">#    - the module name is __main__</span></span>
+<span class="num"><a href="#14">14</a></span><span>    <span class="c1">#    - *we* raised `ValueError` due to `root_spec` being `None`</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">pass</span>  <span class="c1"># handled below</span></span>
+<span class="num"><a href="#17">17</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># namespace package</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">root_spec</span><span class="o">.</span><span class="n">origin</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;namespace&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">}:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="n">package_spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">package_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">package_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># Pick the path in the namespace that contains the submodule.</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">package_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">commonpath</span><span class="p">(</span><span class="n">package_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="n">search_locations</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                    <span class="n">location</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">root_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">_path_is_relative_to</span><span class="p">(</span><span class="n">package_path</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># Pick the first path.</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="n">search_locations</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">root_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">search_locations</span><span class="p">))</span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1"># a package (with __init__.py)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">root_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">root_spec</span><span class="o">.</span><span class="n">origin</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># just a normal module</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">root_spec</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span></span>
+<span class="num"><a href="#42">42</a></span><span>    <span class="c1"># we were unable to find the `package_path` using PEP 451 loaders</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">    <span class="n">loader</span> <span class="o">=</span> <span class="n">pkgutil</span><span class="o">.</span><span class="n">get_loader</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">    <span class="k">if</span> <span class="n">loader</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">root_mod_name</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># import name is not found, or interactive/main module</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="s2">&quot;get_filename&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">        <span class="n">filename</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_filename</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="s2">&quot;archive&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># zipimporter&#39;s loader.archive points to the .egg or .zip file.</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">        <span class="n">filename</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">archive</span></span>
+<span class="num"><a href="#54">54</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># At least one loader is missing both get_filename and archive:</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># Google App Engine&#39;s HardenedModulesHook, use __file__.</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="n">filename</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span><span class="o">.</span><span class="vm">__file__</span></span>
+<span class="num"><a href="#58">58</a></span><span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">    <span class="n">package_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span>    <span class="c1"># If the imported name is a package, filename is currently pointing</span></span>
+<span class="num"><a href="#62">62</a></span><span>    <span class="c1"># to the root of the package, need to get the current directory.</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">_matching_loader_thinks_module_is_package</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">root_mod_name</span><span class="p">):</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">        <span class="n">package_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">package_path</span><span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">package_path</span></span>
+            </pre>
+            <p><b>Path 2</b>: 94 calls (20.9%)</p>
+                <p><button class="input"><span>&#8594;</span> import_name</button> 'test_config' (22) 'test_basic' (20) 'test_helpers' (10) 'test_async' (8) 'test_templating' (7) 'test_reqctx' (5) 'test_cli' (4) 'test_signals' (3) 't...</p>
+                <p><button class="output"><span>&#8617; return</span></button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/flask/tests' (89) '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/flas...</p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">26 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_package_path</span><span class="p">(</span><span class="n">import_name</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the path that contains the package or module.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">root_mod_name</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">import_name</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">root_spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">root_spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not found&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="c1"># ImportError: the machinery told us it does not exist</span></span>
+<span class="num"><a href="#11">11</a></span><span>    <span class="c1"># ValueError:</span></span>
+<span class="num"><a href="#12">12</a></span><span>    <span class="c1">#    - the module name was invalid</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="c1">#    - the module name is __main__</span></span>
+<span class="num"><a href="#14">14</a></span><span>    <span class="c1">#    - *we* raised `ValueError` due to `root_spec` being `None`</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">pass</span>  <span class="c1"># handled below</span></span>
+<span class="num"><a href="#17">17</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># namespace package</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">if</span> <span class="n">root_spec</span><span class="o">.</span><span class="n">origin</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;namespace&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">}:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="n">package_spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">package_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">package_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># Pick the path in the namespace that contains the submodule.</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">package_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">commonpath</span><span class="p">(</span><span class="n">package_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="n">search_locations</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                    <span class="n">location</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">root_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">_path_is_relative_to</span><span class="p">(</span><span class="n">package_path</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># Pick the first path.</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="n">search_locations</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">root_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">search_locations</span><span class="p">))</span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1"># a package (with __init__.py)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="k">elif</span> <span class="n">root_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">root_spec</span><span class="o">.</span><span class="n">origin</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># just a normal module</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">root_spec</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span></span>
+<span class="num"><a href="#42">42</a></span><span>    <span class="c1"># we were unable to find the `package_path` using PEP 451 loaders</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">    <span class="n">loader</span> <span class="o">=</span> <span class="n">pkgutil</span><span class="o">.</span><span class="n">get_loader</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">loader</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">root_mod_name</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># import name is not found, or interactive/main module</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="s2">&quot;get_filename&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">        <span class="n">filename</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_filename</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="s2">&quot;archive&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># zipimporter&#39;s loader.archive points to the .egg or .zip file.</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">        <span class="n">filename</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">archive</span></span>
+<span class="num"><a href="#54">54</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># At least one loader is missing both get_filename and archive:</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># Google App Engine&#39;s HardenedModulesHook, use __file__.</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="n">filename</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span><span class="o">.</span><span class="vm">__file__</span></span>
+<span class="num"><a href="#58">58</a></span><span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">    <span class="n">package_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span>    <span class="c1"># If the imported name is a package, filename is currently pointing</span></span>
+<span class="num"><a href="#62">62</a></span><span>    <span class="c1"># to the root of the package, need to get the current directory.</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">_matching_loader_thinks_module_is_package</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">root_mod_name</span><span class="p">):</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">        <span class="n">package_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">package_path</span><span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">package_path</span></span>
+            </pre>
+            <p><b>Path 3</b>: 6 calls (1.3%)</p>
+                <p><button class="input"><span>&#8594;</span> import_name</button> 'installed_package' (2) 'site_package' (2) 'config_package_app' (1) 'site_egg' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/flask/.tox/tmp/py310/test_uninstalled_package_paths0/modules_tmpdir' (1) '/Users/andre...</p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">26 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_package_path</span><span class="p">(</span><span class="n">import_name</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the path that contains the package or module.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">root_mod_name</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">import_name</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">root_spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">root_spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not found&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="c1"># ImportError: the machinery told us it does not exist</span></span>
+<span class="num"><a href="#11">11</a></span><span>    <span class="c1"># ValueError:</span></span>
+<span class="num"><a href="#12">12</a></span><span>    <span class="c1">#    - the module name was invalid</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="c1">#    - the module name is __main__</span></span>
+<span class="num"><a href="#14">14</a></span><span>    <span class="c1">#    - *we* raised `ValueError` due to `root_spec` being `None`</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">pass</span>  <span class="c1"># handled below</span></span>
+<span class="num"><a href="#17">17</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># namespace package</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">if</span> <span class="n">root_spec</span><span class="o">.</span><span class="n">origin</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;namespace&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">}:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="n">package_spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">package_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">package_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># Pick the path in the namespace that contains the submodule.</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">package_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">commonpath</span><span class="p">(</span><span class="n">package_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="n">search_locations</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                    <span class="n">location</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">root_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">_path_is_relative_to</span><span class="p">(</span><span class="n">package_path</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># Pick the first path.</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="n">search_locations</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">root_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">search_locations</span><span class="p">))</span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1"># a package (with __init__.py)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="k">elif</span> <span class="n">root_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">root_spec</span><span class="o">.</span><span class="n">origin</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># just a normal module</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">root_spec</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span></span>
+<span class="num"><a href="#42">42</a></span><span>    <span class="c1"># we were unable to find the `package_path` using PEP 451 loaders</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">    <span class="n">loader</span> <span class="o">=</span> <span class="n">pkgutil</span><span class="o">.</span><span class="n">get_loader</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">loader</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">root_mod_name</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># import name is not found, or interactive/main module</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="s2">&quot;get_filename&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">        <span class="n">filename</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_filename</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="s2">&quot;archive&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># zipimporter&#39;s loader.archive points to the .egg or .zip file.</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">        <span class="n">filename</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">archive</span></span>
+<span class="num"><a href="#54">54</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># At least one loader is missing both get_filename and archive:</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># Google App Engine&#39;s HardenedModulesHook, use __file__.</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="n">filename</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span><span class="o">.</span><span class="vm">__file__</span></span>
+<span class="num"><a href="#58">58</a></span><span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">    <span class="n">package_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span>    <span class="c1"># If the imported name is a package, filename is currently pointing</span></span>
+<span class="num"><a href="#62">62</a></span><span>    <span class="c1"># to the root of the package, need to get the current directory.</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">_matching_loader_thinks_module_is_package</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">root_mod_name</span><span class="p">):</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">        <span class="n">package_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">package_path</span><span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">package_path</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> import_name</button> 'namespace.package2' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/flask/.tox/tmp/py310/test_uninstalled_namespace_pat0/project-package2' (1) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">21 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_package_path</span><span class="p">(</span><span class="n">import_name</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the path that contains the package or module.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="n">root_mod_name</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">import_name</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">root_spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">root_spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not found&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="c1"># ImportError: the machinery told us it does not exist</span></span>
+<span class="num"><a href="#11">11</a></span><span>    <span class="c1"># ValueError:</span></span>
+<span class="num"><a href="#12">12</a></span><span>    <span class="c1">#    - the module name was invalid</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="c1">#    - the module name is __main__</span></span>
+<span class="num"><a href="#14">14</a></span><span>    <span class="c1">#    - *we* raised `ValueError` due to `root_spec` being `None`</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">pass</span>  <span class="c1"># handled below</span></span>
+<span class="num"><a href="#17">17</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># namespace package</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">if</span> <span class="n">root_spec</span><span class="o">.</span><span class="n">origin</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;namespace&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">}:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">package_spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="n">package_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">package_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># Pick the path in the namespace that contains the submodule.</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">package_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">commonpath</span><span class="p">(</span><span class="n">package_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="n">search_locations</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                    <span class="n">location</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                    <span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">root_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="k">if</span> <span class="n">_path_is_relative_to</span><span class="p">(</span><span class="n">package_path</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># Pick the first path.</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="n">search_locations</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">root_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">search_locations</span><span class="p">))</span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1"># a package (with __init__.py)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">root_spec</span><span class="o">.</span><span class="n">submodule_search_locations</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">root_spec</span><span class="o">.</span><span class="n">origin</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># just a normal module</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">root_spec</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span></span>
+<span class="num"><a href="#42">42</a></span><span>    <span class="c1"># we were unable to find the `package_path` using PEP 451 loaders</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">    <span class="n">loader</span> <span class="o">=</span> <span class="n">pkgutil</span><span class="o">.</span><span class="n">get_loader</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">loader</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">root_mod_name</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># import name is not found, or interactive/main module</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="s2">&quot;get_filename&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">        <span class="n">filename</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_filename</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="s2">&quot;archive&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># zipimporter&#39;s loader.archive points to the .egg or .zip file.</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">        <span class="n">filename</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">archive</span></span>
+<span class="num"><a href="#54">54</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># At least one loader is missing both get_filename and archive:</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># Google App Engine&#39;s HardenedModulesHook, use __file__.</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="n">filename</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">root_mod_name</span><span class="p">)</span><span class="o">.</span><span class="vm">__file__</span></span>
+<span class="num"><a href="#58">58</a></span><span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">    <span class="n">package_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span>    <span class="c1"># If the imported name is a package, filename is currently pointing</span></span>
+<span class="num"><a href="#62">62</a></span><span>    <span class="c1"># to the root of the package, need to get the current directory.</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">_matching_loader_thinks_module_is_package</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">root_mod_name</span><span class="p">):</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">        <span class="n">package_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">package_path</span><span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">package_path</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

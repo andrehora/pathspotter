@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>imaplib.IMAP4._get_tagged_response</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: imaplib.IMAP4._get_tagged_response</h1>
+                <span>Coverage: 94.4% (17/18),</span>
+                <span>Tests: 42, </span>
+                <span>Calls: 214, </span>
+                <span>Exceptions: 4, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 130 calls (60.7%)</p>
+                <p><button class="input"><span>&#8594;</span> tag</button> bytes (130) </p>
+                <p><button class="input"><span>&#8594;</span> expect_bye</button> False (130) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (130) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_tagged_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">expect_bye</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tagged_commands</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">tagged_commands</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="k">return</span> <span class="n">result</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">expect_bye</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="n">typ</span> <span class="o">=</span> <span class="s1">&#39;BYE&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="n">bye</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">untagged_responses</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">bye</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span>                    <span class="c1"># Server replies to the &quot;LOGOUT&quot; command with &quot;BYE&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="k">return</span> <span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="n">bye</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># If we&#39;ve seen a BYE at this point, the socket will be</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># closed, so report the BYE now.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_bye</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Some have reported &quot;unexpected response&quot; exceptions.</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1"># Note that ignoring them here causes loops.</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="c1"># Instead, send me details of the unexpected response and</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="c1"># I&#39;ll update the code in `_get_response()&#39;.</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_get_response</span><span class="p">()</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort</span> <span class="k">as</span> <span class="n">val</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">__debug__</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">print_log</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="k">raise</span></span>
+            </pre>
+            <p><b>Path 2</b>: 42 calls (19.6%)</p>
+                <p><button class="input"><span>&#8594;</span> tag</button> bytes (42) </p>
+                <p><button class="input"><span>&#8594;</span> expect_bye</button> True (42) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (42) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_tagged_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">expect_bye</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tagged_commands</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">tagged_commands</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">result</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">expect_bye</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="n">typ</span> <span class="o">=</span> <span class="s1">&#39;BYE&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">bye</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">untagged_responses</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="k">if</span> <span class="n">bye</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span>                    <span class="c1"># Server replies to the &quot;LOGOUT&quot; command with &quot;BYE&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                    <span class="k">return</span> <span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="n">bye</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># If we&#39;ve seen a BYE at this point, the socket will be</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># closed, so report the BYE now.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_bye</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Some have reported &quot;unexpected response&quot; exceptions.</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1"># Note that ignoring them here causes loops.</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="c1"># Instead, send me details of the unexpected response and</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="c1"># I&#39;ll update the code in `_get_response()&#39;.</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_get_response</span><span class="p">()</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort</span> <span class="k">as</span> <span class="n">val</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">__debug__</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">print_log</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="k">raise</span></span>
+            </pre>
+            <p><b>Path 3</b>: 38 calls (17.8%)</p>
+                <p><button class="input"><span>&#8594;</span> tag</button> bytes (38) </p>
+                <p><button class="input"><span>&#8594;</span> expect_bye</button> False (38) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (38) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_tagged_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">expect_bye</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tagged_commands</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">tagged_commands</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="k">return</span> <span class="n">result</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">expect_bye</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="n">typ</span> <span class="o">=</span> <span class="s1">&#39;BYE&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="n">bye</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">untagged_responses</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">bye</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span>                    <span class="c1"># Server replies to the &quot;LOGOUT&quot; command with &quot;BYE&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="k">return</span> <span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="n">bye</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># If we&#39;ve seen a BYE at this point, the socket will be</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># closed, so report the BYE now.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_bye</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Some have reported &quot;unexpected response&quot; exceptions.</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1"># Note that ignoring them here causes loops.</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="c1"># Instead, send me details of the unexpected response and</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="c1"># I&#39;ll update the code in `_get_response()&#39;.</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_get_response</span><span class="p">()</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort</span> <span class="k">as</span> <span class="n">val</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">__debug__</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">print_log</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="k">raise</span></span>
+            </pre>
+            <p><b>Path 4</b>: 4 calls (1.9%)</p>
+                <p><button class="input"><span>&#8594;</span> tag</button> bytes (4) </p>
+                <p><button class="input"><span>&#8594;</span> expect_bye</button> False (4) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> abort (4) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_tagged_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">expect_bye</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tagged_commands</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">tagged_commands</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">result</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">expect_bye</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="n">typ</span> <span class="o">=</span> <span class="s1">&#39;BYE&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="n">bye</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">untagged_responses</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">bye</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span>                    <span class="c1"># Server replies to the &quot;LOGOUT&quot; command with &quot;BYE&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="k">return</span> <span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="n">bye</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># If we&#39;ve seen a BYE at this point, the socket will be</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># closed, so report the BYE now.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_bye</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Some have reported &quot;unexpected response&quot; exceptions.</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1"># Note that ignoring them here causes loops.</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="c1"># Instead, send me details of the unexpected response and</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="c1"># I&#39;ll update the code in `_get_response()&#39;.</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_get_response</span><span class="p">()</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort</span> <span class="k">as</span> <span class="n">val</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">if</span> <span class="n">__debug__</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">print_log</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">raise</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

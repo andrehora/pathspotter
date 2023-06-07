@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.lint.pylinter.PyLinter.set_current_module</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.lint.pylinter.PyLinter.set_current_module</h1>
+                <span>Coverage: 70.6% (12/17),</span>
+                <span>Tests: 94, </span>
+                <span>Calls: 6055, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 3283 calls (54.2%)</p>
+                <p><button class="input"><span>&#8594;</span> modname</button> 'Command line' (1092) 'Command line or configuration file' (1076) '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/pylint/pylint/testut...</p>
+                <p><button class="input"><span>&#8594;</span> filepath</button> None (3283) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_current_module</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">modname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the name of the currently analyzed module and</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        init statistics for it.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">modname</span> <span class="ow">and</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">on_set_current_module</span><span class="p">(</span><span class="n">modname</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="n">modname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># TODO: 3.0: Remove all modname or &quot;&quot;&#39;s in this method</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="s2">&quot;In pylint 3.0 modname should be a string so that it can be used to &quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span>                    <span class="s2">&quot;correctly set the current_name attribute of the linter instance. &quot;</span></span>
+<span class="num"><a href="#16">16</a></span><span>                    <span class="s2">&quot;If unknown it should be initialized as an empty string.&quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="p">),</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">current_name</span> <span class="o">=</span> <span class="n">modname</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">current_file</span> <span class="o">=</span> <span class="n">filepath</span> <span class="ow">or</span> <span class="n">modname</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">init_single_module</span><span class="p">(</span><span class="n">modname</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># If there is an actual filepath we might need to update the config attribute</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">filepath</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="n">namespace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_namespace_for_file</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_directory_namespaces</span></span>
+<span class="num"><a href="#29">29</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">namespace</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">namespace</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_config</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2157 calls (35.6%)</p>
+                <p><button class="input"><span>&#8594;</span> modname</button> 'file_to_lint' (100) 'fail_under_plus7_5' (40) 'empty' (40) 'module' (28) 'subsubdirectory.module' (26) 'fail_under_minus10' (24) 'package' (24) 'pack...</p>
+                <p><button class="input"><span>&#8594;</span> filepath</button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/pylint/tests/config/file_to_lint.py' (100) '/Users/andrehora/Documents/git/spotflow/la...</p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_current_module</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">modname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the name of the currently analyzed module and</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        init statistics for it.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">modname</span> <span class="ow">and</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">on_set_current_module</span><span class="p">(</span><span class="n">modname</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="n">modname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># TODO: 3.0: Remove all modname or &quot;&quot;&#39;s in this method</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="s2">&quot;In pylint 3.0 modname should be a string so that it can be used to &quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span>                    <span class="s2">&quot;correctly set the current_name attribute of the linter instance. &quot;</span></span>
+<span class="num"><a href="#16">16</a></span><span>                    <span class="s2">&quot;If unknown it should be initialized as an empty string.&quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="p">),</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">current_name</span> <span class="o">=</span> <span class="n">modname</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">current_file</span> <span class="o">=</span> <span class="n">filepath</span> <span class="ow">or</span> <span class="n">modname</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">init_single_module</span><span class="p">(</span><span class="n">modname</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># If there is an actual filepath we might need to update the config attribute</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">filepath</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="n">namespace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_namespace_for_file</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_directory_namespaces</span></span>
+<span class="num"><a href="#29">29</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="k">if</span> <span class="n">namespace</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">namespace</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_config</span></span>
+            </pre>
+            <p><b>Path 3</b>: 608 calls (10.0%)</p>
+                <p><button class="input"><span>&#8594;</span> modname</button> '--test-file_data-name-0--' (85) '--test-file_data-name-1--' (72) '--test-file_data-name-2--' (54) '--test-file_data-name-3--' (18) '--test-file_data-...</p>
+                <p><button class="input"><span>&#8594;</span> filepath</button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/pylint/tests/input/similar1' (339) 'long_test_file' (16) 'input/w0401_cycle.py' (8) '/...</p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_current_module</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">modname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the name of the currently analyzed module and</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        init statistics for it.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">modname</span> <span class="ow">and</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">on_set_current_module</span><span class="p">(</span><span class="n">modname</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="n">modname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># TODO: 3.0: Remove all modname or &quot;&quot;&#39;s in this method</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="s2">&quot;In pylint 3.0 modname should be a string so that it can be used to &quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span>                    <span class="s2">&quot;correctly set the current_name attribute of the linter instance. &quot;</span></span>
+<span class="num"><a href="#16">16</a></span><span>                    <span class="s2">&quot;If unknown it should be initialized as an empty string.&quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="p">),</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">current_name</span> <span class="o">=</span> <span class="n">modname</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">current_file</span> <span class="o">=</span> <span class="n">filepath</span> <span class="ow">or</span> <span class="n">modname</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">init_single_module</span><span class="p">(</span><span class="n">modname</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># If there is an actual filepath we might need to update the config attribute</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">filepath</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="n">namespace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_namespace_for_file</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_directory_namespaces</span></span>
+<span class="num"><a href="#29">29</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="k">if</span> <span class="n">namespace</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">namespace</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_config</span></span>
+            </pre>
+            <p><b>Path 4</b>: 7 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> modname</button> '' (7) </p>
+                <p><button class="input"><span>&#8594;</span> filepath</button> None (7) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (7) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">14 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_current_module</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">modname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the name of the currently analyzed module and</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        init statistics for it.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">modname</span> <span class="ow">and</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">on_set_current_module</span><span class="p">(</span><span class="n">modname</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">modname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># TODO: 3.0: Remove all modname or &quot;&quot;&#39;s in this method</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="s2">&quot;In pylint 3.0 modname should be a string so that it can be used to &quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span>                    <span class="s2">&quot;correctly set the current_name attribute of the linter instance. &quot;</span></span>
+<span class="num"><a href="#16">16</a></span><span>                    <span class="s2">&quot;If unknown it should be initialized as an empty string.&quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="p">),</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">current_name</span> <span class="o">=</span> <span class="n">modname</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">current_file</span> <span class="o">=</span> <span class="n">filepath</span> <span class="ow">or</span> <span class="n">modname</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">init_single_module</span><span class="p">(</span><span class="n">modname</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># If there is an actual filepath we might need to update the config attribute</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">filepath</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="n">namespace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_namespace_for_file</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_directory_namespaces</span></span>
+<span class="num"><a href="#29">29</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">namespace</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">namespace</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_config</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

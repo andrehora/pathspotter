@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>dateutil.tz._common._tzinfo._fold_status</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: dateutil.tz._common._tzinfo._fold_status</h1>
+                <span>Coverage: 100.0% (5/5),</span>
+                <span>Tests: 7, </span>
+                <span>Calls: 34, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 18 calls (52.9%)</p>
+                <p><button class="input"><span>&#8594;</span> dt_utc</button> datetime (18) </p>
+                <p><button class="input"><span>&#8594;</span> dt_wall</button> datetime (18) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 0 (18) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_fold_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt_utc</span><span class="p">,</span> <span class="n">dt_wall</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Determine the fold status of a &quot;wall&quot; datetime, given a representation</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        of the same datetime as a (naive) UTC datetime. This is calculated based</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        on the assumption that ``dt.utcoffset() - dt.dst()`` is constant for all</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        datetimes, and that this offset is the actual number of hours separating</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        ``dt_utc`` and ``dt_wall``.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param dt_utc:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            Representation of the datetime as UTC</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        :param dt_wall:</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">            Representation of the datetime as &quot;wall time&quot;. This parameter must</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            either have a `fold` attribute or have a fold-naive</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            :class:`datetime.tzinfo` attached, otherwise the calculation may</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            fail.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ambiguous</span><span class="p">(</span><span class="n">dt_wall</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">delta_wall</span> <span class="o">=</span> <span class="n">dt_wall</span> <span class="o">-</span> <span class="n">dt_utc</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="n">_fold</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">delta_wall</span> <span class="o">==</span> <span class="p">(</span><span class="n">dt_utc</span><span class="o">.</span><span class="n">utcoffset</span><span class="p">()</span> <span class="o">-</span> <span class="n">dt_utc</span><span class="o">.</span><span class="n">dst</span><span class="p">()))</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">_fold</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">return</span> <span class="n">_fold</span></span>
+            </pre>
+            <p><b>Path 2</b>: 16 calls (47.1%)</p>
+                <p><button class="input"><span>&#8594;</span> dt_utc</button> datetime (16) </p>
+                <p><button class="input"><span>&#8594;</span> dt_wall</button> datetime (16) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 1 (8) 0 (8) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_fold_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt_utc</span><span class="p">,</span> <span class="n">dt_wall</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Determine the fold status of a &quot;wall&quot; datetime, given a representation</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        of the same datetime as a (naive) UTC datetime. This is calculated based</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        on the assumption that ``dt.utcoffset() - dt.dst()`` is constant for all</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        datetimes, and that this offset is the actual number of hours separating</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        ``dt_utc`` and ``dt_wall``.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param dt_utc:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            Representation of the datetime as UTC</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        :param dt_wall:</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">            Representation of the datetime as &quot;wall time&quot;. This parameter must</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            either have a `fold` attribute or have a fold-naive</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            :class:`datetime.tzinfo` attached, otherwise the calculation may</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            fail.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ambiguous</span><span class="p">(</span><span class="n">dt_wall</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">delta_wall</span> <span class="o">=</span> <span class="n">dt_wall</span> <span class="o">-</span> <span class="n">dt_utc</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">_fold</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">delta_wall</span> <span class="o">==</span> <span class="p">(</span><span class="n">dt_utc</span><span class="o">.</span><span class="n">utcoffset</span><span class="p">()</span> <span class="o">-</span> <span class="n">dt_utc</span><span class="o">.</span><span class="n">dst</span><span class="p">()))</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">_fold</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">return</span> <span class="n">_fold</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

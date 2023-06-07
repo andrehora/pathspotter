@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pathlib.Path.rglob</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pathlib.Path.rglob</h1>
+                <span>Coverage: 85.7% (6/7),</span>
+                <span>Tests: 4, </span>
+                <span>Calls: 219, </span>
+                <span>Exceptions: 200, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 216 calls (98.6%)</p>
+                <p><button class="input"><span>&#8594;</span> pattern</button> 'd' (200) 'file*' (4) '*' (3) 'fileA' (2) 'fileB' (2) '*/fileB' (2) '*/*' (2) 'FILEd' (1) </p>
+                <p><button class="output"><span>&#8647; yield</span></button> PosixPath (6065) None (200) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> GeneratorExit (200) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">rglob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Recursively yield all existing files (of any kind, including</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        directories) matching the given relative pattern, anywhere in</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        this subtree.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">sys</span><span class="o">.</span><span class="n">audit</span><span class="p">(</span><span class="s2">&quot;pathlib.Path.rglob&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">pattern_parts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flavour</span><span class="o">.</span><span class="n">parse_parts</span><span class="p">((</span><span class="n">pattern</span><span class="p">,))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Non-relative patterns are unsupported&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">selector</span> <span class="o">=</span> <span class="n">_make_selector</span><span class="p">((</span><span class="s2">&quot;**&quot;</span><span class="p">,)</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">pattern_parts</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flavour</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">selector</span><span class="o">.</span><span class="n">select_from</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">yield</span> <span class="n">p</span></span>
+            </pre>
+            <p><b>Path 2</b>: 3 calls (1.4%)</p>
+                <p><button class="input"><span>&#8594;</span> pattern</button> '*/fileA' (2) 'FILEd*' (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">rglob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Recursively yield all existing files (of any kind, including</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        directories) matching the given relative pattern, anywhere in</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        this subtree.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">sys</span><span class="o">.</span><span class="n">audit</span><span class="p">(</span><span class="s2">&quot;pathlib.Path.rglob&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">drv</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">pattern_parts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flavour</span><span class="o">.</span><span class="n">parse_parts</span><span class="p">((</span><span class="n">pattern</span><span class="p">,))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">drv</span> <span class="ow">or</span> <span class="n">root</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Non-relative patterns are unsupported&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">selector</span> <span class="o">=</span> <span class="n">_make_selector</span><span class="p">((</span><span class="s2">&quot;**&quot;</span><span class="p">,)</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">pattern_parts</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flavour</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">selector</span><span class="o">.</span><span class="n">select_from</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">yield</span> <span class="n">p</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

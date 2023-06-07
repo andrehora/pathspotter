@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.strings.str_eval</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.strings.str_eval</h1>
+                <span>Coverage: 100.0% (7/7),</span>
+                <span>Tests: 21, </span>
+                <span>Calls: 5904, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 3243 calls (54.9%)</p>
+                <p><button class="input"><span>&#8594;</span> token</button> "''" (99) '"hi"' (65) '""' (57) '"a"' (54) "'1'" (53) "'TEST'" (51) '"http://localhost"' (50) "'a'" (44) '"utf-8"' (42) '"b"' (36) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '' (156) 'a' (98) 'hi' (71) 'b' (68) '1' (61) 'foo' (56) 'TEST' (54) 'key' (50) 'http://localhost' (50) '2' (48) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">str_eval</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Mostly replicate `ast.literal_eval(token)` manually to avoid any performance hit.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    This supports f-strings, contrary to `ast.literal_eval`.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    We have to support all string literal notations:</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;fr&quot;</span><span class="p">,</span> <span class="s2">&quot;rf&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">elif</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;&quot;&quot;&quot;&#39;</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&#39;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">token</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="k">return</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2517 calls (42.6%)</p>
+                <p><button class="input"><span>&#8594;</span> token</button> '"""Perfect module with only documentation for configuration tests."""' (50) '"""docstring"""' (33) '"""hehehe"""' (22) '""""\n    pylint score:  +7.5...</p>
+                <p><button class="output"><span>&#8617; return</span></button> 'Perfect module with only documentation for configuration tests.' (50) 'docstring' (33) 'hehehe' (22) '"\n    pylint score:  +7.50\n' (20) '\n    Pyli...</p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">str_eval</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Mostly replicate `ast.literal_eval(token)` manually to avoid any performance hit.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    This supports f-strings, contrary to `ast.literal_eval`.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    We have to support all string literal notations:</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;fr&quot;</span><span class="p">,</span> <span class="s2">&quot;rf&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">elif</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;&quot;&quot;&quot;&#39;</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&#39;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">return</span> <span class="n">token</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+            </pre>
+            <p><b>Path 3</b>: 126 calls (2.1%)</p>
+                <p><button class="input"><span>&#8594;</span> token</button> 'f"Eating a fruit named {fruit_name} with {condiment}"' (4) 'u"String"' (4) 'f"{position[0]},{position[1]}"' (4) 'f"{THING1}, plus {THING2}"' (2) 'f"S...</p>
+                <p><button class="output"><span>&#8617; return</span></button> 'X' (6) 'String' (5) 'Eating a fruit named {fruit_name} with {condiment}' (4) '{position[0]},{position[1]}' (4) '{THING1}, plus {THING2}' (2) 'Selecte...</p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">str_eval</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Mostly replicate `ast.literal_eval(token)` manually to avoid any performance hit.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    This supports f-strings, contrary to `ast.literal_eval`.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    We have to support all string literal notations:</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;fr&quot;</span><span class="p">,</span> <span class="s2">&quot;rf&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">elif</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;&quot;&quot;&quot;&#39;</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&#39;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">token</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="k">return</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+            </pre>
+            <p><b>Path 4</b>: 10 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> token</button> 'r"""The Sphinx docstring\n    In Sphinx docstrings asterisks should be escaped.\n    See https://github.com/PyCQA/pylint/issues/5406\n\n    :param na...</p>
+                <p><button class="output"><span>&#8617; return</span></button> 'The Sphinx docstring\n    In Sphinx docstrings asterisks should be escaped.\n    See https://github.com/PyCQA/pylint/issues/5406\n\n    :param named_...</p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">str_eval</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Mostly replicate `ast.literal_eval(token)` manually to avoid any performance hit.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    This supports f-strings, contrary to `ast.literal_eval`.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    We have to support all string literal notations:</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;fr&quot;</span><span class="p">,</span> <span class="s2">&quot;rf&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">elif</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;&quot;&quot;&quot;&#39;</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&#39;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">return</span> <span class="n">token</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+            </pre>
+            <p><b>Path 5</b>: 8 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> token</button> 'fr"X"' (1) 'Fr"X"' (1) 'fR"X"' (1) 'FR"X"' (1) 'rf"X"' (1) 'rF"X"' (1) 'Rf"X"' (1) 'RF"X"' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'X' (8) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">str_eval</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Mostly replicate `ast.literal_eval(token)` manually to avoid any performance hit.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    This supports f-strings, contrary to `ast.literal_eval`.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    We have to support all string literal notations:</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;fr&quot;</span><span class="p">,</span> <span class="s2">&quot;rf&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">    <span class="k">elif</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;&quot;&quot;&quot;&#39;</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&#39;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">token</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="k">return</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

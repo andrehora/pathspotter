@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.lint.message_state_handler._MessageStateHandler._is_one_message_enabled</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.lint.message_state_handler._MessageStateHandler._is_one_message_enabled</h1>
+                <span>Coverage: 89.5% (17/19),</span>
+                <span>Tests: 82, </span>
+                <span>Calls: 623773, </span>
+                <span>Exceptions: 59699, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 555590 calls (89.1%)</p>
+                <p><button class="input"><span>&#8594;</span> msgid</button> 'W0640' (12572) 'C2401' (10160) 'E1133' (9188) 'C0104' (7064) 'W0621' (6626) 'R1702' (6118) 'W0101' (5141) 'W1502' (5119) 'R0911' (5100) 'W1404' (5100...</p>
+                <p><button class="input"><span>&#8594;</span> line</button> None (555590) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (535779) False (19811) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">17 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_one_message_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msgid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks state of a single message for the current file.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This function can&#39;t be cached as it depends on self.file_state which can</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        change.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_module_msgs_state</span><span class="p">[</span><span class="n">msgid</span><span class="p">][</span><span class="n">line</span><span class="p">]</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># Check if the message&#39;s line is after the maximum line existing in ast tree.</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># This line won&#39;t appear in the ast tree and won&#39;t be referred in</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># self.file_state._module_msgs_state</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># This happens for example with a commented line at the end of a module.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">max_line_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">get_effective_max_line_number</span><span class="p">()</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">max_line_number</span> <span class="ow">and</span> <span class="n">line</span> <span class="o">&gt;</span> <span class="n">max_line_number</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">fallback</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_raw_module_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="p">{})</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span>                <span class="c1"># Doesn&#39;t consider scopes, as a &#39;disable&#39; can be in a</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># different scope than that of the current line.</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">closest_lines</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="p">[</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                        <span class="p">(</span><span class="n">message_line</span><span class="p">,</span> <span class="n">enable</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">for</span> <span class="n">message_line</span><span class="p">,</span> <span class="n">enable</span> <span class="ow">in</span> <span class="n">lines</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">message_line</span> <span class="o">&lt;=</span> <span class="n">line</span></span>
+<span class="num"><a href="#28">28</a></span><span>                    <span class="p">]</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="n">_</span><span class="p">,</span> <span class="n">fallback_iter</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">closest_lines</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">fallback_iter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">fallback</span> <span class="o">=</span> <span class="n">fallback_iter</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 59619 calls (9.6%)</p>
+                <p><button class="input"><span>&#8594;</span> msgid</button> 'R0801' (41563) 'I0020' (7562) 'I0011' (3459) 'C0412' (998) 'I0021' (952) 'C0411' (913) 'R0401' (175) 'E0601' (92) 'W0611' (90) 'E1101' (84) </p>
+                <p><button class="input"><span>&#8594;</span> line</button> 1 (2976) 2 (2191) 3 (1982) 4 (1842) 5 (1593) 6 (1405) 7 (1242) 8 (1174) 9 (1115) 10 (1015) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (47520) False (12099) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (59619) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_one_message_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msgid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks state of a single message for the current file.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This function can&#39;t be cached as it depends on self.file_state which can</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        change.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_module_msgs_state</span><span class="p">[</span><span class="n">msgid</span><span class="p">][</span><span class="n">line</span><span class="p">]</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># Check if the message&#39;s line is after the maximum line existing in ast tree.</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># This line won&#39;t appear in the ast tree and won&#39;t be referred in</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># self.file_state._module_msgs_state</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># This happens for example with a commented line at the end of a module.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">max_line_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">get_effective_max_line_number</span><span class="p">()</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="n">max_line_number</span> <span class="ow">and</span> <span class="n">line</span> <span class="o">&gt;</span> <span class="n">max_line_number</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">fallback</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_raw_module_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="p">{})</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span>                <span class="c1"># Doesn&#39;t consider scopes, as a &#39;disable&#39; can be in a</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># different scope than that of the current line.</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">closest_lines</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="p">[</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                        <span class="p">(</span><span class="n">message_line</span><span class="p">,</span> <span class="n">enable</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">for</span> <span class="n">message_line</span><span class="p">,</span> <span class="n">enable</span> <span class="ow">in</span> <span class="n">lines</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">message_line</span> <span class="o">&lt;=</span> <span class="n">line</span></span>
+<span class="num"><a href="#28">28</a></span><span>                    <span class="p">]</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="n">_</span><span class="p">,</span> <span class="n">fallback_iter</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">closest_lines</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">fallback_iter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">fallback</span> <span class="o">=</span> <span class="n">fallback_iter</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 8484 calls (1.4%)</p>
+                <p><button class="input"><span>&#8594;</span> msgid</button> 'C0116' (1193) 'C0103' (1029) 'R0903' (978) 'C0115' (921) 'W0613' (309) 'W0104' (301) 'C0411' (292) 'C0114' (265) 'W0612' (239) 'W0611' (228) </p>
+                <p><button class="input"><span>&#8594;</span> line</button> 0 (288) 6 (235) 8 (206) 9 (198) 5 (193) 4 (184) 7 (183) 10 (181) 14 (164) 11 (161) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (8404) True (80) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">16 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_one_message_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msgid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks state of a single message for the current file.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This function can&#39;t be cached as it depends on self.file_state which can</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        change.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_module_msgs_state</span><span class="p">[</span><span class="n">msgid</span><span class="p">][</span><span class="n">line</span><span class="p">]</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># Check if the message&#39;s line is after the maximum line existing in ast tree.</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># This line won&#39;t appear in the ast tree and won&#39;t be referred in</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># self.file_state._module_msgs_state</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># This happens for example with a commented line at the end of a module.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">max_line_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">get_effective_max_line_number</span><span class="p">()</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">max_line_number</span> <span class="ow">and</span> <span class="n">line</span> <span class="o">&gt;</span> <span class="n">max_line_number</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">fallback</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_raw_module_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="p">{})</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span>                <span class="c1"># Doesn&#39;t consider scopes, as a &#39;disable&#39; can be in a</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># different scope than that of the current line.</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">closest_lines</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="p">[</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                        <span class="p">(</span><span class="n">message_line</span><span class="p">,</span> <span class="n">enable</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                        <span class="k">for</span> <span class="n">message_line</span><span class="p">,</span> <span class="n">enable</span> <span class="ow">in</span> <span class="n">lines</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">message_line</span> <span class="o">&lt;=</span> <span class="n">line</span></span>
+<span class="num"><a href="#28">28</a></span><span>                    <span class="p">]</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="n">_</span><span class="p">,</span> <span class="n">fallback_iter</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">closest_lines</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">fallback_iter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">fallback</span> <span class="o">=</span> <span class="n">fallback_iter</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 79 calls (0.0%)</p>
+                <p><button class="input"><span>&#8594;</span> msgid</button> 'R0801' (57) 'R0022' (14) 'W0012' (3) 'I0023' (2) 'W0511' (1) 'E0001' (1) 'C0305' (1) </p>
+                <p><button class="input"><span>&#8594;</span> line</button> 22 (6) 11 (5) 6 (5) 20 (3) 18 (3) 10 (3) 3 (3) 7 (3) 21 (2) 17 (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (79) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (79) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_one_message_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msgid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks state of a single message for the current file.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This function can&#39;t be cached as it depends on self.file_state which can</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        change.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_module_msgs_state</span><span class="p">[</span><span class="n">msgid</span><span class="p">][</span><span class="n">line</span><span class="p">]</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># Check if the message&#39;s line is after the maximum line existing in ast tree.</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># This line won&#39;t appear in the ast tree and won&#39;t be referred in</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># self.file_state._module_msgs_state</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># This happens for example with a commented line at the end of a module.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">max_line_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">get_effective_max_line_number</span><span class="p">()</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="n">max_line_number</span> <span class="ow">and</span> <span class="n">line</span> <span class="o">&gt;</span> <span class="n">max_line_number</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">fallback</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_raw_module_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="p">{})</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span>                <span class="c1"># Doesn&#39;t consider scopes, as a &#39;disable&#39; can be in a</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># different scope than that of the current line.</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">closest_lines</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="p">[</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                        <span class="p">(</span><span class="n">message_line</span><span class="p">,</span> <span class="n">enable</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                        <span class="k">for</span> <span class="n">message_line</span><span class="p">,</span> <span class="n">enable</span> <span class="ow">in</span> <span class="n">lines</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">message_line</span> <span class="o">&lt;=</span> <span class="n">line</span></span>
+<span class="num"><a href="#28">28</a></span><span>                    <span class="p">]</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">_</span><span class="p">,</span> <span class="n">fallback_iter</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">closest_lines</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="n">fallback_iter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">fallback</span> <span class="o">=</span> <span class="n">fallback_iter</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (0.0%)</p>
+                <p><button class="input"><span>&#8594;</span> msgid</button> 'C0301' (1) </p>
+                <p><button class="input"><span>&#8594;</span> line</button> 7 (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (1) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_one_message_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msgid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks state of a single message for the current file.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This function can&#39;t be cached as it depends on self.file_state which can</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        change.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_module_msgs_state</span><span class="p">[</span><span class="n">msgid</span><span class="p">][</span><span class="n">line</span><span class="p">]</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># Check if the message&#39;s line is after the maximum line existing in ast tree.</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># This line won&#39;t appear in the ast tree and won&#39;t be referred in</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># self.file_state._module_msgs_state</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># This happens for example with a commented line at the end of a module.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">max_line_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">get_effective_max_line_number</span><span class="p">()</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="n">max_line_number</span> <span class="ow">and</span> <span class="n">line</span> <span class="o">&gt;</span> <span class="n">max_line_number</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">fallback</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_raw_module_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="p">{})</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span>                <span class="c1"># Doesn&#39;t consider scopes, as a &#39;disable&#39; can be in a</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># different scope than that of the current line.</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">closest_lines</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="p">[</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                        <span class="p">(</span><span class="n">message_line</span><span class="p">,</span> <span class="n">enable</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                        <span class="k">for</span> <span class="n">message_line</span><span class="p">,</span> <span class="n">enable</span> <span class="ow">in</span> <span class="n">lines</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">message_line</span> <span class="o">&lt;=</span> <span class="n">line</span></span>
+<span class="num"><a href="#28">28</a></span><span>                    <span class="p">]</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">_</span><span class="p">,</span> <span class="n">fallback_iter</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">closest_lines</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="n">fallback_iter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                    <span class="n">fallback</span> <span class="o">=</span> <span class="n">fallback_iter</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgs_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

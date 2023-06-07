@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.json.dumps</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.json.dumps</h1>
+                <span>Coverage: 54.5% (6/11),</span>
+                <span>Tests: 181, </span>
+                <span>Calls: 521, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 503 calls (96.5%)</p>
+                <p><button class="input"><span>&#8594;</span> obj</button> {} (457) {'testing': 42} (11) dict (7) {'_permanent': True, 'foo': 3} (3) {'test': 'test'} (3) {'value': '42'} (2) {'foo': 42} (2) {'foo': 1, '_perman...</p>
+                <p><button class="input"><span>&#8594;</span> app</button> None (503) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> dict (502) {} (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '{}' (457) '{"testing":42}' (11) '{"_flashes":[{" t":["message","Hello World"]},{" t":["error","Hello World"]},{" t":["warning",{" m":"<em>Testing</em...</p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">Flask</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Serialize data as JSON.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    If :data:`~flask.current_app` is available, it will use its</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    :meth:`app.json.dumps() &lt;flask.json.provider.JSONProvider.dumps&gt;`</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    method, otherwise it will use :func:`json.dumps`.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    :param obj: The data to serialize.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    :param kwargs: Arguments passed to the ``dumps`` implementation.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    .. versionchanged:: 2.2</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        Calls ``current_app.json.dumps``, allowing an app to override</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        the behavior.</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    .. versionchanged:: 2.2</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        The ``app`` parameter will be removed in Flask 2.3.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    .. versionchanged:: 2.0.2</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        :class:`decimal.Decimal` is supported by converting to a string.</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    .. versionchanged:: 2.0</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        ``encoding`` will be removed in Flask 2.1.</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">    .. versionchanged:: 1.0.3</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        ``app`` can be passed directly, rather than requiring an app</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">        context for configuration.</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="k">if</span> <span class="n">app</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="kn">import</span> <span class="nn">warnings</span></span>
+<span class="num"><a href="#30">30</a></span><span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="s2">&quot;The &#39;app&#39; parameter is deprecated and will be removed in&quot;</span></span>
+<span class="num"><a href="#33">33</a></span><span>            <span class="s2">&quot; Flask 2.3. Call &#39;app.json.dumps&#39; directly instead.&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">app</span> <span class="o">=</span> <span class="n">current_app</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">    <span class="k">if</span> <span class="n">app</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#42">42</a></span><span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">    <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">_default</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">_json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 18 calls (3.5%)</p>
+                <p><button class="input"><span>&#8594;</span> obj</button> dict (6) datetime (3) Decimal (1) {'a': 1, 'b': 2} (1) test_html_method.<locals>.ObjectWithHTML (1) list (1) {' b': '/w=='} (1) {' m': '<html>'} (1) {...</p>
+                <p><button class="input"><span>&#8594;</span> app</button> None (18) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> dict (11) {} (7) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '"Sun, 01 Jan 2017 12:34:56 GMT"' (1) '"Sun, 01 Jan 2017 20:34:56 GMT"' (1) '"Sun, 01 Jan 2017 03:34:56 GMT"' (1) '"0.003"' (1) '{"a": 1, "b": 2}' (1)...</p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">Flask</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Serialize data as JSON.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    If :data:`~flask.current_app` is available, it will use its</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    :meth:`app.json.dumps() &lt;flask.json.provider.JSONProvider.dumps&gt;`</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    method, otherwise it will use :func:`json.dumps`.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    :param obj: The data to serialize.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    :param kwargs: Arguments passed to the ``dumps`` implementation.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    .. versionchanged:: 2.2</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        Calls ``current_app.json.dumps``, allowing an app to override</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        the behavior.</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    .. versionchanged:: 2.2</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        The ``app`` parameter will be removed in Flask 2.3.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    .. versionchanged:: 2.0.2</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        :class:`decimal.Decimal` is supported by converting to a string.</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    .. versionchanged:: 2.0</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        ``encoding`` will be removed in Flask 2.1.</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">    .. versionchanged:: 1.0.3</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        ``app`` can be passed directly, rather than requiring an app</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">        context for configuration.</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="k">if</span> <span class="n">app</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="kn">import</span> <span class="nn">warnings</span></span>
+<span class="num"><a href="#30">30</a></span><span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="s2">&quot;The &#39;app&#39; parameter is deprecated and will be removed in&quot;</span></span>
+<span class="num"><a href="#33">33</a></span><span>            <span class="s2">&quot; Flask 2.3. Call &#39;app.json.dumps&#39; directly instead.&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">app</span> <span class="o">=</span> <span class="n">current_app</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">    <span class="k">if</span> <span class="n">app</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#42">42</a></span><span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">    <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">_default</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">    <span class="k">return</span> <span class="n">_json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

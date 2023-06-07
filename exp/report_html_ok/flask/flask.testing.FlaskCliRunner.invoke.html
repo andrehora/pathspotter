@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.testing.FlaskCliRunner.invoke</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.testing.FlaskCliRunner.invoke</h1>
+                <span>Coverage: 71.4% (5/7),</span>
+                <span>Tests: 4, </span>
+                <span>Calls: 8, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 6 calls (75.0%)</p>
+                <p><button class="input"><span>&#8594;</span> cli</button> None (6) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> ['customized', 'custom'] (1) ['nested', 'nested'] (1) ['merged'] (1) ['late_registration', 'late'] (1) ['blue', '--help'] (1) ['hello'] (1) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (6) </p>
+                <p><button class="output"><span>&#8617; return</span></button> Result (6) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span>  <span class="c1"># type: ignore</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">cli</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Invokes a CLI command in an isolated environment. See</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        :meth:`CliRunner.invoke &lt;click.testing.CliRunner.invoke&gt;` for</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        full method documentation. See :ref:`testing-cli` for examples.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        If the ``obj`` argument is not given, passes an instance of</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :class:`~flask.cli.ScriptInfo` that knows how to load the Flask</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        app being tested.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        :param cli: Command object to invoke. Default is the app&#39;s</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">            :attr:`~flask.app.Flask.cli` group.</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param args: List of strings to invoke the command with.</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        :return: a :class:`~click.testing.Result` object.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">cli</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">cli</span>  <span class="c1"># type: ignore</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;obj&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;obj&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ScriptInfo</span><span class="p">(</span><span class="n">create_app</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cli</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (12.5%)</p>
+                <p><button class="input"><span>&#8594;</span> cli</button> Command (1) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> Result (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span>  <span class="c1"># type: ignore</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">cli</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Invokes a CLI command in an isolated environment. See</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        :meth:`CliRunner.invoke &lt;click.testing.CliRunner.invoke&gt;` for</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        full method documentation. See :ref:`testing-cli` for examples.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        If the ``obj`` argument is not given, passes an instance of</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :class:`~flask.cli.ScriptInfo` that knows how to load the Flask</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        app being tested.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        :param cli: Command object to invoke. Default is the app&#39;s</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">            :attr:`~flask.app.Flask.cli` group.</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param args: List of strings to invoke the command with.</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        :return: a :class:`~click.testing.Result` object.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">cli</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">cli</span>  <span class="c1"># type: ignore</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;obj&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;obj&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ScriptInfo</span><span class="p">(</span><span class="n">create_app</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cli</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (12.5%)</p>
+                <p><button class="input"><span>&#8594;</span> cli</button> Command (1) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> dict (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> Result (1) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span>  <span class="c1"># type: ignore</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">cli</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Invokes a CLI command in an isolated environment. See</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        :meth:`CliRunner.invoke &lt;click.testing.CliRunner.invoke&gt;` for</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        full method documentation. See :ref:`testing-cli` for examples.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        If the ``obj`` argument is not given, passes an instance of</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :class:`~flask.cli.ScriptInfo` that knows how to load the Flask</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        app being tested.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        :param cli: Command object to invoke. Default is the app&#39;s</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">            :attr:`~flask.app.Flask.cli` group.</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        :param args: List of strings to invoke the command with.</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        :return: a :class:`~click.testing.Result` object.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">cli</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">cli</span>  <span class="c1"># type: ignore</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;obj&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;obj&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ScriptInfo</span><span class="p">(</span><span class="n">create_app</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cli</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

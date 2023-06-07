@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>six._SixMetaPathImporter.load_module</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: six._SixMetaPathImporter.load_module</h1>
+                <span>Coverage: 100.0% (10/10),</span>
+                <span>Tests: 2, </span>
+                <span>Calls: 47, </span>
+                <span>Exceptions: 47, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 41 calls (87.2%)</p>
+                <p><button class="input"><span>&#8594;</span> fullname</button> 'six.moves.builtins' (1) 'six.moves.configparser' (1) 'six.moves.collections_abc' (1) 'six.moves.copyreg' (1) 'six.moves.dbm_ndbm' (1) 'six.moves._dum...</p>
+                <p><button class="output"><span>&#8617; return</span></button> module (41) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (41) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">load_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fullname</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span>            <span class="c1"># in case of a reload</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">fullname</span><span class="p">]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">mod</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_module</span><span class="p">(</span><span class="n">fullname</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">MovedModule</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">mod</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">_resolve</span><span class="p">()</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="n">mod</span><span class="o">.</span><span class="n">__loader__</span> <span class="o">=</span> <span class="bp">self</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">fullname</span><span class="p">]</span> <span class="o">=</span> <span class="n">mod</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">return</span> <span class="n">mod</span></span>
+            </pre>
+            <p><b>Path 2</b>: 6 calls (12.8%)</p>
+                <p><button class="input"><span>&#8594;</span> fullname</button> 'six.moves' (1) 'six.moves.urllib_parse' (1) 'six.moves.urllib_error' (1) 'six.moves.urllib' (1) 'six.moves.urllib_robotparser' (1) 'six.moves.urllib....</p>
+                <p><button class="output"><span>&#8617; return</span></button> Module_six_moves_urllib_parse (2) _MovedItems (1) Module_six_moves_urllib_error (1) Module_six_moves_urllib (1) Module_six_moves_urllib_robotparser (1...</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (6) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">load_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fullname</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span>            <span class="c1"># in case of a reload</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">fullname</span><span class="p">]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">mod</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_module</span><span class="p">(</span><span class="n">fullname</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">MovedModule</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">mod</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">_resolve</span><span class="p">()</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">mod</span><span class="o">.</span><span class="n">__loader__</span> <span class="o">=</span> <span class="bp">self</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">fullname</span><span class="p">]</span> <span class="o">=</span> <span class="n">mod</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">return</span> <span class="n">mod</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

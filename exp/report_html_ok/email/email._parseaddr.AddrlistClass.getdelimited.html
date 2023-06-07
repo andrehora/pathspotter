@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email._parseaddr.AddrlistClass.getdelimited</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email._parseaddr.AddrlistClass.getdelimited</h1>
+                <span>Coverage: 95.0% (19/20),</span>
+                <span>Tests: 9, </span>
+                <span>Calls: 21, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 11 calls (52.4%)</p>
+                <p><button class="input"><span>&#8594;</span> beginchar</button> '"' (9) '(' (2) </p>
+                <p><button class="input"><span>&#8594;</span> endchars</button> '"\r' (9) ')\r' (2) </p>
+                <p><button class="input"><span>&#8594;</span> allowcomments</button> False (9) True (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ' example' (4) 'wok' (2) "'foo@example.com' (foo@example.com)" (1) 'Al Person' (1) 'nested comment' (1) 'Jason R. Mastaler' (1) 'John X. Doe' (1) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">getdelimited</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beginchar</span><span class="p">,</span> <span class="n">endchars</span><span class="p">,</span> <span class="n">allowcomments</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse a header fragment delimited by special characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        `beginchar&#39; is the start character for the fragment.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        If self is not looking at an instance of `beginchar&#39; then</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        getdelimited returns the empty string.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        `endchars&#39; is a sequence of allowable end-delimiting characters.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        Parsing stops when one of these is encountered.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        If `allowcomments&#39; is non-zero, embedded RFC 2822 comments are allowed</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        within the parsed fragment.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">!=</span> <span class="n">beginchar</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">slist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">quote</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="n">quote</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">])</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">quote</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="ow">in</span> <span class="n">endchars</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">elif</span> <span class="n">allowcomments</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;(&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getcomment</span><span class="p">())</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="k">continue</span>        <span class="c1"># have already advanced pos from getcomment</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">quote</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#32">32</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="k">return</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">slist</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 5 calls (23.8%)</p>
+                <p><button class="input"><span>&#8594;</span> beginchar</button> '"' (5) </p>
+                <p><button class="input"><span>&#8594;</span> endchars</button> '"\r' (5) </p>
+                <p><button class="input"><span>&#8594;</span> allowcomments</button> False (5) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '"example" example' (2) 'Arthur \\Backslash\\ Foobar' (1) 'A (Very) Silly Person' (1) 'A \\(Special\\) Person' (1) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">getdelimited</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beginchar</span><span class="p">,</span> <span class="n">endchars</span><span class="p">,</span> <span class="n">allowcomments</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse a header fragment delimited by special characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        `beginchar&#39; is the start character for the fragment.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        If self is not looking at an instance of `beginchar&#39; then</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        getdelimited returns the empty string.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        `endchars&#39; is a sequence of allowable end-delimiting characters.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        Parsing stops when one of these is encountered.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        If `allowcomments&#39; is non-zero, embedded RFC 2822 comments are allowed</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        within the parsed fragment.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">!=</span> <span class="n">beginchar</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">slist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">quote</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="n">quote</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">])</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">quote</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="ow">in</span> <span class="n">endchars</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">elif</span> <span class="n">allowcomments</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;(&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getcomment</span><span class="p">())</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="k">continue</span>        <span class="c1"># have already advanced pos from getcomment</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="n">quote</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#32">32</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="k">return</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">slist</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (9.5%)</p>
+                <p><button class="input"><span>&#8594;</span> beginchar</button> '"' (2) </p>
+                <p><button class="input"><span>&#8594;</span> endchars</button> '"\r' (2) </p>
+                <p><button class="input"><span>&#8594;</span> allowcomments</button> False (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '' (2) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">getdelimited</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beginchar</span><span class="p">,</span> <span class="n">endchars</span><span class="p">,</span> <span class="n">allowcomments</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse a header fragment delimited by special characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        `beginchar&#39; is the start character for the fragment.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        If self is not looking at an instance of `beginchar&#39; then</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        getdelimited returns the empty string.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        `endchars&#39; is a sequence of allowable end-delimiting characters.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        Parsing stops when one of these is encountered.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        If `allowcomments&#39; is non-zero, embedded RFC 2822 comments are allowed</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        within the parsed fragment.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">!=</span> <span class="n">beginchar</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">slist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">quote</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="n">quote</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">])</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">quote</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="ow">in</span> <span class="n">endchars</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">allowcomments</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;(&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getcomment</span><span class="p">())</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="k">continue</span>        <span class="c1"># have already advanced pos from getcomment</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">quote</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#32">32</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="k">return</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">slist</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 2 calls (9.5%)</p>
+                <p><button class="input"><span>&#8594;</span> beginchar</button> '"' (2) </p>
+                <p><button class="input"><span>&#8594;</span> endchars</button> '"\r' (2) </p>
+                <p><button class="input"><span>&#8594;</span> allowcomments</button> False (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '\\' (2) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">getdelimited</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beginchar</span><span class="p">,</span> <span class="n">endchars</span><span class="p">,</span> <span class="n">allowcomments</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse a header fragment delimited by special characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        `beginchar&#39; is the start character for the fragment.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        If self is not looking at an instance of `beginchar&#39; then</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        getdelimited returns the empty string.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        `endchars&#39; is a sequence of allowable end-delimiting characters.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        Parsing stops when one of these is encountered.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        If `allowcomments&#39; is non-zero, embedded RFC 2822 comments are allowed</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        within the parsed fragment.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">!=</span> <span class="n">beginchar</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">slist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">quote</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="n">quote</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">])</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">quote</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="ow">in</span> <span class="n">endchars</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">elif</span> <span class="n">allowcomments</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;(&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getcomment</span><span class="p">())</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="k">continue</span>        <span class="c1"># have already advanced pos from getcomment</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="n">quote</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#32">32</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="k">return</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">slist</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (4.8%)</p>
+                <p><button class="input"><span>&#8594;</span> beginchar</button> '(' (1) </p>
+                <p><button class="input"><span>&#8594;</span> endchars</button> ')\r' (1) </p>
+                <p><button class="input"><span>&#8594;</span> allowcomments</button> True (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'nested comment' (1) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">getdelimited</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beginchar</span><span class="p">,</span> <span class="n">endchars</span><span class="p">,</span> <span class="n">allowcomments</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse a header fragment delimited by special characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        `beginchar&#39; is the start character for the fragment.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        If self is not looking at an instance of `beginchar&#39; then</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        getdelimited returns the empty string.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        `endchars&#39; is a sequence of allowable end-delimiting characters.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        Parsing stops when one of these is encountered.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        If `allowcomments&#39; is non-zero, embedded RFC 2822 comments are allowed</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        within the parsed fragment.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">!=</span> <span class="n">beginchar</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">slist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">quote</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="n">quote</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">])</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">quote</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="ow">in</span> <span class="n">endchars</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">elif</span> <span class="n">allowcomments</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;(&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getcomment</span><span class="p">())</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="k">continue</span>        <span class="c1"># have already advanced pos from getcomment</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">quote</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#32">32</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="n">slist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="k">return</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">slist</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

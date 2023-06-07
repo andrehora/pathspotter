@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.json.tag.TaggedJSONSerializer.register</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.json.tag.TaggedJSONSerializer.register</h1>
+                <span>Coverage: 69.2% (9/13),</span>
+                <span>Tests: 4, </span>
+                <span>Calls: 117, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 86 calls (73.5%)</p>
+                <p><button class="input"><span>&#8594;</span> tag_class</button> TagDict def (14) TagTuple def (14) TagBytes def (14) TagMarkup def (14) TagUUID def (14) TagDateTime def (14) test_custom_tag.<locals>.TagFoo def (1) ...</p>
+                <p><button class="input"><span>&#8594;</span> force</button> False (86) </p>
+                <p><button class="input"><span>&#8594;</span> index</button> None (86) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">register</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">tag_class</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">JSONTag</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">index</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Register a new tag with this serializer.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param tag_class: tag class to register. Will be instantiated with this</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            serializer instance.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        :param force: overwrite an existing tag. If false (default), a</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            :exc:`KeyError` is raised.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        :param index: index to insert the new tag in the tag order. Useful when</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            the new tag is a special case of an existing tag. If ``None``</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            (default), the tag is appended to the end of the order.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        :raise KeyError: if the tag key is already registered and ``force`` is</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">            not true.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">tag</span> <span class="o">=</span> <span class="n">tag_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">key</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">key</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">force</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tag &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; is already registered.&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 28 calls (23.9%)</p>
+                <p><button class="input"><span>&#8594;</span> tag_class</button> PassDict def (14) PassList def (14) </p>
+                <p><button class="input"><span>&#8594;</span> force</button> False (28) </p>
+                <p><button class="input"><span>&#8594;</span> index</button> None (28) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">register</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">tag_class</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">JSONTag</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">index</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Register a new tag with this serializer.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param tag_class: tag class to register. Will be instantiated with this</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            serializer instance.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        :param force: overwrite an existing tag. If false (default), a</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            :exc:`KeyError` is raised.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        :param index: index to insert the new tag in the tag order. Useful when</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            the new tag is a special case of an existing tag. If ``None``</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            (default), the tag is appended to the end of the order.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        :raise KeyError: if the tag key is already registered and ``force`` is</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">            not true.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">tag</span> <span class="o">=</span> <span class="n">tag_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">key</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">key</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">force</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tag &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; is already registered.&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (1.7%)</p>
+                <p><button class="input"><span>&#8594;</span> tag_class</button> test_duplicate_tag.<locals>.TagDict def (1) test_tag_order.<locals>.Tag1 def (1) </p>
+                <p><button class="input"><span>&#8594;</span> force</button> True (1) False (1) </p>
+                <p><button class="input"><span>&#8594;</span> index</button> 0 (1) -1 (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">register</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">tag_class</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">JSONTag</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">index</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Register a new tag with this serializer.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param tag_class: tag class to register. Will be instantiated with this</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            serializer instance.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        :param force: overwrite an existing tag. If false (default), a</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            :exc:`KeyError` is raised.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        :param index: index to insert the new tag in the tag order. Useful when</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            the new tag is a special case of an existing tag. If ``None``</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            (default), the tag is appended to the end of the order.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        :raise KeyError: if the tag key is already registered and ``force`` is</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">            not true.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">tag</span> <span class="o">=</span> <span class="n">tag_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">key</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">key</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">force</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tag &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; is already registered.&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.9%)</p>
+                <p><button class="input"><span>&#8594;</span> tag_class</button> test_duplicate_tag.<locals>.TagDict def (1) </p>
+                <p><button class="input"><span>&#8594;</span> force</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> index</button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">register</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">tag_class</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">JSONTag</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">index</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Register a new tag with this serializer.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :param tag_class: tag class to register. Will be instantiated with this</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            serializer instance.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        :param force: overwrite an existing tag. If false (default), a</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            :exc:`KeyError` is raised.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        :param index: index to insert the new tag in the tag order. Useful when</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            the new tag is a special case of an existing tag. If ``None``</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            (default), the tag is appended to the end of the order.</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        :raise KeyError: if the tag key is already registered and ``force`` is</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">            not true.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">tag</span> <span class="o">=</span> <span class="n">tag_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">key</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">key</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">force</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tag &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; is already registered.&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

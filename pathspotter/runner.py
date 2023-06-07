@@ -1,19 +1,29 @@
 from spotflow.model import CallContainer
 from spotflow.info import Analysis, PathInfo
 from spotflow.utils import ratio
-from report import Report
+from pathspotter.report import Report
+from pathspotter.utils import get_html_lines
 
-def spotflow_post(monitored_program, *args):
+def spotflow_after(monitored_program, *args):
 
+    configure_html(monitored_program)
     compute_paths(monitored_program)
 
     project_name = args[0]
-    html_dir = 'html/' + project_name
-    csv_dir = 'csv/' + project_name
+    html_dir = 'report_html/' + project_name
+    csv_dir = 'report_csv/' + project_name
 
     rep = Report(monitored_program)
     rep.html_report(html_dir)
     rep.csv_report(csv_dir)
+
+
+def configure_html(monitored_program):
+    
+    for monitored_method in monitored_program.all_methods():
+        code = monitored_method.info.code
+        html_lines = get_html_lines(code)
+        monitored_method.info.html_lines = html_lines
 
 
 def compute_paths(monitored_program):

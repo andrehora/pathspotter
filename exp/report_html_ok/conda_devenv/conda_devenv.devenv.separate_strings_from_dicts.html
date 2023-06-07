@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>conda_devenv.devenv.separate_strings_from_dicts</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: conda_devenv.devenv.separate_strings_from_dicts</h1>
+                <span>Coverage: 100.0% (9/9),</span>
+                <span>Tests: 4, </span>
+                <span>Calls: 18, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 13 calls (72.2%)</p>
+                <p><button class="input"><span>&#8594;</span> elements</button> ['b_dependency'] (2) ['a_dependency'] (2) ['b_path'] (2) ['a_path'] (2) ['c_channel'] (1) ['b_channel'] (1) ['some_from_pip >=0.1'] (1) ['some_from_pi...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (13) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">separate_strings_from_dicts</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    Receive a list of strings and dicts an returns 2 lists, one solely with string and the other</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    with dicts.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    :param List[Union[str, Dict[str, str]]] elements:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    :rtype: Tuple[List[str], List[Dict[str, str]]]</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="n">all_strs</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="n">all_dicts</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="n">all_strs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">all_dicts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Only strings and dicts are supported, got: </span><span class="si">{</span><span class="n">item</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="k">return</span> <span class="n">all_strs</span><span class="p">,</span> <span class="n">all_dicts</span></span>
+            </pre>
+            <p><b>Path 2</b>: 3 calls (16.7%)</p>
+                <p><button class="input"><span>&#8594;</span> elements</button> list (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (3) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">separate_strings_from_dicts</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    Receive a list of strings and dicts an returns 2 lists, one solely with string and the other</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    with dicts.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    :param List[Union[str, Dict[str, str]]] elements:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    :rtype: Tuple[List[str], List[Dict[str, str]]]</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="n">all_strs</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="n">all_dicts</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="n">all_strs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">all_dicts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Only strings and dicts are supported, got: </span><span class="si">{</span><span class="n">item</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="k">return</span> <span class="n">all_strs</span><span class="p">,</span> <span class="n">all_dicts</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (5.6%)</p>
+                <p><button class="input"><span>&#8594;</span> elements</button> list (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">separate_strings_from_dicts</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    Receive a list of strings and dicts an returns 2 lists, one solely with string and the other</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    with dicts.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    :param List[Union[str, Dict[str, str]]] elements:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    :rtype: Tuple[List[str], List[Dict[str, str]]]</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="n">all_strs</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="n">all_dicts</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="n">all_strs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">all_dicts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Only strings and dicts are supported, got: </span><span class="si">{</span><span class="n">item</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="k">return</span> <span class="n">all_strs</span><span class="p">,</span> <span class="n">all_dicts</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (5.6%)</p>
+                <p><button class="input"><span>&#8594;</span> elements</button> [1] (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> RuntimeError (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">separate_strings_from_dicts</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    Receive a list of strings and dicts an returns 2 lists, one solely with string and the other</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    with dicts.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    :param List[Union[str, Dict[str, str]]] elements:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    :rtype: Tuple[List[str], List[Dict[str, str]]]</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="n">all_strs</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="n">all_dicts</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="n">all_strs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">all_dicts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Only strings and dicts are supported, got: </span><span class="si">{</span><span class="n">item</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">all_strs</span><span class="p">,</span> <span class="n">all_dicts</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

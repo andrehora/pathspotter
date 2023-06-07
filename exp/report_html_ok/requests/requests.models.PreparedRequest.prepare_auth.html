@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>requests.models.PreparedRequest.prepare_auth</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: requests.models.PreparedRequest.prepare_auth</h1>
+                <span>Coverage: 100.0% (9/9),</span>
+                <span>Tests: 172, </span>
+                <span>Calls: 292, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 245 calls (83.9%)</p>
+                <p><button class="input"><span>&#8594;</span> auth</button> None (245) </p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://127.0.0.1:56775/post' (37) 'http://127.0.0.1:56775/get' (28) 'http://127.0.0.1:56775/' (11) bytes (11) 'http://example.com' (10) 'http://127.0...</p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">prepare_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepares the given HTTP auth data.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># If no Auth is explicitly provided, extract it from the URL first.</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">auth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">url_auth</span> <span class="o">=</span> <span class="n">get_auth_from_url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">auth</span> <span class="o">=</span> <span class="n">url_auth</span> <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">url_auth</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">auth</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="c1"># special-case basic HTTP auth</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">auth</span> <span class="o">=</span> <span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="o">*</span><span class="n">auth</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Allow auth to make its changes.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">r</span> <span class="o">=</span> <span class="n">auth</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># Update self to reflect the auth changes.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Recompute Content-Length</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">prepare_content_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 31 calls (10.6%)</p>
+                <p><button class="input"><span>&#8594;</span> auth</button> HTTPDigestAuth (30) TestRequests.test_prepared_from_session.<locals>.DummyAuth (1) </p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://127.0.0.1:56775/digest-auth/auth/user/pass/MD5' (7) 'http://127.0.0.1:56775/digest-auth/auth/user/pass/SHA-256' (7) 'http://127.0.0.1:56775/di...</p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">prepare_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepares the given HTTP auth data.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># If no Auth is explicitly provided, extract it from the URL first.</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">auth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="n">url_auth</span> <span class="o">=</span> <span class="n">get_auth_from_url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="n">auth</span> <span class="o">=</span> <span class="n">url_auth</span> <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">url_auth</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">auth</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="c1"># special-case basic HTTP auth</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">auth</span> <span class="o">=</span> <span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="o">*</span><span class="n">auth</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Allow auth to make its changes.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">r</span> <span class="o">=</span> <span class="n">auth</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># Update self to reflect the auth changes.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Recompute Content-Length</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">prepare_content_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 15 calls (5.1%)</p>
+                <p><button class="input"><span>&#8594;</span> auth</button> ('user', 'pass') (9) tuple (2) ('wronguser', 'wrongpass') (2) (42, 42) (1) (None, None) (1) </p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://127.0.0.1:56775/basic-auth/user/pass' (6) 'http://127.0.0.1:56775/get' (4) 'http://127.0.0.1:56775/post' (2) 'http://localhost' (1) 'https://1...</p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">prepare_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepares the given HTTP auth data.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># If no Auth is explicitly provided, extract it from the URL first.</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">auth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="n">url_auth</span> <span class="o">=</span> <span class="n">get_auth_from_url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="n">auth</span> <span class="o">=</span> <span class="n">url_auth</span> <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">url_auth</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">auth</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="c1"># special-case basic HTTP auth</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">auth</span> <span class="o">=</span> <span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="o">*</span><span class="n">auth</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Allow auth to make its changes.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">r</span> <span class="o">=</span> <span class="n">auth</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># Update self to reflect the auth changes.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Recompute Content-Length</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">prepare_content_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.3%)</p>
+                <p><button class="input"><span>&#8594;</span> auth</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://E8A3BE87-9E3F-4620-8858-95478E385B5B:EA770032-DA4D-4D84-8CE9-29C6D910BF1E@exactly-------------sixty-----------three------------characters:9000...</p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">prepare_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepares the given HTTP auth data.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># If no Auth is explicitly provided, extract it from the URL first.</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">auth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">url_auth</span> <span class="o">=</span> <span class="n">get_auth_from_url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">auth</span> <span class="o">=</span> <span class="n">url_auth</span> <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">url_auth</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">auth</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="c1"># special-case basic HTTP auth</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">auth</span> <span class="o">=</span> <span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="o">*</span><span class="n">auth</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Allow auth to make its changes.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">r</span> <span class="o">=</span> <span class="n">auth</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># Update self to reflect the auth changes.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Recompute Content-Length</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">prepare_content_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

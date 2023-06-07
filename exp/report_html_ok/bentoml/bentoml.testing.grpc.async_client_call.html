@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>bentoml.testing.grpc.async_client_call</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: bentoml.testing.grpc.async_client_call</h1>
+                <span>Coverage: 60.5% (26/43),</span>
+                <span>Tests: 2, </span>
+                <span>Calls: 8, </span>
+                <span>Exceptions: 8, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 6 calls (75.0%)</p>
+                <p><button class="input"><span>&#8594;</span> method</button> 'noop_sync' (6) </p>
+                <p><button class="input"><span>&#8594;</span> channel</button> Channel (6) </p>
+                <p><button class="input"><span>&#8594;</span> data</button> dict (6) </p>
+                <p><button class="input"><span>&#8594;</span> sanity</button> True (6) </p>
+                <p><button class="input"><span>&#8594;</span> timeout</button> 90 (6) </p>
+                <p><button class="input"><span>&#8594;</span> assert_data</button> None (6) </p>
+                <p><button class="input"><span>&#8594;</span> assert_code</button> None (6) </p>
+                <p><button class="input"><span>&#8594;</span> assert_details</button> None (6) </p>
+                <p><button class="input"><span>&#8594;</span> assert_trailing_metadata</button> None (6) </p>
+                <p><button class="input"><span>&#8594;</span> protocol_version</button> 'v1' (3) 'v1alpha1' (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> Response (6) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> StopIteration (6) </p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">16 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">async</span> <span class="k">def</span> <span class="nf">async_client_call</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">channel</span><span class="p">:</span> <span class="n">Channel</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Message</span> <span class="o">|</span> <span class="n">pb</span><span class="o">.</span><span class="n">Part</span> <span class="o">|</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]],</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">sanity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="n">assert_data</span><span class="p">:</span> <span class="n">pb</span><span class="o">.</span><span class="n">Response</span> <span class="o">|</span> <span class="n">t</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">pb</span><span class="o">.</span><span class="n">Response</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="n">assert_code</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="n">assert_details</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="n">assert_trailing_metadata</span><span class="p">:</span> <span class="n">aio</span><span class="o">.</span><span class="n">Metadata</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>    <span class="n">protocol_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">LATEST_PROTOCOL_VERSION</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pb</span><span class="o">.</span><span class="n">Response</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    Invoke a given API method via a client.</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    Args:</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        method: The method name to call.</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        channel: The given aio.Channel to use for invoking the RPC. Channels shouldn&#39;t include</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">                 any client interceptors. as we will handle interceptors&#39; lifecycle separately.</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        data: The data to send to the server.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        assert_data: The data to assert against the response.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        timeout: The timeout for the RPC.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        sanity: Whether to perform sanity check on the response.</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        assert_code: The code to assert against the response.</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        assert_details: The details to assert against the response.</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    Returns:</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">        The response from the server.</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">pb</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">import_generated_stubs</span><span class="p">(</span><span class="n">protocol_version</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">res</span><span class="p">:</span> <span class="n">pb</span><span class="o">.</span><span class="n">Response</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="n">Call</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">unary_unary</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="sa">f</span><span class="s2">&quot;/bentoml.grpc.</span><span class="si">{</span><span class="n">protocol_version</span><span class="si">}</span><span class="s2">.BentoService/Call&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="n">request_serializer</span><span class="o">=</span><span class="n">pb</span><span class="o">.</span><span class="n">Request</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="n">response_deserializer</span><span class="o">=</span><span class="n">pb</span><span class="o">.</span><span class="n">Response</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="n">output</span><span class="p">:</span> <span class="n">aio</span><span class="o">.</span><span class="n">UnaryUnaryCall</span><span class="p">[</span><span class="n">pb</span><span class="o">.</span><span class="n">Request</span><span class="p">,</span> <span class="n">pb</span><span class="o">.</span><span class="n">Response</span><span class="p">]</span> <span class="o">=</span> <span class="n">Call</span><span class="p">(</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="n">pb</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">api_name</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="n">res</span> <span class="o">=</span> <span class="k">await</span> <span class="n">t</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">Awaitable</span><span class="p">[</span><span class="n">pb</span><span class="o">.</span><span class="n">Response</span><span class="p">],</span> <span class="n">output</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">        <span class="n">return_code</span> <span class="o">=</span> <span class="k">await</span> <span class="n">output</span><span class="o">.</span><span class="n">code</span><span class="p">()</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">        <span class="n">details</span> <span class="o">=</span> <span class="k">await</span> <span class="n">output</span><span class="o">.</span><span class="n">details</span><span class="p">()</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="n">trailing_metadata</span> <span class="o">=</span> <span class="k">await</span> <span class="n">output</span><span class="o">.</span><span class="n">trailing_metadata</span><span class="p">()</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="k">if</span> <span class="n">sanity</span><span class="p">:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pb</span><span class="o">.</span><span class="n">Response</span><span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="k">if</span> <span class="n">assert_data</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">assert_data</span><span class="p">):</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="k">assert</span> <span class="n">assert_data</span><span class="p">(</span><span class="n">res</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed while checking data: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#51">51</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                <span class="k">assert</span> <span class="n">res</span> <span class="o">==</span> <span class="n">assert_data</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Failed while checking data: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">    <span class="k">except</span> <span class="n">aio</span><span class="o">.</span><span class="n">AioRpcError</span> <span class="k">as</span> <span class="n">call</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">        <span class="n">return_code</span> <span class="o">=</span> <span class="n">call</span><span class="o">.</span><span class="n">code</span><span class="p">()</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">        <span class="n">details</span> <span class="o">=</span> <span class="n">call</span><span class="o">.</span><span class="n">details</span><span class="p">()</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">        <span class="n">trailing_metadata</span> <span class="o">=</span> <span class="n">call</span><span class="o">.</span><span class="n">trailing_metadata</span><span class="p">()</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">    <span class="k">if</span> <span class="n">assert_code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">        <span class="k">assert</span> <span class="p">(</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="n">return_code</span> <span class="o">==</span> <span class="n">assert_code</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39; returns </span><span class="si">{</span><span class="n">return_code</span><span class="si">}</span><span class="s2"> while expecting </span><span class="si">{</span><span class="n">assert_code</span><span class="si">}</span><span class="s2">.&quot;</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">    <span class="k">if</span> <span class="n">assert_details</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">        <span class="k">assert</span> <span class="p">(</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">            <span class="n">assert_details</span> <span class="o">==</span> <span class="n">details</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Details &#39;</span><span class="si">{</span><span class="n">assert_details</span><span class="si">}</span><span class="s2">&#39; is not in &#39;</span><span class="si">{</span><span class="n">details</span><span class="si">}</span><span class="s2">&#39;.&quot;</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">    <span class="k">if</span> <span class="n">assert_trailing_metadata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">        <span class="k">assert</span> <span class="p">(</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">            <span class="n">trailing_metadata</span> <span class="o">==</span> <span class="n">assert_trailing_metadata</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Trailing metadata &#39;</span><span class="si">{</span><span class="n">trailing_metadata</span><span class="si">}</span><span class="s2">&#39; while expecting &#39;</span><span class="si">{</span><span class="n">assert_trailing_metadata</span><span class="si">}</span><span class="s2">&#39;.&quot;</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">    <span class="k">return</span> <span class="n">res</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2 calls (25.0%)</p>
+                <p><button class="input"><span>&#8594;</span> method</button> 'invalid' (2) </p>
+                <p><button class="input"><span>&#8594;</span> channel</button> Channel (2) </p>
+                <p><button class="input"><span>&#8594;</span> data</button> dict (2) </p>
+                <p><button class="input"><span>&#8594;</span> sanity</button> True (2) </p>
+                <p><button class="input"><span>&#8594;</span> timeout</button> 90 (2) </p>
+                <p><button class="input"><span>&#8594;</span> assert_data</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> assert_code</button> StatusCode (2) </p>
+                <p><button class="input"><span>&#8594;</span> assert_details</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> assert_trailing_metadata</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> protocol_version</button> 'v1' (1) 'v1alpha1' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AioRpcError (2) </p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">16 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">async</span> <span class="k">def</span> <span class="nf">async_client_call</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">channel</span><span class="p">:</span> <span class="n">Channel</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Message</span> <span class="o">|</span> <span class="n">pb</span><span class="o">.</span><span class="n">Part</span> <span class="o">|</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]],</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">sanity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="n">assert_data</span><span class="p">:</span> <span class="n">pb</span><span class="o">.</span><span class="n">Response</span> <span class="o">|</span> <span class="n">t</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">pb</span><span class="o">.</span><span class="n">Response</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="n">assert_code</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="n">assert_details</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="n">assert_trailing_metadata</span><span class="p">:</span> <span class="n">aio</span><span class="o">.</span><span class="n">Metadata</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#11">11</a></span><span>    <span class="n">protocol_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">LATEST_PROTOCOL_VERSION</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pb</span><span class="o">.</span><span class="n">Response</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    Invoke a given API method via a client.</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    Args:</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        method: The method name to call.</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        channel: The given aio.Channel to use for invoking the RPC. Channels shouldn&#39;t include</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">                 any client interceptors. as we will handle interceptors&#39; lifecycle separately.</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        data: The data to send to the server.</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        assert_data: The data to assert against the response.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        timeout: The timeout for the RPC.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        sanity: Whether to perform sanity check on the response.</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        assert_code: The code to assert against the response.</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        assert_details: The details to assert against the response.</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">    Returns:</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">        The response from the server.</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">pb</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">import_generated_stubs</span><span class="p">(</span><span class="n">protocol_version</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">res</span><span class="p">:</span> <span class="n">pb</span><span class="o">.</span><span class="n">Response</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="n">Call</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">unary_unary</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="sa">f</span><span class="s2">&quot;/bentoml.grpc.</span><span class="si">{</span><span class="n">protocol_version</span><span class="si">}</span><span class="s2">.BentoService/Call&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="n">request_serializer</span><span class="o">=</span><span class="n">pb</span><span class="o">.</span><span class="n">Request</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="n">response_deserializer</span><span class="o">=</span><span class="n">pb</span><span class="o">.</span><span class="n">Response</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="n">output</span><span class="p">:</span> <span class="n">aio</span><span class="o">.</span><span class="n">UnaryUnaryCall</span><span class="p">[</span><span class="n">pb</span><span class="o">.</span><span class="n">Request</span><span class="p">,</span> <span class="n">pb</span><span class="o">.</span><span class="n">Response</span><span class="p">]</span> <span class="o">=</span> <span class="n">Call</span><span class="p">(</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="n">pb</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">api_name</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="n">res</span> <span class="o">=</span> <span class="k">await</span> <span class="n">t</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">Awaitable</span><span class="p">[</span><span class="n">pb</span><span class="o">.</span><span class="n">Response</span><span class="p">],</span> <span class="n">output</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">        <span class="n">return_code</span> <span class="o">=</span> <span class="k">await</span> <span class="n">output</span><span class="o">.</span><span class="n">code</span><span class="p">()</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">        <span class="n">details</span> <span class="o">=</span> <span class="k">await</span> <span class="n">output</span><span class="o">.</span><span class="n">details</span><span class="p">()</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">        <span class="n">trailing_metadata</span> <span class="o">=</span> <span class="k">await</span> <span class="n">output</span><span class="o">.</span><span class="n">trailing_metadata</span><span class="p">()</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">sanity</span><span class="p">:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pb</span><span class="o">.</span><span class="n">Response</span><span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">assert_data</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">assert_data</span><span class="p">):</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="k">assert</span> <span class="n">assert_data</span><span class="p">(</span><span class="n">res</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed while checking data: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#51">51</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                <span class="k">assert</span> <span class="n">res</span> <span class="o">==</span> <span class="n">assert_data</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Failed while checking data: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">    <span class="k">except</span> <span class="n">aio</span><span class="o">.</span><span class="n">AioRpcError</span> <span class="k">as</span> <span class="n">call</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">        <span class="n">return_code</span> <span class="o">=</span> <span class="n">call</span><span class="o">.</span><span class="n">code</span><span class="p">()</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="n">details</span> <span class="o">=</span> <span class="n">call</span><span class="o">.</span><span class="n">details</span><span class="p">()</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">        <span class="n">trailing_metadata</span> <span class="o">=</span> <span class="n">call</span><span class="o">.</span><span class="n">trailing_metadata</span><span class="p">()</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">    <span class="k">if</span> <span class="n">assert_code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">        <span class="k">assert</span> <span class="p">(</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">            <span class="n">return_code</span> <span class="o">==</span> <span class="n">assert_code</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full not_run">        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39; returns </span><span class="si">{</span><span class="n">return_code</span><span class="si">}</span><span class="s2"> while expecting </span><span class="si">{</span><span class="n">assert_code</span><span class="si">}</span><span class="s2">.&quot;</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">    <span class="k">if</span> <span class="n">assert_details</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">        <span class="k">assert</span> <span class="p">(</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">            <span class="n">assert_details</span> <span class="o">==</span> <span class="n">details</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Details &#39;</span><span class="si">{</span><span class="n">assert_details</span><span class="si">}</span><span class="s2">&#39; is not in &#39;</span><span class="si">{</span><span class="n">details</span><span class="si">}</span><span class="s2">&#39;.&quot;</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">    <span class="k">if</span> <span class="n">assert_trailing_metadata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">        <span class="k">assert</span> <span class="p">(</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">            <span class="n">trailing_metadata</span> <span class="o">==</span> <span class="n">assert_trailing_metadata</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Trailing metadata &#39;</span><span class="si">{</span><span class="n">trailing_metadata</span><span class="si">}</span><span class="s2">&#39; while expecting &#39;</span><span class="si">{</span><span class="n">assert_trailing_metadata</span><span class="si">}</span><span class="s2">&#39;.&quot;</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">    <span class="k">return</span> <span class="n">res</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

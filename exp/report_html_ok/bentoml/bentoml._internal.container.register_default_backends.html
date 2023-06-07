@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>bentoml._internal.container.register_default_backends</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: bentoml._internal.container.register_default_backends</h1>
+                <span>Coverage: 75.0% (12/16),</span>
+                <span>Tests: 0, </span>
+                <span>Calls: 1, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1 calls (100.0%)</p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">register_default_backends</span><span class="p">():</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">for</span> <span class="n">backend</span> <span class="ow">in</span> <span class="n">DEFAULT_BACKENDS</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">module</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                <span class="s2">&quot;DefaultBackendImpl&quot;</span><span class="p">,</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="n">backend</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">register_backend</span><span class="p">(</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                <span class="n">backend</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                <span class="n">health</span><span class="o">=</span><span class="n">module</span><span class="o">.</span><span class="n">health</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="n">binary</span><span class="o">=</span><span class="n">module</span><span class="o">.</span><span class="n">find_binary</span><span class="p">(),</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">construct_build_args</span><span class="o">=</span><span class="n">module</span><span class="o">.</span><span class="n">construct_build_args</span><span class="p">,</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">buildkit_support</span><span class="o">=</span><span class="n">module</span><span class="o">.</span><span class="n">BUILDKIT_SUPPORT</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="n">env</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;ENV&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="n">build_cmd</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;BUILD_CMD&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not yet implemented.&quot;</span><span class="p">,</span> <span class="n">backend</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>  <span class="c1"># pylint: disable=broad-except</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to register backend &#39;</span><span class="si">{</span><span class="n">backend</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

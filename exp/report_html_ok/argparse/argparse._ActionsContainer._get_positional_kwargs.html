@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>argparse._ActionsContainer._get_positional_kwargs</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: argparse._ActionsContainer._get_positional_kwargs</h1>
+                <span>Coverage: 100.0% (8/8),</span>
+                <span>Tests: 46, </span>
+                <span>Calls: 1722, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1224 calls (71.1%)</p>
+                <p><button class="input"><span>&#8594;</span> dest</button> 'bar' (241) 'foo' (241) 'spam' (229) 'x' (93) 'y' (57) 't' (49) 'u' (49) 'a' (48) 'baz' (46) 'b' (30) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (372) dict (244) {'nargs': '+'} (110) {'nargs': 1} (98) {'nargs': 2} (60) {'choices': 'abc', 'help': 'x help'} (49) {'nargs': '...', 'help': 'u hel...</p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (1224) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_positional_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># make sure required is not specified</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;required&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;&#39;required&#39; is an invalid argument for positionals&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># mark positional arguments as required if at least one is</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># always required</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nargs&#39;</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">OPTIONAL</span><span class="p">,</span> <span class="n">ZERO_OR_MORE</span><span class="p">]:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nargs&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">ZERO_OR_MORE</span> <span class="ow">and</span> <span class="s1">&#39;default&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># return the keyword arguments with no option strings</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span> <span class="n">option_strings</span><span class="o">=</span><span class="p">[])</span></span>
+            </pre>
+            <p><b>Path 2</b>: 306 calls (17.8%)</p>
+                <p><button class="input"><span>&#8594;</span> dest</button> 'foo' (144) 'bar' (60) 'badger' (36) 'x' (36) 'a' (16) 'c' (6) 'y' (2) 'z' (2) 'start' (1) 'pattern' (1) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {'nargs': '?'} (146) {'nargs': '?', 'default': 42} (36) dict (24) {'nargs': '*', 'default': 'X', 'help': 'BADGER'} (18) {'nargs': '?', 'help': 'a help...</p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (306) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_positional_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># make sure required is not specified</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;required&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;&#39;required&#39; is an invalid argument for positionals&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># mark positional arguments as required if at least one is</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># always required</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nargs&#39;</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">OPTIONAL</span><span class="p">,</span> <span class="n">ZERO_OR_MORE</span><span class="p">]:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nargs&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">ZERO_OR_MORE</span> <span class="ow">and</span> <span class="s1">&#39;default&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># return the keyword arguments with no option strings</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span> <span class="n">option_strings</span><span class="o">=</span><span class="p">[])</span></span>
+            </pre>
+            <p><b>Path 3</b>: 191 calls (11.1%)</p>
+                <p><button class="input"><span>&#8594;</span> dest</button> 'bar' (72) 'z' (61) 'foo' (36) 'y' (12) 'd' (6) 'spam' (2) 'tests' (1) 'rest' (1) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {'nargs': '*'} (132) dict (50) {'help': 'd', 'nargs': '*'} (6) {'nargs': '*', 'help': 'a list of any number of test modules, classes and test methods....</p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (191) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_positional_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># make sure required is not specified</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;required&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;&#39;required&#39; is an invalid argument for positionals&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># mark positional arguments as required if at least one is</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># always required</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nargs&#39;</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">OPTIONAL</span><span class="p">,</span> <span class="n">ZERO_OR_MORE</span><span class="p">]:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nargs&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">ZERO_OR_MORE</span> <span class="ow">and</span> <span class="s1">&#39;default&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># return the keyword arguments with no option strings</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span> <span class="n">option_strings</span><span class="o">=</span><span class="p">[])</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> dest</button> 'foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {'required': True} (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (1) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_positional_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># make sure required is not specified</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;required&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;&#39;required&#39; is an invalid argument for positionals&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># mark positional arguments as required if at least one is</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># always required</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nargs&#39;</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">OPTIONAL</span><span class="p">,</span> <span class="n">ZERO_OR_MORE</span><span class="p">]:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nargs&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">ZERO_OR_MORE</span> <span class="ow">and</span> <span class="s1">&#39;default&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># return the keyword arguments with no option strings</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span> <span class="n">option_strings</span><span class="o">=</span><span class="p">[])</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

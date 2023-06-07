@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>configparser.RawConfigParser._get_conv</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: configparser.RawConfigParser._get_conv</h1>
+                <span>Coverage: 87.5% (7/8),</span>
+                <span>Tests: 11, </span>
+                <span>Calls: 1274, </span>
+                <span>Exceptions: 765, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 622 calls (48.8%)</p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Types' (588) 'No Such Types' (28) 'two' (6) </p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'no-such-int' (196) 'no-such-float' (196) 'no-such-boolean' (196) 'boolean' (28) 'four' (6) </p>
+                <p><button class="input"><span>&#8594;</span> conv</button> RawConfigParser._convert_to_boolean def (224) int def (196) float def (196) builtin_function_or_method (6) </p>
+                <p><button class="input"><span>&#8594;</span> raw</button> False (622) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> None (622) </p>
+                <p><button class="input"><span>&#8594;</span> fallback</button> True (112) None (86) 18 (84) '18' (84) 0.0 (84) '0.0' (84) 'yes' (84) 0 (4) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (622) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (112) None (86) 18 (84) '18' (84) 0.0 (84) '0.0' (84) 'yes' (84) 0 (4) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> NoOptionError (594) NoSectionError (28) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_conv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">conv</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                  <span class="n">fallback</span><span class="o">=</span><span class="n">_UNSET</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">conv</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="n">raw</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="nb">vars</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                             <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="n">NoSectionError</span><span class="p">,</span> <span class="n">NoOptionError</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="n">fallback</span> <span class="ow">is</span> <span class="n">_UNSET</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">raise</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">return</span> <span class="n">fallback</span></span>
+            </pre>
+            <p><b>Path 2</b>: 509 calls (40.0%)</p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Types' (336) 'BOOLTEST' (112) 'one' (17) 'two' (17) 's' (10) 'DEFAULT' (9) 'general' (2) 's1' (2) 's2' (2) 'yeah, sections can be indented as well' (...</p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'float' (116) 'int' (114) 'boolean' (112) 'one' (15) 'two' (15) 't1' (14) 'f1' (14) 't2' (14) 'f2' (14) 't3' (14) </p>
+                <p><button class="input"><span>&#8594;</span> conv</button> RawConfigParser._convert_to_boolean def (237) float def (124) int def (116) builtin_function_or_method (24) Decimal def (6) ConvertersTestCase.newconf...</p>
+                <p><button class="input"><span>&#8594;</span> raw</button> False (509) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> None (508) {'interpolate': '-1'} (1) </p>
+                <p><button class="input"><span>&#8594;</span> fallback</button> object (228) 18 (84) 0.0 (84) True (84) None (29) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (509) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (179) 42 (112) 0.44 (112) True (58) 5 (16) Decimal (6) 2.4 (5) 5.2 (5) 16 (4) 4 (4) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_conv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">conv</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                  <span class="n">fallback</span><span class="o">=</span><span class="n">_UNSET</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">conv</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="n">raw</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="nb">vars</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                             <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="n">NoSectionError</span><span class="p">,</span> <span class="n">NoOptionError</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">fallback</span> <span class="ow">is</span> <span class="n">_UNSET</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">raise</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">fallback</span></span>
+            </pre>
+            <p><b>Path 3</b>: 86 calls (6.8%)</p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Types' (84) 'two' (2) </p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'no-such-int' (28) 'no-such-float' (28) 'no-such-boolean' (28) 'four' (2) </p>
+                <p><button class="input"><span>&#8594;</span> conv</button> int def (28) float def (28) RawConfigParser._convert_to_boolean def (28) builtin_function_or_method (2) </p>
+                <p><button class="input"><span>&#8594;</span> raw</button> False (86) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> None (86) </p>
+                <p><button class="input"><span>&#8594;</span> fallback</button> object (86) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (86) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> NoOptionError (86) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_conv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">conv</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                  <span class="n">fallback</span><span class="o">=</span><span class="n">_UNSET</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">conv</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="n">raw</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="nb">vars</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                             <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="n">NoSectionError</span><span class="p">,</span> <span class="n">NoOptionError</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="n">fallback</span> <span class="ow">is</span> <span class="n">_UNSET</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                <span class="k">raise</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">fallback</span></span>
+            </pre>
+            <p><b>Path 4</b>: 57 calls (4.5%)</p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'BOOLTEST' (56) 'DEFAULT' (1) </p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'e1' (14) 'e2' (14) 'e3' (14) 'e4' (14) 'go' (1) </p>
+                <p><button class="input"><span>&#8594;</span> conv</button> RawConfigParser._convert_to_boolean def (56) int def (1) </p>
+                <p><button class="input"><span>&#8594;</span> raw</button> False (56) True (1) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> None (56) {'interpolate': '-1'} (1) </p>
+                <p><button class="input"><span>&#8594;</span> fallback</button> object (57) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (57) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (57) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_conv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">conv</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                  <span class="n">fallback</span><span class="o">=</span><span class="n">_UNSET</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">conv</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="n">raw</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="nb">vars</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                             <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="n">NoSectionError</span><span class="p">,</span> <span class="n">NoOptionError</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">fallback</span> <span class="ow">is</span> <span class="n">_UNSET</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">raise</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">fallback</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

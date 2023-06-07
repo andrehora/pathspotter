@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>bentoml._internal.bento.build_config.BentoPathSpec.includes</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: bentoml._internal.bento.build_config.BentoPathSpec.includes</h1>
+                <span>Coverage: 81.8% (9/11),</span>
+                <span>Tests: 0, </span>
+                <span>Calls: 31, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 15 calls (48.4%)</p>
+                <p><button class="input"><span>&#8594;</span> path</button> '.bentoignore' (2) 'simplebento.py' (2) 'subdir/somefile' (2) 'bentoa.py' (2) 'testfile' (2) '__pycache__/bentoa.cpython-310.pyc' (1) 'bentob.py' (1) ...</p>
+                <p><button class="input"><span>&#8594;</span> recurse_exclude_spec</button> filter (15) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (15) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">includes</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="o">*</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">recurse_exclude_spec</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PathSpec</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Determine whether a path is included or not.</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># recurse_exclude_spec is a list of (path, spec) pairs.</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">to_include</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_include</span><span class="o">.</span><span class="n">match_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exclude</span><span class="o">.</span><span class="n">match_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">git</span><span class="o">.</span><span class="n">match_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="n">to_include</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">if</span> <span class="n">recurse_exclude_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">ignore_spec</span><span class="o">.</span><span class="n">match_file</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relativefrom</span><span class="p">(</span><span class="n">ignore_parent</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="k">for</span> <span class="n">ignore_parent</span><span class="p">,</span> <span class="n">ignore_spec</span> <span class="ow">in</span> <span class="n">recurse_exclude_spec</span></span>
+<span class="num"><a href="#19">19</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 2</b>: 10 calls (32.3%)</p>
+                <p><button class="input"><span>&#8594;</span> path</button> 'notincluded.xml' (2) 'setup_docker_container.sh' (2) 'environment.yaml' (2) 'notincluded.storage' (2) '__pycache__/simplebento.cpython-310.pyc' (2) </p>
+                <p><button class="input"><span>&#8594;</span> recurse_exclude_spec</button> filter (10) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (10) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">includes</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="o">*</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">recurse_exclude_spec</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PathSpec</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Determine whether a path is included or not.</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># recurse_exclude_spec is a list of (path, spec) pairs.</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">to_include</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_include</span><span class="o">.</span><span class="n">match_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exclude</span><span class="o">.</span><span class="n">match_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">git</span><span class="o">.</span><span class="n">match_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="n">to_include</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">recurse_exclude_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">ignore_spec</span><span class="o">.</span><span class="n">match_file</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relativefrom</span><span class="p">(</span><span class="n">ignore_parent</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">ignore_parent</span><span class="p">,</span> <span class="n">ignore_spec</span> <span class="ow">in</span> <span class="n">recurse_exclude_spec</span></span>
+<span class="num"><a href="#19">19</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 3</b>: 6 calls (19.4%)</p>
+                <p><button class="input"><span>&#8594;</span> path</button> 'somefile' (2) 'subdir2/.bentoignore' (2) 'subdir2/excluded.py' (2) </p>
+                <p><button class="input"><span>&#8594;</span> recurse_exclude_spec</button> filter (6) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (6) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">includes</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="o">*</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">recurse_exclude_spec</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PathSpec</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Determine whether a path is included or not.</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># recurse_exclude_spec is a list of (path, spec) pairs.</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">to_include</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_include</span><span class="o">.</span><span class="n">match_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exclude</span><span class="o">.</span><span class="n">match_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">git</span><span class="o">.</span><span class="n">match_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="n">to_include</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">recurse_exclude_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">ignore_spec</span><span class="o">.</span><span class="n">match_file</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relativefrom</span><span class="p">(</span><span class="n">ignore_parent</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">ignore_parent</span><span class="p">,</span> <span class="n">ignore_spec</span> <span class="ow">in</span> <span class="n">recurse_exclude_spec</span></span>
+<span class="num"><a href="#19">19</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

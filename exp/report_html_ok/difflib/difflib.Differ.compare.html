@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>difflib.Differ.compare</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: difflib.Differ.compare</h1>
+                <span>Coverage: 75.0% (9/12),</span>
+                <span>Tests: 7, </span>
+                <span>Calls: 24, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 14 calls (58.3%)</p>
+                <p><button class="input"><span>&#8594;</span> a</button> ['', '   1. Beautiful is beTTer than ugly.', '   2. Explicit is better than implicit.', '   3. Simple is better than complex.', '   4. Complex is bett...</p>
+                <p><button class="input"><span>&#8594;</span> b</button> ['', '   1. Beautiful is better than ugly.', '   3.   Simple is better than complex.', '   4. Complicated is better than complex.', '   5. Flat is bet...</p>
+                <p><button class="output"><span>&#8647; yield</span></button> '  123' (150) '?                      ^^\n' (34) '  ' (20) '-    1. Beautiful is beTTer than ugly.' (18) '-    3. Simple is better than complex.' (18)...</p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Compare two sequences of lines; generate the resulting delta.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        Each sequence must contain individual single-line strings ending with</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        newlines. Such sequences can be obtained from the `readlines()` method</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        of file-like objects.  The delta generated also consists of newline-</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        terminated strings, ready to be printed as-is via the writelines()</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        method of a file-like object.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        Example:</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &gt;&gt;&gt; print(&#39;&#39;.join(Differ().compare(&#39;one\ntwo\nthree\n&#39;.splitlines(True),</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        ...                                &#39;ore\ntree\nemu\n&#39;.splitlines(True))),</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        ...       end=&quot;&quot;)</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        - one</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        ?  ^</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        + ore</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        ?  ^</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        - two</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        - three</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        ?  -</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        + tree</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        + emu</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">cruncher</span> <span class="o">=</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linejunk</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">,</span> <span class="n">blo</span><span class="p">,</span> <span class="n">bhi</span> <span class="ow">in</span> <span class="n">cruncher</span><span class="o">.</span><span class="n">get_opcodes</span><span class="p">():</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;replace&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fancy_replace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">blo</span><span class="p">,</span> <span class="n">bhi</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;delete&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;insert&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">blo</span><span class="p">,</span> <span class="n">bhi</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;equal&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;unknown tag </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">tag</span><span class="p">,))</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">yield from</span> <span class="n">g</span></span>
+            </pre>
+            <p><b>Path 2</b>: 6 calls (25.0%)</p>
+                <p><button class="input"><span>&#8594;</span> a</button> ['one\n', 'two\n', 'three\n'] (3) ['\tI am a buggy'] (1) ['\t \t \t^'] (1) ['2'] (1) </p>
+                <p><button class="input"><span>&#8594;</span> b</button> ['ore\n', 'tree\n', 'emu\n'] (3) ['\t\tI am a bug'] (1) ['\t \t \t^\n'] (1) ['3'] (1) </p>
+                <p><button class="output"><span>&#8647; yield</span></button> '?  ^\n' (6) '- one\n' (3) '+ ore\n' (3) '- two\n' (3) '- three\n' (3) '?  -\n' (3) '+ tree\n' (3) '+ emu\n' (3) '- \tI am a buggy' (1) '? \t         ...</p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Compare two sequences of lines; generate the resulting delta.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        Each sequence must contain individual single-line strings ending with</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        newlines. Such sequences can be obtained from the `readlines()` method</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        of file-like objects.  The delta generated also consists of newline-</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        terminated strings, ready to be printed as-is via the writelines()</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        method of a file-like object.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        Example:</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &gt;&gt;&gt; print(&#39;&#39;.join(Differ().compare(&#39;one\ntwo\nthree\n&#39;.splitlines(True),</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        ...                                &#39;ore\ntree\nemu\n&#39;.splitlines(True))),</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        ...       end=&quot;&quot;)</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        - one</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        ?  ^</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        + ore</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        ?  ^</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        - two</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        - three</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        ?  -</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        + tree</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        + emu</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">cruncher</span> <span class="o">=</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linejunk</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">,</span> <span class="n">blo</span><span class="p">,</span> <span class="n">bhi</span> <span class="ow">in</span> <span class="n">cruncher</span><span class="o">.</span><span class="n">get_opcodes</span><span class="p">():</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;replace&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fancy_replace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">blo</span><span class="p">,</span> <span class="n">bhi</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;delete&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;insert&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">blo</span><span class="p">,</span> <span class="n">bhi</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;equal&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;unknown tag </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">tag</span><span class="p">,))</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">yield from</span> <span class="n">g</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (8.3%)</p>
+                <p><button class="input"><span>&#8594;</span> a</button> ['', '   1. Beautiful is beTTer than ugly.', '   2. Explicit is better than implicit.', '   3. Simple is better than complex.', '   4. Complex is bett...</p>
+                <p><button class="input"><span>&#8594;</span> b</button> ['', '   1. Beautiful is beTTer than ugly.', '   2. Explicit is better than implicit.', '   3. Simple is better than complex.', '   4. Complex is bett...</p>
+                <p><button class="output"><span>&#8647; yield</span></button> '  123' (60) '  ' (6) '     1. Beautiful is beTTer than ugly.' (6) '     2. Explicit is better than implicit.' (6) '     3. Simple is better than comp...</p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Compare two sequences of lines; generate the resulting delta.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        Each sequence must contain individual single-line strings ending with</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        newlines. Such sequences can be obtained from the `readlines()` method</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        of file-like objects.  The delta generated also consists of newline-</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        terminated strings, ready to be printed as-is via the writelines()</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        method of a file-like object.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        Example:</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &gt;&gt;&gt; print(&#39;&#39;.join(Differ().compare(&#39;one\ntwo\nthree\n&#39;.splitlines(True),</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        ...                                &#39;ore\ntree\nemu\n&#39;.splitlines(True))),</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        ...       end=&quot;&quot;)</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        - one</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        ?  ^</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        + ore</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        ?  ^</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        - two</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        - three</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        ?  -</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        + tree</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        + emu</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">cruncher</span> <span class="o">=</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linejunk</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">,</span> <span class="n">blo</span><span class="p">,</span> <span class="n">bhi</span> <span class="ow">in</span> <span class="n">cruncher</span><span class="o">.</span><span class="n">get_opcodes</span><span class="p">():</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;replace&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fancy_replace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">blo</span><span class="p">,</span> <span class="n">bhi</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;delete&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;insert&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">blo</span><span class="p">,</span> <span class="n">bhi</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;equal&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;unknown tag </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">tag</span><span class="p">,))</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">yield from</span> <span class="n">g</span></span>
+            </pre>
+            <p><b>Path 4</b>: 2 calls (8.3%)</p>
+                <p><button class="input"><span>&#8594;</span> a</button> [] (2) </p>
+                <p><button class="input"><span>&#8594;</span> b</button> [] (2) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Compare two sequences of lines; generate the resulting delta.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        Each sequence must contain individual single-line strings ending with</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        newlines. Such sequences can be obtained from the `readlines()` method</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        of file-like objects.  The delta generated also consists of newline-</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        terminated strings, ready to be printed as-is via the writelines()</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        method of a file-like object.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        Example:</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &gt;&gt;&gt; print(&#39;&#39;.join(Differ().compare(&#39;one\ntwo\nthree\n&#39;.splitlines(True),</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        ...                                &#39;ore\ntree\nemu\n&#39;.splitlines(True))),</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        ...       end=&quot;&quot;)</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        - one</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        ?  ^</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        + ore</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        ?  ^</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        - two</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        - three</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        ?  -</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        + tree</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        + emu</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">cruncher</span> <span class="o">=</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linejunk</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">,</span> <span class="n">blo</span><span class="p">,</span> <span class="n">bhi</span> <span class="ow">in</span> <span class="n">cruncher</span><span class="o">.</span><span class="n">get_opcodes</span><span class="p">():</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;replace&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fancy_replace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">blo</span><span class="p">,</span> <span class="n">bhi</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;delete&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;insert&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">blo</span><span class="p">,</span> <span class="n">bhi</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;equal&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">alo</span><span class="p">,</span> <span class="n">ahi</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;unknown tag </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">tag</span><span class="p">,))</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="k">yield from</span> <span class="n">g</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>collections.abc.Set._hash</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: collections.abc.Set._hash</h1>
+                <span>Coverage: 94.1% (16/17),</span>
+                <span>Tests: 1, </span>
+                <span>Calls: 2, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 2 calls (100.0%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> -272375401224217160 (2) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the hash value of a set.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Note that we don&#39;t define __hash__: not all sets are hashable.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        But if you define a hashable set type, its __hash__ should</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        call this function.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        This must be compatible __eq__.</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        All sets ought to compare equal if they contain the same</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        elements, regardless of how they are implemented, and</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        regardless of the order of the elements; so there&#39;s not much</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        freedom for __eq__ or __hash__.  We match the algorithm used</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        by the built-in frozenset type.</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">MAX</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">MASK</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">MAX</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">h</span> <span class="o">=</span> <span class="mi">1927868237</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">h</span> <span class="o">&amp;=</span> <span class="n">MASK</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">hx</span> <span class="o">=</span> <span class="nb">hash</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">h</span> <span class="o">^=</span> <span class="p">(</span><span class="n">hx</span> <span class="o">^</span> <span class="p">(</span><span class="n">hx</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">^</span> <span class="mi">89869747</span><span class="p">)</span>  <span class="o">*</span> <span class="mi">3644798167</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">h</span> <span class="o">&amp;=</span> <span class="n">MASK</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">h</span> <span class="o">^=</span> <span class="p">(</span><span class="n">h</span> <span class="o">&gt;&gt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">h</span> <span class="o">&gt;&gt;</span> <span class="mi">25</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="mi">69069</span> <span class="o">+</span> <span class="mi">907133923</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">h</span> <span class="o">&amp;=</span> <span class="n">MASK</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">if</span> <span class="n">h</span> <span class="o">&gt;</span> <span class="n">MAX</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="n">h</span> <span class="o">-=</span> <span class="n">MASK</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="n">h</span> <span class="o">=</span> <span class="mi">590923713</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="k">return</span> <span class="n">h</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>configparser.BasicInterpolation.before_get</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: configparser.BasicInterpolation.before_get</h1>
+                <span>Coverage: 100.0% (3/3),</span>
+                <span>Tests: 32, </span>
+                <span>Calls: 1093, </span>
+                <span>Exceptions: 12, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1081 calls (98.9%)</p>
+                <p><button class="input"><span>&#8594;</span> parser</button> ConfigParser (1063) BlatantOverrideConvertersTestCase.test_inheritance.<locals>.StrangeConfigParser (18) </p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Types' (214) 'Foo Bar' (127) 'Spacey Bar From The Beginning' (114) 'BOOLTEST' (99) 'Spacey Bar' (71) 'Commented Bar' (58) 'Spaces' (58) 'DEFAULT' (58...</p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'foo' (342) 'baz' (86) 'float' (77) 'int' (75) 'boolean' (57) 'key with spaces' (29) 'another with spaces' (29) 'one' (17) 'two' (17) 'option' (17) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'qwe' (86) 'bar1' (71) 'bar2' (71) '42' (71) '0.44' (71) 'bar3' (57) 'value' (52) 'False' (37) 'this line is much, much longer than my editor\nlikes i...</p>
+                <p><button class="input"><span>&#8594;</span> defaults</button> ChainMap (1032) {'foo': 'bar3', 'baz': 'qwe'} (28) {'default': '<default>', 'name': '%(value)s', 'key': '|%(name)s|', 'getdefault': '|%(default)s|', '...</p>
+                <p><button class="output"><span>&#8617; return</span></button> 'qwe' (86) 'bar1' (71) 'bar2' (71) '42' (71) '0.44' (71) 'bar3' (57) 'value' (56) 'False' (37) 'this line is much, much longer than my editor\nlikes i...</p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">before_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">defaults</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">L</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolate_some</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">defaults</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">L</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 12 calls (1.1%)</p>
+                <p><button class="input"><span>&#8594;</span> parser</button> ConfigParser (12) </p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Foo' (4) 'Interpolation Error' (4) 'section' (2) 'no values here' (1) 'Paths' (1) </p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'bar11' (4) 'name' (4) 'go' (1) 'invalid_percent' (1) 'invalid_reference' (1) 'my_dir' (1) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'something %(with11)s lots of interpolation (11 steps)' (4) '%(reference)s' (4) '%(interpolate)s' (1) '%' (1) '%(()' (1) '%(home_dir1)s/lumberjack' (1...</p>
+                <p><button class="input"><span>&#8594;</span> defaults</button> ChainMap (11) {'go': '%(interpolate)s'} (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> InterpolationMissingOptionError (6) InterpolationDepthError (4) InterpolationSyntaxError (2) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">before_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">defaults</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">L</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolate_some</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">defaults</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">L</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

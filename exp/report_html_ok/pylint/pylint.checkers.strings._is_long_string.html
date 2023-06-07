@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.strings._is_long_string</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.strings._is_long_string</h1>
+                <span>Coverage: 100.0% (3/3),</span>
+                <span>Tests: 1, </span>
+                <span>Calls: 26, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 24 calls (92.3%)</p>
+                <p><button class="input"><span>&#8594;</span> string_token</button> '"double-quoted string"' (4) "'single-quoted string'" (4) '"""Tests for inconsistent quoting strategy.\r\n\r\nIn this file, double quotes are the majo...</p>
+                <p><button class="output"><span>&#8617; return</span></button> False (20) True (4) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_long_string</span><span class="p">(</span><span class="n">string_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Is this string token a &quot;longstring&quot; (is it triple-quoted)?</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Long strings are triple-quoted as defined in</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    This function only checks characters up through the open quotes.  Because it&#39;s meant</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    to be applied only to tokens that represent string literals, it doesn&#39;t bother to</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    check for close-quotes (demonstrating that the literal is a well-formed string).</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    Args:</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        string_token: The string token to be parsed.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    Returns:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        A boolean representing whether this token matches a longstring</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        regex.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">SINGLE_QUOTED_REGEX</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string_token</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="ow">or</span> <span class="n">DOUBLE_QUOTED_REGEX</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string_token</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span>    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2 calls (7.7%)</p>
+                <p><button class="input"><span>&#8594;</span> string_token</button> "'''This is a multi-line docstring that should not raise a warning even though the\r\n    delimiter it uses for quotes is not the delimiter used in th...</p>
+                <p><button class="output"><span>&#8617; return</span></button> True (2) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_long_string</span><span class="p">(</span><span class="n">string_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Is this string token a &quot;longstring&quot; (is it triple-quoted)?</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Long strings are triple-quoted as defined in</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    This function only checks characters up through the open quotes.  Because it&#39;s meant</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    to be applied only to tokens that represent string literals, it doesn&#39;t bother to</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    check for close-quotes (demonstrating that the literal is a well-formed string).</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    Args:</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        string_token: The string token to be parsed.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    Returns:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        A boolean representing whether this token matches a longstring</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        regex.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">SINGLE_QUOTED_REGEX</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string_token</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="ow">or</span> <span class="n">DOUBLE_QUOTED_REGEX</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string_token</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span>    <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

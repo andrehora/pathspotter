@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.ctx.RequestContext.push</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.ctx.RequestContext.push</h1>
+                <span>Coverage: 100.0% (13/13),</span>
+                <span>Tests: 213, </span>
+                <span>Calls: 531, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 7</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 392 calls (73.8%)</p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># Before we push the request context we have to ensure that there</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># is an application context.</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">app_ctx</span> <span class="o">=</span> <span class="n">_cv_app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">app_ctx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">app_ctx</span><span class="o">.</span><span class="n">app</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">app_context</span><span class="p">()</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">app_ctx</span><span class="o">.</span><span class="n">push</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_cv_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">_cv_request</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">app_ctx</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># Open the session at the moment that the request context is available.</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># This allows a custom open_session method to use the request context.</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># Only open a new session if this is the first time the request was</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># pushed, otherwise stream_with_context loses the session.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">session_interface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">session_interface</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">open_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">make_null_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Match the request URL after loading the session, so that the</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># session is available in custom URL converters.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_adapter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">match_request</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 2</b>: 81 calls (15.3%)</p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># Before we push the request context we have to ensure that there</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># is an application context.</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">app_ctx</span> <span class="o">=</span> <span class="n">_cv_app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">app_ctx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">app_ctx</span><span class="o">.</span><span class="n">app</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">app_context</span><span class="p">()</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">app_ctx</span><span class="o">.</span><span class="n">push</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_cv_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">_cv_request</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">app_ctx</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># Open the session at the moment that the request context is available.</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># This allows a custom open_session method to use the request context.</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># Only open a new session if this is the first time the request was</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># pushed, otherwise stream_with_context loses the session.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">session_interface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">session_interface</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">open_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">make_null_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Match the request URL after loading the session, so that the</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># session is available in custom URL converters.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_adapter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">match_request</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 3</b>: 28 calls (5.3%)</p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># Before we push the request context we have to ensure that there</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># is an application context.</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">app_ctx</span> <span class="o">=</span> <span class="n">_cv_app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">app_ctx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">app_ctx</span><span class="o">.</span><span class="n">app</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">app_context</span><span class="p">()</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">app_ctx</span><span class="o">.</span><span class="n">push</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_cv_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">_cv_request</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">app_ctx</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># Open the session at the moment that the request context is available.</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># This allows a custom open_session method to use the request context.</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># Only open a new session if this is the first time the request was</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># pushed, otherwise stream_with_context loses the session.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">session_interface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">session_interface</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">open_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">make_null_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Match the request URL after loading the session, so that the</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># session is available in custom URL converters.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_adapter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">match_request</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 4</b>: 16 calls (3.0%)</p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># Before we push the request context we have to ensure that there</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># is an application context.</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">app_ctx</span> <span class="o">=</span> <span class="n">_cv_app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">app_ctx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">app_ctx</span><span class="o">.</span><span class="n">app</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">app_context</span><span class="p">()</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">app_ctx</span><span class="o">.</span><span class="n">push</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_cv_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">_cv_request</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">app_ctx</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># Open the session at the moment that the request context is available.</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># This allows a custom open_session method to use the request context.</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># Only open a new session if this is the first time the request was</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># pushed, otherwise stream_with_context loses the session.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">session_interface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">session_interface</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">open_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">make_null_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Match the request URL after loading the session, so that the</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># session is available in custom URL converters.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_adapter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">match_request</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 5</b>: 12 calls (2.3%)</p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># Before we push the request context we have to ensure that there</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># is an application context.</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">app_ctx</span> <span class="o">=</span> <span class="n">_cv_app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">app_ctx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">app_ctx</span><span class="o">.</span><span class="n">app</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">app_context</span><span class="p">()</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">app_ctx</span><span class="o">.</span><span class="n">push</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_cv_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">_cv_request</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">app_ctx</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># Open the session at the moment that the request context is available.</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># This allows a custom open_session method to use the request context.</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># Only open a new session if this is the first time the request was</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># pushed, otherwise stream_with_context loses the session.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">session_interface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">session_interface</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">open_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">make_null_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Match the request URL after loading the session, so that the</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># session is available in custom URL converters.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_adapter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">match_request</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 6</b>: 1 calls (0.2%)</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> SessionError (1) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># Before we push the request context we have to ensure that there</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># is an application context.</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">app_ctx</span> <span class="o">=</span> <span class="n">_cv_app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">app_ctx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">app_ctx</span><span class="o">.</span><span class="n">app</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">app_context</span><span class="p">()</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">app_ctx</span><span class="o">.</span><span class="n">push</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_cv_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">_cv_request</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">app_ctx</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># Open the session at the moment that the request context is available.</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># This allows a custom open_session method to use the request context.</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># Only open a new session if this is the first time the request was</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># pushed, otherwise stream_with_context loses the session.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">session_interface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">session_interface</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">open_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">make_null_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Match the request URL after loading the session, so that the</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># session is available in custom URL converters.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_adapter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">match_request</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 7</b>: 1 calls (0.2%)</p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># Before we push the request context we have to ensure that there</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># is an application context.</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">app_ctx</span> <span class="o">=</span> <span class="n">_cv_app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">app_ctx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">app_ctx</span><span class="o">.</span><span class="n">app</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">app_context</span><span class="p">()</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">app_ctx</span><span class="o">.</span><span class="n">push</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">app_ctx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_cv_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">_cv_request</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">app_ctx</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># Open the session at the moment that the request context is available.</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># This allows a custom open_session method to use the request context.</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># Only open a new session if this is the first time the request was</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># pushed, otherwise stream_with_context loses the session.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">session_interface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">session_interface</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">open_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_interface</span><span class="o">.</span><span class="n">make_null_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Match the request URL after loading the session, so that the</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># session is available in custom URL converters.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_adapter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">match_request</span><span class="p">()</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

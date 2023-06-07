@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>rich._inspect.Inspect._get_signature</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: rich._inspect.Inspect._get_signature</h1>
+                <span>Coverage: 100.0% (26/26),</span>
+                <span>Tests: 7, </span>
+                <span>Calls: 23, </span>
+                <span>Exceptions: 8, </span>
+                <span>Paths: 6</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 11 calls (47.8%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> '' (5) 'Thing' (5) 'SomeClass' (1) </p>
+                <p><button class="input"><span>&#8594;</span> obj</button> test_can_handle_special_characters_in_docstrings.<locals>.Something def (5) test_can_handle_special_characters_in_docstrings.<locals>.Something.Thing ...</p>
+                <p><button class="output"><span>&#8617; return</span></button> Text (11) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a signature for a callable.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">_signature</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="n">_signature</span> <span class="o">=</span> <span class="s2">&quot;(...)&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">source_filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">source_filename</span> <span class="o">=</span> <span class="n">getfile</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># OSError is raised if obj has no source file, e.g. when defined in REPL.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">pass</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">callable_name</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;inspect.callable&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">source_filename</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">callable_name</span><span class="o">.</span><span class="n">stylize</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;link file://</span><span class="si">{</span><span class="n">source_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">signature_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">highlighter</span><span class="p">(</span><span class="n">_signature</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">qualname</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;__qualname__&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># If obj is a module, there may be classes (which are callable) to display</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">iscoroutinefunction</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;async def&quot;</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;def&quot;</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">qual_signature</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;inspect.</span><span class="si">{</span><span class="n">prefix</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="p">(</span><span class="n">qualname</span><span class="p">,</span> <span class="s2">&quot;inspect.callable&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">signature_text</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="k">return</span> <span class="n">qual_signature</span></span>
+            </pre>
+            <p><b>Path 2</b>: 5 calls (21.7%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'as_integer_ratio' (1) 'bit_count' (1) 'bit_length' (1) 'from_bytes' (1) 'to_bytes' (1) </p>
+                <p><button class="input"><span>&#8594;</span> obj</button> builtin_function_or_method (5) </p>
+                <p><button class="output"><span>&#8617; return</span></button> Text (5) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (5) </p>
+            <button class="run" title="lines run...">19 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a signature for a callable.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">_signature</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="n">_signature</span> <span class="o">=</span> <span class="s2">&quot;(...)&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">source_filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">source_filename</span> <span class="o">=</span> <span class="n">getfile</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># OSError is raised if obj has no source file, e.g. when defined in REPL.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">callable_name</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;inspect.callable&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">source_filename</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">callable_name</span><span class="o">.</span><span class="n">stylize</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;link file://</span><span class="si">{</span><span class="n">source_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">signature_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">highlighter</span><span class="p">(</span><span class="n">_signature</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">qualname</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;__qualname__&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># If obj is a module, there may be classes (which are callable) to display</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">iscoroutinefunction</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;async def&quot;</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;def&quot;</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">qual_signature</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;inspect.</span><span class="si">{</span><span class="n">prefix</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="p">(</span><span class="n">qualname</span><span class="p">,</span> <span class="s2">&quot;inspect.callable&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">signature_text</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="k">return</span> <span class="n">qual_signature</span></span>
+            </pre>
+            <p><b>Path 3</b>: 3 calls (13.0%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> '__init__' (1) 'method' (1) 'function' (1) </p>
+                <p><button class="input"><span>&#8594;</span> obj</button> Foo.__init__ def (1) Foo.method def (1) test_inspect_module_with_class.<locals>.function def (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> Text (3) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a signature for a callable.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">_signature</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="n">_signature</span> <span class="o">=</span> <span class="s2">&quot;(...)&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">source_filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">source_filename</span> <span class="o">=</span> <span class="n">getfile</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># OSError is raised if obj has no source file, e.g. when defined in REPL.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">pass</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">callable_name</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;inspect.callable&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">source_filename</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">callable_name</span><span class="o">.</span><span class="n">stylize</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;link file://</span><span class="si">{</span><span class="n">source_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">signature_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">highlighter</span><span class="p">(</span><span class="n">_signature</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">qualname</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;__qualname__&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># If obj is a module, there may be classes (which are callable) to display</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">iscoroutinefunction</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;async def&quot;</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;def&quot;</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">qual_signature</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;inspect.</span><span class="si">{</span><span class="n">prefix</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="p">(</span><span class="n">qualname</span><span class="p">,</span> <span class="s2">&quot;inspect.callable&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">signature_text</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="k">return</span> <span class="n">qual_signature</span></span>
+            </pre>
+            <p><b>Path 4</b>: 2 calls (8.7%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> '' (1) 'conjugate' (1) </p>
+                <p><button class="input"><span>&#8594;</span> obj</button> builtin_function_or_method (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> Text (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (2) </p>
+            <button class="run" title="lines run...">21 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a signature for a callable.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">_signature</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">_signature</span> <span class="o">=</span> <span class="s2">&quot;(...)&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">source_filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">source_filename</span> <span class="o">=</span> <span class="n">getfile</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># OSError is raised if obj has no source file, e.g. when defined in REPL.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">callable_name</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;inspect.callable&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">source_filename</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">callable_name</span><span class="o">.</span><span class="n">stylize</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;link file://</span><span class="si">{</span><span class="n">source_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">signature_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">highlighter</span><span class="p">(</span><span class="n">_signature</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">qualname</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;__qualname__&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># If obj is a module, there may be classes (which are callable) to display</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">iscoroutinefunction</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;async def&quot;</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;def&quot;</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">qual_signature</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;inspect.</span><span class="si">{</span><span class="n">prefix</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="p">(</span><span class="n">qualname</span><span class="p">,</span> <span class="s2">&quot;inspect.callable&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">signature_text</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="k">return</span> <span class="n">qual_signature</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (4.3%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> '' (1) </p>
+                <p><button class="input"><span>&#8594;</span> obj</button> test_inspect_coroutine.<locals>.coroutine def (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> Text (1) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a signature for a callable.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">_signature</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="n">_signature</span> <span class="o">=</span> <span class="s2">&quot;(...)&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">source_filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">source_filename</span> <span class="o">=</span> <span class="n">getfile</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># OSError is raised if obj has no source file, e.g. when defined in REPL.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">pass</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">callable_name</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;inspect.callable&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">source_filename</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">callable_name</span><span class="o">.</span><span class="n">stylize</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;link file://</span><span class="si">{</span><span class="n">source_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">signature_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">highlighter</span><span class="p">(</span><span class="n">_signature</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">qualname</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;__qualname__&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># If obj is a module, there may be classes (which are callable) to display</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">iscoroutinefunction</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;async def&quot;</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;def&quot;</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">qual_signature</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;inspect.</span><span class="si">{</span><span class="n">prefix</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="p">(</span><span class="n">qualname</span><span class="p">,</span> <span class="s2">&quot;inspect.callable&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">signature_text</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="k">return</span> <span class="n">qual_signature</span></span>
+            </pre>
+            <p><b>Path 6</b>: 1 calls (4.3%)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> obj</button> test_broken_call_attr.<locals>.NotCallable (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">21 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a signature for a callable.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">_signature</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="n">_signature</span> <span class="o">=</span> <span class="s2">&quot;(...)&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="n">source_filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">source_filename</span> <span class="o">=</span> <span class="n">getfile</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># OSError is raised if obj has no source file, e.g. when defined in REPL.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">pass</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="n">callable_name</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;inspect.callable&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">source_filename</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">callable_name</span><span class="o">.</span><span class="n">stylize</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;link file://</span><span class="si">{</span><span class="n">source_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="n">signature_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">highlighter</span><span class="p">(</span><span class="n">_signature</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="n">qualname</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;__qualname__&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># If obj is a module, there may be classes (which are callable) to display</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">iscoroutinefunction</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;async def&quot;</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;def&quot;</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">        <span class="n">qual_signature</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;inspect.</span><span class="si">{</span><span class="n">prefix</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="p">(</span><span class="n">qualname</span><span class="p">,</span> <span class="s2">&quot;inspect.callable&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">signature_text</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">qual_signature</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

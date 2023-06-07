@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>cookiecutter.hooks.run_script</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: cookiecutter.hooks.run_script</h1>
+                <span>Coverage: 100.0% (17/17),</span>
+                <span>Tests: 16, </span>
+                <span>Calls: 24, </span>
+                <span>Exceptions: 9, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 8 calls (33.3%)</p>
+                <p><button class="input"><span>&#8594;</span> script_path</button> '/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/tmp5cl6mqhg.py' (1) '/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/tmp5kdz6w9f.py' (1) '/var/fold...</p>
+                <p><button class="input"><span>&#8594;</span> cwd</button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/cookiecutter/tests/test-pyhooks/inputpyhooks' (4) '/Users/andrehora/Documents/git/spot...</p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">run_script</span><span class="p">(</span><span class="n">script_path</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute a script from a working directory.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    :param script_path: Absolute path to the script to run.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    :param cwd: The directory to run the script from.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">run_thru_shell</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;win&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="n">script_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">script_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">script_path</span><span class="p">]</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="n">script_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">script_path</span><span class="p">]</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">utils</span><span class="o">.</span><span class="n">make_executable</span><span class="p">(</span><span class="n">script_path</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">script_command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">run_thru_shell</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">)</span>  <span class="c1"># nosec</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">exit_status</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">exit_status</span> <span class="o">!=</span> <span class="n">EXIT_SUCCESS</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="sa">f</span><span class="s1">&#39;Hook script failed (exit status: </span><span class="si">{</span><span class="n">exit_status</span><span class="si">}</span><span class="s1">)&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">    <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">err</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENOEXEC</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="s1">&#39;Hook script failed, might be an empty file or missing a shebang&#39;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hook script failed (error: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+            </pre>
+            <p><b>Path 2</b>: 7 calls (29.2%)</p>
+                <p><button class="input"><span>&#8594;</span> script_path</button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/cookiecutter/tests/test-hooks/hooks/post_gen_project.sh' (2) '/var/folders/yp/qx0crmvd...</p>
+                <p><button class="input"><span>&#8594;</span> cwd</button> '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-16/test_run_shell_hooks0/test-shellhooks/inputshellhooks' (2) 'te...</p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">run_script</span><span class="p">(</span><span class="n">script_path</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute a script from a working directory.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    :param script_path: Absolute path to the script to run.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    :param cwd: The directory to run the script from.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">run_thru_shell</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;win&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="n">script_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="n">script_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">script_path</span><span class="p">]</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">script_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">script_path</span><span class="p">]</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">utils</span><span class="o">.</span><span class="n">make_executable</span><span class="p">(</span><span class="n">script_path</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">script_command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">run_thru_shell</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">)</span>  <span class="c1"># nosec</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">exit_status</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">exit_status</span> <span class="o">!=</span> <span class="n">EXIT_SUCCESS</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="sa">f</span><span class="s1">&#39;Hook script failed (exit status: </span><span class="si">{</span><span class="n">exit_status</span><span class="si">}</span><span class="s1">)&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">    <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">err</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENOEXEC</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="s1">&#39;Hook script failed, might be an empty file or missing a shebang&#39;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hook script failed (error: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+            </pre>
+            <p><b>Path 3</b>: 5 calls (20.8%)</p>
+                <p><button class="input"><span>&#8594;</span> script_path</button> '/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/tmp9wfgry_y.py' (1) '/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/tmpefsifoy5.py' (1) '/var/fold...</p>
+                <p><button class="input"><span>&#8594;</span> cwd</button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/cookiecutter/inputhooks' (2) '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T...</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> FailedHookException (5) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">run_script</span><span class="p">(</span><span class="n">script_path</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute a script from a working directory.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    :param script_path: Absolute path to the script to run.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    :param cwd: The directory to run the script from.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">run_thru_shell</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;win&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="n">script_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">script_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">script_path</span><span class="p">]</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="n">script_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">script_path</span><span class="p">]</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">utils</span><span class="o">.</span><span class="n">make_executable</span><span class="p">(</span><span class="n">script_path</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">script_command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">run_thru_shell</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">)</span>  <span class="c1"># nosec</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">exit_status</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">exit_status</span> <span class="o">!=</span> <span class="n">EXIT_SUCCESS</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="sa">f</span><span class="s1">&#39;Hook script failed (exit status: </span><span class="si">{</span><span class="n">exit_status</span><span class="si">}</span><span class="s1">)&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">err</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENOEXEC</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="s1">&#39;Hook script failed, might be an empty file or missing a shebang&#39;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hook script failed (error: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+            </pre>
+            <p><b>Path 4</b>: 2 calls (8.3%)</p>
+                <p><button class="input"><span>&#8594;</span> script_path</button> '/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/tmp2ks4rieg.sh' (1) '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/cookiecutter/tes...</p>
+                <p><button class="input"><span>&#8594;</span> cwd</button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/cookiecutter/inputshellhooks' (1) '.' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> FailedHookException (2) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">run_script</span><span class="p">(</span><span class="n">script_path</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute a script from a working directory.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    :param script_path: Absolute path to the script to run.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    :param cwd: The directory to run the script from.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">run_thru_shell</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;win&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="n">script_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="n">script_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">script_path</span><span class="p">]</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">script_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">script_path</span><span class="p">]</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">utils</span><span class="o">.</span><span class="n">make_executable</span><span class="p">(</span><span class="n">script_path</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">script_command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">run_thru_shell</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">)</span>  <span class="c1"># nosec</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="n">exit_status</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">exit_status</span> <span class="o">!=</span> <span class="n">EXIT_SUCCESS</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="sa">f</span><span class="s1">&#39;Hook script failed (exit status: </span><span class="si">{</span><span class="n">exit_status</span><span class="si">}</span><span class="s1">)&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">err</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENOEXEC</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="s1">&#39;Hook script failed, might be an empty file or missing a shebang&#39;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hook script failed (error: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+            </pre>
+            <p><b>Path 5</b>: 2 calls (8.3%)</p>
+                <p><button class="input"><span>&#8594;</span> script_path</button> '/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/tmpft1klec7.sh' (1) '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/cookiecutter/tes...</p>
+                <p><button class="input"><span>&#8594;</span> cwd</button> '/Users/andrehora/Documents/git/spotflow/lab/happypath/projects/cookiecutter/inputshellhooks' (1) '.' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> FailedHookException (2) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">run_script</span><span class="p">(</span><span class="n">script_path</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute a script from a working directory.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    :param script_path: Absolute path to the script to run.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    :param cwd: The directory to run the script from.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">run_thru_shell</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;win&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="n">script_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="n">script_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">script_path</span><span class="p">]</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">script_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">script_path</span><span class="p">]</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">utils</span><span class="o">.</span><span class="n">make_executable</span><span class="p">(</span><span class="n">script_path</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">script_command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">run_thru_shell</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">)</span>  <span class="c1"># nosec</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="n">exit_status</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">exit_status</span> <span class="o">!=</span> <span class="n">EXIT_SUCCESS</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="sa">f</span><span class="s1">&#39;Hook script failed (exit status: </span><span class="si">{</span><span class="n">exit_status</span><span class="si">}</span><span class="s1">)&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">err</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENOEXEC</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="s1">&#39;Hook script failed, might be an empty file or missing a shebang&#39;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">raise</span> <span class="n">FailedHookException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hook script failed (error: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

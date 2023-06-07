@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.misc.EncodingChecker._check_encoding</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.misc.EncodingChecker._check_encoding</h1>
+                <span>Coverage: 16.7% (2/12),</span>
+                <span>Tests: 22, </span>
+                <span>Calls: 41262, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 41262 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> lineno</button> 1 (992) 2 (977) 3 (966) 4 (941) 5 (909) 6 (829) 7 (783) 8 (749) 9 (736) 10 (675) </p>
+                <p><button class="input"><span>&#8594;</span> line</button> bytes (41262) </p>
+                <p><button class="input"><span>&#8594;</span> file_encoding</button> 'utf-8' (41252) 'iso-8859-1' (9) 'utf' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '\n' (11217) '\r\n' (668) '    pass\n' (654) '        pass\n' (408) '    """\n' (373) '"""\n' (274) '    def __init__(self):\n' (169) '        pass\r\...</p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_encoding</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">lineno</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">file_encoding</span><span class="p">:</span> <span class="nb">str</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">return</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">file_encoding</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">pass</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">LookupError</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;#&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="ow">and</span> <span class="s2">&quot;coding&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">file_encoding</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Cannot decode using encoding &#39;</span><span class="si">{</span><span class="n">file_encoding</span><span class="si">}</span><span class="s2">&#39;, bad encoding&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;syntax-error&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="n">lineno</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

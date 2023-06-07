@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.base.basic_error_checker.BasicErrorChecker._too_many_starred_for_tuple</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.base.basic_error_checker.BasicErrorChecker._too_many_starred_for_tuple</h1>
+                <span>Coverage: 100.0% (7/7),</span>
+                <span>Tests: 4, </span>
+                <span>Calls: 148, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 124 calls (83.8%)</p>
+                <p><button class="input"><span>&#8594;</span> assign_tuple</button> Tuple (124) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (124) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_too_many_starred_for_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">assign_tuple</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">starred_count</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">assign_tuple</span><span class="o">.</span><span class="n">itered</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Tuple</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_too_many_starred_for_tuple</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Starred</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                <span class="n">starred_count</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="n">starred_count</span> <span class="o">&gt;</span> <span class="mi">1</span></span>
+            </pre>
+            <p><b>Path 2</b>: 20 calls (13.5%)</p>
+                <p><button class="input"><span>&#8594;</span> assign_tuple</button> Tuple (20) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (18) True (2) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_too_many_starred_for_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">assign_tuple</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">starred_count</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">assign_tuple</span><span class="o">.</span><span class="n">itered</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Tuple</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_too_many_starred_for_tuple</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Starred</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="n">starred_count</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="n">starred_count</span> <span class="o">&gt;</span> <span class="mi">1</span></span>
+            </pre>
+            <p><b>Path 3</b>: 4 calls (2.7%)</p>
+                <p><button class="input"><span>&#8594;</span> assign_tuple</button> Tuple (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (3) True (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_too_many_starred_for_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">assign_tuple</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">starred_count</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">assign_tuple</span><span class="o">.</span><span class="n">itered</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Tuple</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_too_many_starred_for_tuple</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Starred</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                <span class="n">starred_count</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">starred_count</span> <span class="o">&gt;</span> <span class="mi">1</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>imaplib.IMAP4_SSL.__init__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: imaplib.IMAP4_SSL.__init__</h1>
+                <span>Coverage: 187.5% (30/16),</span>
+                <span>Tests: 48, </span>
+                <span>Calls: 162, </span>
+                <span>Exceptions: 29, </span>
+                <span>Paths: 6</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 87 calls (53.7%)</p>
+                <p><button class="input"><span>&#8594;</span> host</button> '127.0.0.1' (80) 'localhost' (7) </p>
+                <p><button class="input"><span>&#8594;</span> port</button> 63609 (3) 63670 (3) 63638 (2) 63593 (1) 63595 (1) 143 (1) 63597 (1) 63599 (1) 63601 (1) 63603 (1) </p>
+                <p><button class="input"><span>&#8594;</span> timeout</button> None (85) 5.0 (2) </p>
+            <button class="run" title="lines run...">0 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">IMAP4_SSL_PORT</span><span class="p">,</span> <span class="n">keyfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                     <span class="n">certfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ssl_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span>            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">keyfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ssl_context and keyfile arguments are mutually &quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span>                                 <span class="s2">&quot;exclusive&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">certfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ssl_context and certfile arguments are mutually &quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>                                 <span class="s2">&quot;exclusive&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>            <span class="k">if</span> <span class="n">keyfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">certfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>                <span class="kn">import</span> <span class="nn">warnings</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;keyfile and certfile are deprecated, use a &quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>                              <span class="s2">&quot;custom ssl_context instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="bp">self</span><span class="o">.</span><span class="n">keyfile</span> <span class="o">=</span> <span class="n">keyfile</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="bp">self</span><span class="o">.</span><span class="n">certfile</span> <span class="o">=</span> <span class="n">certfile</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_stdlib_context</span><span class="p">(</span><span class="n">certfile</span><span class="o">=</span><span class="n">certfile</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span>                                                         <span class="n">keyfile</span><span class="o">=</span><span class="n">keyfile</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="bp">self</span><span class="o">.</span><span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl_context</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="n">IMAP4</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 51 calls (31.5%)</p>
+                <p><button class="input"><span>&#8594;</span> host</button> '127.0.0.1' (47) 'localhost' (4) </p>
+                <p><button class="input"><span>&#8594;</span> port</button> 63609 (4) 63605 (2) 63591 (1) 63593 (1) 63595 (1) 63597 (1) 63599 (1) 63601 (1) 63603 (1) 63615 (1) </p>
+                <p><button class="input"><span>&#8594;</span> keyfile</button> None (51) </p>
+                <p><button class="input"><span>&#8594;</span> certfile</button> None (51) </p>
+                <p><button class="input"><span>&#8594;</span> ssl_context</button> None (51) </p>
+                <p><button class="input"><span>&#8594;</span> timeout</button> None (48) 0.001 (1) 5.0 (1) 0 (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> abort (4) error (2) TimeoutError (1) ValueError (1) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">IMAP4_SSL_PORT</span><span class="p">,</span> <span class="n">keyfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                     <span class="n">certfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ssl_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">keyfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ssl_context and keyfile arguments are mutually &quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span>                                 <span class="s2">&quot;exclusive&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">certfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ssl_context and certfile arguments are mutually &quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>                                 <span class="s2">&quot;exclusive&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">keyfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">certfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="kn">import</span> <span class="nn">warnings</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;keyfile and certfile are deprecated, use a &quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                              <span class="s2">&quot;custom ssl_context instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">keyfile</span> <span class="o">=</span> <span class="n">keyfile</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">certfile</span> <span class="o">=</span> <span class="n">certfile</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_stdlib_context</span><span class="p">(</span><span class="n">certfile</span><span class="o">=</span><span class="n">certfile</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                                                         <span class="n">keyfile</span><span class="o">=</span><span class="n">keyfile</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl_context</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">IMAP4</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 13 calls (8.0%)</p>
+                <p><button class="input"><span>&#8594;</span> host</button> '127.0.0.1' (12) 'localhost' (1) </p>
+                <p><button class="input"><span>&#8594;</span> port</button> 63591 (1) 63617 (1) 63619 (1) 63652 (1) 63666 (1) 63678 (1) 63680 (1) 63729 (1) 63731 (1) 63733 (1) </p>
+                <p><button class="input"><span>&#8594;</span> timeout</button> None (12) 0.001 (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> abort (8) error (4) TimeoutError (1) </p>
+            <button class="run" title="lines run...">0 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">IMAP4_SSL_PORT</span><span class="p">,</span> <span class="n">keyfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                     <span class="n">certfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ssl_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span>            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">keyfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ssl_context and keyfile arguments are mutually &quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span>                                 <span class="s2">&quot;exclusive&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">certfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ssl_context and certfile arguments are mutually &quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>                                 <span class="s2">&quot;exclusive&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>            <span class="k">if</span> <span class="n">keyfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">certfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>                <span class="kn">import</span> <span class="nn">warnings</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;keyfile and certfile are deprecated, use a &quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>                              <span class="s2">&quot;custom ssl_context instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="bp">self</span><span class="o">.</span><span class="n">keyfile</span> <span class="o">=</span> <span class="n">keyfile</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="bp">self</span><span class="o">.</span><span class="n">certfile</span> <span class="o">=</span> <span class="n">certfile</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_stdlib_context</span><span class="p">(</span><span class="n">certfile</span><span class="o">=</span><span class="n">certfile</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span>                                                         <span class="n">keyfile</span><span class="o">=</span><span class="n">keyfile</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="bp">self</span><span class="o">.</span><span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl_context</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="n">IMAP4</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 6 calls (3.7%)</p>
+                <p><button class="input"><span>&#8594;</span> host</button> 'localhost' (3) '127.0.0.1' (2) '' (1) </p>
+                <p><button class="input"><span>&#8594;</span> port</button> 63605 (1) 63609 (1) 63635 (1) 63670 (1) 143 (1) 63785 (1) </p>
+                <p><button class="input"><span>&#8594;</span> timeout</button> None (3) 0 (2) 0.001 (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (2) SSLCertVerificationError (2) TimeoutError (1) ConnectionRefusedError (1) </p>
+            <button class="run" title="lines run...">0 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">IMAP4_SSL_PORT</span><span class="p">,</span> <span class="n">keyfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                     <span class="n">certfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ssl_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span>            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">keyfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ssl_context and keyfile arguments are mutually &quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span>                                 <span class="s2">&quot;exclusive&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">certfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ssl_context and certfile arguments are mutually &quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>                                 <span class="s2">&quot;exclusive&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>            <span class="k">if</span> <span class="n">keyfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">certfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>                <span class="kn">import</span> <span class="nn">warnings</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;keyfile and certfile are deprecated, use a &quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>                              <span class="s2">&quot;custom ssl_context instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="bp">self</span><span class="o">.</span><span class="n">keyfile</span> <span class="o">=</span> <span class="n">keyfile</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="bp">self</span><span class="o">.</span><span class="n">certfile</span> <span class="o">=</span> <span class="n">certfile</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_stdlib_context</span><span class="p">(</span><span class="n">certfile</span><span class="o">=</span><span class="n">certfile</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span>                                                         <span class="n">keyfile</span><span class="o">=</span><span class="n">keyfile</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="bp">self</span><span class="o">.</span><span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl_context</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="n">IMAP4</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 4 calls (2.5%)</p>
+                <p><button class="input"><span>&#8594;</span> host</button> '127.0.0.1' (2) 'localhost' (2) </p>
+                <p><button class="input"><span>&#8594;</span> port</button> 63635 (1) 63638 (1) 63785 (1) 63787 (1) </p>
+                <p><button class="input"><span>&#8594;</span> keyfile</button> None (4) </p>
+                <p><button class="input"><span>&#8594;</span> certfile</button> None (4) </p>
+                <p><button class="input"><span>&#8594;</span> ssl_context</button> SSLContext (4) </p>
+                <p><button class="input"><span>&#8594;</span> timeout</button> None (4) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> SSLCertVerificationError (2) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">IMAP4_SSL_PORT</span><span class="p">,</span> <span class="n">keyfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                     <span class="n">certfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ssl_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">keyfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ssl_context and keyfile arguments are mutually &quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span>                                 <span class="s2">&quot;exclusive&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">certfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ssl_context and certfile arguments are mutually &quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>                                 <span class="s2">&quot;exclusive&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">keyfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">certfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="kn">import</span> <span class="nn">warnings</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;keyfile and certfile are deprecated, use a &quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                              <span class="s2">&quot;custom ssl_context instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">keyfile</span> <span class="o">=</span> <span class="n">keyfile</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">certfile</span> <span class="o">=</span> <span class="n">certfile</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_stdlib_context</span><span class="p">(</span><span class="n">certfile</span><span class="o">=</span><span class="n">certfile</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                                                         <span class="n">keyfile</span><span class="o">=</span><span class="n">keyfile</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl_context</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">IMAP4</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 1 calls (0.6%)</p>
+                <p><button class="input"><span>&#8594;</span> host</button> 'localhost' (1) </p>
+                <p><button class="input"><span>&#8594;</span> port</button> 143 (1) </p>
+                <p><button class="input"><span>&#8594;</span> keyfile</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> certfile</button> '/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/test/keycert3.pem' (1) </p>
+                <p><button class="input"><span>&#8594;</span> ssl_context</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> timeout</button> None (1) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">IMAP4_SSL_PORT</span><span class="p">,</span> <span class="n">keyfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                     <span class="n">certfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ssl_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">keyfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ssl_context and keyfile arguments are mutually &quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span>                                 <span class="s2">&quot;exclusive&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">certfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ssl_context and certfile arguments are mutually &quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>                                 <span class="s2">&quot;exclusive&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">keyfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">certfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="kn">import</span> <span class="nn">warnings</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;keyfile and certfile are deprecated, use a &quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                              <span class="s2">&quot;custom ssl_context instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">keyfile</span> <span class="o">=</span> <span class="n">keyfile</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">certfile</span> <span class="o">=</span> <span class="n">certfile</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_stdlib_context</span><span class="p">(</span><span class="n">certfile</span><span class="o">=</span><span class="n">certfile</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                                                         <span class="n">keyfile</span><span class="o">=</span><span class="n">keyfile</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl_context</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">IMAP4</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

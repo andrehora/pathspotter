@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.cli.locate_app</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.cli.locate_app</h1>
+                <span>Coverage: 100.0% (15/15),</span>
+                <span>Tests: 4, </span>
+                <span>Calls: 32, </span>
+                <span>Exceptions: 19, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 12 calls (37.5%)</p>
+                <p><button class="input"><span>&#8594;</span> module_name</button> 'cliapp.factory' (8) 'cliapp.app' (4) </p>
+                <p><button class="input"><span>&#8594;</span> app_name</button> 'testapp' (3) 'create_app' (1) 'create_app()' (1) 'create_app2("foo", "bar")' (1) 'create_app2("foo", "bar", )' (1) ' create_app () ' (1) 'notanapp' (...</p>
+                <p><button class="input"><span>&#8594;</span> raise_if_not_found</button> True (12) </p>
+                <p><button class="output"><span>&#8617; return</span></button> Flask (8) None (4) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> NoAppException (4) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">locate_app</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">app_name</span><span class="p">,</span> <span class="n">raise_if_not_found</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="nb">__import__</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># Reraise the ImportError if it occurred within the imported module.</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># Determine this by checking whether the trace has a depth &gt; 1.</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">tb_next</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">NoAppException</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot;While importing </span><span class="si">{</span><span class="n">module_name</span><span class="si">!r}</span><span class="s2">, an ImportError was&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot; raised:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">raise_if_not_found</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">NoAppException</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not import </span><span class="si">{</span><span class="n">module_name</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="n">module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="k">if</span> <span class="n">app_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">find_best_app</span><span class="p">(</span><span class="n">module</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="k">return</span> <span class="n">find_app_by_string</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">app_name</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 10 calls (31.2%)</p>
+                <p><button class="input"><span>&#8594;</span> module_name</button> 'wsgi' (4) 'app' (4) 'notanapp.py' (1) 'cliapp.wsgi' (1) </p>
+                <p><button class="input"><span>&#8594;</span> app_name</button> None (10) </p>
+                <p><button class="input"><span>&#8594;</span> raise_if_not_found</button> False (10) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (10) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ModuleNotFoundError (10) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">locate_app</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">app_name</span><span class="p">,</span> <span class="n">raise_if_not_found</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="nb">__import__</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># Reraise the ImportError if it occurred within the imported module.</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># Determine this by checking whether the trace has a depth &gt; 1.</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">tb_next</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">NoAppException</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot;While importing </span><span class="si">{</span><span class="n">module_name</span><span class="si">!r}</span><span class="s2">, an ImportError was&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot; raised:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">elif</span> <span class="n">raise_if_not_found</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">NoAppException</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not import </span><span class="si">{</span><span class="n">module_name</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="n">module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">app_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">find_best_app</span><span class="p">(</span><span class="n">module</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">find_app_by_string</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">app_name</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 5 calls (15.6%)</p>
+                <p><button class="input"><span>&#8594;</span> module_name</button> 'cliapp.app' (3) 'cliapp.factory' (1) 'wsgi' (1) </p>
+                <p><button class="input"><span>&#8594;</span> app_name</button> None (5) </p>
+                <p><button class="input"><span>&#8594;</span> raise_if_not_found</button> True (3) False (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> Flask (5) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">locate_app</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">app_name</span><span class="p">,</span> <span class="n">raise_if_not_found</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="nb">__import__</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># Reraise the ImportError if it occurred within the imported module.</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># Determine this by checking whether the trace has a depth &gt; 1.</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">tb_next</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">NoAppException</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot;While importing </span><span class="si">{</span><span class="n">module_name</span><span class="si">!r}</span><span class="s2">, an ImportError was&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot; raised:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">raise_if_not_found</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">NoAppException</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not import </span><span class="si">{</span><span class="n">module_name</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="n">module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="k">if</span> <span class="n">app_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">return</span> <span class="n">find_best_app</span><span class="p">(</span><span class="n">module</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">find_app_by_string</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">app_name</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 3 calls (9.4%)</p>
+                <p><button class="input"><span>&#8594;</span> module_name</button> 'notanapp.py' (1) 'cliapp/app' (1) 'cliapp.message.txt' (1) </p>
+                <p><button class="input"><span>&#8594;</span> app_name</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> raise_if_not_found</button> True (3) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> NoAppException (3) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">locate_app</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">app_name</span><span class="p">,</span> <span class="n">raise_if_not_found</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="nb">__import__</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># Reraise the ImportError if it occurred within the imported module.</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># Determine this by checking whether the trace has a depth &gt; 1.</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">tb_next</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">NoAppException</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot;While importing </span><span class="si">{</span><span class="n">module_name</span><span class="si">!r}</span><span class="s2">, an ImportError was&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot; raised:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">elif</span> <span class="n">raise_if_not_found</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">raise</span> <span class="n">NoAppException</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not import </span><span class="si">{</span><span class="n">module_name</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="n">module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">app_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">find_best_app</span><span class="p">(</span><span class="n">module</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">find_app_by_string</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">app_name</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 2 calls (6.2%)</p>
+                <p><button class="input"><span>&#8594;</span> module_name</button> 'cliapp.importerrorapp' (2) </p>
+                <p><button class="input"><span>&#8594;</span> app_name</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> raise_if_not_found</button> True (1) False (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> NoAppException (2) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">locate_app</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">app_name</span><span class="p">,</span> <span class="n">raise_if_not_found</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="nb">__import__</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># Reraise the ImportError if it occurred within the imported module.</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># Determine this by checking whether the trace has a depth &gt; 1.</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">tb_next</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">raise</span> <span class="n">NoAppException</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                <span class="sa">f</span><span class="s2">&quot;While importing </span><span class="si">{</span><span class="n">module_name</span><span class="si">!r}</span><span class="s2">, an ImportError was&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="sa">f</span><span class="s2">&quot; raised:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">raise_if_not_found</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">NoAppException</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not import </span><span class="si">{</span><span class="n">module_name</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="n">module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">app_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">find_best_app</span><span class="p">(</span><span class="n">module</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">find_app_by_string</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">app_name</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>difflib._mdiff.<locals>._make_line</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: difflib._mdiff.&lt;locals&gt;._make_line</h1>
+                <span>Coverage: 83.3% (15/18),</span>
+                <span>Tests: 5, </span>
+                <span>Calls: 802, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 601 calls (74.9%)</p>
+                <p><button class="input"><span>&#8594;</span> lines</button> ['  123', '  123', '  123', '  123'] (294) ['  ', '-    1. Beautiful is beTTer than ugly.', '?                      ^^\n', '+    1. Beautiful is bette...</p>
+                <p><button class="input"><span>&#8594;</span> format_key</button> None (601) </p>
+                <p><button class="input"><span>&#8594;</span> side</button> 0 (308) 1 (293) </p>
+                <p><button class="input"><span>&#8594;</span> num_lines</button> [0, 0] (15) [1, 0] (15) [3, 2] (12) [8, 8] (10) [9, 8] (10) [10, 10] (10) [11, 10] (10) [15, 15] (10) [16, 15] (10) [6, 5] (9) </p>
+                <p><button class="output"><span>&#8617; return</span></button> (1, '') (22) (21, '123') (14) (22, '123') (14) (23, '123') (14) (24, '123') (14) (25, '123') (14) (36, '123') (14) (37, '123') (14) (38, '123') (14) (...</p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_make_line</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">format_key</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">num_lines</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns line of text with user&#39;s change markup and line formatting.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        lines -- list of lines from the ndiff generator to produce a line of</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">                 text from.  When producing the line of text to return, the</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">                 lines used are removed from this list.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        format_key -- &#39;+&#39; return first line in list with &quot;add&quot; markup around</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">                          the entire line.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">                      &#39;-&#39; return first line in list with &quot;delete&quot; markup around</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">                          the entire line.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">                      &#39;?&#39; return first line in list with add/delete/change</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">                          intraline markup (indices obtained from second line)</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">                      None return first line in list with no markup</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        side -- indice into the num_lines list (0=from,1=to)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        num_lines -- from/to current line number.  This is NOT intended to be a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">                     passed parameter.  It is present as a keyword argument to</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">                     maintain memory of the current line numbers between calls</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">                     of this function.</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        Note, this function is purposefully not defined at the module scope so</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        that data it needs from its parent function (within whose context it</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        is defined) does not need to be of module scope.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="n">num_lines</span><span class="p">[</span><span class="n">side</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Handle case where no user markup is to be added, just return line of</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># text with user&#39;s line format to allow for usage of the line number.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="n">format_key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">return</span> <span class="p">(</span><span class="n">num_lines</span><span class="p">[</span><span class="n">side</span><span class="p">],</span><span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">2</span><span class="p">:])</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># Handle case of intraline changes</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">format_key</span> <span class="o">==</span> <span class="s1">&#39;?&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="n">text</span><span class="p">,</span> <span class="n">markers</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>            <span class="c1"># find intraline changes (store change type and indices in tuples)</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">sub_info</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="k">def</span> <span class="nf">record_sub_info</span><span class="p">(</span><span class="n">match_object</span><span class="p">,</span><span class="n">sub_info</span><span class="o">=</span><span class="n">sub_info</span><span class="p">):</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">sub_info</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">match_object</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span><span class="n">match_object</span><span class="o">.</span><span class="n">span</span><span class="p">()])</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">match_object</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="n">change_re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">record_sub_info</span><span class="p">,</span><span class="n">markers</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>            <span class="c1"># process each tuple inserting our special marks that won&#39;t be</span></span>
+<span class="num"><a href="#39">39</a></span><span>            <span class="c1"># noticed by an xml/html escaper.</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">key</span><span class="p">,(</span><span class="n">begin</span><span class="p">,</span><span class="n">end</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">sub_info</span><span class="p">):</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">begin</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\0</span><span class="s1">&#39;</span><span class="o">+</span><span class="n">key</span><span class="o">+</span><span class="n">text</span><span class="p">[</span><span class="n">begin</span><span class="p">:</span><span class="n">end</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\1</span><span class="s1">&#39;</span><span class="o">+</span><span class="n">text</span><span class="p">[</span><span class="n">end</span><span class="p">:]</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span></span>
+<span class="num"><a href="#43">43</a></span><span>        <span class="c1"># Handle case of add/delete entire line</span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="n">text</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span></span>
+<span class="num"><a href="#46">46</a></span><span>            <span class="c1"># if line of text is just a newline, insert a space so there is</span></span>
+<span class="num"><a href="#47">47</a></span><span>            <span class="c1"># something for the user to highlight and see.</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span></span>
+<span class="num"><a href="#50">50</a></span><span>            <span class="c1"># insert marks that won&#39;t be noticed by an xml/html escaper.</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">            <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\0</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">format_key</span> <span class="o">+</span> <span class="n">text</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\1</span><span class="s1">&#39;</span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># Return line of text, first allow user&#39;s line formatter to do its</span></span>
+<span class="num"><a href="#53">53</a></span><span>        <span class="c1"># thing (such as adding the line number) then replace the special</span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="c1"># marks with what the user&#39;s change markup.</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">        <span class="k">return</span> <span class="p">(</span><span class="n">num_lines</span><span class="p">[</span><span class="n">side</span><span class="p">],</span><span class="n">text</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 103 calls (12.8%)</p>
+                <p><button class="input"><span>&#8594;</span> lines</button> ['-    1. Beautiful is beTTer than ugly.', '?                      ^^\n', '+    1. Beautiful is better than ugly.', '?                      ^^\n'] (17...</p>
+                <p><button class="input"><span>&#8594;</span> format_key</button> '?' (103) </p>
+                <p><button class="input"><span>&#8594;</span> side</button> 1 (59) 0 (44) </p>
+                <p><button class="input"><span>&#8594;</span> num_lines</button> [1, 1] (9) [2, 1] (9) [4, 2] (7) [5, 5] (5) [16, 16] (4) [17, 16] (4) [19, 17] (4) [31, 31] (4) [32, 31] (4) [34, 32] (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> (2, '   1. Beautiful is be\x00^TT\x01er than ugly.') (6) (2, '   1. Beautiful is be\x00^tt\x01er than ugly.') (6) (3, '   3.\x00+  \x01 Simple is bett...</p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_make_line</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">format_key</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">num_lines</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns line of text with user&#39;s change markup and line formatting.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        lines -- list of lines from the ndiff generator to produce a line of</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">                 text from.  When producing the line of text to return, the</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">                 lines used are removed from this list.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        format_key -- &#39;+&#39; return first line in list with &quot;add&quot; markup around</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">                          the entire line.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">                      &#39;-&#39; return first line in list with &quot;delete&quot; markup around</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">                          the entire line.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">                      &#39;?&#39; return first line in list with add/delete/change</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">                          intraline markup (indices obtained from second line)</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">                      None return first line in list with no markup</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        side -- indice into the num_lines list (0=from,1=to)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        num_lines -- from/to current line number.  This is NOT intended to be a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">                     passed parameter.  It is present as a keyword argument to</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">                     maintain memory of the current line numbers between calls</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">                     of this function.</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        Note, this function is purposefully not defined at the module scope so</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        that data it needs from its parent function (within whose context it</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        is defined) does not need to be of module scope.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="n">num_lines</span><span class="p">[</span><span class="n">side</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Handle case where no user markup is to be added, just return line of</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># text with user&#39;s line format to allow for usage of the line number.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="n">format_key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">return</span> <span class="p">(</span><span class="n">num_lines</span><span class="p">[</span><span class="n">side</span><span class="p">],</span><span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">2</span><span class="p">:])</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># Handle case of intraline changes</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="k">if</span> <span class="n">format_key</span> <span class="o">==</span> <span class="s1">&#39;?&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="n">text</span><span class="p">,</span> <span class="n">markers</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>            <span class="c1"># find intraline changes (store change type and indices in tuples)</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">sub_info</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="k">def</span> <span class="nf">record_sub_info</span><span class="p">(</span><span class="n">match_object</span><span class="p">,</span><span class="n">sub_info</span><span class="o">=</span><span class="n">sub_info</span><span class="p">):</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">sub_info</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">match_object</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span><span class="n">match_object</span><span class="o">.</span><span class="n">span</span><span class="p">()])</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">match_object</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="n">change_re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">record_sub_info</span><span class="p">,</span><span class="n">markers</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>            <span class="c1"># process each tuple inserting our special marks that won&#39;t be</span></span>
+<span class="num"><a href="#39">39</a></span><span>            <span class="c1"># noticed by an xml/html escaper.</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="k">for</span> <span class="n">key</span><span class="p">,(</span><span class="n">begin</span><span class="p">,</span><span class="n">end</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">sub_info</span><span class="p">):</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">begin</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\0</span><span class="s1">&#39;</span><span class="o">+</span><span class="n">key</span><span class="o">+</span><span class="n">text</span><span class="p">[</span><span class="n">begin</span><span class="p">:</span><span class="n">end</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\1</span><span class="s1">&#39;</span><span class="o">+</span><span class="n">text</span><span class="p">[</span><span class="n">end</span><span class="p">:]</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span></span>
+<span class="num"><a href="#43">43</a></span><span>        <span class="c1"># Handle case of add/delete entire line</span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="n">text</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span></span>
+<span class="num"><a href="#46">46</a></span><span>            <span class="c1"># if line of text is just a newline, insert a space so there is</span></span>
+<span class="num"><a href="#47">47</a></span><span>            <span class="c1"># something for the user to highlight and see.</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span></span>
+<span class="num"><a href="#50">50</a></span><span>            <span class="c1"># insert marks that won&#39;t be noticed by an xml/html escaper.</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">            <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\0</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">format_key</span> <span class="o">+</span> <span class="n">text</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\1</span><span class="s1">&#39;</span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># Return line of text, first allow user&#39;s line formatter to do its</span></span>
+<span class="num"><a href="#53">53</a></span><span>        <span class="c1"># thing (such as adding the line number) then replace the special</span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="c1"># marks with what the user&#39;s change markup.</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="k">return</span> <span class="p">(</span><span class="n">num_lines</span><span class="p">[</span><span class="n">side</span><span class="p">],</span><span class="n">text</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 98 calls (12.2%)</p>
+                <p><button class="input"><span>&#8594;</span> lines</button> ['-    2. Explicit is better than implicit.', '-    3. Simple is better than complex.', '+    3.   Simple is better than complex.', '?      ++\n'] (17...</p>
+                <p><button class="input"><span>&#8594;</span> format_key</button> '-' (49) '+' (49) </p>
+                <p><button class="input"><span>&#8594;</span> side</button> 0 (49) 1 (49) </p>
+                <p><button class="input"><span>&#8594;</span> num_lines</button> [4, 3] (10) [2, 2] (7) [5, 3] (7) [5, 4] (7) [17, 17] (4) [19, 18] (4) [20, 18] (4) [20, 19] (4) [32, 32] (4) [34, 33] (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> (5, '\x00-   4. Complex is better than complicated.\x01') (7) (5, '\x00+   5. Flat is better than nested.\x01') (7) (3, '\x00-   2. Explicit is better...</p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_make_line</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">format_key</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">num_lines</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns line of text with user&#39;s change markup and line formatting.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        lines -- list of lines from the ndiff generator to produce a line of</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">                 text from.  When producing the line of text to return, the</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">                 lines used are removed from this list.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        format_key -- &#39;+&#39; return first line in list with &quot;add&quot; markup around</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">                          the entire line.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">                      &#39;-&#39; return first line in list with &quot;delete&quot; markup around</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">                          the entire line.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">                      &#39;?&#39; return first line in list with add/delete/change</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">                          intraline markup (indices obtained from second line)</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">                      None return first line in list with no markup</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        side -- indice into the num_lines list (0=from,1=to)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        num_lines -- from/to current line number.  This is NOT intended to be a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">                     passed parameter.  It is present as a keyword argument to</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">                     maintain memory of the current line numbers between calls</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">                     of this function.</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        Note, this function is purposefully not defined at the module scope so</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        that data it needs from its parent function (within whose context it</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        is defined) does not need to be of module scope.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="n">num_lines</span><span class="p">[</span><span class="n">side</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Handle case where no user markup is to be added, just return line of</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># text with user&#39;s line format to allow for usage of the line number.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="n">format_key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">return</span> <span class="p">(</span><span class="n">num_lines</span><span class="p">[</span><span class="n">side</span><span class="p">],</span><span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">2</span><span class="p">:])</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># Handle case of intraline changes</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="k">if</span> <span class="n">format_key</span> <span class="o">==</span> <span class="s1">&#39;?&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="n">text</span><span class="p">,</span> <span class="n">markers</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>            <span class="c1"># find intraline changes (store change type and indices in tuples)</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">sub_info</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="k">def</span> <span class="nf">record_sub_info</span><span class="p">(</span><span class="n">match_object</span><span class="p">,</span><span class="n">sub_info</span><span class="o">=</span><span class="n">sub_info</span><span class="p">):</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">sub_info</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">match_object</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span><span class="n">match_object</span><span class="o">.</span><span class="n">span</span><span class="p">()])</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">match_object</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="n">change_re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">record_sub_info</span><span class="p">,</span><span class="n">markers</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>            <span class="c1"># process each tuple inserting our special marks that won&#39;t be</span></span>
+<span class="num"><a href="#39">39</a></span><span>            <span class="c1"># noticed by an xml/html escaper.</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">key</span><span class="p">,(</span><span class="n">begin</span><span class="p">,</span><span class="n">end</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">sub_info</span><span class="p">):</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">begin</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\0</span><span class="s1">&#39;</span><span class="o">+</span><span class="n">key</span><span class="o">+</span><span class="n">text</span><span class="p">[</span><span class="n">begin</span><span class="p">:</span><span class="n">end</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\1</span><span class="s1">&#39;</span><span class="o">+</span><span class="n">text</span><span class="p">[</span><span class="n">end</span><span class="p">:]</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span></span>
+<span class="num"><a href="#43">43</a></span><span>        <span class="c1"># Handle case of add/delete entire line</span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="n">text</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span></span>
+<span class="num"><a href="#46">46</a></span><span>            <span class="c1"># if line of text is just a newline, insert a space so there is</span></span>
+<span class="num"><a href="#47">47</a></span><span>            <span class="c1"># something for the user to highlight and see.</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span></span>
+<span class="num"><a href="#50">50</a></span><span>            <span class="c1"># insert marks that won&#39;t be noticed by an xml/html escaper.</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">            <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\0</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">format_key</span> <span class="o">+</span> <span class="n">text</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\1</span><span class="s1">&#39;</span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># Return line of text, first allow user&#39;s line formatter to do its</span></span>
+<span class="num"><a href="#53">53</a></span><span>        <span class="c1"># thing (such as adding the line number) then replace the special</span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="c1"># marks with what the user&#39;s change markup.</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="k">return</span> <span class="p">(</span><span class="n">num_lines</span><span class="p">[</span><span class="n">side</span><span class="p">],</span><span class="n">text</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

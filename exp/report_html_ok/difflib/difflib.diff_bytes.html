@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>difflib.diff_bytes</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: difflib.diff_bytes</h1>
+                <span>Coverage: 61.1% (11/18),</span>
+                <span>Tests: 4, </span>
+                <span>Calls: 23, </span>
+                <span>Exceptions: 5, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 12 calls (52.2%)</p>
+                <p><button class="input"><span>&#8594;</span> dfunc</button> unified_diff def (7) context_diff def (5) </p>
+                <p><button class="input"><span>&#8594;</span> a</button> list (12) </p>
+                <p><button class="input"><span>&#8594;</span> b</button> list (12) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile</button> bytes (12) </p>
+                <p><button class="input"><span>&#8594;</span> tofile</button> bytes (12) </p>
+                <p><button class="input"><span>&#8594;</span> fromfiledate</button> bytes (12) </p>
+                <p><button class="input"><span>&#8594;</span> tofiledate</button> bytes (12) </p>
+                <p><button class="input"><span>&#8594;</span> n</button> 3 (12) </p>
+                <p><button class="input"><span>&#8594;</span> lineterm</button> bytes (12) </p>
+                <p><button class="output"><span>&#8647; yield</span></button> bytes (79) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">diff_bytes</span><span class="p">(</span><span class="n">dfunc</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofile</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>               <span class="n">fromfiledate</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofiledate</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lineterm</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Compare `a` and `b`, two sequences of lines represented as bytes rather</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    than str. This is a wrapper for `dfunc`, which is typically either</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    unified_diff() or context_diff(). Inputs are losslessly converted to</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    strings so that `dfunc` only has to worry about strings, and encoded</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    back to bytes on return. This is necessary to compare files with</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    unknown or inconsistent encoding. All other inputs (except `n`) must be</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    bytes rather than str.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;all arguments must be bytes, not </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%r</span><span class="s1">)&#39;</span> <span class="o">%</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                   <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">decode</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">decode</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">    <span class="n">fromfile</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">fromfile</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="n">tofile</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">tofile</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">    <span class="n">fromfiledate</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">fromfiledate</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">    <span class="n">tofiledate</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">tofiledate</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">    <span class="n">lineterm</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">    <span class="n">lines</span> <span class="o">=</span> <span class="n">dfunc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="p">,</span> <span class="n">tofile</span><span class="p">,</span> <span class="n">fromfiledate</span><span class="p">,</span> <span class="n">tofiledate</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">yield</span> <span class="n">line</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 6 calls (26.1%)</p>
+                <p><button class="input"><span>&#8594;</span> dfunc</button> unified_diff def (3) context_diff def (3) </p>
+                <p><button class="input"><span>&#8594;</span> a</button> list (6) </p>
+                <p><button class="input"><span>&#8594;</span> b</button> list (6) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile</button> bytes (6) </p>
+                <p><button class="input"><span>&#8594;</span> tofile</button> bytes (6) </p>
+                <p><button class="input"><span>&#8594;</span> fromfiledate</button> bytes (6) </p>
+                <p><button class="input"><span>&#8594;</span> tofiledate</button> bytes (6) </p>
+                <p><button class="input"><span>&#8594;</span> n</button> 3 (6) </p>
+                <p><button class="input"><span>&#8594;</span> lineterm</button> bytes (6) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">diff_bytes</span><span class="p">(</span><span class="n">dfunc</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofile</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>               <span class="n">fromfiledate</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofiledate</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lineterm</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Compare `a` and `b`, two sequences of lines represented as bytes rather</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    than str. This is a wrapper for `dfunc`, which is typically either</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    unified_diff() or context_diff(). Inputs are losslessly converted to</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    strings so that `dfunc` only has to worry about strings, and encoded</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    back to bytes on return. This is necessary to compare files with</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    unknown or inconsistent encoding. All other inputs (except `n`) must be</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    bytes rather than str.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;all arguments must be bytes, not </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%r</span><span class="s1">)&#39;</span> <span class="o">%</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                   <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">decode</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">decode</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">    <span class="n">fromfile</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">fromfile</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="n">tofile</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">tofile</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">    <span class="n">fromfiledate</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">fromfiledate</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">    <span class="n">tofiledate</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">tofiledate</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">    <span class="n">lineterm</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">    <span class="n">lines</span> <span class="o">=</span> <span class="n">dfunc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="p">,</span> <span class="n">tofile</span><span class="p">,</span> <span class="n">fromfiledate</span><span class="p">,</span> <span class="n">tofiledate</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="k">yield</span> <span class="n">line</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (8.7%)</p>
+                <p><button class="input"><span>&#8594;</span> dfunc</button> unified_diff def (1) context_diff def (1) </p>
+                <p><button class="input"><span>&#8594;</span> a</button> list (2) </p>
+                <p><button class="input"><span>&#8594;</span> b</button> ['hello'] (2) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile</button> bytes (2) </p>
+                <p><button class="input"><span>&#8594;</span> tofile</button> bytes (2) </p>
+                <p><button class="input"><span>&#8594;</span> fromfiledate</button> bytes (2) </p>
+                <p><button class="input"><span>&#8594;</span> tofiledate</button> bytes (2) </p>
+                <p><button class="input"><span>&#8594;</span> n</button> 3 (2) </p>
+                <p><button class="input"><span>&#8594;</span> lineterm</button> bytes (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (2) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">14 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">diff_bytes</span><span class="p">(</span><span class="n">dfunc</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofile</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>               <span class="n">fromfiledate</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofiledate</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lineterm</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Compare `a` and `b`, two sequences of lines represented as bytes rather</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    than str. This is a wrapper for `dfunc`, which is typically either</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    unified_diff() or context_diff(). Inputs are losslessly converted to</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    strings so that `dfunc` only has to worry about strings, and encoded</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    back to bytes on return. This is necessary to compare files with</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    unknown or inconsistent encoding. All other inputs (except `n`) must be</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    bytes rather than str.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;all arguments must be bytes, not </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%r</span><span class="s1">)&#39;</span> <span class="o">%</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                   <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">decode</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">decode</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">    <span class="n">fromfile</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">fromfile</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">    <span class="n">tofile</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">tofile</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">    <span class="n">fromfiledate</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">fromfiledate</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">    <span class="n">tofiledate</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">tofiledate</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">    <span class="n">lineterm</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">    <span class="n">lines</span> <span class="o">=</span> <span class="n">dfunc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="p">,</span> <span class="n">tofile</span><span class="p">,</span> <span class="n">fromfiledate</span><span class="p">,</span> <span class="n">tofiledate</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="k">yield</span> <span class="n">line</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 2 calls (8.7%)</p>
+                <p><button class="input"><span>&#8594;</span> dfunc</button> unified_diff def (1) context_diff def (1) </p>
+                <p><button class="input"><span>&#8594;</span> a</button> ['hello'] (2) </p>
+                <p><button class="input"><span>&#8594;</span> b</button> list (2) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile</button> bytes (2) </p>
+                <p><button class="input"><span>&#8594;</span> tofile</button> bytes (2) </p>
+                <p><button class="input"><span>&#8594;</span> fromfiledate</button> bytes (2) </p>
+                <p><button class="input"><span>&#8594;</span> tofiledate</button> bytes (2) </p>
+                <p><button class="input"><span>&#8594;</span> n</button> 3 (2) </p>
+                <p><button class="input"><span>&#8594;</span> lineterm</button> bytes (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (2) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">diff_bytes</span><span class="p">(</span><span class="n">dfunc</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofile</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>               <span class="n">fromfiledate</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofiledate</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lineterm</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Compare `a` and `b`, two sequences of lines represented as bytes rather</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    than str. This is a wrapper for `dfunc`, which is typically either</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    unified_diff() or context_diff(). Inputs are losslessly converted to</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    strings so that `dfunc` only has to worry about strings, and encoded</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    back to bytes on return. This is necessary to compare files with</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    unknown or inconsistent encoding. All other inputs (except `n`) must be</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    bytes rather than str.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;all arguments must be bytes, not </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%r</span><span class="s1">)&#39;</span> <span class="o">%</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                   <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">decode</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">    <span class="n">b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">decode</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">    <span class="n">fromfile</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">fromfile</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">    <span class="n">tofile</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">tofile</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">    <span class="n">fromfiledate</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">fromfiledate</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">    <span class="n">tofiledate</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">tofiledate</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">    <span class="n">lineterm</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">    <span class="n">lines</span> <span class="o">=</span> <span class="n">dfunc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="p">,</span> <span class="n">tofile</span><span class="p">,</span> <span class="n">fromfiledate</span><span class="p">,</span> <span class="n">tofiledate</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="k">yield</span> <span class="n">line</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (4.3%)</p>
+                <p><button class="input"><span>&#8594;</span> dfunc</button> unified_diff def (1) </p>
+                <p><button class="input"><span>&#8594;</span> a</button> list (1) </p>
+                <p><button class="input"><span>&#8594;</span> b</button> list (1) </p>
+                <p><button class="input"><span>&#8594;</span> fromfile</button> bytes (1) </p>
+                <p><button class="input"><span>&#8594;</span> tofile</button> bytes (1) </p>
+                <p><button class="input"><span>&#8594;</span> fromfiledate</button> '1 f&#233;v' (1) </p>
+                <p><button class="input"><span>&#8594;</span> tofiledate</button> '3 f&#233;v' (1) </p>
+                <p><button class="input"><span>&#8594;</span> n</button> 3 (1) </p>
+                <p><button class="input"><span>&#8594;</span> lineterm</button> bytes (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">diff_bytes</span><span class="p">(</span><span class="n">dfunc</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofile</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>               <span class="n">fromfiledate</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tofiledate</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lineterm</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Compare `a` and `b`, two sequences of lines represented as bytes rather</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    than str. This is a wrapper for `dfunc`, which is typically either</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    unified_diff() or context_diff(). Inputs are losslessly converted to</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    strings so that `dfunc` only has to worry about strings, and encoded</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    back to bytes on return. This is necessary to compare files with</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    unknown or inconsistent encoding. All other inputs (except `n`) must be</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    bytes rather than str.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;all arguments must be bytes, not </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%r</span><span class="s1">)&#39;</span> <span class="o">%</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                   <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">decode</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">decode</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">    <span class="n">fromfile</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">fromfile</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="n">tofile</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">tofile</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">    <span class="n">fromfiledate</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">fromfiledate</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">    <span class="n">tofiledate</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">tofiledate</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">    <span class="n">lineterm</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">    <span class="n">lines</span> <span class="o">=</span> <span class="n">dfunc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fromfile</span><span class="p">,</span> <span class="n">tofile</span><span class="p">,</span> <span class="n">fromfiledate</span><span class="p">,</span> <span class="n">tofiledate</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">lineterm</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="k">yield</span> <span class="n">line</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

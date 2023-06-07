@@ -1,7 +1,8 @@
 import os
 import re
-from libs.templite import Templite
-from spotflow.utils import full_filename, full_dir, ensure_dir, copy_files, read_file, write_html
+from pathspotter.libs.templite import Templite
+from pathspotter.utils import write_html
+from spotflow.utils import full_filename, full_dir, ensure_dir, copy_files, read_file
 
 
 REPORT_DIR = 'happypath_html'

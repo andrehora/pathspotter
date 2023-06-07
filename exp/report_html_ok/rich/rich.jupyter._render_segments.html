@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>rich.jupyter._render_segments</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: rich.jupyter._render_segments</h1>
+                <span>Coverage: 44.4% (8/18),</span>
+                <span>Tests: 6, </span>
+                <span>Calls: 6, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 6 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> segments</button> [] (6) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace"></pre>\n' (...</p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_render_segments</span><span class="p">(</span><span class="n">segments</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Segment</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">def</span> <span class="nf">escape</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Escape html.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;amp;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;lt;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;gt;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">fragments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">append_fragment</span> <span class="o">=</span> <span class="n">fragments</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="n">theme</span> <span class="o">=</span> <span class="n">DEFAULT_TERMINAL_THEME</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">for</span> <span class="n">text</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">Segment</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">segments</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">control</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="n">text</span> <span class="o">=</span> <span class="n">escape</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">style</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">rule</span> <span class="o">=</span> <span class="n">style</span><span class="o">.</span><span class="n">get_html_style</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&lt;span style=&quot;</span><span class="si">{</span><span class="n">rule</span><span class="si">}</span><span class="s1">&quot;&gt;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&lt;/span&gt;&#39;</span> <span class="k">if</span> <span class="n">rule</span> <span class="k">else</span> <span class="n">text</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">style</span><span class="o">.</span><span class="n">link</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&lt;a href=&quot;</span><span class="si">{</span><span class="n">style</span><span class="o">.</span><span class="n">link</span><span class="si">}</span><span class="s1">&quot; target=&quot;_blank&quot;&gt;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&lt;/a&gt;&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="n">append_fragment</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fragments</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">    <span class="n">html</span> <span class="o">=</span> <span class="n">JUPYTER_HTML_FORMAT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">    <span class="k">return</span> <span class="n">html</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

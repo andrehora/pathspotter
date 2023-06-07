@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>rich.logging.RichHandler.render_message</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: rich.logging.RichHandler.render_message</h1>
+                <span>Coverage: 100.0% (10/10),</span>
+                <span>Tests: 4, </span>
+                <span>Calls: 16, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 9 calls (56.2%)</p>
+                <p><button class="input"><span>&#8594;</span> record</button> LogRecord (9) </p>
+                <p><button class="input"><span>&#8594;</span> message</button> 'foo 3.141 127.0.0.1 [red]alert[/red]' (2) 'FORMATTER foo 3.141 127.0.0.1 [red]alert[/red] 2023-01-28 18:44:03,196' (2) 'FORMATTER message 2023-01-28 ...</p>
+                <p><button class="output"><span>&#8617; return</span></button> Text (9) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">render_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="n">LogRecord</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ConsoleRenderable&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Render message text in to Text.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">            record (LogRecord): logging Record.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">            message (str): String containing log message.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        Returns:</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            ConsoleRenderable: Renderable to display log message.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">use_markup</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s2">&quot;markup&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">markup</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">message_text</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="n">from_markup</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="k">if</span> <span class="n">use_markup</span> <span class="k">else</span> <span class="n">Text</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">highlighter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s2">&quot;highlighter&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">highlighter</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="n">highlighter</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">message_text</span> <span class="o">=</span> <span class="n">highlighter</span><span class="p">(</span><span class="n">message_text</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEYWORDS</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">message_text</span><span class="o">.</span><span class="n">highlight_words</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keywords</span><span class="p">,</span> <span class="s2">&quot;logging.keyword&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">return</span> <span class="n">message_text</span></span>
+            </pre>
+            <p><b>Path 2</b>: 4 calls (25.0%)</p>
+                <p><button class="input"><span>&#8594;</span> record</button> LogRecord (4) </p>
+                <p><button class="input"><span>&#8594;</span> message</button> 'FORMATTER foo 2023-01-28 18:43:57,047' (1) 'message' (1) 'message\nTraceback (most recent call last):\n  File "/Users/andrehora/Documents/git/spotflo...</p>
+                <p><button class="output"><span>&#8617; return</span></button> Text (4) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">render_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="n">LogRecord</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ConsoleRenderable&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Render message text in to Text.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">            record (LogRecord): logging Record.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">            message (str): String containing log message.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        Returns:</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            ConsoleRenderable: Renderable to display log message.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">use_markup</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s2">&quot;markup&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">markup</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">message_text</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="n">from_markup</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="k">if</span> <span class="n">use_markup</span> <span class="k">else</span> <span class="n">Text</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">highlighter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s2">&quot;highlighter&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">highlighter</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="n">highlighter</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">message_text</span> <span class="o">=</span> <span class="n">highlighter</span><span class="p">(</span><span class="n">message_text</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEYWORDS</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">message_text</span><span class="o">.</span><span class="n">highlight_words</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keywords</span><span class="p">,</span> <span class="s2">&quot;logging.keyword&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">return</span> <span class="n">message_text</span></span>
+            </pre>
+            <p><b>Path 3</b>: 3 calls (18.8%)</p>
+                <p><button class="input"><span>&#8594;</span> record</button> LogRecord (3) </p>
+                <p><button class="input"><span>&#8594;</span> message</button> 'FORMATTER foo 3.141 127.0.0.1 [red]alert[/red] 2023-01-28 18:44:03,416' (2) 'foo 3.141 127.0.0.1 [red]alert[/red]' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> Text (3) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">render_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="n">LogRecord</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ConsoleRenderable&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Render message text in to Text.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">            record (LogRecord): logging Record.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">            message (str): String containing log message.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        Returns:</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            ConsoleRenderable: Renderable to display log message.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">use_markup</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s2">&quot;markup&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">markup</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">message_text</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="n">from_markup</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="k">if</span> <span class="n">use_markup</span> <span class="k">else</span> <span class="n">Text</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">highlighter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s2">&quot;highlighter&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">highlighter</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="n">highlighter</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">message_text</span> <span class="o">=</span> <span class="n">highlighter</span><span class="p">(</span><span class="n">message_text</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEYWORDS</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">message_text</span><span class="o">.</span><span class="n">highlight_words</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keywords</span><span class="p">,</span> <span class="s2">&quot;logging.keyword&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">return</span> <span class="n">message_text</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

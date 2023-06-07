@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>requests.utils.parse_dict_header</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: requests.utils.parse_dict_header</h1>
+                <span>Coverage: 100.0% (10/10),</span>
+                <span>Tests: 9, </span>
+                <span>Calls: 29, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 28 calls (96.6%)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'nonce="6bf5d6e4da1ce66918800195d6b9130d", opaque="372825293d1c26955496c80ed6426e9e", realm="me@kennethreitz.com", qop=auth' (3) 'realm="me@kennethrei...</p>
+                <p><button class="output"><span>&#8617; return</span></button> {'nonce': '6bf5d6e4da1ce66918800195d6b9130d', 'opaque': '372825293d1c26955496c80ed6426e9e', 'realm': 'me@kennethreitz.com', 'qop': 'auth'} (3) {'realm...</p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse_dict_header</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse lists of key, value pairs as described by RFC 2068 Section 2 and</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    convert them into a python dict:</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    &gt;&gt;&gt; d = parse_dict_header(&#39;foo=&quot;is a fish&quot;, bar=&quot;as well&quot;&#39;)</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &gt;&gt;&gt; type(d) is dict</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    True</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    &gt;&gt;&gt; sorted(d.items())</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    [(&#39;bar&#39;, &#39;as well&#39;), (&#39;foo&#39;, &#39;is a fish&#39;)]</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    If there is no value for a key it will be `None`:</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    &gt;&gt;&gt; parse_dict_header(&#39;key_without_value&#39;)</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    {&#39;key_without_value&#39;: None}</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    To create a header from the :class:`dict` again, use the</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    :func:`dump_header` function.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    :param value: a string with a dict header.</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">    :return: :class:`dict`</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    :rtype: dict</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">_parse_list_header</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;=&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">result</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">if</span> <span class="n">value</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">value</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">value</span> <span class="o">=</span> <span class="n">unquote_header_value</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="n">result</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (3.4%)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'key_without_value' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> {'key_without_value': None} (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parse_dict_header</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse lists of key, value pairs as described by RFC 2068 Section 2 and</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    convert them into a python dict:</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    &gt;&gt;&gt; d = parse_dict_header(&#39;foo=&quot;is a fish&quot;, bar=&quot;as well&quot;&#39;)</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &gt;&gt;&gt; type(d) is dict</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    True</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    &gt;&gt;&gt; sorted(d.items())</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    [(&#39;bar&#39;, &#39;as well&#39;), (&#39;foo&#39;, &#39;is a fish&#39;)]</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    If there is no value for a key it will be `None`:</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    &gt;&gt;&gt; parse_dict_header(&#39;key_without_value&#39;)</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    {&#39;key_without_value&#39;: None}</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    To create a header from the :class:`dict` again, use the</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    :func:`dump_header` function.</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    :param value: a string with a dict header.</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">    :return: :class:`dict`</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    :rtype: dict</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">_parse_list_header</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;=&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="n">result</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">continue</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">value</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">value</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">value</span> <span class="o">=</span> <span class="n">unquote_header_value</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="n">result</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

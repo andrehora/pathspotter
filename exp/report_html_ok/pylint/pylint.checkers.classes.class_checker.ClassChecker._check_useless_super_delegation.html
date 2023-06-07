@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.classes.class_checker.ClassChecker._check_useless_super_delegation</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.classes.class_checker.ClassChecker._check_useless_super_delegation</h1>
+                <span>Coverage: 89.6% (43/48),</span>
+                <span>Tests: 7, </span>
+                <span>Calls: 1716, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 10</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1631 calls (95.0%)</p>
+                <p><button class="input"><span>&#8594;</span> function</button> FunctionDef (1614) AsyncFunctionDef (17) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (1631) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">46 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_useless_super_delegation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the given function node is an useless method override.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        We consider it *useless* if it uses the super() builtin, but having</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        nothing additional whatsoever than not implementing the method at all.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        If the method uses super() to delegate an operation to the rest of the MRO,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        and if the method called is the same as the current one, the arguments</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        passed to super() are the same as the parameters that were passed to</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        this method, then the method could be removed altogether, by letting</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        other implementation to take precedence.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_trivial_super_delegation</span><span class="p">(</span><span class="n">function</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="n">call</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># Classes that override __eq__ should also override</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># __hash__, even a trivial override is meaningful</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__hash__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">other_method</span> <span class="ow">in</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mymethods</span><span class="p">():</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">other_method</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__eq__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Check values of default args</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="n">klass</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">        <span class="n">meth_node</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">overridden</span> <span class="ow">in</span> <span class="n">klass</span><span class="o">.</span><span class="n">local_attr_ancestors</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="c1"># get astroid for the searched method</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="n">meth_node</span> <span class="o">=</span> <span class="n">overridden</span><span class="p">[</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># we have found the method but it&#39;s not in the local</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="c1"># dictionary.</span></span>
+<span class="num"><a href="#34">34</a></span><span>                <span class="c1"># This may happen with astroid build from living objects</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">meth_node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="c1"># If the method have an ancestor which is not a</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="c1"># function then it is legitimate to redefine it</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                <span class="ow">or</span> <span class="n">_has_different_parameters_default_value</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                    <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#42">42</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span>                <span class="c1"># arguments to builtins such as Exception.__init__() cannot be inspected</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="ow">or</span> <span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">function</span><span class="o">.</span><span class="n">argnames</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">])</span></span>
+<span class="num"><a href="#45">45</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">            <span class="k">break</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span>        <span class="c1"># Detect if the parameters are the same as the call&#39;s arguments.</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">        <span class="n">params</span> <span class="o">=</span> <span class="n">_signature_from_arguments</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">        <span class="n">args</span> <span class="o">=</span> <span class="n">_signature_from_call</span><span class="p">(</span><span class="n">call</span><span class="p">)</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">meth_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span>            <span class="c1"># Detect if the super method uses varargs and the function doesn&#39;t or makes some of those explicit</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">                <span class="ow">not</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#58">58</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">            <span class="k">def</span> <span class="nf">form_annotations</span><span class="p">(</span><span class="n">arguments</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="n">annotations</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">                    <span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">posonlyargs_annotations</span> <span class="ow">or</span> <span class="p">[]),</span> <span class="n">arguments</span><span class="o">.</span><span class="n">annotations</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="k">return</span> <span class="p">[</span><span class="n">ann</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">annotations</span> <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span></span>
+<span class="num"><a href="#66">66</a></span><span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">            <span class="n">called_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">            <span class="n">overridden_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">called_annotations</span> <span class="ow">and</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#70">70</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">called_annotations</span> <span class="o">!=</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#72">72</a></span><span></span>
+<span class="num"><a href="#73">73</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">                <span class="n">function</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="o">!=</span> <span class="n">function</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#77">77</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#78">78</a></span><span>                <span class="c1"># Override adds typing information to the return type</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#80">80</a></span><span></span>
+<span class="num"><a href="#81">81</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">_definition_equivalent_to_call</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span></span>
+<span class="num"><a href="#82">82</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">                <span class="s2">&quot;useless-parent-delegation&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#84">84</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">function</span><span class="p">,</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,),</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">                <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">,</span></span>
+<span class="num"><a href="#87">87</a></span><span>            <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 20 calls (1.2%)</p>
+                <p><button class="input"><span>&#8594;</span> function</button> FunctionDef (20) </p>
+            <button class="run" title="lines run...">30 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_useless_super_delegation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the given function node is an useless method override.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        We consider it *useless* if it uses the super() builtin, but having</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        nothing additional whatsoever than not implementing the method at all.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        If the method uses super() to delegate an operation to the rest of the MRO,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        and if the method called is the same as the current one, the arguments</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        passed to super() are the same as the parameters that were passed to</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        this method, then the method could be removed altogether, by letting</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        other implementation to take precedence.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_trivial_super_delegation</span><span class="p">(</span><span class="n">function</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">call</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># Classes that override __eq__ should also override</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># __hash__, even a trivial override is meaningful</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__hash__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">other_method</span> <span class="ow">in</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mymethods</span><span class="p">():</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">other_method</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__eq__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Check values of default args</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">klass</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">meth_node</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">for</span> <span class="n">overridden</span> <span class="ow">in</span> <span class="n">klass</span><span class="o">.</span><span class="n">local_attr_ancestors</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="c1"># get astroid for the searched method</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">meth_node</span> <span class="o">=</span> <span class="n">overridden</span><span class="p">[</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># we have found the method but it&#39;s not in the local</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="c1"># dictionary.</span></span>
+<span class="num"><a href="#34">34</a></span><span>                <span class="c1"># This may happen with astroid build from living objects</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">meth_node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="c1"># If the method have an ancestor which is not a</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="c1"># function then it is legitimate to redefine it</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                <span class="ow">or</span> <span class="n">_has_different_parameters_default_value</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                    <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#42">42</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span>                <span class="c1"># arguments to builtins such as Exception.__init__() cannot be inspected</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="ow">or</span> <span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">function</span><span class="o">.</span><span class="n">argnames</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">])</span></span>
+<span class="num"><a href="#45">45</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="k">break</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span>        <span class="c1"># Detect if the parameters are the same as the call&#39;s arguments.</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">        <span class="n">params</span> <span class="o">=</span> <span class="n">_signature_from_arguments</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">        <span class="n">args</span> <span class="o">=</span> <span class="n">_signature_from_call</span><span class="p">(</span><span class="n">call</span><span class="p">)</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">meth_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span>            <span class="c1"># Detect if the super method uses varargs and the function doesn&#39;t or makes some of those explicit</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">            <span class="k">if</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">                <span class="ow">not</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#58">58</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">            <span class="k">def</span> <span class="nf">form_annotations</span><span class="p">(</span><span class="n">arguments</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="n">annotations</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">                    <span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">posonlyargs_annotations</span> <span class="ow">or</span> <span class="p">[]),</span> <span class="n">arguments</span><span class="o">.</span><span class="n">annotations</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="k">return</span> <span class="p">[</span><span class="n">ann</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">annotations</span> <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span></span>
+<span class="num"><a href="#66">66</a></span><span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">            <span class="n">called_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">            <span class="n">overridden_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">            <span class="k">if</span> <span class="n">called_annotations</span> <span class="ow">and</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#70">70</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">called_annotations</span> <span class="o">!=</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#72">72</a></span><span></span>
+<span class="num"><a href="#73">73</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">                <span class="n">function</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="o">!=</span> <span class="n">function</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#77">77</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#78">78</a></span><span>                <span class="c1"># Override adds typing information to the return type</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#80">80</a></span><span></span>
+<span class="num"><a href="#81">81</a></span><span class="full run">        <span class="k">if</span> <span class="n">_definition_equivalent_to_call</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span></span>
+<span class="num"><a href="#82">82</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full run">                <span class="s2">&quot;useless-parent-delegation&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#84">84</a></span><span class="full run">                <span class="n">node</span><span class="o">=</span><span class="n">function</span><span class="p">,</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,),</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full run">                <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">,</span></span>
+<span class="num"><a href="#87">87</a></span><span>            <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 16 calls (0.9%)</p>
+                <p><button class="input"><span>&#8594;</span> function</button> FunctionDef (16) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (16) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">35 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_useless_super_delegation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the given function node is an useless method override.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        We consider it *useless* if it uses the super() builtin, but having</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        nothing additional whatsoever than not implementing the method at all.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        If the method uses super() to delegate an operation to the rest of the MRO,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        and if the method called is the same as the current one, the arguments</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        passed to super() are the same as the parameters that were passed to</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        this method, then the method could be removed altogether, by letting</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        other implementation to take precedence.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_trivial_super_delegation</span><span class="p">(</span><span class="n">function</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">call</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># Classes that override __eq__ should also override</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># __hash__, even a trivial override is meaningful</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__hash__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">other_method</span> <span class="ow">in</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mymethods</span><span class="p">():</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">other_method</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__eq__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Check values of default args</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">klass</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">meth_node</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">for</span> <span class="n">overridden</span> <span class="ow">in</span> <span class="n">klass</span><span class="o">.</span><span class="n">local_attr_ancestors</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="c1"># get astroid for the searched method</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">meth_node</span> <span class="o">=</span> <span class="n">overridden</span><span class="p">[</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># we have found the method but it&#39;s not in the local</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="c1"># dictionary.</span></span>
+<span class="num"><a href="#34">34</a></span><span>                <span class="c1"># This may happen with astroid build from living objects</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">meth_node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="c1"># If the method have an ancestor which is not a</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="c1"># function then it is legitimate to redefine it</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                <span class="ow">or</span> <span class="n">_has_different_parameters_default_value</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                    <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#42">42</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span>                <span class="c1"># arguments to builtins such as Exception.__init__() cannot be inspected</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="ow">or</span> <span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">function</span><span class="o">.</span><span class="n">argnames</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">])</span></span>
+<span class="num"><a href="#45">45</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">                <span class="k">return</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">            <span class="k">break</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span>        <span class="c1"># Detect if the parameters are the same as the call&#39;s arguments.</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">        <span class="n">params</span> <span class="o">=</span> <span class="n">_signature_from_arguments</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">        <span class="n">args</span> <span class="o">=</span> <span class="n">_signature_from_call</span><span class="p">(</span><span class="n">call</span><span class="p">)</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">meth_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span>            <span class="c1"># Detect if the super method uses varargs and the function doesn&#39;t or makes some of those explicit</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">                <span class="ow">not</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#58">58</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">            <span class="k">def</span> <span class="nf">form_annotations</span><span class="p">(</span><span class="n">arguments</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="n">annotations</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">                    <span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">posonlyargs_annotations</span> <span class="ow">or</span> <span class="p">[]),</span> <span class="n">arguments</span><span class="o">.</span><span class="n">annotations</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="k">return</span> <span class="p">[</span><span class="n">ann</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">annotations</span> <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span></span>
+<span class="num"><a href="#66">66</a></span><span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">            <span class="n">called_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">            <span class="n">overridden_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">called_annotations</span> <span class="ow">and</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#70">70</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">called_annotations</span> <span class="o">!=</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#72">72</a></span><span></span>
+<span class="num"><a href="#73">73</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">                <span class="n">function</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="o">!=</span> <span class="n">function</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#77">77</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#78">78</a></span><span>                <span class="c1"># Override adds typing information to the return type</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#80">80</a></span><span></span>
+<span class="num"><a href="#81">81</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">_definition_equivalent_to_call</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span></span>
+<span class="num"><a href="#82">82</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">                <span class="s2">&quot;useless-parent-delegation&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#84">84</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">function</span><span class="p">,</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,),</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">                <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">,</span></span>
+<span class="num"><a href="#87">87</a></span><span>            <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 13 calls (0.8%)</p>
+                <p><button class="input"><span>&#8594;</span> function</button> FunctionDef (13) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">38 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_useless_super_delegation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the given function node is an useless method override.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        We consider it *useless* if it uses the super() builtin, but having</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        nothing additional whatsoever than not implementing the method at all.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        If the method uses super() to delegate an operation to the rest of the MRO,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        and if the method called is the same as the current one, the arguments</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        passed to super() are the same as the parameters that were passed to</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        this method, then the method could be removed altogether, by letting</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        other implementation to take precedence.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_trivial_super_delegation</span><span class="p">(</span><span class="n">function</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">call</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># Classes that override __eq__ should also override</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># __hash__, even a trivial override is meaningful</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__hash__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">other_method</span> <span class="ow">in</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mymethods</span><span class="p">():</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">other_method</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__eq__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Check values of default args</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">klass</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">meth_node</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">for</span> <span class="n">overridden</span> <span class="ow">in</span> <span class="n">klass</span><span class="o">.</span><span class="n">local_attr_ancestors</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="c1"># get astroid for the searched method</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="n">meth_node</span> <span class="o">=</span> <span class="n">overridden</span><span class="p">[</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># we have found the method but it&#39;s not in the local</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="c1"># dictionary.</span></span>
+<span class="num"><a href="#34">34</a></span><span>                <span class="c1"># This may happen with astroid build from living objects</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">meth_node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="c1"># If the method have an ancestor which is not a</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="c1"># function then it is legitimate to redefine it</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                <span class="ow">or</span> <span class="n">_has_different_parameters_default_value</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                    <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#42">42</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span>                <span class="c1"># arguments to builtins such as Exception.__init__() cannot be inspected</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="ow">or</span> <span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">function</span><span class="o">.</span><span class="n">argnames</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">])</span></span>
+<span class="num"><a href="#45">45</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">            <span class="k">break</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span>        <span class="c1"># Detect if the parameters are the same as the call&#39;s arguments.</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">        <span class="n">params</span> <span class="o">=</span> <span class="n">_signature_from_arguments</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">        <span class="n">args</span> <span class="o">=</span> <span class="n">_signature_from_call</span><span class="p">(</span><span class="n">call</span><span class="p">)</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">meth_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span>            <span class="c1"># Detect if the super method uses varargs and the function doesn&#39;t or makes some of those explicit</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">                <span class="ow">not</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#58">58</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">            <span class="k">def</span> <span class="nf">form_annotations</span><span class="p">(</span><span class="n">arguments</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="n">annotations</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">                    <span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">posonlyargs_annotations</span> <span class="ow">or</span> <span class="p">[]),</span> <span class="n">arguments</span><span class="o">.</span><span class="n">annotations</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="k">return</span> <span class="p">[</span><span class="n">ann</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">annotations</span> <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span></span>
+<span class="num"><a href="#66">66</a></span><span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">            <span class="n">called_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">            <span class="n">overridden_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">called_annotations</span> <span class="ow">and</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#70">70</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">called_annotations</span> <span class="o">!=</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#72">72</a></span><span></span>
+<span class="num"><a href="#73">73</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">                <span class="n">function</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="o">!=</span> <span class="n">function</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#77">77</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#78">78</a></span><span>                <span class="c1"># Override adds typing information to the return type</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#80">80</a></span><span></span>
+<span class="num"><a href="#81">81</a></span><span class="full run">        <span class="k">if</span> <span class="n">_definition_equivalent_to_call</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span></span>
+<span class="num"><a href="#82">82</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">                <span class="s2">&quot;useless-parent-delegation&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#84">84</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">function</span><span class="p">,</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,),</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">                <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">,</span></span>
+<span class="num"><a href="#87">87</a></span><span>            <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 11 calls (0.6%)</p>
+                <p><button class="input"><span>&#8594;</span> function</button> FunctionDef (11) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">33 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_useless_super_delegation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the given function node is an useless method override.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        We consider it *useless* if it uses the super() builtin, but having</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        nothing additional whatsoever than not implementing the method at all.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        If the method uses super() to delegate an operation to the rest of the MRO,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        and if the method called is the same as the current one, the arguments</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        passed to super() are the same as the parameters that were passed to</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        this method, then the method could be removed altogether, by letting</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        other implementation to take precedence.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_trivial_super_delegation</span><span class="p">(</span><span class="n">function</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">call</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># Classes that override __eq__ should also override</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># __hash__, even a trivial override is meaningful</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__hash__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">other_method</span> <span class="ow">in</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mymethods</span><span class="p">():</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">other_method</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__eq__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Check values of default args</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">klass</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">meth_node</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">for</span> <span class="n">overridden</span> <span class="ow">in</span> <span class="n">klass</span><span class="o">.</span><span class="n">local_attr_ancestors</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="c1"># get astroid for the searched method</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="n">meth_node</span> <span class="o">=</span> <span class="n">overridden</span><span class="p">[</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># we have found the method but it&#39;s not in the local</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="c1"># dictionary.</span></span>
+<span class="num"><a href="#34">34</a></span><span>                <span class="c1"># This may happen with astroid build from living objects</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">meth_node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="c1"># If the method have an ancestor which is not a</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="c1"># function then it is legitimate to redefine it</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                <span class="ow">or</span> <span class="n">_has_different_parameters_default_value</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                    <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#42">42</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span>                <span class="c1"># arguments to builtins such as Exception.__init__() cannot be inspected</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="ow">or</span> <span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">function</span><span class="o">.</span><span class="n">argnames</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">])</span></span>
+<span class="num"><a href="#45">45</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">            <span class="k">break</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span>        <span class="c1"># Detect if the parameters are the same as the call&#39;s arguments.</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">        <span class="n">params</span> <span class="o">=</span> <span class="n">_signature_from_arguments</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">        <span class="n">args</span> <span class="o">=</span> <span class="n">_signature_from_call</span><span class="p">(</span><span class="n">call</span><span class="p">)</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">meth_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span>            <span class="c1"># Detect if the super method uses varargs and the function doesn&#39;t or makes some of those explicit</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">                <span class="ow">not</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#58">58</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">            <span class="k">def</span> <span class="nf">form_annotations</span><span class="p">(</span><span class="n">arguments</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="n">annotations</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">                    <span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">posonlyargs_annotations</span> <span class="ow">or</span> <span class="p">[]),</span> <span class="n">arguments</span><span class="o">.</span><span class="n">annotations</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="k">return</span> <span class="p">[</span><span class="n">ann</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">annotations</span> <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span></span>
+<span class="num"><a href="#66">66</a></span><span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">            <span class="n">called_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">            <span class="n">overridden_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">called_annotations</span> <span class="ow">and</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#70">70</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">called_annotations</span> <span class="o">!=</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#72">72</a></span><span></span>
+<span class="num"><a href="#73">73</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">                <span class="n">function</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="o">!=</span> <span class="n">function</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#77">77</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#78">78</a></span><span>                <span class="c1"># Override adds typing information to the return type</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#80">80</a></span><span></span>
+<span class="num"><a href="#81">81</a></span><span class="full run">        <span class="k">if</span> <span class="n">_definition_equivalent_to_call</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span></span>
+<span class="num"><a href="#82">82</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full run">                <span class="s2">&quot;useless-parent-delegation&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#84">84</a></span><span class="full run">                <span class="n">node</span><span class="o">=</span><span class="n">function</span><span class="p">,</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,),</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full run">                <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">,</span></span>
+<span class="num"><a href="#87">87</a></span><span>            <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 8 calls (0.5%)</p>
+                <p><button class="input"><span>&#8594;</span> function</button> FunctionDef (8) </p>
+            <button class="run" title="lines run...">25 run</button>
+            <button class="not_run" title="lines not run...">23 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_useless_super_delegation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the given function node is an useless method override.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        We consider it *useless* if it uses the super() builtin, but having</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        nothing additional whatsoever than not implementing the method at all.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        If the method uses super() to delegate an operation to the rest of the MRO,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        and if the method called is the same as the current one, the arguments</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        passed to super() are the same as the parameters that were passed to</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        this method, then the method could be removed altogether, by letting</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        other implementation to take precedence.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_trivial_super_delegation</span><span class="p">(</span><span class="n">function</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">call</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># Classes that override __eq__ should also override</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># __hash__, even a trivial override is meaningful</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__hash__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">other_method</span> <span class="ow">in</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mymethods</span><span class="p">():</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">other_method</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__eq__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Check values of default args</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">klass</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">meth_node</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">for</span> <span class="n">overridden</span> <span class="ow">in</span> <span class="n">klass</span><span class="o">.</span><span class="n">local_attr_ancestors</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="c1"># get astroid for the searched method</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">meth_node</span> <span class="o">=</span> <span class="n">overridden</span><span class="p">[</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># we have found the method but it&#39;s not in the local</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="c1"># dictionary.</span></span>
+<span class="num"><a href="#34">34</a></span><span>                <span class="c1"># This may happen with astroid build from living objects</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">meth_node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="c1"># If the method have an ancestor which is not a</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="c1"># function then it is legitimate to redefine it</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                <span class="ow">or</span> <span class="n">_has_different_parameters_default_value</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                    <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#42">42</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span>                <span class="c1"># arguments to builtins such as Exception.__init__() cannot be inspected</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="ow">or</span> <span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">function</span><span class="o">.</span><span class="n">argnames</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">])</span></span>
+<span class="num"><a href="#45">45</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="k">break</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span>        <span class="c1"># Detect if the parameters are the same as the call&#39;s arguments.</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">        <span class="n">params</span> <span class="o">=</span> <span class="n">_signature_from_arguments</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">        <span class="n">args</span> <span class="o">=</span> <span class="n">_signature_from_call</span><span class="p">(</span><span class="n">call</span><span class="p">)</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">meth_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span>            <span class="c1"># Detect if the super method uses varargs and the function doesn&#39;t or makes some of those explicit</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">            <span class="k">if</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">                <span class="ow">not</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#58">58</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">            <span class="k">def</span> <span class="nf">form_annotations</span><span class="p">(</span><span class="n">arguments</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="n">annotations</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">                    <span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">posonlyargs_annotations</span> <span class="ow">or</span> <span class="p">[]),</span> <span class="n">arguments</span><span class="o">.</span><span class="n">annotations</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="k">return</span> <span class="p">[</span><span class="n">ann</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">annotations</span> <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span></span>
+<span class="num"><a href="#66">66</a></span><span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">            <span class="n">called_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">            <span class="n">overridden_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">            <span class="k">if</span> <span class="n">called_annotations</span> <span class="ow">and</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#70">70</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">called_annotations</span> <span class="o">!=</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#72">72</a></span><span></span>
+<span class="num"><a href="#73">73</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">                <span class="n">function</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="o">!=</span> <span class="n">function</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#77">77</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#78">78</a></span><span>                <span class="c1"># Override adds typing information to the return type</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#80">80</a></span><span></span>
+<span class="num"><a href="#81">81</a></span><span class="full run">        <span class="k">if</span> <span class="n">_definition_equivalent_to_call</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span></span>
+<span class="num"><a href="#82">82</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">                <span class="s2">&quot;useless-parent-delegation&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#84">84</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">function</span><span class="p">,</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,),</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">                <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">,</span></span>
+<span class="num"><a href="#87">87</a></span><span>            <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 7</b>: 3 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> function</button> FunctionDef (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (3) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">34 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_useless_super_delegation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the given function node is an useless method override.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        We consider it *useless* if it uses the super() builtin, but having</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        nothing additional whatsoever than not implementing the method at all.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        If the method uses super() to delegate an operation to the rest of the MRO,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        and if the method called is the same as the current one, the arguments</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        passed to super() are the same as the parameters that were passed to</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        this method, then the method could be removed altogether, by letting</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        other implementation to take precedence.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_trivial_super_delegation</span><span class="p">(</span><span class="n">function</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">call</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># Classes that override __eq__ should also override</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># __hash__, even a trivial override is meaningful</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__hash__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">other_method</span> <span class="ow">in</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mymethods</span><span class="p">():</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">other_method</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__eq__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Check values of default args</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">klass</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">meth_node</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">for</span> <span class="n">overridden</span> <span class="ow">in</span> <span class="n">klass</span><span class="o">.</span><span class="n">local_attr_ancestors</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="c1"># get astroid for the searched method</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">meth_node</span> <span class="o">=</span> <span class="n">overridden</span><span class="p">[</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># we have found the method but it&#39;s not in the local</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="c1"># dictionary.</span></span>
+<span class="num"><a href="#34">34</a></span><span>                <span class="c1"># This may happen with astroid build from living objects</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">meth_node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="c1"># If the method have an ancestor which is not a</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="c1"># function then it is legitimate to redefine it</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                <span class="ow">or</span> <span class="n">_has_different_parameters_default_value</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                    <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#42">42</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span>                <span class="c1"># arguments to builtins such as Exception.__init__() cannot be inspected</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="ow">or</span> <span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">function</span><span class="o">.</span><span class="n">argnames</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">])</span></span>
+<span class="num"><a href="#45">45</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">                <span class="k">return</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">            <span class="k">break</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span>        <span class="c1"># Detect if the parameters are the same as the call&#39;s arguments.</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">        <span class="n">params</span> <span class="o">=</span> <span class="n">_signature_from_arguments</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">        <span class="n">args</span> <span class="o">=</span> <span class="n">_signature_from_call</span><span class="p">(</span><span class="n">call</span><span class="p">)</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">meth_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span>            <span class="c1"># Detect if the super method uses varargs and the function doesn&#39;t or makes some of those explicit</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">                <span class="ow">not</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#58">58</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">            <span class="k">def</span> <span class="nf">form_annotations</span><span class="p">(</span><span class="n">arguments</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="n">annotations</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">                    <span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">posonlyargs_annotations</span> <span class="ow">or</span> <span class="p">[]),</span> <span class="n">arguments</span><span class="o">.</span><span class="n">annotations</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="k">return</span> <span class="p">[</span><span class="n">ann</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">annotations</span> <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span></span>
+<span class="num"><a href="#66">66</a></span><span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">            <span class="n">called_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">            <span class="n">overridden_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">called_annotations</span> <span class="ow">and</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#70">70</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">called_annotations</span> <span class="o">!=</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#72">72</a></span><span></span>
+<span class="num"><a href="#73">73</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">                <span class="n">function</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="o">!=</span> <span class="n">function</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#77">77</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#78">78</a></span><span>                <span class="c1"># Override adds typing information to the return type</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#80">80</a></span><span></span>
+<span class="num"><a href="#81">81</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">_definition_equivalent_to_call</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span></span>
+<span class="num"><a href="#82">82</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">                <span class="s2">&quot;useless-parent-delegation&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#84">84</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">function</span><span class="p">,</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,),</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">                <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">,</span></span>
+<span class="num"><a href="#87">87</a></span><span>            <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 8</b>: 2 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> function</button> FunctionDef (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (2) </p>
+            <button class="run" title="lines run...">21 run</button>
+            <button class="not_run" title="lines not run...">27 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_useless_super_delegation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the given function node is an useless method override.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        We consider it *useless* if it uses the super() builtin, but having</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        nothing additional whatsoever than not implementing the method at all.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        If the method uses super() to delegate an operation to the rest of the MRO,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        and if the method called is the same as the current one, the arguments</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        passed to super() are the same as the parameters that were passed to</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        this method, then the method could be removed altogether, by letting</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        other implementation to take precedence.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_trivial_super_delegation</span><span class="p">(</span><span class="n">function</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">call</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># Classes that override __eq__ should also override</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># __hash__, even a trivial override is meaningful</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__hash__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">other_method</span> <span class="ow">in</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mymethods</span><span class="p">():</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">other_method</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__eq__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Check values of default args</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">klass</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">meth_node</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">for</span> <span class="n">overridden</span> <span class="ow">in</span> <span class="n">klass</span><span class="o">.</span><span class="n">local_attr_ancestors</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="c1"># get astroid for the searched method</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">meth_node</span> <span class="o">=</span> <span class="n">overridden</span><span class="p">[</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># we have found the method but it&#39;s not in the local</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="c1"># dictionary.</span></span>
+<span class="num"><a href="#34">34</a></span><span>                <span class="c1"># This may happen with astroid build from living objects</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">meth_node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="c1"># If the method have an ancestor which is not a</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="c1"># function then it is legitimate to redefine it</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                <span class="ow">or</span> <span class="n">_has_different_parameters_default_value</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                    <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#42">42</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span>                <span class="c1"># arguments to builtins such as Exception.__init__() cannot be inspected</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="ow">or</span> <span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">function</span><span class="o">.</span><span class="n">argnames</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">])</span></span>
+<span class="num"><a href="#45">45</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="k">break</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span>        <span class="c1"># Detect if the parameters are the same as the call&#39;s arguments.</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">        <span class="n">params</span> <span class="o">=</span> <span class="n">_signature_from_arguments</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">        <span class="n">args</span> <span class="o">=</span> <span class="n">_signature_from_call</span><span class="p">(</span><span class="n">call</span><span class="p">)</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">meth_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span>            <span class="c1"># Detect if the super method uses varargs and the function doesn&#39;t or makes some of those explicit</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">            <span class="k">if</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">                <span class="ow">not</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">                <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#58">58</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">                <span class="k">return</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">            <span class="k">def</span> <span class="nf">form_annotations</span><span class="p">(</span><span class="n">arguments</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="n">annotations</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">                    <span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">posonlyargs_annotations</span> <span class="ow">or</span> <span class="p">[]),</span> <span class="n">arguments</span><span class="o">.</span><span class="n">annotations</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="k">return</span> <span class="p">[</span><span class="n">ann</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">annotations</span> <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span></span>
+<span class="num"><a href="#66">66</a></span><span></span>
+<span class="num"><a href="#67">67</a></span><span class="full not_run">            <span class="n">called_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">            <span class="n">overridden_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">called_annotations</span> <span class="ow">and</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#70">70</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">called_annotations</span> <span class="o">!=</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#72">72</a></span><span></span>
+<span class="num"><a href="#73">73</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">                <span class="n">function</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="o">!=</span> <span class="n">function</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#77">77</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#78">78</a></span><span>                <span class="c1"># Override adds typing information to the return type</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#80">80</a></span><span></span>
+<span class="num"><a href="#81">81</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">_definition_equivalent_to_call</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span></span>
+<span class="num"><a href="#82">82</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">                <span class="s2">&quot;useless-parent-delegation&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#84">84</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">function</span><span class="p">,</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,),</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">                <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">,</span></span>
+<span class="num"><a href="#87">87</a></span><span>            <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 9</b>: 2 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> function</button> FunctionDef (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (2) </p>
+            <button class="run" title="lines run...">24 run</button>
+            <button class="not_run" title="lines not run...">24 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_useless_super_delegation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the given function node is an useless method override.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        We consider it *useless* if it uses the super() builtin, but having</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        nothing additional whatsoever than not implementing the method at all.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        If the method uses super() to delegate an operation to the rest of the MRO,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        and if the method called is the same as the current one, the arguments</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        passed to super() are the same as the parameters that were passed to</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        this method, then the method could be removed altogether, by letting</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        other implementation to take precedence.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_trivial_super_delegation</span><span class="p">(</span><span class="n">function</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">call</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># Classes that override __eq__ should also override</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># __hash__, even a trivial override is meaningful</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__hash__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">other_method</span> <span class="ow">in</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mymethods</span><span class="p">():</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">other_method</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__eq__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Check values of default args</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">klass</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">meth_node</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">for</span> <span class="n">overridden</span> <span class="ow">in</span> <span class="n">klass</span><span class="o">.</span><span class="n">local_attr_ancestors</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="c1"># get astroid for the searched method</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">meth_node</span> <span class="o">=</span> <span class="n">overridden</span><span class="p">[</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># we have found the method but it&#39;s not in the local</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="c1"># dictionary.</span></span>
+<span class="num"><a href="#34">34</a></span><span>                <span class="c1"># This may happen with astroid build from living objects</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">meth_node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="c1"># If the method have an ancestor which is not a</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="c1"># function then it is legitimate to redefine it</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                <span class="ow">or</span> <span class="n">_has_different_parameters_default_value</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                    <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#42">42</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span>                <span class="c1"># arguments to builtins such as Exception.__init__() cannot be inspected</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="ow">or</span> <span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">function</span><span class="o">.</span><span class="n">argnames</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">])</span></span>
+<span class="num"><a href="#45">45</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="k">break</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span>        <span class="c1"># Detect if the parameters are the same as the call&#39;s arguments.</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">        <span class="n">params</span> <span class="o">=</span> <span class="n">_signature_from_arguments</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">        <span class="n">args</span> <span class="o">=</span> <span class="n">_signature_from_call</span><span class="p">(</span><span class="n">call</span><span class="p">)</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">meth_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span>            <span class="c1"># Detect if the super method uses varargs and the function doesn&#39;t or makes some of those explicit</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">            <span class="k">if</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">                <span class="ow">not</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#58">58</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">            <span class="k">def</span> <span class="nf">form_annotations</span><span class="p">(</span><span class="n">arguments</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="n">annotations</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">                    <span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">posonlyargs_annotations</span> <span class="ow">or</span> <span class="p">[]),</span> <span class="n">arguments</span><span class="o">.</span><span class="n">annotations</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="k">return</span> <span class="p">[</span><span class="n">ann</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">annotations</span> <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span></span>
+<span class="num"><a href="#66">66</a></span><span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">            <span class="n">called_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">            <span class="n">overridden_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">            <span class="k">if</span> <span class="n">called_annotations</span> <span class="ow">and</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#70">70</a></span><span class="full run">                <span class="k">if</span> <span class="n">called_annotations</span> <span class="o">!=</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">                    <span class="k">return</span></span>
+<span class="num"><a href="#72">72</a></span><span></span>
+<span class="num"><a href="#73">73</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">                <span class="n">function</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="o">!=</span> <span class="n">function</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#77">77</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#78">78</a></span><span>                <span class="c1"># Override adds typing information to the return type</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#80">80</a></span><span></span>
+<span class="num"><a href="#81">81</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">_definition_equivalent_to_call</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span></span>
+<span class="num"><a href="#82">82</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full not_run">                <span class="s2">&quot;useless-parent-delegation&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#84">84</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">function</span><span class="p">,</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,),</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full not_run">                <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">,</span></span>
+<span class="num"><a href="#87">87</a></span><span>            <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 10</b>: 2 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> function</button> FunctionDef (2) </p>
+            <button class="run" title="lines run...">33 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_useless_super_delegation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the given function node is an useless method override.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        We consider it *useless* if it uses the super() builtin, but having</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        nothing additional whatsoever than not implementing the method at all.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        If the method uses super() to delegate an operation to the rest of the MRO,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        and if the method called is the same as the current one, the arguments</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        passed to super() are the same as the parameters that were passed to</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        this method, then the method could be removed altogether, by letting</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        other implementation to take precedence.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_trivial_super_delegation</span><span class="p">(</span><span class="n">function</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">call</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># Classes that override __eq__ should also override</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># __hash__, even a trivial override is meaningful</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__hash__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">other_method</span> <span class="ow">in</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mymethods</span><span class="p">():</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">other_method</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__eq__&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Check values of default args</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">klass</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">meth_node</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">for</span> <span class="n">overridden</span> <span class="ow">in</span> <span class="n">klass</span><span class="o">.</span><span class="n">local_attr_ancestors</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span>            <span class="c1"># get astroid for the searched method</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">meth_node</span> <span class="o">=</span> <span class="n">overridden</span><span class="p">[</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="c1"># we have found the method but it&#39;s not in the local</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="c1"># dictionary.</span></span>
+<span class="num"><a href="#34">34</a></span><span>                <span class="c1"># This may happen with astroid build from living objects</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">meth_node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span>                <span class="c1"># If the method have an ancestor which is not a</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="c1"># function then it is legitimate to redefine it</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                <span class="ow">or</span> <span class="n">_has_different_parameters_default_value</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                    <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#42">42</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span>                <span class="c1"># arguments to builtins such as Exception.__init__() cannot be inspected</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="ow">or</span> <span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">function</span><span class="o">.</span><span class="n">argnames</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">])</span></span>
+<span class="num"><a href="#45">45</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="k">break</span></span>
+<span class="num"><a href="#48">48</a></span><span></span>
+<span class="num"><a href="#49">49</a></span><span>        <span class="c1"># Detect if the parameters are the same as the call&#39;s arguments.</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">        <span class="n">params</span> <span class="o">=</span> <span class="n">_signature_from_arguments</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">        <span class="n">args</span> <span class="o">=</span> <span class="n">_signature_from_call</span><span class="p">(</span><span class="n">call</span><span class="p">)</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">meth_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span>            <span class="c1"># Detect if the super method uses varargs and the function doesn&#39;t or makes some of those explicit</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">            <span class="k">if</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">                <span class="ow">not</span> <span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#58">58</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#60">60</a></span><span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">            <span class="k">def</span> <span class="nf">form_annotations</span><span class="p">(</span><span class="n">arguments</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">                <span class="n">annotations</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full not_run">                    <span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">posonlyargs_annotations</span> <span class="ow">or</span> <span class="p">[]),</span> <span class="n">arguments</span><span class="o">.</span><span class="n">annotations</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="k">return</span> <span class="p">[</span><span class="n">ann</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">annotations</span> <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span></span>
+<span class="num"><a href="#66">66</a></span><span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">            <span class="n">called_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">            <span class="n">overridden_annotations</span> <span class="o">=</span> <span class="n">form_annotations</span><span class="p">(</span><span class="n">meth_node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">            <span class="k">if</span> <span class="n">called_annotations</span> <span class="ow">and</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#70">70</a></span><span class="full run">                <span class="k">if</span> <span class="n">called_annotations</span> <span class="o">!=</span> <span class="n">overridden_annotations</span><span class="p">:</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#72">72</a></span><span></span>
+<span class="num"><a href="#73">73</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">                <span class="n">function</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#75">75</a></span><span class="full run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full run">                <span class="ow">and</span> <span class="n">meth_node</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span> <span class="o">!=</span> <span class="n">function</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#77">77</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#78">78</a></span><span>                <span class="c1"># Override adds typing information to the return type</span></span>
+<span class="num"><a href="#79">79</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#80">80</a></span><span></span>
+<span class="num"><a href="#81">81</a></span><span class="full run">        <span class="k">if</span> <span class="n">_definition_equivalent_to_call</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span></span>
+<span class="num"><a href="#82">82</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#83">83</a></span><span class="full run">                <span class="s2">&quot;useless-parent-delegation&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#84">84</a></span><span class="full run">                <span class="n">node</span><span class="o">=</span><span class="n">function</span><span class="p">,</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,),</span></span>
+<span class="num"><a href="#86">86</a></span><span class="full run">                <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">,</span></span>
+<span class="num"><a href="#87">87</a></span><span>            <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

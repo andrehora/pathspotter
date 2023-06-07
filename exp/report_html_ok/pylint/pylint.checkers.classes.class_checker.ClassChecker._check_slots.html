@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.classes.class_checker.ClassChecker._check_slots</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.classes.class_checker.ClassChecker._check_slots</h1>
+                <span>Coverage: 87.5% (21/24),</span>
+                <span>Tests: 11, </span>
+                <span>Calls: 1519, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 10</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1458 calls (96.0%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ClassDef (1458) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (1458) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">22 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_slots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;__slots__&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">slots</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ilookup</span><span class="p">(</span><span class="s2">&quot;__slots__&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># check if __slots__ is a valid type</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">slots</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_iterable</span><span class="p">(</span><span class="n">slots</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_comprehension</span><span class="p">(</span><span class="n">slots</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;invalid-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># a string, ignore the following checks</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;single-string-used-for-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="s2">&quot;itered&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>                <span class="c1"># we can&#39;t obtain the values, maybe a .deque?</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Dict</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">]</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="n">slots</span><span class="o">.</span><span class="n">itered</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_check_slots_elt</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_redefined_slots</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 35 calls (2.3%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ClassDef (35) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_slots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;__slots__&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">for</span> <span class="n">slots</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ilookup</span><span class="p">(</span><span class="s2">&quot;__slots__&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># check if __slots__ is a valid type</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="n">slots</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_iterable</span><span class="p">(</span><span class="n">slots</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_comprehension</span><span class="p">(</span><span class="n">slots</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;invalid-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># a string, ignore the following checks</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;single-string-used-for-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="s2">&quot;itered&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>                <span class="c1"># we can&#39;t obtain the values, maybe a .deque?</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Dict</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">]</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">values</span> <span class="o">=</span> <span class="n">slots</span><span class="o">.</span><span class="n">itered</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_check_slots_elt</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_redefined_slots</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 11 calls (0.7%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ClassDef (11) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_slots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;__slots__&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">for</span> <span class="n">slots</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ilookup</span><span class="p">(</span><span class="s2">&quot;__slots__&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># check if __slots__ is a valid type</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="n">slots</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_iterable</span><span class="p">(</span><span class="n">slots</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_comprehension</span><span class="p">(</span><span class="n">slots</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;invalid-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># a string, ignore the following checks</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;single-string-used-for-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="s2">&quot;itered&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>                <span class="c1"># we can&#39;t obtain the values, maybe a .deque?</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Dict</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">]</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">values</span> <span class="o">=</span> <span class="n">slots</span><span class="o">.</span><span class="n">itered</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_check_slots_elt</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_redefined_slots</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 4 calls (0.3%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ClassDef (4) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_slots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;__slots__&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">for</span> <span class="n">slots</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ilookup</span><span class="p">(</span><span class="s2">&quot;__slots__&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># check if __slots__ is a valid type</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="n">slots</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_iterable</span><span class="p">(</span><span class="n">slots</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_comprehension</span><span class="p">(</span><span class="n">slots</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;invalid-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="k">continue</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># a string, ignore the following checks</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;single-string-used-for-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="s2">&quot;itered&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>                <span class="c1"># we can&#39;t obtain the values, maybe a .deque?</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Dict</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">]</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="n">slots</span><span class="o">.</span><span class="n">itered</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_check_slots_elt</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_redefined_slots</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 3 calls (0.2%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ClassDef (3) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">17 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_slots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;__slots__&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">for</span> <span class="n">slots</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ilookup</span><span class="p">(</span><span class="s2">&quot;__slots__&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># check if __slots__ is a valid type</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="n">slots</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_iterable</span><span class="p">(</span><span class="n">slots</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_comprehension</span><span class="p">(</span><span class="n">slots</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;invalid-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># a string, ignore the following checks</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;single-string-used-for-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="k">continue</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="s2">&quot;itered&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>                <span class="c1"># we can&#39;t obtain the values, maybe a .deque?</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Dict</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">]</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="n">slots</span><span class="o">.</span><span class="n">itered</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_check_slots_elt</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_redefined_slots</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 2 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ClassDef (2) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">20 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_slots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;__slots__&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">for</span> <span class="n">slots</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ilookup</span><span class="p">(</span><span class="s2">&quot;__slots__&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># check if __slots__ is a valid type</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="n">slots</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                <span class="k">continue</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_iterable</span><span class="p">(</span><span class="n">slots</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_comprehension</span><span class="p">(</span><span class="n">slots</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;invalid-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># a string, ignore the following checks</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;single-string-used-for-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="s2">&quot;itered&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>                <span class="c1"># we can&#39;t obtain the values, maybe a .deque?</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Dict</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">]</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="n">slots</span><span class="o">.</span><span class="n">itered</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_check_slots_elt</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_redefined_slots</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 7</b>: 2 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ClassDef (2) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">17 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_slots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;__slots__&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">for</span> <span class="n">slots</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ilookup</span><span class="p">(</span><span class="s2">&quot;__slots__&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># check if __slots__ is a valid type</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="n">slots</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_iterable</span><span class="p">(</span><span class="n">slots</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_comprehension</span><span class="p">(</span><span class="n">slots</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;invalid-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># a string, ignore the following checks</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;single-string-used-for-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="s2">&quot;itered&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>                <span class="c1"># we can&#39;t obtain the values, maybe a .deque?</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="k">continue</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Dict</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">]</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="n">slots</span><span class="o">.</span><span class="n">itered</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_check_slots_elt</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_redefined_slots</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 8</b>: 2 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ClassDef (2) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_slots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;__slots__&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">for</span> <span class="n">slots</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ilookup</span><span class="p">(</span><span class="s2">&quot;__slots__&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># check if __slots__ is a valid type</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="n">slots</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                <span class="k">continue</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_iterable</span><span class="p">(</span><span class="n">slots</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_comprehension</span><span class="p">(</span><span class="n">slots</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;invalid-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># a string, ignore the following checks</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;single-string-used-for-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="s2">&quot;itered&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>                <span class="c1"># we can&#39;t obtain the values, maybe a .deque?</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Dict</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">]</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">values</span> <span class="o">=</span> <span class="n">slots</span><span class="o">.</span><span class="n">itered</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_check_slots_elt</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_redefined_slots</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 9</b>: 1 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ClassDef (1) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_slots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;__slots__&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">for</span> <span class="n">slots</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ilookup</span><span class="p">(</span><span class="s2">&quot;__slots__&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># check if __slots__ is a valid type</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="n">slots</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_iterable</span><span class="p">(</span><span class="n">slots</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_comprehension</span><span class="p">(</span><span class="n">slots</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;invalid-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># a string, ignore the following checks</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;single-string-used-for-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="s2">&quot;itered&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>                <span class="c1"># we can&#39;t obtain the values, maybe a .deque?</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Dict</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">]</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="n">slots</span><span class="o">.</span><span class="n">itered</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_check_slots_elt</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_redefined_slots</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 10</b>: 1 calls (0.1%)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ClassDef (1) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_slots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;__slots__&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">for</span> <span class="n">slots</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ilookup</span><span class="p">(</span><span class="s2">&quot;__slots__&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># check if __slots__ is a valid type</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="n">slots</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_iterable</span><span class="p">(</span><span class="n">slots</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_comprehension</span><span class="p">(</span><span class="n">slots</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;invalid-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="k">continue</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># a string, ignore the following checks</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;single-string-used-for-slots&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="s2">&quot;itered&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>                <span class="c1"># we can&#39;t obtain the values, maybe a .deque?</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Dict</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">]</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">values</span> <span class="o">=</span> <span class="n">slots</span><span class="o">.</span><span class="n">itered</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_check_slots_elt</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_redefined_slots</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

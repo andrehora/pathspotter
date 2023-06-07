@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.app.Flask.full_dispatch_request</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.app.Flask.full_dispatch_request</h1>
+                <span>Coverage: 100.0% (14/14),</span>
+                <span>Tests: 194, </span>
+                <span>Calls: 428, </span>
+                <span>Exceptions: 123, </span>
+                <span>Paths: 10</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 180 calls (42.1%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> Response (178) None (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (1) TypeError (1) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">full_dispatch_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dispatches the request and on top of that performs request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        pre and postprocessing as well as HTTP exception catching and</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        error handling.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Run before_first_request functions if this is the thread&#39;s first request.</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Inlined to avoid a method call on subsequent requests.</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># This is deprecated, will be removed in Flask 2.3.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                    <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">ensure_sync</span><span class="p">(</span><span class="n">func</span><span class="p">)()</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">request_started</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_request</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch_request</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_user_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finalize_request</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 129 calls (30.1%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> Response (124) None (5) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (4) ZeroDivisionError (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">full_dispatch_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dispatches the request and on top of that performs request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        pre and postprocessing as well as HTTP exception catching and</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        error handling.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Run before_first_request functions if this is the thread&#39;s first request.</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Inlined to avoid a method call on subsequent requests.</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># This is deprecated, will be removed in Flask 2.3.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">ensure_sync</span><span class="p">(</span><span class="n">func</span><span class="p">)()</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">request_started</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_request</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch_request</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_user_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finalize_request</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 55 calls (12.9%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> Response (55) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> MethodNotAllowed (13) Forbidden (13) NotFound (10) InternalServerError (8) BadRequest (2) E3 (1) MyFunctionException (1) Foo (1) ChildExceptionUnregis...</p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">full_dispatch_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dispatches the request and on top of that performs request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        pre and postprocessing as well as HTTP exception catching and</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        error handling.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Run before_first_request functions if this is the thread&#39;s first request.</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Inlined to avoid a method call on subsequent requests.</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># This is deprecated, will be removed in Flask 2.3.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">ensure_sync</span><span class="p">(</span><span class="n">func</span><span class="p">)()</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">request_started</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_request</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch_request</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_user_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finalize_request</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 30 calls (7.0%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> Response (30) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> NotFound (7) Forbidden (3) BadRequest (3) MethodNotAllowed (2) Exception (1) AppError (1) BlueprintError (1) MyException (1) ForbiddenSubclass (1) E1 ...</p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">full_dispatch_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dispatches the request and on top of that performs request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        pre and postprocessing as well as HTTP exception catching and</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        error handling.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Run before_first_request functions if this is the thread&#39;s first request.</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Inlined to avoid a method call on subsequent requests.</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># This is deprecated, will be removed in Flask 2.3.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                    <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">ensure_sync</span><span class="p">(</span><span class="n">func</span><span class="p">)()</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">request_started</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_request</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch_request</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_user_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finalize_request</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 18 calls (4.2%)</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ZeroDivisionError (8) Exception (3) BadRequestKeyError (2) Custom (2) NotFound (1) DebugFilesKeyError (1) KeyError (1) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">full_dispatch_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dispatches the request and on top of that performs request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        pre and postprocessing as well as HTTP exception catching and</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        error handling.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Run before_first_request functions if this is the thread&#39;s first request.</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Inlined to avoid a method call on subsequent requests.</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># This is deprecated, will be removed in Flask 2.3.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                    <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">ensure_sync</span><span class="p">(</span><span class="n">func</span><span class="p">)()</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">request_started</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_request</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch_request</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_user_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finalize_request</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 8 calls (1.9%)</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (3) ZeroDivisionError (2) BadRequest (1) FormDataRoutingRedirect (1) TemplateNotFound (1) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">full_dispatch_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dispatches the request and on top of that performs request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        pre and postprocessing as well as HTTP exception catching and</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        error handling.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Run before_first_request functions if this is the thread&#39;s first request.</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Inlined to avoid a method call on subsequent requests.</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># This is deprecated, will be removed in Flask 2.3.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">ensure_sync</span><span class="p">(</span><span class="n">func</span><span class="p">)()</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">request_started</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_request</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch_request</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_user_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finalize_request</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 7</b>: 2 calls (0.5%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> Response (2) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">full_dispatch_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dispatches the request and on top of that performs request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        pre and postprocessing as well as HTTP exception catching and</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        error handling.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Run before_first_request functions if this is the thread&#39;s first request.</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Inlined to avoid a method call on subsequent requests.</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># This is deprecated, will be removed in Flask 2.3.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                    <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                        <span class="bp">self</span><span class="o">.</span><span class="n">ensure_sync</span><span class="p">(</span><span class="n">func</span><span class="p">)()</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">request_started</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_request</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch_request</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_user_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finalize_request</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 8</b>: 1 calls (0.2%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> Response (1) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">full_dispatch_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dispatches the request and on top of that performs request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        pre and postprocessing as well as HTTP exception catching and</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        error handling.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Run before_first_request functions if this is the thread&#39;s first request.</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Inlined to avoid a method call on subsequent requests.</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># This is deprecated, will be removed in Flask 2.3.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                    <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">ensure_sync</span><span class="p">(</span><span class="n">func</span><span class="p">)()</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">request_started</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_request</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch_request</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_user_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finalize_request</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 9</b>: 1 calls (0.2%)</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyboardInterrupt (1) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">full_dispatch_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dispatches the request and on top of that performs request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        pre and postprocessing as well as HTTP exception catching and</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        error handling.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Run before_first_request functions if this is the thread&#39;s first request.</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Inlined to avoid a method call on subsequent requests.</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># This is deprecated, will be removed in Flask 2.3.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                    <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">ensure_sync</span><span class="p">(</span><span class="n">func</span><span class="p">)()</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">request_started</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_request</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch_request</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_user_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finalize_request</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 10</b>: 1 calls (0.2%)</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ZeroDivisionError (1) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">full_dispatch_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dispatches the request and on top of that performs request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        pre and postprocessing as well as HTTP exception catching and</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        error handling.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        .. versionadded:: 0.7</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># Run before_first_request functions if this is the thread&#39;s first request.</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Inlined to avoid a method call on subsequent requests.</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># This is deprecated, will be removed in Flask 2.3.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before_request_lock</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                    <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_first_request_funcs</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">ensure_sync</span><span class="p">(</span><span class="n">func</span><span class="p">)()</span></span>
+<span class="num"><a href="#16">16</a></span><span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">_got_first_request</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">request_started</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_request</span><span class="p">()</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch_request</span><span class="p">()</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_user_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finalize_request</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.logging.LoggingChecker.visit_call.<locals>.is_logger_class</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.logging.LoggingChecker.visit_call.&lt;locals&gt;.is_logger_class</h1>
+                <span>Coverage: 90.0% (9/10),</span>
+                <span>Tests: 11, </span>
+                <span>Calls: 5614, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 4604 calls (82.0%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> (False, None) (4604) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_logger_class</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">            <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">infer_all</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">BoundMethod</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">                    <span class="n">parent</span> <span class="o">=</span> <span class="n">inferred</span><span class="o">.</span><span class="n">_proxied</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">                        <span class="n">parent</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;logging.Logger&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                        <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                            <span class="n">ancestor</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;logging.Logger&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                            <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">parent</span><span class="o">.</span><span class="n">ancestors</span><span class="p">()</span></span>
+<span class="num"><a href="#10">10</a></span><span>                        <span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span>                    <span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">inferred</span><span class="o">.</span><span class="n">_proxied</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 2</b>: 801 calls (14.3%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> (False, None) (801) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_logger_class</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">            <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">infer_all</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">BoundMethod</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">                    <span class="n">parent</span> <span class="o">=</span> <span class="n">inferred</span><span class="o">.</span><span class="n">_proxied</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                        <span class="n">parent</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;logging.Logger&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                        <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                            <span class="n">ancestor</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;logging.Logger&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                            <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">parent</span><span class="o">.</span><span class="n">ancestors</span><span class="p">()</span></span>
+<span class="num"><a href="#10">10</a></span><span>                        <span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span>                    <span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">inferred</span><span class="o">.</span><span class="n">_proxied</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 3</b>: 185 calls (3.3%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> (False, None) (185) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_logger_class</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">            <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">infer_all</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">BoundMethod</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">                    <span class="n">parent</span> <span class="o">=</span> <span class="n">inferred</span><span class="o">.</span><span class="n">_proxied</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">                        <span class="n">parent</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;logging.Logger&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                        <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                            <span class="n">ancestor</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;logging.Logger&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                            <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">parent</span><span class="o">.</span><span class="n">ancestors</span><span class="p">()</span></span>
+<span class="num"><a href="#10">10</a></span><span>                        <span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span>                    <span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">inferred</span><span class="o">.</span><span class="n">_proxied</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 4</b>: 16 calls (0.3%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> (False, None) (16) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_logger_class</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">            <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">infer_all</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">BoundMethod</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">                    <span class="n">parent</span> <span class="o">=</span> <span class="n">inferred</span><span class="o">.</span><span class="n">_proxied</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">                        <span class="n">parent</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;logging.Logger&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                        <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                            <span class="n">ancestor</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;logging.Logger&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                            <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">parent</span><span class="o">.</span><span class="n">ancestors</span><span class="p">()</span></span>
+<span class="num"><a href="#10">10</a></span><span>                        <span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span>                    <span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">inferred</span><span class="o">.</span><span class="n">_proxied</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 5</b>: 8 calls (0.1%)</p>
+                <p><button class="output"><span>&#8617; return</span></button> (True, 'info') (3) (True, 'debug') (3) (True, 'log') (1) (True, 'warning') (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_logger_class</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">            <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">infer_all</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">BoundMethod</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">                    <span class="n">parent</span> <span class="o">=</span> <span class="n">inferred</span><span class="o">.</span><span class="n">_proxied</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                        <span class="n">parent</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;logging.Logger&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                        <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                            <span class="n">ancestor</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;logging.Logger&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                            <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">parent</span><span class="o">.</span><span class="n">ancestors</span><span class="p">()</span></span>
+<span class="num"><a href="#10">10</a></span><span>                        <span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span>                    <span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">inferred</span><span class="o">.</span><span class="n">_proxied</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

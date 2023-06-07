@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.contentmanager.set_bytes_content</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.contentmanager.set_bytes_content</h1>
+                <span>Coverage: 86.7% (13/15),</span>
+                <span>Tests: 10, </span>
+                <span>Calls: 17, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 13 calls (76.5%)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> EmailMessage (13) </p>
+                <p><button class="input"><span>&#8594;</span> data</button> bytes (11) bytearray (1) memoryview (1) </p>
+                <p><button class="input"><span>&#8594;</span> maintype</button> 'image' (8) 'application' (5) </p>
+                <p><button class="input"><span>&#8594;</span> subtype</button> 'jpeg' (8) 'octet_stream' (5) </p>
+                <p><button class="input"><span>&#8594;</span> cte</button> 'base64' (13) </p>
+                <p><button class="input"><span>&#8594;</span> disposition</button> None (9) 'inline' (4) </p>
+                <p><button class="input"><span>&#8594;</span> filename</button> None (11) 'b&#225;r.txt' (2) </p>
+                <p><button class="input"><span>&#8594;</span> cid</button> None (11) 'some_random_stuff' (2) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> None (11) {'foo': 'b&#225;r', 'abc': 'xyz'} (2) </p>
+                <p><button class="input"><span>&#8594;</span> headers</button> None (11) ('To: foo@example.com', 'From: bar@simple.net') (2) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_bytes_content</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">maintype</span><span class="p">,</span> <span class="n">subtype</span><span class="p">,</span> <span class="n">cte</span><span class="o">=</span><span class="s1">&#39;base64&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                     <span class="n">disposition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                     <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">_prepare_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">maintype</span><span class="p">,</span> <span class="n">subtype</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">if</span> <span class="n">cte</span> <span class="o">==</span> <span class="s1">&#39;base64&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">data</span> <span class="o">=</span> <span class="n">_encode_base64</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">max_line_length</span><span class="o">=</span><span class="n">msg</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">max_line_length</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">    <span class="k">elif</span> <span class="n">cte</span> <span class="o">==</span> <span class="s1">&#39;quoted-printable&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># XXX: quoprimime.body_encode won&#39;t encode newline characters in data,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># so we can&#39;t use it.  This means max_line_length is ignored.  Another</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># bug to fix later.  (Note: encoders.quopri is broken on line ends.)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">b2a_qp</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">istext</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quotetabs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">    <span class="k">elif</span> <span class="n">cte</span> <span class="o">==</span> <span class="s1">&#39;7bit&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">    <span class="k">elif</span> <span class="n">cte</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;8bit&#39;</span><span class="p">,</span> <span class="s1">&#39;binary&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="n">msg</span><span class="o">.</span><span class="n">set_payload</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-Transfer-Encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cte</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">_finalize_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">disposition</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2 calls (11.8%)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> EmailMessage (2) </p>
+                <p><button class="input"><span>&#8594;</span> data</button> bytes (2) </p>
+                <p><button class="input"><span>&#8594;</span> maintype</button> 'application' (1) 'video' (1) </p>
+                <p><button class="input"><span>&#8594;</span> subtype</button> 'octet-stream' (1) 'mpeg' (1) </p>
+                <p><button class="input"><span>&#8594;</span> cte</button> '8bit' (1) 'binary' (1) </p>
+                <p><button class="input"><span>&#8594;</span> disposition</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> filename</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> cid</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> headers</button> None (2) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_bytes_content</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">maintype</span><span class="p">,</span> <span class="n">subtype</span><span class="p">,</span> <span class="n">cte</span><span class="o">=</span><span class="s1">&#39;base64&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                     <span class="n">disposition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                     <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">_prepare_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">maintype</span><span class="p">,</span> <span class="n">subtype</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">if</span> <span class="n">cte</span> <span class="o">==</span> <span class="s1">&#39;base64&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">_encode_base64</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">max_line_length</span><span class="o">=</span><span class="n">msg</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">max_line_length</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">elif</span> <span class="n">cte</span> <span class="o">==</span> <span class="s1">&#39;quoted-printable&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># XXX: quoprimime.body_encode won&#39;t encode newline characters in data,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># so we can&#39;t use it.  This means max_line_length is ignored.  Another</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># bug to fix later.  (Note: encoders.quopri is broken on line ends.)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">b2a_qp</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">istext</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quotetabs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">elif</span> <span class="n">cte</span> <span class="o">==</span> <span class="s1">&#39;7bit&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">elif</span> <span class="n">cte</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;8bit&#39;</span><span class="p">,</span> <span class="s1">&#39;binary&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="n">msg</span><span class="o">.</span><span class="n">set_payload</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-Transfer-Encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cte</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">_finalize_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">disposition</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (5.9%)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> EmailMessage (1) </p>
+                <p><button class="input"><span>&#8594;</span> data</button> bytes (1) </p>
+                <p><button class="input"><span>&#8594;</span> maintype</button> 'audio' (1) </p>
+                <p><button class="input"><span>&#8594;</span> subtype</button> 'aif' (1) </p>
+                <p><button class="input"><span>&#8594;</span> cte</button> 'quoted-printable' (1) </p>
+                <p><button class="input"><span>&#8594;</span> disposition</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> filename</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> cid</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> headers</button> None (1) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_bytes_content</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">maintype</span><span class="p">,</span> <span class="n">subtype</span><span class="p">,</span> <span class="n">cte</span><span class="o">=</span><span class="s1">&#39;base64&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                     <span class="n">disposition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                     <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">_prepare_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">maintype</span><span class="p">,</span> <span class="n">subtype</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">if</span> <span class="n">cte</span> <span class="o">==</span> <span class="s1">&#39;base64&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">_encode_base64</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">max_line_length</span><span class="o">=</span><span class="n">msg</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">max_line_length</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">elif</span> <span class="n">cte</span> <span class="o">==</span> <span class="s1">&#39;quoted-printable&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># XXX: quoprimime.body_encode won&#39;t encode newline characters in data,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># so we can&#39;t use it.  This means max_line_length is ignored.  Another</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># bug to fix later.  (Note: encoders.quopri is broken on line ends.)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">data</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">b2a_qp</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">istext</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quotetabs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">    <span class="k">elif</span> <span class="n">cte</span> <span class="o">==</span> <span class="s1">&#39;7bit&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">    <span class="k">elif</span> <span class="n">cte</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;8bit&#39;</span><span class="p">,</span> <span class="s1">&#39;binary&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="n">msg</span><span class="o">.</span><span class="n">set_payload</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-Transfer-Encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cte</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">_finalize_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">disposition</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (5.9%)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> EmailMessage (1) </p>
+                <p><button class="input"><span>&#8594;</span> data</button> bytes (1) </p>
+                <p><button class="input"><span>&#8594;</span> maintype</button> 'application' (1) </p>
+                <p><button class="input"><span>&#8594;</span> subtype</button> 'octet-stream' (1) </p>
+                <p><button class="input"><span>&#8594;</span> cte</button> '7bit' (1) </p>
+                <p><button class="input"><span>&#8594;</span> disposition</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> filename</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> cid</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> headers</button> None (1) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_bytes_content</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">maintype</span><span class="p">,</span> <span class="n">subtype</span><span class="p">,</span> <span class="n">cte</span><span class="o">=</span><span class="s1">&#39;base64&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                     <span class="n">disposition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                     <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">_prepare_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">maintype</span><span class="p">,</span> <span class="n">subtype</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">if</span> <span class="n">cte</span> <span class="o">==</span> <span class="s1">&#39;base64&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">_encode_base64</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">max_line_length</span><span class="o">=</span><span class="n">msg</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">max_line_length</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">elif</span> <span class="n">cte</span> <span class="o">==</span> <span class="s1">&#39;quoted-printable&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># XXX: quoprimime.body_encode won&#39;t encode newline characters in data,</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># so we can&#39;t use it.  This means max_line_length is ignored.  Another</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># bug to fix later.  (Note: encoders.quopri is broken on line ends.)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">b2a_qp</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">istext</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quotetabs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">elif</span> <span class="n">cte</span> <span class="o">==</span> <span class="s1">&#39;7bit&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">    <span class="k">elif</span> <span class="n">cte</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;8bit&#39;</span><span class="p">,</span> <span class="s1">&#39;binary&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="n">msg</span><span class="o">.</span><span class="n">set_payload</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-Transfer-Encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cte</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">_finalize_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">disposition</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

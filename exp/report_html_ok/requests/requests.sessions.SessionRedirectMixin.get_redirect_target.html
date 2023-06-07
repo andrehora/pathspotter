@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>requests.sessions.SessionRedirectMixin.get_redirect_target</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: requests.sessions.SessionRedirectMixin.get_redirect_target</h1>
+                <span>Coverage: 100.0% (5/5),</span>
+                <span>Tests: 107, </span>
+                <span>Calls: 336, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 198 calls (58.9%)</p>
+                <p><button class="input"><span>&#8594;</span> resp</button> Response (198) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (198) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_redirect_target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resp</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives a Response. Returns a redirect URI or ``None``&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># Due to the nature of how requests processes redirects this method will</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># be called at least once upon the original response and at least twice</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># on each subsequent redirect response (if any).</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># If a custom mixin is used to handle this logic, it may be advantageous</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># to cache the redirect location onto the response object as a private</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># attribute.</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">is_redirect</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">location</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># Currently the underlying http module on py3 decode headers</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># in latin1, but empirical evidence suggests that latin1 is very</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># rarely used with non-ASCII characters in HTTP headers.</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># It is more likely to get UTF8 header rather than latin1.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># This causes incorrect handling of UTF8 encoded location headers.</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># To solve this, we re-encode the location in latin1.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">location</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;latin1&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">to_native_string</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="s2">&quot;utf8&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 2</b>: 138 calls (41.1%)</p>
+                <p><button class="input"><span>&#8594;</span> resp</button> Response (138) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '/get' (26) '/redirect/1' (7) '/relative-redirect/1' (6) '/cookies' (5) '/relative-redirect/48' (4) '/relative-redirect/47' (4) '/relative-redirect/46...</p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_redirect_target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resp</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives a Response. Returns a redirect URI or ``None``&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># Due to the nature of how requests processes redirects this method will</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># be called at least once upon the original response and at least twice</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># on each subsequent redirect response (if any).</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># If a custom mixin is used to handle this logic, it may be advantageous</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># to cache the redirect location onto the response object as a private</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># attribute.</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">is_redirect</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">location</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#11">11</a></span><span>            <span class="c1"># Currently the underlying http module on py3 decode headers</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># in latin1, but empirical evidence suggests that latin1 is very</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># rarely used with non-ASCII characters in HTTP headers.</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># It is more likely to get UTF8 header rather than latin1.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># This causes incorrect handling of UTF8 encoded location headers.</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># To solve this, we re-encode the location in latin1.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">location</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;latin1&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">return</span> <span class="n">to_native_string</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="s2">&quot;utf8&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

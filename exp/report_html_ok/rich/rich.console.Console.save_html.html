@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>rich.console.Console.save_html</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: rich.console.Console.save_html</h1>
+                <span>Coverage: 53.8% (7/13),</span>
+                <span>Tests: 1, </span>
+                <span>Calls: 1, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1 calls (100.0%)</p>
+                <p><button class="input"><span>&#8594;</span> path</button> '/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/tmp6jgyup_5/example.html' (1) </p>
+                <p><button class="input"><span>&#8594;</span> theme</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> clear</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> code_format</button> '<!DOCTYPE html>\n<head>\n<meta charset="UTF-8">\n<style>\n{stylesheet}\nbody {{\n    color: {foreground};\n    background-color: {background};\n}}\n<...</p>
+                <p><button class="input"><span>&#8594;</span> inline_styles</button> False (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">save_html</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="o">*</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">theme</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TerminalTheme</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">clear</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">code_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">CONSOLE_HTML_FORMAT</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">inline_styles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate HTML from console contents and write to a file (requires record=True argument in constructor).</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">            path (str): Path to write html file.</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            theme (TerminalTheme, optional): TerminalTheme object containing console colors.</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            clear (bool, optional): Clear record buffer after exporting. Defaults to ``True``.</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            code_format (str, optional): Format string to render HTML. In addition to &#39;{foreground}&#39;,</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">                &#39;{background}&#39;, and &#39;{code}&#39;, should contain &#39;{stylesheet}&#39; if inline_styles is ``False``.</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">            inline_styles (bool, optional): If ``True`` styles will be inlined in to spans, which makes files</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">                larger but easier to cut and paste markup. If ``False``, styles will be embedded in a style tag.</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">                Defaults to False.</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="n">html</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_html</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">theme</span><span class="o">=</span><span class="n">theme</span><span class="p">,</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">clear</span><span class="o">=</span><span class="n">clear</span><span class="p">,</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="n">code_format</span><span class="o">=</span><span class="n">code_format</span><span class="p">,</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="n">inline_styles</span><span class="o">=</span><span class="n">inline_styles</span><span class="p">,</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;wt&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">write_file</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">write_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

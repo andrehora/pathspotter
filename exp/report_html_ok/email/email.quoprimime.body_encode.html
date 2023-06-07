@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.quoprimime.body_encode</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.quoprimime.body_encode</h1>
+                <span>Coverage: 94.1% (32/34),</span>
+                <span>Tests: 17, </span>
+                <span>Calls: 46, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 10</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 13 calls (28.3%)</p>
+                <p><button class="input"><span>&#8594;</span> body</button> 'oh l&#224; l&#224;, know what I mean, know what I mean?\n' (3) '\n\n\n\n\n\n\n\n\n\n' (2) 'hello\n' (2) '&#225;&#246;\n' (1) '&#191;\n' (1) "Test if non-ascii messages with n...</p>
+                <p><button class="input"><span>&#8594;</span> maxlinelen</button> 76 (11) 60 (2) </p>
+                <p><button class="input"><span>&#8594;</span> eol</button> '\n' (11) '\r\n' (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'oh l=E0 l=E0, know what I mean, know what I mean?\n' (3) '\n\n\n\n\n\n\n\n\n\n' (2) 'hello\n' (2) '=E1=F6\n' (1) '=BF\n' (1) "Test if non-ascii messa...</p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">body_encode</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">maxlinelen</span><span class="o">=</span><span class="mi">76</span><span class="p">,</span> <span class="n">eol</span><span class="o">=</span><span class="n">NL</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode with quoted-printable, wrapping at maxlinelen characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Each line of encoded text will end with eol, which defaults to &quot;\\n&quot;.  Set</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    this to &quot;\\r\\n&quot; if you will be using the result of this function directly</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    in an email.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    Each line will be wrapped at, at most, maxlinelen characters before the</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    eol string (maxlinelen defaults to 76 characters, the maximum value</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    permitted by RFC 2045).  Long lines will have the &#39;soft line break&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    quoted-printable character &quot;=&quot; appended to them, so the decoded text will</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    be identical to the original text.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    The minimum maxlinelen is 4 to have room for a quoted character (&quot;=XX&quot;)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    followed by a soft line break.  Smaller values will generate a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    ValueError.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">maxlinelen</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;maxlinelen must be at least 4&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">body</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>    <span class="c1"># quote special characters</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">_QUOPRI_BODY_ENCODE_MAP</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="n">soft_break</span> <span class="o">=</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">eol</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># leave space for the &#39;=&#39; at the end of a line</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">maxlinelen1</span> <span class="o">=</span> <span class="n">maxlinelen</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">encoded_body</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">encoded_body</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">body</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># break up the line into pieces no longer than maxlinelen - 1</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">laststart</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">maxlinelen</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">laststart</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">stop</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">maxlinelen1</span></span>
+<span class="num"><a href="#41">41</a></span><span>            <span class="c1"># make sure we don&#39;t break up an escape sequence</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#48">48</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># handle rest of line, special case if line ends in whitespace</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39; </span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">            <span class="n">room</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">laststart</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">room</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span>                <span class="c1"># It&#39;s a whitespace character at end-of-line, and we have room</span></span>
+<span class="num"><a href="#57">57</a></span><span>                <span class="c1"># for the three-character quoted encoding.</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">room</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="c1"># There&#39;s room for the whitespace character and a soft break.</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">soft_break</span></span>
+<span class="num"><a href="#62">62</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span>                <span class="c1"># There&#39;s room only for a soft break.  The quoted whitespace</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="c1"># will be the only content on the subsequent line.</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">soft_break</span> <span class="o">+</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:])</span></span>
+<span class="num"><a href="#69">69</a></span><span></span>
+<span class="num"><a href="#70">70</a></span><span>    <span class="c1"># add back final newline if present</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">    <span class="k">if</span> <span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CRLF</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full run">        <span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">    <span class="k">return</span> <span class="n">eol</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">encoded_body</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 7 calls (15.2%)</p>
+                <p><button class="input"><span>&#8594;</span> body</button> 'hello w&#246;rld' (1) 'hello &#248; world' (1) 'This is a string payload' (1) 'hello' (1) 'hello\r\nworld' (1) 'one line\n\ntwo line' (1) 'a = b' (1) </p>
+                <p><button class="input"><span>&#8594;</span> maxlinelen</button> 76 (7) </p>
+                <p><button class="input"><span>&#8594;</span> eol</button> '\n' (7) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'hello w=F6rld' (1) 'hello =F8 world' (1) 'This is a string payload' (1) 'hello' (1) 'hello\nworld' (1) 'one line\n\ntwo line' (1) 'a =3D b' (1) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">19 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">body_encode</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">maxlinelen</span><span class="o">=</span><span class="mi">76</span><span class="p">,</span> <span class="n">eol</span><span class="o">=</span><span class="n">NL</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode with quoted-printable, wrapping at maxlinelen characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Each line of encoded text will end with eol, which defaults to &quot;\\n&quot;.  Set</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    this to &quot;\\r\\n&quot; if you will be using the result of this function directly</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    in an email.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    Each line will be wrapped at, at most, maxlinelen characters before the</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    eol string (maxlinelen defaults to 76 characters, the maximum value</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    permitted by RFC 2045).  Long lines will have the &#39;soft line break&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    quoted-printable character &quot;=&quot; appended to them, so the decoded text will</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    be identical to the original text.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    The minimum maxlinelen is 4 to have room for a quoted character (&quot;=XX&quot;)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    followed by a soft line break.  Smaller values will generate a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    ValueError.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">maxlinelen</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;maxlinelen must be at least 4&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">body</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>    <span class="c1"># quote special characters</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">_QUOPRI_BODY_ENCODE_MAP</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="n">soft_break</span> <span class="o">=</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">eol</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># leave space for the &#39;=&#39; at the end of a line</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">maxlinelen1</span> <span class="o">=</span> <span class="n">maxlinelen</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">encoded_body</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">encoded_body</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">body</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># break up the line into pieces no longer than maxlinelen - 1</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">laststart</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">maxlinelen</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">laststart</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">stop</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">maxlinelen1</span></span>
+<span class="num"><a href="#41">41</a></span><span>            <span class="c1"># make sure we don&#39;t break up an escape sequence</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#48">48</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># handle rest of line, special case if line ends in whitespace</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39; </span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">            <span class="n">room</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">laststart</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">room</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span>                <span class="c1"># It&#39;s a whitespace character at end-of-line, and we have room</span></span>
+<span class="num"><a href="#57">57</a></span><span>                <span class="c1"># for the three-character quoted encoding.</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">room</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="c1"># There&#39;s room for the whitespace character and a soft break.</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">soft_break</span></span>
+<span class="num"><a href="#62">62</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span>                <span class="c1"># There&#39;s room only for a soft break.  The quoted whitespace</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="c1"># will be the only content on the subsequent line.</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">soft_break</span> <span class="o">+</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:])</span></span>
+<span class="num"><a href="#69">69</a></span><span></span>
+<span class="num"><a href="#70">70</a></span><span>    <span class="c1"># add back final newline if present</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">    <span class="k">if</span> <span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CRLF</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">        <span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">    <span class="k">return</span> <span class="n">eol</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">encoded_body</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 5 calls (10.9%)</p>
+                <p><button class="input"><span>&#8594;</span> body</button> ' \n' (1) 'hello   \n' (1) 'hello  \t\n' (1) ' \n \n' (1) ' \n \n \n \n \n' (1) </p>
+                <p><button class="input"><span>&#8594;</span> maxlinelen</button> 76 (5) </p>
+                <p><button class="input"><span>&#8594;</span> eol</button> '\n' (5) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '=20\n' (1) 'hello  =20\n' (1) 'hello  =09\n' (1) '=20\n=20\n' (1) '=20\n=20\n=20\n=20\n=20\n' (1) </p>
+            <button class="run" title="lines run...">19 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">body_encode</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">maxlinelen</span><span class="o">=</span><span class="mi">76</span><span class="p">,</span> <span class="n">eol</span><span class="o">=</span><span class="n">NL</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode with quoted-printable, wrapping at maxlinelen characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Each line of encoded text will end with eol, which defaults to &quot;\\n&quot;.  Set</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    this to &quot;\\r\\n&quot; if you will be using the result of this function directly</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    in an email.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    Each line will be wrapped at, at most, maxlinelen characters before the</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    eol string (maxlinelen defaults to 76 characters, the maximum value</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    permitted by RFC 2045).  Long lines will have the &#39;soft line break&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    quoted-printable character &quot;=&quot; appended to them, so the decoded text will</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    be identical to the original text.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    The minimum maxlinelen is 4 to have room for a quoted character (&quot;=XX&quot;)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    followed by a soft line break.  Smaller values will generate a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    ValueError.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">maxlinelen</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;maxlinelen must be at least 4&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">body</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>    <span class="c1"># quote special characters</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">_QUOPRI_BODY_ENCODE_MAP</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="n">soft_break</span> <span class="o">=</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">eol</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># leave space for the &#39;=&#39; at the end of a line</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">maxlinelen1</span> <span class="o">=</span> <span class="n">maxlinelen</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">encoded_body</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">encoded_body</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">body</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># break up the line into pieces no longer than maxlinelen - 1</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">laststart</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">maxlinelen</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">laststart</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">stop</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">maxlinelen1</span></span>
+<span class="num"><a href="#41">41</a></span><span>            <span class="c1"># make sure we don&#39;t break up an escape sequence</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#48">48</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># handle rest of line, special case if line ends in whitespace</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39; </span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">            <span class="n">room</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">laststart</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">            <span class="k">if</span> <span class="n">room</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span>                <span class="c1"># It&#39;s a whitespace character at end-of-line, and we have room</span></span>
+<span class="num"><a href="#57">57</a></span><span>                <span class="c1"># for the three-character quoted encoding.</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">                <span class="n">q</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">room</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="c1"># There&#39;s room for the whitespace character and a soft break.</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">soft_break</span></span>
+<span class="num"><a href="#62">62</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span>                <span class="c1"># There&#39;s room only for a soft break.  The quoted whitespace</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="c1"># will be the only content on the subsequent line.</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">soft_break</span> <span class="o">+</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:])</span></span>
+<span class="num"><a href="#69">69</a></span><span></span>
+<span class="num"><a href="#70">70</a></span><span>    <span class="c1"># add back final newline if present</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">    <span class="k">if</span> <span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CRLF</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full run">        <span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">    <span class="k">return</span> <span class="n">eol</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">encoded_body</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 4 calls (8.7%)</p>
+                <p><button class="input"><span>&#8594;</span> body</button> 'Simple but long message that is over 78 characters long to force transfer encoding.\n' (1) 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...</p>
+                <p><button class="input"><span>&#8594;</span> maxlinelen</button> 76 (2) 60 (1) 78 (1) </p>
+                <p><button class="input"><span>&#8594;</span> eol</button> '\n' (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'Simple but long message that is over 78 characters long to =\nforce transfer encoding.\n' (1) 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...</p>
+            <button class="run" title="lines run...">21 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">body_encode</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">maxlinelen</span><span class="o">=</span><span class="mi">76</span><span class="p">,</span> <span class="n">eol</span><span class="o">=</span><span class="n">NL</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode with quoted-printable, wrapping at maxlinelen characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Each line of encoded text will end with eol, which defaults to &quot;\\n&quot;.  Set</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    this to &quot;\\r\\n&quot; if you will be using the result of this function directly</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    in an email.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    Each line will be wrapped at, at most, maxlinelen characters before the</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    eol string (maxlinelen defaults to 76 characters, the maximum value</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    permitted by RFC 2045).  Long lines will have the &#39;soft line break&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    quoted-printable character &quot;=&quot; appended to them, so the decoded text will</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    be identical to the original text.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    The minimum maxlinelen is 4 to have room for a quoted character (&quot;=XX&quot;)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    followed by a soft line break.  Smaller values will generate a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    ValueError.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">maxlinelen</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;maxlinelen must be at least 4&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">body</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>    <span class="c1"># quote special characters</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">_QUOPRI_BODY_ENCODE_MAP</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="n">soft_break</span> <span class="o">=</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">eol</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># leave space for the &#39;=&#39; at the end of a line</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">maxlinelen1</span> <span class="o">=</span> <span class="n">maxlinelen</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">encoded_body</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">encoded_body</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">body</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># break up the line into pieces no longer than maxlinelen - 1</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">laststart</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">maxlinelen</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">laststart</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="n">stop</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">maxlinelen1</span></span>
+<span class="num"><a href="#41">41</a></span><span>            <span class="c1"># make sure we don&#39;t break up an escape sequence</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#48">48</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># handle rest of line, special case if line ends in whitespace</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39; </span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">            <span class="n">room</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">laststart</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">room</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span>                <span class="c1"># It&#39;s a whitespace character at end-of-line, and we have room</span></span>
+<span class="num"><a href="#57">57</a></span><span>                <span class="c1"># for the three-character quoted encoding.</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">room</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="c1"># There&#39;s room for the whitespace character and a soft break.</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">soft_break</span></span>
+<span class="num"><a href="#62">62</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span>                <span class="c1"># There&#39;s room only for a soft break.  The quoted whitespace</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="c1"># will be the only content on the subsequent line.</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">soft_break</span> <span class="o">+</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:])</span></span>
+<span class="num"><a href="#69">69</a></span><span></span>
+<span class="num"><a href="#70">70</a></span><span>    <span class="c1"># add back final newline if present</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">    <span class="k">if</span> <span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CRLF</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full run">        <span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">    <span class="k">return</span> <span class="n">eol</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">encoded_body</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 3 calls (6.5%)</p>
+                <p><button class="input"><span>&#8594;</span> body</button> ' ' (1) 'hello   ' (1) 'hello  \t' (1) </p>
+                <p><button class="input"><span>&#8594;</span> maxlinelen</button> 76 (3) </p>
+                <p><button class="input"><span>&#8594;</span> eol</button> '\n' (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '=20' (1) 'hello  =20' (1) 'hello  =09' (1) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">16 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">body_encode</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">maxlinelen</span><span class="o">=</span><span class="mi">76</span><span class="p">,</span> <span class="n">eol</span><span class="o">=</span><span class="n">NL</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode with quoted-printable, wrapping at maxlinelen characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Each line of encoded text will end with eol, which defaults to &quot;\\n&quot;.  Set</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    this to &quot;\\r\\n&quot; if you will be using the result of this function directly</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    in an email.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    Each line will be wrapped at, at most, maxlinelen characters before the</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    eol string (maxlinelen defaults to 76 characters, the maximum value</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    permitted by RFC 2045).  Long lines will have the &#39;soft line break&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    quoted-printable character &quot;=&quot; appended to them, so the decoded text will</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    be identical to the original text.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    The minimum maxlinelen is 4 to have room for a quoted character (&quot;=XX&quot;)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    followed by a soft line break.  Smaller values will generate a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    ValueError.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">maxlinelen</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;maxlinelen must be at least 4&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">body</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>    <span class="c1"># quote special characters</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">_QUOPRI_BODY_ENCODE_MAP</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="n">soft_break</span> <span class="o">=</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">eol</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># leave space for the &#39;=&#39; at the end of a line</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">maxlinelen1</span> <span class="o">=</span> <span class="n">maxlinelen</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">encoded_body</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">encoded_body</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">body</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># break up the line into pieces no longer than maxlinelen - 1</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">laststart</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">maxlinelen</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">laststart</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">stop</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">maxlinelen1</span></span>
+<span class="num"><a href="#41">41</a></span><span>            <span class="c1"># make sure we don&#39;t break up an escape sequence</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#48">48</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># handle rest of line, special case if line ends in whitespace</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39; </span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">            <span class="n">room</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">laststart</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">            <span class="k">if</span> <span class="n">room</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span>                <span class="c1"># It&#39;s a whitespace character at end-of-line, and we have room</span></span>
+<span class="num"><a href="#57">57</a></span><span>                <span class="c1"># for the three-character quoted encoding.</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">                <span class="n">q</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">room</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="c1"># There&#39;s room for the whitespace character and a soft break.</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">soft_break</span></span>
+<span class="num"><a href="#62">62</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span>                <span class="c1"># There&#39;s room only for a soft break.  The quoted whitespace</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="c1"># will be the only content on the subsequent line.</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">soft_break</span> <span class="o">+</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:])</span></span>
+<span class="num"><a href="#69">69</a></span><span></span>
+<span class="num"><a href="#70">70</a></span><span>    <span class="c1"># add back final newline if present</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">    <span class="k">if</span> <span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CRLF</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">        <span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">    <span class="k">return</span> <span class="n">eol</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">encoded_body</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 2 calls (4.3%)</p>
+                <p><button class="input"><span>&#8594;</span> body</button> '\n\n\n\n\n\n\n\n\n\n&#195;&#161;&#195;\xa0&#195;&#164;&#195;&#169;&#195;&#168;&#196;\x99&#195;&#182;&#197;\x91&#195;&#161;&#195;\xa0&#195;&#164;&#195;&#169;&#195;&#168;&#196;\x99&#195;&#182;&#197;\x91&#195;&#161;&#195;\xa0&#195;&#164;&#195;&#169;&#195;&#168;&#196;\x99&#195;&#182;&#197;\x91&#195;&#161;&#195;\xa0&#195;&#164;&#195;&#169;&#195;&#168;&#196;\x99&#195;&#182;&#197;\x91&#195;&#161;&#195;\xa0&#195;&#164;&#195;&#169;&#195;&#168;&#196;\x99&#195;&#182;&#197;\x91&#195;&#161;&#195;\...</p>
+                <p><button class="input"><span>&#8594;</span> maxlinelen</button> 60 (2) </p>
+                <p><button class="input"><span>&#8594;</span> eol</button> '\n' (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '\n\n\n\n\n\n\n\n\n\n=C3=A1=C3=A0=C3=A4=C3=A9=C3=A8=C4=99=C3=B6=C5=91=C3=A1=C3=\n=A0=C3=A4=C3=A9=C3=A8=C4=99=C3=B6=C5=91=C3=A1=C3=A0=C3=A4=\n=C3=A9=C3...</p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">14 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">body_encode</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">maxlinelen</span><span class="o">=</span><span class="mi">76</span><span class="p">,</span> <span class="n">eol</span><span class="o">=</span><span class="n">NL</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode with quoted-printable, wrapping at maxlinelen characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Each line of encoded text will end with eol, which defaults to &quot;\\n&quot;.  Set</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    this to &quot;\\r\\n&quot; if you will be using the result of this function directly</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    in an email.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    Each line will be wrapped at, at most, maxlinelen characters before the</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    eol string (maxlinelen defaults to 76 characters, the maximum value</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    permitted by RFC 2045).  Long lines will have the &#39;soft line break&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    quoted-printable character &quot;=&quot; appended to them, so the decoded text will</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    be identical to the original text.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    The minimum maxlinelen is 4 to have room for a quoted character (&quot;=XX&quot;)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    followed by a soft line break.  Smaller values will generate a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    ValueError.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">maxlinelen</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;maxlinelen must be at least 4&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">body</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>    <span class="c1"># quote special characters</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">_QUOPRI_BODY_ENCODE_MAP</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="n">soft_break</span> <span class="o">=</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">eol</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># leave space for the &#39;=&#39; at the end of a line</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">maxlinelen1</span> <span class="o">=</span> <span class="n">maxlinelen</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">encoded_body</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">encoded_body</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">body</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># break up the line into pieces no longer than maxlinelen - 1</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">laststart</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">maxlinelen</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">laststart</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="n">stop</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">maxlinelen1</span></span>
+<span class="num"><a href="#41">41</a></span><span>            <span class="c1"># make sure we don&#39;t break up an escape sequence</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#48">48</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># handle rest of line, special case if line ends in whitespace</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39; </span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">            <span class="n">room</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">laststart</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">room</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span>                <span class="c1"># It&#39;s a whitespace character at end-of-line, and we have room</span></span>
+<span class="num"><a href="#57">57</a></span><span>                <span class="c1"># for the three-character quoted encoding.</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">room</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="c1"># There&#39;s room for the whitespace character and a soft break.</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">soft_break</span></span>
+<span class="num"><a href="#62">62</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span>                <span class="c1"># There&#39;s room only for a soft break.  The quoted whitespace</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="c1"># will be the only content on the subsequent line.</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">soft_break</span> <span class="o">+</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:])</span></span>
+<span class="num"><a href="#69">69</a></span><span></span>
+<span class="num"><a href="#70">70</a></span><span>    <span class="c1"># add back final newline if present</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">    <span class="k">if</span> <span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CRLF</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full run">        <span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">    <span class="k">return</span> <span class="n">eol</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">encoded_body</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 7</b>: 2 calls (4.3%)</p>
+                <p><button class="input"><span>&#8594;</span> body</button> "\n\n\n\n\n\n\n\n\n\nj'ai un probl&#195;&#168;me de python. il est sorti de son vivarium.  et l&#195;\xa0 il est mont&#195;&#169; sur moi et il commence &#195;\xa0 m'&#195;&#169;to.\n" (1) "...</p>
+                <p><button class="input"><span>&#8594;</span> maxlinelen</button> 60 (2) </p>
+                <p><button class="input"><span>&#8594;</span> eol</button> '\n' (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> "\n\n\n\n\n\n\n\n\n\nj'ai un probl=C3=A8me de python. il est sorti de son vivari=\num.  et l=C3=A0 il est mont=C3=A9 sur moi et il commence =\n=C3=A0 ...</p>
+            <button class="run" title="lines run...">23 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">body_encode</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">maxlinelen</span><span class="o">=</span><span class="mi">76</span><span class="p">,</span> <span class="n">eol</span><span class="o">=</span><span class="n">NL</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode with quoted-printable, wrapping at maxlinelen characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Each line of encoded text will end with eol, which defaults to &quot;\\n&quot;.  Set</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    this to &quot;\\r\\n&quot; if you will be using the result of this function directly</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    in an email.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    Each line will be wrapped at, at most, maxlinelen characters before the</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    eol string (maxlinelen defaults to 76 characters, the maximum value</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    permitted by RFC 2045).  Long lines will have the &#39;soft line break&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    quoted-printable character &quot;=&quot; appended to them, so the decoded text will</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    be identical to the original text.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    The minimum maxlinelen is 4 to have room for a quoted character (&quot;=XX&quot;)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    followed by a soft line break.  Smaller values will generate a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    ValueError.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">maxlinelen</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;maxlinelen must be at least 4&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">body</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>    <span class="c1"># quote special characters</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">_QUOPRI_BODY_ENCODE_MAP</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="n">soft_break</span> <span class="o">=</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">eol</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># leave space for the &#39;=&#39; at the end of a line</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">maxlinelen1</span> <span class="o">=</span> <span class="n">maxlinelen</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">encoded_body</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">encoded_body</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">body</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># break up the line into pieces no longer than maxlinelen - 1</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">laststart</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">maxlinelen</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">laststart</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="n">stop</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">maxlinelen1</span></span>
+<span class="num"><a href="#41">41</a></span><span>            <span class="c1"># make sure we don&#39;t break up an escape sequence</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#48">48</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># handle rest of line, special case if line ends in whitespace</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39; </span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">            <span class="n">room</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">laststart</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">room</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span>                <span class="c1"># It&#39;s a whitespace character at end-of-line, and we have room</span></span>
+<span class="num"><a href="#57">57</a></span><span>                <span class="c1"># for the three-character quoted encoding.</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">room</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="c1"># There&#39;s room for the whitespace character and a soft break.</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">soft_break</span></span>
+<span class="num"><a href="#62">62</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span>                <span class="c1"># There&#39;s room only for a soft break.  The quoted whitespace</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="c1"># will be the only content on the subsequent line.</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">soft_break</span> <span class="o">+</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:])</span></span>
+<span class="num"><a href="#69">69</a></span><span></span>
+<span class="num"><a href="#70">70</a></span><span>    <span class="c1"># add back final newline if present</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">    <span class="k">if</span> <span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CRLF</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full run">        <span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">    <span class="k">return</span> <span class="n">eol</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">encoded_body</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 8</b>: 2 calls (4.3%)</p>
+                <p><button class="input"><span>&#8594;</span> body</button> '' (2) </p>
+                <p><button class="input"><span>&#8594;</span> maxlinelen</button> 76 (2) </p>
+                <p><button class="input"><span>&#8594;</span> eol</button> '\n' (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '' (2) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">31 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">body_encode</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">maxlinelen</span><span class="o">=</span><span class="mi">76</span><span class="p">,</span> <span class="n">eol</span><span class="o">=</span><span class="n">NL</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode with quoted-printable, wrapping at maxlinelen characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Each line of encoded text will end with eol, which defaults to &quot;\\n&quot;.  Set</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    this to &quot;\\r\\n&quot; if you will be using the result of this function directly</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    in an email.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    Each line will be wrapped at, at most, maxlinelen characters before the</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    eol string (maxlinelen defaults to 76 characters, the maximum value</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    permitted by RFC 2045).  Long lines will have the &#39;soft line break&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    quoted-printable character &quot;=&quot; appended to them, so the decoded text will</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    be identical to the original text.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    The minimum maxlinelen is 4 to have room for a quoted character (&quot;=XX&quot;)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    followed by a soft line break.  Smaller values will generate a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    ValueError.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">maxlinelen</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;maxlinelen must be at least 4&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">return</span> <span class="n">body</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>    <span class="c1"># quote special characters</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">    <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">_QUOPRI_BODY_ENCODE_MAP</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">    <span class="n">soft_break</span> <span class="o">=</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">eol</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># leave space for the &#39;=&#39; at the end of a line</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">    <span class="n">maxlinelen1</span> <span class="o">=</span> <span class="n">maxlinelen</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">    <span class="n">encoded_body</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">    <span class="n">append</span> <span class="o">=</span> <span class="n">encoded_body</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">body</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># break up the line into pieces no longer than maxlinelen - 1</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">        <span class="n">laststart</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">maxlinelen</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">        <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">laststart</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">stop</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">maxlinelen1</span></span>
+<span class="num"><a href="#41">41</a></span><span>            <span class="c1"># make sure we don&#39;t break up an escape sequence</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#48">48</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># handle rest of line, special case if line ends in whitespace</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39; </span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">            <span class="n">room</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">laststart</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">room</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span>                <span class="c1"># It&#39;s a whitespace character at end-of-line, and we have room</span></span>
+<span class="num"><a href="#57">57</a></span><span>                <span class="c1"># for the three-character quoted encoding.</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">room</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="c1"># There&#39;s room for the whitespace character and a soft break.</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">soft_break</span></span>
+<span class="num"><a href="#62">62</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span>                <span class="c1"># There&#39;s room only for a soft break.  The quoted whitespace</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="c1"># will be the only content on the subsequent line.</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">soft_break</span> <span class="o">+</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:])</span></span>
+<span class="num"><a href="#69">69</a></span><span></span>
+<span class="num"><a href="#70">70</a></span><span>    <span class="c1"># add back final newline if present</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CRLF</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">        <span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">eol</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">encoded_body</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 9</b>: 2 calls (4.3%)</p>
+                <p><button class="input"><span>&#8594;</span> body</button> 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx ' (2) </p>
+                <p><button class="input"><span>&#8594;</span> maxlinelen</button> 40 (2) </p>
+                <p><button class="input"><span>&#8594;</span> eol</button> '\n' (1) '\r\n' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx=\n xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxx=\nx xxxx xxxx xxxx xxxx=20' (1) 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx...</p>
+            <button class="run" title="lines run...">23 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">body_encode</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">maxlinelen</span><span class="o">=</span><span class="mi">76</span><span class="p">,</span> <span class="n">eol</span><span class="o">=</span><span class="n">NL</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode with quoted-printable, wrapping at maxlinelen characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Each line of encoded text will end with eol, which defaults to &quot;\\n&quot;.  Set</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    this to &quot;\\r\\n&quot; if you will be using the result of this function directly</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    in an email.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    Each line will be wrapped at, at most, maxlinelen characters before the</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    eol string (maxlinelen defaults to 76 characters, the maximum value</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    permitted by RFC 2045).  Long lines will have the &#39;soft line break&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    quoted-printable character &quot;=&quot; appended to them, so the decoded text will</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    be identical to the original text.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    The minimum maxlinelen is 4 to have room for a quoted character (&quot;=XX&quot;)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    followed by a soft line break.  Smaller values will generate a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    ValueError.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">maxlinelen</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;maxlinelen must be at least 4&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">body</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>    <span class="c1"># quote special characters</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">_QUOPRI_BODY_ENCODE_MAP</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="n">soft_break</span> <span class="o">=</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">eol</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># leave space for the &#39;=&#39; at the end of a line</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">maxlinelen1</span> <span class="o">=</span> <span class="n">maxlinelen</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">encoded_body</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">encoded_body</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">body</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># break up the line into pieces no longer than maxlinelen - 1</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">laststart</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">maxlinelen</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">laststart</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="n">stop</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">maxlinelen1</span></span>
+<span class="num"><a href="#41">41</a></span><span>            <span class="c1"># make sure we don&#39;t break up an escape sequence</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#48">48</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># handle rest of line, special case if line ends in whitespace</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39; </span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">            <span class="n">room</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">laststart</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">            <span class="k">if</span> <span class="n">room</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span>                <span class="c1"># It&#39;s a whitespace character at end-of-line, and we have room</span></span>
+<span class="num"><a href="#57">57</a></span><span>                <span class="c1"># for the three-character quoted encoding.</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">                <span class="n">q</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">room</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="c1"># There&#39;s room for the whitespace character and a soft break.</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">soft_break</span></span>
+<span class="num"><a href="#62">62</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span>                <span class="c1"># There&#39;s room only for a soft break.  The quoted whitespace</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="c1"># will be the only content on the subsequent line.</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">soft_break</span> <span class="o">+</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full not_run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:])</span></span>
+<span class="num"><a href="#69">69</a></span><span></span>
+<span class="num"><a href="#70">70</a></span><span>    <span class="c1"># add back final newline if present</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">    <span class="k">if</span> <span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CRLF</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">        <span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">    <span class="k">return</span> <span class="n">eol</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">encoded_body</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 10</b>: 2 calls (4.3%)</p>
+                <p><button class="input"><span>&#8594;</span> body</button> 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' (1) '=====' (1) </p>
+                <p><button class="input"><span>&#8594;</span> maxlinelen</button> 76 (1) 4 (1) </p>
+                <p><button class="input"><span>&#8594;</span> eol</button> '\n' (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=\nxxxxxxxxxxxxxxxxxxxxxxxxx' (1) '=3D=\n=3D=\n=3D=\n=3D=\n=3D' (1) </p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">14 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">body_encode</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">maxlinelen</span><span class="o">=</span><span class="mi">76</span><span class="p">,</span> <span class="n">eol</span><span class="o">=</span><span class="n">NL</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode with quoted-printable, wrapping at maxlinelen characters.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Each line of encoded text will end with eol, which defaults to &quot;\\n&quot;.  Set</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    this to &quot;\\r\\n&quot; if you will be using the result of this function directly</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    in an email.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    Each line will be wrapped at, at most, maxlinelen characters before the</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    eol string (maxlinelen defaults to 76 characters, the maximum value</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    permitted by RFC 2045).  Long lines will have the &#39;soft line break&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    quoted-printable character &quot;=&quot; appended to them, so the decoded text will</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    be identical to the original text.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    The minimum maxlinelen is 4 to have room for a quoted character (&quot;=XX&quot;)</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    followed by a soft line break.  Smaller values will generate a</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    ValueError.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">maxlinelen</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;maxlinelen must be at least 4&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">body</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>    <span class="c1"># quote special characters</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">_QUOPRI_BODY_ENCODE_MAP</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">    <span class="n">soft_break</span> <span class="o">=</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">eol</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># leave space for the &#39;=&#39; at the end of a line</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">maxlinelen1</span> <span class="o">=</span> <span class="n">maxlinelen</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="n">encoded_body</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="n">append</span> <span class="o">=</span> <span class="n">encoded_body</span><span class="o">.</span><span class="n">append</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">body</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># break up the line into pieces no longer than maxlinelen - 1</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">laststart</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">maxlinelen</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">laststart</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="n">stop</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">maxlinelen1</span></span>
+<span class="num"><a href="#41">41</a></span><span>            <span class="c1"># make sure we don&#39;t break up an escape sequence</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#48">48</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">                <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">                <span class="n">start</span> <span class="o">=</span> <span class="n">stop</span></span>
+<span class="num"><a href="#51">51</a></span><span></span>
+<span class="num"><a href="#52">52</a></span><span>        <span class="c1"># handle rest of line, special case if line ends in whitespace</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">        <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39; </span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">            <span class="n">room</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">laststart</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">room</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span>                <span class="c1"># It&#39;s a whitespace character at end-of-line, and we have room</span></span>
+<span class="num"><a href="#57">57</a></span><span>                <span class="c1"># for the three-character quoted encoding.</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">            <span class="k">elif</span> <span class="n">room</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="c1"># There&#39;s room for the whitespace character and a soft break.</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">soft_break</span></span>
+<span class="num"><a href="#62">62</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#63">63</a></span><span>                <span class="c1"># There&#39;s room only for a soft break.  The quoted whitespace</span></span>
+<span class="num"><a href="#64">64</a></span><span>                <span class="c1"># will be the only content on the subsequent line.</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">                <span class="n">q</span> <span class="o">=</span> <span class="n">soft_break</span> <span class="o">+</span> <span class="n">quote</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full not_run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span></span>
+<span class="num"><a href="#67">67</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">            <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">start</span><span class="p">:])</span></span>
+<span class="num"><a href="#69">69</a></span><span></span>
+<span class="num"><a href="#70">70</a></span><span>    <span class="c1"># add back final newline if present</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">    <span class="k">if</span> <span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CRLF</span><span class="p">:</span></span>
+<span class="num"><a href="#72">72</a></span><span class="full not_run">        <span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#73">73</a></span><span></span>
+<span class="num"><a href="#74">74</a></span><span class="full run">    <span class="k">return</span> <span class="n">eol</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">encoded_body</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>
