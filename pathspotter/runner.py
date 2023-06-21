@@ -1,6 +1,5 @@
 from spotflow.info import Analysis, MethodPath
-from pathspotter.report import Report
-from pathspotter.utils import get_html_lines
+from pathspotter.report import html_report, csv_report
 
 
 def spotflow_after(monitored_program, *args):
@@ -17,24 +16,14 @@ def spotflow_after(monitored_program, *args):
         report_type = args[1]
 
     compute_paths(monitored_program)
-    rep = Report(monitored_program)
 
     if report_type == 'both' or report_type == 'html':
-        configure_html(monitored_program)
         html_dir = './report_html/' + project_name
-        rep.html_report(html_dir)
+        html_report(monitored_program, html_dir)
 
     if report_type == 'both' or report_type == 'csv':
         csv_dir = './report_csv/' + project_name
-        rep.csv_report(csv_dir)
-
-
-def configure_html(monitored_program):
-    
-    for monitored_method in monitored_program.all_methods():
-        code = monitored_method.info.code
-        html_lines = get_html_lines(code)
-        monitored_method.info.html_lines = html_lines
+        csv_report(monitored_program, csv_dir)
 
 
 def compute_paths(monitored_program):

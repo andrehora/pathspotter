@@ -2,7 +2,7 @@ import os
 from spotflow.utils import write_csv, full_dir, ensure_dir
 
 
-REPORT_DIR = 'happypath_csv'
+REPORT_DIR = 'report_csv'
 INDEX_FILE = 'index.csv'
 
 
