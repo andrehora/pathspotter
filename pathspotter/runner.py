@@ -4,8 +4,6 @@ from pathspotter.report import html_report, csv_report
 
 def spotflow_after(monitored_program, *args):
 
-    print(args)
-
     project_name = 'noname'
     report_type = 'both'
     
