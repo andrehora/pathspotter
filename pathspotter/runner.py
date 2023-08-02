@@ -34,19 +34,21 @@ def compute_paths(monitored_program):
 
         monitored_method.info.top1_path_calls = paths[0].call_count
         monitored_method.info.top1_path_ratio = paths[0].call_ratio
-        monitored_method.info.top1_path_run_lines = len(paths[0].distinct_run_lines)
-        monitored_method.info.top1_path_run_lines_ratio = paths[0].run_lines_ratio
 
         monitored_method.info.top2_path_calls = -1
         monitored_method.info.top2_path_ratio = -1
-        monitored_method.info.top2_path_run_lines = -1
-        monitored_method.info.top2_path_run_lines_ratio = -1
+
+        monitored_method.info.top3p_path_calls = -1
+        monitored_method.info.top3p_path_ratio = -1
 
         if len(paths) >= 2:
             monitored_method.info.top2_path_calls = paths[1].call_count
             monitored_method.info.top2_path_ratio = paths[1].call_ratio
-            monitored_method.info.top2_path_run_lines = len(paths[1].distinct_run_lines)
-            monitored_method.info.top2_path_run_lines_ratio = paths[1].run_lines_ratio
+        
+        if len(paths) >= 3:
+            sum_call_count_3p = sum(each.call_count for each in paths[2:])
+            monitored_method.info.top3p_path_calls = sum_call_count_3p
+            monitored_method.info.top3p_path_ratio = round(sum_call_count_3p / monitored_method.info.total_calls, 2)
 
 
 def compute_paths_for_method(monitored_method):
