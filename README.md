@@ -2,7 +2,7 @@
 
 PathSpotter provides metrics and code visualization to better support understanding tested paths, including the most and least tested paths as well as their executed lines of code, inputs, outputs, and thrown exceptions.
 
-PathSpotter generates [HTML report like this]((https://andrehora.github.io/pathspotter/report_html/gzip)).
+PathSpotter generates [HTML reports like this](https://andrehora.github.io/pathspotter/report_html/gzip).
 
 ## Install
 
@@ -43,13 +43,12 @@ Report size: 32
 3. gzip.GzipFile._init_write
 4. gzip.GzipFile._write_gzip_header
 5. gzip.write32u
-6. gzip.GzipFile.write
 ...
 PathSpotter HTML report: ./report_html/gzip
 PathSpotter CSV report: ./report_csv/gzip
 ```
 
-Then, open the folders `report_html/gzip` and `report_csv/gzip` to see an [HTML report](https://andrehora.github.io/pathspotter/report_html/gzip) and [CSV report](https://github.com/andrehora/pathspotter/tree/main/docs/report_csv/gzip).
+Then, open the folders `report_html/gzip` and `report_csv/gzip` to see reports like these: [HTML](https://andrehora.github.io/pathspotter/report_html/gzip) and [CSV](https://github.com/andrehora/pathspotter/tree/main/docs/report_csv/gzip).
 
 ## See other exported reports
 
