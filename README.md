@@ -6,13 +6,20 @@ PathSpotter generates [HTML reports like this](https://andrehora.github.io/paths
 
 ## Install
 
-First, clone and install SpotFlow:
+First of all, it recommended to create a virtual environment (and activate it):
+
+```
+python3 -m venv .venv			
+source .venv/bin/activate
+```
+
+Next, clone and install SpotFlow:
 ```
 git clone https://github.com/andrehora/spotflow
 pip install -e ./spotflow
 ```
 
-Next, clone and install PathSpotter:
+Then, clone and install PathSpotter:
 ```
 git clone https://github.com/andrehora/pathspotter
 pip install -e ./pathspotter
