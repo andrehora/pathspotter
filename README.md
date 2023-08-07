@@ -48,9 +48,9 @@ PathSpotter HTML report: ./report_html/gzip
 PathSpotter CSV report: ./report_csv/gzip
 ```
 
-Then, open the folders `report_html/gzip` and `report_csv/gzip` to see reports like these: [HTML](https://andrehora.github.io/pathspotter/report_html/gzip) and [CSV](https://github.com/andrehora/pathspotter/tree/main/docs/report_csv/gzip).
+Then, open the folders `report_html/gzip` and `report_csv/gzip` to see reports like these: [HTML](https://andrehora.github.io/pathspotter/report_html/gzip) and [CSV](https://github.com/andrehora/pathspotter/tree/main/report_csv/gzip).
 
-## See other exported reports
+## See more real-world exported reports
 
 ### Python Standard Library
 
