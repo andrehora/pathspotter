@@ -1,6 +1,6 @@
 # PathSpotter
 
-PathSpotter provides metrics and code visualization to support understanding the *tested paths* of a method.
+PathSpotter provides metrics and code visualization to support understanding the *tested paths* of a Python method.
 A *tested path* of a method represents a set of input values that will make the method behave in the same way, that is, execute the same lines of code.
 
 PathSpotter generates CSV and [HTML reports like this](https://andrehora.github.io/pathspotter/report_html/calendar).
