@@ -1,3 +1,5 @@
+[![pages-build-deployment](https://github.com/andrehora/pathspotter/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/andrehora/pathspotter/actions/workflows/pages/pages-build-deployment)
+
 # PathSpotter
 
 PathSpotter provides metrics and code visualization to support understanding the *tested paths* of a Python method.
