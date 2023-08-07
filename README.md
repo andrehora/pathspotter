@@ -62,7 +62,7 @@ See more examples [here](https://github.com/andrehora/pathspotter/blob/main/exam
 - [gzip](https://andrehora.github.io/pathspotter/report_html/gzip)
 - [difflib](https://andrehora.github.io/pathspotter/report_html/difflib)
 
-### Other software systems
+### Popular projects
 
 - [DateUtil](https://andrehora.github.io/pathspotter/report_html/dateutil)
 - [TheFuck](https://andrehora.github.io/pathspotter/report_html/thefuck)
