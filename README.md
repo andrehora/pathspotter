@@ -1,6 +1,7 @@
 # PathSpotter
 
-PathSpotter provides metrics and code visualization to better support understanding the tested paths of a method as well as their executed lines of code, inputs, outputs, and thrown exceptions.
+PathSpotter provides metrics and code visualization to support understanding the *tested paths* of a method and inputs, outputs, and thrown exceptions.
+A *tested path* of a method represents a set of input values that will make the method behave in the same way, that is, execute the same lines of code.
 
 PathSpotter generates CSV and [HTML reports like this](https://andrehora.github.io/pathspotter/report_html/calendar).
 
@@ -13,7 +14,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-Next, clone and install SpotFlow:
+Next, clone and install [SpotFlow](https://github.com/andrehora/spotflow):
 ```
 git clone https://github.com/andrehora/spotflow
 pip install -e ./spotflow
