@@ -39,7 +39,7 @@ Then, open the folders `report_html/gzip` and `report_csv/gzip` to see reports l
 See more examples [here](https://github.com/andrehora/pathspotter/blob/main/examples/python_libs.sh).
 
 
-## Explore the tested paths of other real-world systems
+## Explore other tested paths
 
 ### Python Standard Library
 
