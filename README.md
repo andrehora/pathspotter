@@ -31,10 +31,12 @@ First, let's export the tested paths of test suite `test_gzip` of the Python Sta
 This command should generate reports in HTML and CSV formats:
 
 ```
-python -m spotflow -t gzip -s pathspotter/pathspotter/runner.py -arg gzip test.test_gzip
+python3 -m spotflow -t gzip -s pathspotter/pathspotter/runner.py -arg gzip test.test_gzip
 ```
 
 Then, open the folders `report_html/gzip` and `report_csv/gzip` to see reports like these: [HTML](https://andrehora.github.io/pathspotter/report_html/gzip) and [CSV](https://github.com/andrehora/pathspotter/tree/main/report_csv/gzip).
+
+See more examples [here](https://github.com/andrehora/pathspotter/blob/main/examples/python_libs.sh).
 
 
 ## See more real-world exported reports
