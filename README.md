@@ -28,7 +28,7 @@ git clone https://github.com/andrehora/pathspotter
 pip install -e ./pathspotter
 ```
 
-## Quick example
+## Quick usage
 
 Let's export the tested paths of the test suite `test_gzip` of the Python Standard Library.
 This command should generate reports in HTML and CSV formats:
