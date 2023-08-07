@@ -51,7 +51,7 @@ class HTMLCodeReport:
             self.report_dir = REPORT_DIR
 
         pyfile = full_filename(LOCAL_DIR, PY_FILE, __file__)
-        # self.report_dir = full_dir(self.report_dir, __file__)
+        self.report_dir = full_dir(self.report_dir, __file__)
         ensure_dir(self.report_dir)
         copy_files(LOCAL_DIR, STATIC_FILES, self.report_dir, __file__)
 
@@ -76,7 +76,7 @@ class HTMLIndexReport:
             self.report_dir = REPORT_DIR
 
         index_path = full_filename(LOCAL_DIR, INDEX_FILE, __file__)
-        # self.report_dir = full_dir(self.report_dir, __file__)
+        self.report_dir = full_dir(self.report_dir, __file__)
         ensure_dir(self.report_dir)
         # copy_files(LOCAL_DIR, STATIC_FILES, REPORT_DIR)
 
