@@ -6,7 +6,7 @@ PathSpotter generates [HTML reports like this](https://andrehora.github.io/paths
 
 ## Install
 
-First of all, it recommended to create a virtual environment (and activate it):
+First of all, create a virtual environment (and activate it):
 
 ```
 python3 -m venv .venv			
