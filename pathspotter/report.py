@@ -1,4 +1,3 @@
-import os
 from pathspotter.report_html import HTMLCodeReport, HTMLIndexReport
 from pathspotter.report_csv import CSVCodeReport, CSVIndexReport
 
@@ -16,8 +15,3 @@ def csv_report(monitored_program, report_dir):
     for monitored_method in monitored_program:
         CSVCodeReport(monitored_method, report_dir).report()
     CSVIndexReport(monitored_program, report_dir).report()
-    
-def export_dir(local_dir, file_origin):
-    file_path = os.path.dirname(file_origin)
-    head_path = os.path.split(file_path)[0]
-    return os.path.join(head_path, local_dir)

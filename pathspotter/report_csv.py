@@ -1,5 +1,5 @@
 import os
-from pathspotter.report import export_dir
+from pathspotter.utils import export_dir
 from spotflow.utils import write_csv, ensure_dir
 
 

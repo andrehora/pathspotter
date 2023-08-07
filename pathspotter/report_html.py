@@ -1,5 +1,5 @@
 import os
-from pathspotter.report import export_dir
+from pathspotter.utils import export_dir
 from spotflow.libs.templite import Templite
 from spotflow.utils import full_filename, ensure_dir, copy_files, read_file
 from spotflow.utils_html import write_html
