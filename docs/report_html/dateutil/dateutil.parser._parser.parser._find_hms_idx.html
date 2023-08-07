@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>dateutil.parser._parser.parser._find_hms_idx</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: dateutil.parser._parser.parser._find_hms_idx</h1>
+                <span>Calls: 1576, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 7</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 902 calls (0.57)</p>
+                <p><button class="input"><span>&#8594;</span> idx</button> 6 (410) 0 (378) 7 (58) 2 (25) 4 (4) 15 (3) 5 (3) 8 (3) 10 (3) 9 (2) </p>
+                <p><button class="input"><span>&#8594;</span> tokens</button> ['2014', '-', '05', '-', '01', ' ', '08', ':', '00', ':', '00'] (8) ['2014', ' ', 'January', ' ', '19', ' ', '09', ':', '00', ' ', 'UTC'] (5) ['2017',...</p>
+                <p><button class="input"><span>&#8594;</span> info</button> parserinfo (899) ParserTest.testCustomParserInfo.<locals>.myparserinfo (1) ParserTest.testCustomParserShortDaynames.<locals>.GermanParserInfo (1) Pars...</p>
+                <p><button class="input"><span>&#8594;</span> allow_jump</button> True (902) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (902) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_hms_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">allow_jump</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">len_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span>            <span class="c1"># There is an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label following this token.  We take</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># assign the upcoming label to the current token.</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in 12h&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">elif</span> <span class="p">(</span><span class="n">allow_jump</span> <span class="ow">and</span> <span class="n">idx</span><span class="o">+</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># There is a space and then an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label.</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in &quot;12 h&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># There is a &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; preceding this token.  Since neither</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># of the previous cases was hit, there is no label following this</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># token, so we use the previous label.</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># e.g. the &quot;04&quot; in &quot;12h04&quot;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span><span class="o">-</span><span class="mi">1</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">elif</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">len_l</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># If we are looking at the final token, we allow for a</span></span>
+<span class="num"><a href="#26">26</a></span><span>            <span class="c1"># backward-looking check to skip over a space.</span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># TODO: Are we sure this is the right condition here?</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">return</span> <span class="n">hms_idx</span></span>
+            </pre>
+            <p><b>Path 2</b>: 323 calls (0.2)</p>
+                <p><button class="input"><span>&#8594;</span> idx</button> 4 (163) 5 (58) 0 (54) 2 (37) 6 (2) 11 (2) 8 (1) 3 (1) 7 (1) 10 (1) </p>
+                <p><button class="input"><span>&#8594;</span> tokens</button> ['2014', ' ', 'January', ' ', '19', ' ', '09', ':', '00', ' ', 'UTC'] (10) ['2015', ' ', '09', ' ', '25'] (6) ['2003', ' ', '09', ' ', '25'] (4) ['09'...</p>
+                <p><button class="input"><span>&#8594;</span> info</button> parserinfo (321) ParserTest.testParseUnicodeWords.<locals>.rus_parserinfo (2) </p>
+                <p><button class="input"><span>&#8594;</span> allow_jump</button> True (323) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (323) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_hms_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">allow_jump</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">len_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span>            <span class="c1"># There is an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label following this token.  We take</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># assign the upcoming label to the current token.</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in 12h&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">elif</span> <span class="p">(</span><span class="n">allow_jump</span> <span class="ow">and</span> <span class="n">idx</span><span class="o">+</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># There is a space and then an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label.</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in &quot;12 h&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># There is a &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; preceding this token.  Since neither</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># of the previous cases was hit, there is no label following this</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># token, so we use the previous label.</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># e.g. the &quot;04&quot; in &quot;12h04&quot;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span><span class="o">-</span><span class="mi">1</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">elif</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">len_l</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># If we are looking at the final token, we allow for a</span></span>
+<span class="num"><a href="#26">26</a></span><span>            <span class="c1"># backward-looking check to skip over a space.</span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># TODO: Are we sure this is the right condition here?</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">return</span> <span class="n">hms_idx</span></span>
+            </pre>
+            <p><b>Path 3</b>: 265 calls (0.17)</p>
+                <p><button class="input"><span>&#8594;</span> idx</button> 12 (148) 13 (55) 4 (42) 2 (5) 7 (4) 6 (3) 5 (3) 14 (3) 32 (1) 16 (1) </p>
+                <p><button class="input"><span>&#8594;</span> tokens</button> ['2014', ' ', 'January', ' ', '19'] (4) ['2003', ' ', 'Sep', ' ', '25'] (3) ['Sep', ' ', '25', ' ', '2003'] (3) ['25', ' ', 'Sep', ' ', '2003'] (3) ['...</p>
+                <p><button class="input"><span>&#8594;</span> info</button> parserinfo (264) ParserTest.testCustomParserShortDaynames.<locals>.GermanParserInfo (1) </p>
+                <p><button class="input"><span>&#8594;</span> allow_jump</button> True (265) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (265) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_hms_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">allow_jump</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">len_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span>            <span class="c1"># There is an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label following this token.  We take</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># assign the upcoming label to the current token.</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in 12h&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">elif</span> <span class="p">(</span><span class="n">allow_jump</span> <span class="ow">and</span> <span class="n">idx</span><span class="o">+</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># There is a space and then an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label.</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in &quot;12 h&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># There is a &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; preceding this token.  Since neither</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># of the previous cases was hit, there is no label following this</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># token, so we use the previous label.</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># e.g. the &quot;04&quot; in &quot;12h04&quot;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span><span class="o">-</span><span class="mi">1</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">elif</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">len_l</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># If we are looking at the final token, we allow for a</span></span>
+<span class="num"><a href="#26">26</a></span><span>            <span class="c1"># backward-looking check to skip over a space.</span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># TODO: Are we sure this is the right condition here?</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">return</span> <span class="n">hms_idx</span></span>
+            </pre>
+            <p><b>Path 4</b>: 56 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> idx</button> 0 (30) 2 (12) 6 (4) 4 (4) 3 (2) 5 (2) 8 (2) </p>
+                <p><button class="input"><span>&#8594;</span> tokens</button> ['10', 'h', '36', 'm', '28.5', 's'] (6) ['10', 'h', '36', 'm', '28', 's'] (6) ['12', 'h', ' ', '01', 'm', '02', 's', ' ', 'am'] (6) ['10', 'h', '36', ...</p>
+                <p><button class="input"><span>&#8594;</span> info</button> parserinfo (56) </p>
+                <p><button class="input"><span>&#8594;</span> allow_jump</button> True (56) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 1 (30) 3 (12) 7 (4) 5 (4) 4 (2) 6 (2) 9 (2) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_hms_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">allow_jump</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">len_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span>            <span class="c1"># There is an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label following this token.  We take</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># assign the upcoming label to the current token.</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in 12h&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">elif</span> <span class="p">(</span><span class="n">allow_jump</span> <span class="ow">and</span> <span class="n">idx</span><span class="o">+</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># There is a space and then an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label.</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in &quot;12 h&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># There is a &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; preceding this token.  Since neither</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># of the previous cases was hit, there is no label following this</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># token, so we use the previous label.</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># e.g. the &quot;04&quot; in &quot;12h04&quot;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span><span class="o">-</span><span class="mi">1</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">elif</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">len_l</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># If we are looking at the final token, we allow for a</span></span>
+<span class="num"><a href="#26">26</a></span><span>            <span class="c1"># backward-looking check to skip over a space.</span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># TODO: Are we sure this is the right condition here?</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">return</span> <span class="n">hms_idx</span></span>
+            </pre>
+            <p><b>Path 5</b>: 16 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> idx</button> 0 (12) 4 (4) </p>
+                <p><button class="input"><span>&#8594;</span> tokens</button> ['36', ' ', 'm', ' ', '5', ' ', 's'] (4) ['36', ' ', 'm', ' ', '05', ' ', 's'] (4) ['10', ' ', 'h', ' ', '36'] (2) ['10', ' ', 'h', ' ', '36.5'] (2) [...</p>
+                <p><button class="input"><span>&#8594;</span> info</button> parserinfo (16) </p>
+                <p><button class="input"><span>&#8594;</span> allow_jump</button> True (16) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 2 (12) 6 (4) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_hms_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">allow_jump</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">len_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span>            <span class="c1"># There is an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label following this token.  We take</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># assign the upcoming label to the current token.</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in 12h&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">elif</span> <span class="p">(</span><span class="n">allow_jump</span> <span class="ow">and</span> <span class="n">idx</span><span class="o">+</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># There is a space and then an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label.</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in &quot;12 h&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># There is a &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; preceding this token.  Since neither</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># of the previous cases was hit, there is no label following this</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># token, so we use the previous label.</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># e.g. the &quot;04&quot; in &quot;12h04&quot;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span><span class="o">-</span><span class="mi">1</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">elif</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">len_l</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># If we are looking at the final token, we allow for a</span></span>
+<span class="num"><a href="#26">26</a></span><span>            <span class="c1"># backward-looking check to skip over a space.</span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># TODO: Are we sure this is the right condition here?</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">return</span> <span class="n">hms_idx</span></span>
+            </pre>
+            <p><b>Path 6</b>: 8 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> idx</button> 4 (8) </p>
+                <p><button class="input"><span>&#8594;</span> tokens</button> ['10', ' ', 'h', ' ', '36'] (2) ['10', ' ', 'h', ' ', '36.5'] (2) ['36', ' ', 'm', ' ', '5'] (2) ['36', ' ', 'm', ' ', '05'] (2) </p>
+                <p><button class="input"><span>&#8594;</span> info</button> parserinfo (8) </p>
+                <p><button class="input"><span>&#8594;</span> allow_jump</button> True (8) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 2 (8) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_hms_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">allow_jump</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">len_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span>            <span class="c1"># There is an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label following this token.  We take</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># assign the upcoming label to the current token.</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in 12h&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">elif</span> <span class="p">(</span><span class="n">allow_jump</span> <span class="ow">and</span> <span class="n">idx</span><span class="o">+</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># There is a space and then an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label.</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in &quot;12 h&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># There is a &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; preceding this token.  Since neither</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># of the previous cases was hit, there is no label following this</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># token, so we use the previous label.</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># e.g. the &quot;04&quot; in &quot;12h04&quot;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span><span class="o">-</span><span class="mi">1</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">elif</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">len_l</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># If we are looking at the final token, we allow for a</span></span>
+<span class="num"><a href="#26">26</a></span><span>            <span class="c1"># backward-looking check to skip over a space.</span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># TODO: Are we sure this is the right condition here?</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">return</span> <span class="n">hms_idx</span></span>
+            </pre>
+            <p><b>Path 7</b>: 6 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> idx</button> 2 (4) 4 (2) </p>
+                <p><button class="input"><span>&#8594;</span> tokens</button> ['01', 'h', '02', 'm', '03'] (2) ['01', 'h', '02'] (2) ['01', 'm', '02'] (2) </p>
+                <p><button class="input"><span>&#8594;</span> info</button> parserinfo (6) </p>
+                <p><button class="input"><span>&#8594;</span> allow_jump</button> True (6) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 1 (4) 3 (2) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_find_hms_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">allow_jump</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">len_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span>            <span class="c1"># There is an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label following this token.  We take</span></span>
+<span class="num"><a href="#6">6</a></span><span>            <span class="c1"># assign the upcoming label to the current token.</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in 12h&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">elif</span> <span class="p">(</span><span class="n">allow_jump</span> <span class="ow">and</span> <span class="n">idx</span><span class="o">+</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># There is a space and then an &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; label.</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># e.g. the &quot;12&quot; in &quot;12 h&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># There is a &quot;h&quot;, &quot;m&quot;, or &quot;s&quot; preceding this token.  Since neither</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># of the previous cases was hit, there is no label following this</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># token, so we use the previous label.</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># e.g. the &quot;04&quot; in &quot;12h04&quot;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span><span class="o">-</span><span class="mi">1</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">elif</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">len_l</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">              <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># If we are looking at the final token, we allow for a</span></span>
+<span class="num"><a href="#26">26</a></span><span>            <span class="c1"># backward-looking check to skip over a space.</span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># TODO: Are we sure this is the right condition here?</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">2</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="n">hms_idx</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">return</span> <span class="n">hms_idx</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.extensions.no_self_use.NoSelfUseChecker.leave_functiondef</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.extensions.no_self_use.NoSelfUseChecker.leave_functiondef</h1>
+                <span>Calls: 32, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 12</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 7 calls (0.22)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (6) AsyncFunctionDef (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">leave_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;On method node, check if this method couldn&#39;t be a function.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        ignore class, static and abstract methods, initializer,</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        methods overridden from a parent class.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_method</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">class_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_meth_could_be_func</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PYMETHODS</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">.</span><span class="n">is_abstract</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">overrides_a_method</span><span class="p">(</span><span class="n">class_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">decorated_with_property</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">_has_bare_super_call</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_protocol_class</span><span class="p">(</span><span class="n">class_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_overload_stub</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;no-self-use&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 5 calls (0.16)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (5) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">leave_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;On method node, check if this method couldn&#39;t be a function.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        ignore class, static and abstract methods, initializer,</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        methods overridden from a parent class.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_method</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">class_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_meth_could_be_func</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PYMETHODS</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="n">node</span><span class="o">.</span><span class="n">is_abstract</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">overrides_a_method</span><span class="p">(</span><span class="n">class_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">decorated_with_property</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">_has_bare_super_call</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_protocol_class</span><span class="p">(</span><span class="n">class_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_overload_stub</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;no-self-use&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 4 calls (0.12)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (3) AsyncFunctionDef (1) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">leave_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;On method node, check if this method couldn&#39;t be a function.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        ignore class, static and abstract methods, initializer,</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        methods overridden from a parent class.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_method</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">class_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_meth_could_be_func</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PYMETHODS</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="n">node</span><span class="o">.</span><span class="n">is_abstract</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">overrides_a_method</span><span class="p">(</span><span class="n">class_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">decorated_with_property</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">_has_bare_super_call</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">is_protocol_class</span><span class="p">(</span><span class="n">class_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">is_overload_stub</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;no-self-use&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 4 calls (0.12)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (4) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">leave_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;On method node, check if this method couldn&#39;t be a function.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        ignore class, static and abstract methods, initializer,</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        methods overridden from a parent class.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_method</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">class_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_meth_could_be_func</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PYMETHODS</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">.</span><span class="n">is_abstract</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">overrides_a_method</span><span class="p">(</span><span class="n">class_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">decorated_with_property</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">_has_bare_super_call</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_protocol_class</span><span class="p">(</span><span class="n">class_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_overload_stub</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;no-self-use&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 3 calls (0.09)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (3) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">leave_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;On method node, check if this method couldn&#39;t be a function.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        ignore class, static and abstract methods, initializer,</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        methods overridden from a parent class.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_method</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="n">class_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_meth_could_be_func</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PYMETHODS</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">.</span><span class="n">is_abstract</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">overrides_a_method</span><span class="p">(</span><span class="n">class_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">decorated_with_property</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">_has_bare_super_call</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_protocol_class</span><span class="p">(</span><span class="n">class_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_overload_stub</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;no-self-use&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 2 calls (0.06)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (2) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">leave_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;On method node, check if this method couldn&#39;t be a function.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        ignore class, static and abstract methods, initializer,</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        methods overridden from a parent class.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_method</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">class_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_meth_could_be_func</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PYMETHODS</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="n">node</span><span class="o">.</span><span class="n">is_abstract</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">overrides_a_method</span><span class="p">(</span><span class="n">class_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">decorated_with_property</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">_has_bare_super_call</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_protocol_class</span><span class="p">(</span><span class="n">class_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_overload_stub</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;no-self-use&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 7</b>: 2 calls (0.06)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (2) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">leave_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;On method node, check if this method couldn&#39;t be a function.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        ignore class, static and abstract methods, initializer,</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        methods overridden from a parent class.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_method</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">class_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_meth_could_be_func</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PYMETHODS</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="n">node</span><span class="o">.</span><span class="n">is_abstract</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">overrides_a_method</span><span class="p">(</span><span class="n">class_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">decorated_with_property</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">_has_bare_super_call</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">is_protocol_class</span><span class="p">(</span><span class="n">class_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">is_overload_stub</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;no-self-use&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 8</b>: 1 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (1) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">leave_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;On method node, check if this method couldn&#39;t be a function.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        ignore class, static and abstract methods, initializer,</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        methods overridden from a parent class.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_method</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">class_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_meth_could_be_func</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PYMETHODS</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="n">node</span><span class="o">.</span><span class="n">is_abstract</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">overrides_a_method</span><span class="p">(</span><span class="n">class_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">decorated_with_property</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">_has_bare_super_call</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_protocol_class</span><span class="p">(</span><span class="n">class_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_overload_stub</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;no-self-use&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 9</b>: 1 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (1) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">leave_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;On method node, check if this method couldn&#39;t be a function.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        ignore class, static and abstract methods, initializer,</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        methods overridden from a parent class.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_method</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">class_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_meth_could_be_func</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PYMETHODS</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="n">node</span><span class="o">.</span><span class="n">is_abstract</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">overrides_a_method</span><span class="p">(</span><span class="n">class_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">decorated_with_property</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">_has_bare_super_call</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_protocol_class</span><span class="p">(</span><span class="n">class_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_overload_stub</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;no-self-use&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 10</b>: 1 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (1) </p>
+            <button class="run" title="lines run...">1 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">leave_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;On method node, check if this method couldn&#39;t be a function.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        ignore class, static and abstract methods, initializer,</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        methods overridden from a parent class.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_method</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="n">class_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_meth_could_be_func</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PYMETHODS</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">.</span><span class="n">is_abstract</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">overrides_a_method</span><span class="p">(</span><span class="n">class_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">decorated_with_property</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">_has_bare_super_call</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_protocol_class</span><span class="p">(</span><span class="n">class_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_overload_stub</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;no-self-use&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 11</b>: 1 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (1) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">leave_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;On method node, check if this method couldn&#39;t be a function.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        ignore class, static and abstract methods, initializer,</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        methods overridden from a parent class.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_method</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">class_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_meth_could_be_func</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PYMETHODS</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="n">node</span><span class="o">.</span><span class="n">is_abstract</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">overrides_a_method</span><span class="p">(</span><span class="n">class_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">decorated_with_property</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">_has_bare_super_call</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">is_protocol_class</span><span class="p">(</span><span class="n">class_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_overload_stub</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;no-self-use&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 12</b>: 1 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">leave_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;On method node, check if this method couldn&#39;t be a function.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        ignore class, static and abstract methods, initializer,</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        methods overridden from a parent class.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_method</span><span class="p">():</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">class_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_meth_could_be_func</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PYMETHODS</span></span>
+<span class="num"><a href="#16">16</a></span><span>                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">.</span><span class="n">is_abstract</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">overrides_a_method</span><span class="p">(</span><span class="n">class_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">decorated_with_property</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">_has_bare_super_call</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_protocol_class</span><span class="p">(</span><span class="n">class_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">is_overload_stub</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;no-self-use&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">INFERENCE</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

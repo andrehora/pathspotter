@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.graph.DotBackend.generate</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.graph.DotBackend.generate</h1>
+                <span>Calls: 8, </span>
+                <span>Exceptions: 2, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 6 calls (0.75)</p>
+                <p><button class="input"><span>&#8594;</span> outputfile</button> 'foo.dot' (1) 'foo.gv' (1) 'tests/regrtest_data/foo.dot' (1) 'import.dot' (1) 'ext_import.dot' (1) 'int_import.dot' (1) </p>
+                <p><button class="input"><span>&#8594;</span> mapfile</button> None (6) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'foo.dot' (1) 'foo.gv' (1) 'tests/regrtest_data/foo.dot' (1) 'import.dot' (1) 'ext_import.dot' (1) 'int_import.dot' (1) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">29 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates a graph file.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param str outputfile: filename and path [defaults to graphname.png]</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        :param str mapfile: filename and path</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :rtype: str</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        :return: a path to the generated file</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        :raises RuntimeError: if the executable for rendering was not found</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># pylint: disable=duplicate-code</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">graphviz_extensions</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;dot&quot;</span><span class="p">,</span> <span class="s2">&quot;gv&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graphname</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="n">outputfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="n">pdot</span><span class="p">,</span> <span class="n">dot_sourcepath</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span><span class="s2">&quot;.gv&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">ppng</span><span class="p">,</span> <span class="n">outputfile</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span><span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">pdot</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">ppng</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">target_info_from_filename</span><span class="p">(</span><span class="n">outputfile</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">target</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="n">outputfile</span> <span class="o">=</span> <span class="n">outputfile</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">target</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">if</span> <span class="n">target</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">graphviz_extensions</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="n">pdot</span><span class="p">,</span> <span class="n">dot_sourcepath</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span><span class="s2">&quot;.gv&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">pdot</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="n">dot_sourcepath</span> <span class="o">=</span> <span class="n">outputfile</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">dot_sourcepath</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">target</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">graphviz_extensions</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                    <span class="sa">f</span><span class="s2">&quot;Cannot generate `</span><span class="si">{</span><span class="n">outputfile</span><span class="si">}</span><span class="s2">` because &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="si">}</span><span class="s2">&#39; &quot;</span></span>
+<span class="num"><a href="#38">38</a></span><span>                    <span class="s2">&quot;executable not found. Install graphviz, or specify a `.gv` &quot;</span></span>
+<span class="num"><a href="#39">39</a></span><span>                    <span class="s2">&quot;outputfile to produce the DOT source code.&quot;</span></span>
+<span class="num"><a href="#40">40</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">mapfile</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                    <span class="p">[</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                        <span class="s2">&quot;-Tcmapx&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                        <span class="s2">&quot;-o&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                        <span class="n">mapfile</span><span class="p">,</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                        <span class="s2">&quot;-T&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                        <span class="n">target</span><span class="p">,</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                        <span class="n">dot_sourcepath</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                        <span class="s2">&quot;-o&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                        <span class="n">outputfile</span><span class="p">,</span></span>
+<span class="num"><a href="#53">53</a></span><span>                    <span class="p">],</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">                    <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#55">55</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#56">56</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="p">,</span> <span class="s2">&quot;-T&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">dot_sourcepath</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">],</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                    <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">dot_sourcepath</span><span class="p">)</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full run">        <span class="k">return</span> <span class="n">outputfile</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (0.12)</p>
+                <p><button class="input"><span>&#8594;</span> outputfile</button> 'graph.png' (1) </p>
+                <p><button class="input"><span>&#8594;</span> mapfile</button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> RuntimeError (1) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">26 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates a graph file.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param str outputfile: filename and path [defaults to graphname.png]</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        :param str mapfile: filename and path</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :rtype: str</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        :return: a path to the generated file</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        :raises RuntimeError: if the executable for rendering was not found</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># pylint: disable=duplicate-code</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">graphviz_extensions</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;dot&quot;</span><span class="p">,</span> <span class="s2">&quot;gv&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graphname</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="n">outputfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="n">pdot</span><span class="p">,</span> <span class="n">dot_sourcepath</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span><span class="s2">&quot;.gv&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">ppng</span><span class="p">,</span> <span class="n">outputfile</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span><span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">pdot</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">ppng</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">target_info_from_filename</span><span class="p">(</span><span class="n">outputfile</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">target</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="n">outputfile</span> <span class="o">=</span> <span class="n">outputfile</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">target</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">if</span> <span class="n">target</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">graphviz_extensions</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="n">pdot</span><span class="p">,</span> <span class="n">dot_sourcepath</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span><span class="s2">&quot;.gv&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">pdot</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">dot_sourcepath</span> <span class="o">=</span> <span class="n">outputfile</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">dot_sourcepath</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">target</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">graphviz_extensions</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="k">if</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                    <span class="sa">f</span><span class="s2">&quot;Cannot generate `</span><span class="si">{</span><span class="n">outputfile</span><span class="si">}</span><span class="s2">` because &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="si">}</span><span class="s2">&#39; &quot;</span></span>
+<span class="num"><a href="#38">38</a></span><span>                    <span class="s2">&quot;executable not found. Install graphviz, or specify a `.gv` &quot;</span></span>
+<span class="num"><a href="#39">39</a></span><span>                    <span class="s2">&quot;outputfile to produce the DOT source code.&quot;</span></span>
+<span class="num"><a href="#40">40</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">mapfile</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                    <span class="p">[</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                        <span class="s2">&quot;-Tcmapx&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                        <span class="s2">&quot;-o&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                        <span class="n">mapfile</span><span class="p">,</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                        <span class="s2">&quot;-T&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                        <span class="n">target</span><span class="p">,</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                        <span class="n">dot_sourcepath</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                        <span class="s2">&quot;-o&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                        <span class="n">outputfile</span><span class="p">,</span></span>
+<span class="num"><a href="#53">53</a></span><span>                    <span class="p">],</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">                    <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#55">55</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#56">56</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="p">,</span> <span class="s2">&quot;-T&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">dot_sourcepath</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">],</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                    <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">dot_sourcepath</span><span class="p">)</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">outputfile</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.12)</p>
+                <p><button class="input"><span>&#8594;</span> outputfile</button> 'graph' (1) </p>
+                <p><button class="input"><span>&#8594;</span> mapfile</button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> RuntimeError (1) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">24 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates a graph file.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        :param str outputfile: filename and path [defaults to graphname.png]</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        :param str mapfile: filename and path</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        :rtype: str</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        :return: a path to the generated file</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        :raises RuntimeError: if the executable for rendering was not found</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># pylint: disable=duplicate-code</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">graphviz_extensions</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;dot&quot;</span><span class="p">,</span> <span class="s2">&quot;gv&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graphname</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="n">outputfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="n">pdot</span><span class="p">,</span> <span class="n">dot_sourcepath</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span><span class="s2">&quot;.gv&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">ppng</span><span class="p">,</span> <span class="n">outputfile</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span><span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">pdot</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">ppng</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">target_info_from_filename</span><span class="p">(</span><span class="n">outputfile</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">target</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="n">outputfile</span> <span class="o">=</span> <span class="n">outputfile</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">target</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">if</span> <span class="n">target</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">graphviz_extensions</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="n">pdot</span><span class="p">,</span> <span class="n">dot_sourcepath</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span><span class="s2">&quot;.gv&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">pdot</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">dot_sourcepath</span> <span class="o">=</span> <span class="n">outputfile</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">dot_sourcepath</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">target</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">graphviz_extensions</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="k">if</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                    <span class="sa">f</span><span class="s2">&quot;Cannot generate `</span><span class="si">{</span><span class="n">outputfile</span><span class="si">}</span><span class="s2">` because &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="si">}</span><span class="s2">&#39; &quot;</span></span>
+<span class="num"><a href="#38">38</a></span><span>                    <span class="s2">&quot;executable not found. Install graphviz, or specify a `.gv` &quot;</span></span>
+<span class="num"><a href="#39">39</a></span><span>                    <span class="s2">&quot;outputfile to produce the DOT source code.&quot;</span></span>
+<span class="num"><a href="#40">40</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">mapfile</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                    <span class="p">[</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                        <span class="s2">&quot;-Tcmapx&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                        <span class="s2">&quot;-o&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                        <span class="n">mapfile</span><span class="p">,</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">                        <span class="s2">&quot;-T&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                        <span class="n">target</span><span class="p">,</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                        <span class="n">dot_sourcepath</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                        <span class="s2">&quot;-o&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                        <span class="n">outputfile</span><span class="p">,</span></span>
+<span class="num"><a href="#53">53</a></span><span>                    <span class="p">],</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">                    <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#55">55</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#56">56</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="p">,</span> <span class="s2">&quot;-T&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">dot_sourcepath</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">],</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">                    <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#60">60</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full not_run">            <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">dot_sourcepath</span><span class="p">)</span></span>
+<span class="num"><a href="#62">62</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">outputfile</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

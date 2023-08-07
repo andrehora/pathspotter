@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.variables.VariablesChecker._check_unpacking</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.variables.VariablesChecker._check_unpacking</h1>
+                <span>Calls: 115, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 7</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 61 calls (0.53)</p>
+                <p><button class="input"><span>&#8594;</span> inferred</button> Tuple (47) List (9) Instance (2) Dict (2) DictItems (1) </p>
+                <p><button class="input"><span>&#8594;</span> node</button> Assign (61) </p>
+                <p><button class="input"><span>&#8594;</span> targets</button> list (61) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">inferred</span><span class="p">:</span> <span class="n">InferenceResult</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for unbalanced tuple unpacking</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        and unpacking non sequences.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_inside_abstract_class</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_comprehension</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">inferred</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># Variable-length argument, we can&#39;t determine the length.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># Attempt to check unpacking is properly balanced</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes_to_unpack</span><span class="p">(</span><span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="n">details</span> <span class="o">=</span> <span class="n">_get_unpacking_extra_info</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_report_unbalanced_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">details</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># attempt to check unpacking may be possible (i.e. RHS is iterable)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_iterable</span><span class="p">(</span><span class="n">inferred</span><span class="p">):</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_report_unpacking_non_sequence</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 21 calls (0.18)</p>
+                <p><button class="input"><span>&#8594;</span> inferred</button> Tuple (8) List (3) DictItems (3) DictValues (2) Dict (2) Instance (2) DictKeys (1) </p>
+                <p><button class="input"><span>&#8594;</span> node</button> Assign (21) </p>
+                <p><button class="input"><span>&#8594;</span> targets</button> list (21) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">inferred</span><span class="p">:</span> <span class="n">InferenceResult</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for unbalanced tuple unpacking</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        and unpacking non sequences.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_inside_abstract_class</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_comprehension</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">inferred</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># Variable-length argument, we can&#39;t determine the length.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># Attempt to check unpacking is properly balanced</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes_to_unpack</span><span class="p">(</span><span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="n">details</span> <span class="o">=</span> <span class="n">_get_unpacking_extra_info</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_report_unbalanced_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                    <span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">details</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># attempt to check unpacking may be possible (i.e. RHS is iterable)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_iterable</span><span class="p">(</span><span class="n">inferred</span><span class="p">):</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_report_unpacking_non_sequence</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 12 calls (0.1)</p>
+                <p><button class="input"><span>&#8594;</span> inferred</button> Const (4) Instance (3) FunctionDef (3) ClassDef (2) </p>
+                <p><button class="input"><span>&#8594;</span> node</button> Assign (12) </p>
+                <p><button class="input"><span>&#8594;</span> targets</button> list (12) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">inferred</span><span class="p">:</span> <span class="n">InferenceResult</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for unbalanced tuple unpacking</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        and unpacking non sequences.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_inside_abstract_class</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_comprehension</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">inferred</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># Variable-length argument, we can&#39;t determine the length.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># Attempt to check unpacking is properly balanced</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes_to_unpack</span><span class="p">(</span><span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="n">details</span> <span class="o">=</span> <span class="n">_get_unpacking_extra_info</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_report_unbalanced_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">details</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># attempt to check unpacking may be possible (i.e. RHS is iterable)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_iterable</span><span class="p">(</span><span class="n">inferred</span><span class="p">):</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_report_unpacking_non_sequence</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 11 calls (0.1)</p>
+                <p><button class="input"><span>&#8594;</span> inferred</button> Instance (5) Const (4) Set (1) ClassDef (1) </p>
+                <p><button class="input"><span>&#8594;</span> node</button> Assign (11) </p>
+                <p><button class="input"><span>&#8594;</span> targets</button> list (11) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">inferred</span><span class="p">:</span> <span class="n">InferenceResult</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for unbalanced tuple unpacking</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        and unpacking non sequences.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_inside_abstract_class</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_comprehension</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">inferred</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># Variable-length argument, we can&#39;t determine the length.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># Attempt to check unpacking is properly balanced</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes_to_unpack</span><span class="p">(</span><span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="n">details</span> <span class="o">=</span> <span class="n">_get_unpacking_extra_info</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_report_unbalanced_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">details</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># attempt to check unpacking may be possible (i.e. RHS is iterable)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_iterable</span><span class="p">(</span><span class="n">inferred</span><span class="p">):</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_report_unpacking_non_sequence</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 8 calls (0.07)</p>
+                <p><button class="input"><span>&#8594;</span> inferred</button> Uninferable (8) </p>
+                <p><button class="input"><span>&#8594;</span> node</button> Assign (8) </p>
+                <p><button class="input"><span>&#8594;</span> targets</button> list (8) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (8) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">inferred</span><span class="p">:</span> <span class="n">InferenceResult</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for unbalanced tuple unpacking</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        and unpacking non sequences.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_inside_abstract_class</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_comprehension</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">inferred</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># Variable-length argument, we can&#39;t determine the length.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># Attempt to check unpacking is properly balanced</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes_to_unpack</span><span class="p">(</span><span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="n">details</span> <span class="o">=</span> <span class="n">_get_unpacking_extra_info</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_report_unbalanced_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">details</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># attempt to check unpacking may be possible (i.e. RHS is iterable)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_iterable</span><span class="p">(</span><span class="n">inferred</span><span class="p">):</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_report_unpacking_non_sequence</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 1 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> inferred</button> Tuple (1) </p>
+                <p><button class="input"><span>&#8594;</span> node</button> Assign (1) </p>
+                <p><button class="input"><span>&#8594;</span> targets</button> list (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (1) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">inferred</span><span class="p">:</span> <span class="n">InferenceResult</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for unbalanced tuple unpacking</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        and unpacking non sequences.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_inside_abstract_class</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_comprehension</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">inferred</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># Variable-length argument, we can&#39;t determine the length.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># Attempt to check unpacking is properly balanced</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes_to_unpack</span><span class="p">(</span><span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="n">details</span> <span class="o">=</span> <span class="n">_get_unpacking_extra_info</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_report_unbalanced_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">details</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># attempt to check unpacking may be possible (i.e. RHS is iterable)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_iterable</span><span class="p">(</span><span class="n">inferred</span><span class="p">):</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_report_unpacking_non_sequence</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 7</b>: 1 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> inferred</button> Const (1) </p>
+                <p><button class="input"><span>&#8594;</span> node</button> Assign (1) </p>
+                <p><button class="input"><span>&#8594;</span> targets</button> list (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (1) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">17 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">inferred</span><span class="p">:</span> <span class="n">InferenceResult</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for unbalanced tuple unpacking</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        and unpacking non sequences.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_inside_abstract_class</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_comprehension</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">inferred</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">inferred</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">vararg</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># Variable-length argument, we can&#39;t determine the length.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># Attempt to check unpacking is properly balanced</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes_to_unpack</span><span class="p">(</span><span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="n">details</span> <span class="o">=</span> <span class="n">_get_unpacking_extra_info</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_report_unbalanced_unpacking</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="n">node</span><span class="p">,</span> <span class="n">inferred</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">details</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># attempt to check unpacking may be possible (i.e. RHS is iterable)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_iterable</span><span class="p">(</span><span class="n">inferred</span><span class="p">):</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_report_unpacking_non_sequence</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

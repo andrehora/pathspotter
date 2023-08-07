@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.extensions._check_docs_utils.SphinxDocstring.exceptions</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.extensions._check_docs_utils.SphinxDocstring.exceptions</h1>
+                <span>Calls: 62, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 58 calls (0.94)</p>
+                <p><button class="output"><span>&#8617; return</span></button> {'NameError'} (28) {'OSError', 'ValueError', 'NameError', 'RuntimeError'} (10) {'RuntimeError'} (4) {'NameError', 'RuntimeError', 'ValueError', ', ', ...</p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">exceptions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">types</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re_raise_in_docstring</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">raise_type</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">types</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">_split_multiple_exc_types</span><span class="p">(</span><span class="n">raise_type</span><span class="p">))</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="n">types</span></span>
+            </pre>
+            <p><b>Path 2</b>: 4 calls (0.06)</p>
+                <p><button class="output"><span>&#8617; return</span></button> set() (4) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">exceptions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">types</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re_raise_in_docstring</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">            <span class="n">raise_type</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="n">types</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">_split_multiple_exc_types</span><span class="p">(</span><span class="n">raise_type</span><span class="p">))</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="n">types</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email._policybase.Compat32.fold_binary</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email._policybase.Compat32.fold_binary</h1>
+                <span>Calls: 1078, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1078 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'Content-Type' (141) 'From' (77) 'To' (68) 'Subject' (64) 'Status' (55) 'Action' (52) 'Content-Transfer-Encoding' (51) 'Final-Recipient' (50) 'Diagnos...</p>
+                <p><button class="input"><span>&#8594;</span> value</button> '1.0' (59) 'Fri, 26 Nov 2004 19:41:44 -0800 (PST)' (54) 'failed' (52) '5.7.1' (50) 'smtp; 550 5.7.1 Message content rejected, id=01956-02-2 - BANNED: ...</p>
+                <p><button class="output"><span>&#8617; return</span></button> bytes (1078) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">fold_binary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;+</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Headers are folded using the Header folding algorithm, which preserves</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        existing line breaks in the value, and wraps each resulting line to the</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        max_line_length.  If cte_type is 7bit, non-ascii binary data is CTE</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        encoded using the unknown-8bit charset.  Otherwise the original source</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        header is used, with its existing line breaks and/or binary data.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">folded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fold</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">sanitize</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cte_type</span><span class="o">==</span><span class="s1">&#39;7bit&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">return</span> <span class="n">folded</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;surrogateescape&#39;</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

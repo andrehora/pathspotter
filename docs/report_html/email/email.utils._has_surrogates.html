@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.utils._has_surrogates</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.utils._has_surrogates</h1>
+                <span>Calls: 32846, </span>
+                <span>Exceptions: 216, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 32630 calls (0.99)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> ValueTerminal (19401) 'text/plain' (1008) 'multipart/mixed; boundary="==="' (822) 'text/plain; charset=us-ascii' (705) 'text/html' (593) 'image/jpg' (...</p>
+                <p><button class="output"><span>&#8617; return</span></button> False (32630) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_has_surrogates</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if s contains surrogate-escaped binary data.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="c1"># This check is based on the fact that unless there are surrogates, utf8</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="c1"># (Python&#39;s default encoding) can encode any string.  This is the fastest</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="c1"># way to check for surrogates, see issue 11454 for timings.</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">    <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">True</span></span>
+            </pre>
+            <p><b>Path 2</b>: 216 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> s</button> 'GIF87a\udc96\x00#\x00\udcf3\x00\x00\udcff\udcff\udcff\udcf5\udcf8\udcfc\udceb\udcf1\udcf8\udce0\udceb\udcf5\udcd6\udce4\udcf1\udccc\udcdd\udcee\udcc2...</p>
+                <p><button class="output"><span>&#8617; return</span></button> True (216) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UnicodeEncodeError (216) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_has_surrogates</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if s contains surrogate-escaped binary data.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="c1"># This check is based on the fact that unless there are surrogates, utf8</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="c1"># (Python&#39;s default encoding) can encode any string.  This is the fastest</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="c1"># way to check for surrogates, see issue 11454 for timings.</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">return</span> <span class="kc">True</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

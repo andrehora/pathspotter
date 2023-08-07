@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>logging.Formatter.formatTime</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: logging.Formatter.formatTime</h1>
+                <span>Calls: 3506, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 2501 calls (0.71)</p>
+                <p><button class="input"><span>&#8594;</span> record</button> LogRecord (2501) </p>
+                <p><button class="input"><span>&#8594;</span> datefmt</button> '%Y-%m-%d %H:%M:%S' (2500) '%Y:%d' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '2023-08-02 15:24:14' (504) '2023-08-02 15:24:11' (421) '2023-08-02 15:24:10' (419) '2023-08-02 15:24:12' (357) '2023-08-02 15:24:13' (283) '2023-08-0...</p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">formatTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">datefmt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Return the creation time of the specified LogRecord as formatted text.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        This method should be called from format() by a formatter which</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        wants to make use of a formatted time. This method can be overridden</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        in formatters to provide for any specific requirement, but the</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        basic behaviour is as follows: if datefmt (a string) is specified,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        it is used with time.strftime() to format the creation time of the</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        record. Otherwise, an ISO8601-like (or RFC 3339-like) format is used.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        The resulting string is returned. This function uses a user-configurable</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        function to convert the creation time to a tuple. By default,</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        time.localtime() is used; to change this for a particular formatter</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        instance, set the &#39;converter&#39; attribute to a function with the same</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        signature as time.localtime() or time.gmtime(). To change it for all</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        formatters, for example if you want all logging times to be shown in GMT,</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        set the &#39;converter&#39; attribute in the Formatter class.</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">created</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="n">datefmt</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">s</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">datefmt</span><span class="p">,</span> <span class="n">ct</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">            <span class="n">s</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_time_format</span><span class="p">,</span> <span class="n">ct</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_msec_format</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_msec_format</span> <span class="o">%</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">msecs</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">return</span> <span class="n">s</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1004 calls (0.29)</p>
+                <p><button class="input"><span>&#8594;</span> record</button> LogRecord (1004) </p>
+                <p><button class="input"><span>&#8594;</span> datefmt</button> None (1004) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '1993-04-21 08:03:00,123' (2) '2023-08-02 15:24:17,385' (1) '2023-08-02 15:24:17,395' (1) '2023-08-02 15:24:17,407' (1) '2023-08-02 15:24:17,419' (1) ...</p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">formatTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">datefmt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Return the creation time of the specified LogRecord as formatted text.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        This method should be called from format() by a formatter which</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        wants to make use of a formatted time. This method can be overridden</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        in formatters to provide for any specific requirement, but the</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        basic behaviour is as follows: if datefmt (a string) is specified,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        it is used with time.strftime() to format the creation time of the</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        record. Otherwise, an ISO8601-like (or RFC 3339-like) format is used.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        The resulting string is returned. This function uses a user-configurable</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        function to convert the creation time to a tuple. By default,</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        time.localtime() is used; to change this for a particular formatter</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        instance, set the &#39;converter&#39; attribute to a function with the same</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        signature as time.localtime() or time.gmtime(). To change it for all</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        formatters, for example if you want all logging times to be shown in GMT,</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        set the &#39;converter&#39; attribute in the Formatter class.</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">created</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="n">datefmt</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">s</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">datefmt</span><span class="p">,</span> <span class="n">ct</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">s</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_time_format</span><span class="p">,</span> <span class="n">ct</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_msec_format</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_msec_format</span> <span class="o">%</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">msecs</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">return</span> <span class="n">s</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> record</button> LogRecord (1) </p>
+                <p><button class="input"><span>&#8594;</span> datefmt</button> None (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '21/04/1993 08:03:00' (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">formatTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">datefmt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Return the creation time of the specified LogRecord as formatted text.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        This method should be called from format() by a formatter which</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        wants to make use of a formatted time. This method can be overridden</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        in formatters to provide for any specific requirement, but the</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        basic behaviour is as follows: if datefmt (a string) is specified,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        it is used with time.strftime() to format the creation time of the</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        record. Otherwise, an ISO8601-like (or RFC 3339-like) format is used.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        The resulting string is returned. This function uses a user-configurable</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        function to convert the creation time to a tuple. By default,</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        time.localtime() is used; to change this for a particular formatter</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        instance, set the &#39;converter&#39; attribute to a function with the same</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        signature as time.localtime() or time.gmtime(). To change it for all</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        formatters, for example if you want all logging times to be shown in GMT,</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        set the &#39;converter&#39; attribute in the Formatter class.</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">created</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="n">datefmt</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">s</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">datefmt</span><span class="p">,</span> <span class="n">ct</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">s</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_time_format</span><span class="p">,</span> <span class="n">ct</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_msec_format</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_msec_format</span> <span class="o">%</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">msecs</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">return</span> <span class="n">s</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

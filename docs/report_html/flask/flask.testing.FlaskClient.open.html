@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.testing.FlaskClient.open</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.testing.FlaskClient.open</h1>
+                <span>Calls: 423, </span>
+                <span>Exceptions: 18, </span>
+                <span>Paths: 7</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 365 calls (0.86)</p>
+                <p><button class="input"><span>&#8594;</span> buffered</button> False (365) </p>
+                <p><button class="input"><span>&#8594;</span> follow_redirects</button> False (362) True (3) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> ('/',) (147) ('/more',) (10) ('/jsonify_basic_types',) (10) ('/error',) (7) ('/foo/bar',) (7) ('/abort',) (7) ('/parent/child/',) (5) ('/foo/',) (4) (...</p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {'method': 'GET'} (290) {'method': 'POST'} (17) {'method': 'OPTIONS'} (15) dict (11) {'method': 'PUT'} (5) {'method': 'DELETE'} (5) {'method': 'HEAD'}...</p>
+                <p><button class="output"><span>&#8617; return</span></button> WrapperTestResponse (365) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">open</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">buffered</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">follow_redirects</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestResponse</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">args</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">BaseRequest</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">builder</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="ow">or</span> <span class="p">{})</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">EnvironBuilder</span><span class="o">.</span><span class="n">from_environ</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">app</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="p">,</span> <span class="n">environ_base</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">({})</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="p">)</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># isinstance(args[0], BaseRequest)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">request</span><span class="o">.</span><span class="n">environ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="c1"># request is None</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_from_builder_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># Pop any previously preserved contexts. This prevents contexts</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># from being preserved across redirects or multiple requests</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># within a single block.</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">response</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">open</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">request</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">buffered</span><span class="o">=</span><span class="n">buffered</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">follow_redirects</span><span class="o">=</span><span class="n">follow_redirects</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">response</span><span class="o">.</span><span class="n">json_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">json</span>  <span class="c1"># type: ignore[assignment]</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># Re-push contexts that were preserved during the request.</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">cm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">        <span class="k">return</span> <span class="n">response</span></span>
+            </pre>
+            <p><b>Path 2</b>: 33 calls (0.08)</p>
+                <p><button class="input"><span>&#8594;</span> buffered</button> False (33) </p>
+                <p><button class="input"><span>&#8594;</span> follow_redirects</button> False (33) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> ('/bump',) (12) ('/',) (9) ('/read',) (4) ('/getsession',) (2) ('/test',) (1) ('/other',) (1) ('http://domain.com/action?vodka=42',) (1) ('/echo',) (1...</p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {'method': 'GET'} (31) dict (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> WrapperTestResponse (33) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">open</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">buffered</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">follow_redirects</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestResponse</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">args</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">BaseRequest</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">builder</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="ow">or</span> <span class="p">{})</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">EnvironBuilder</span><span class="o">.</span><span class="n">from_environ</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">app</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="p">,</span> <span class="n">environ_base</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">({})</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="p">)</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># isinstance(args[0], BaseRequest)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">request</span><span class="o">.</span><span class="n">environ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="c1"># request is None</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_from_builder_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># Pop any previously preserved contexts. This prevents contexts</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># from being preserved across redirects or multiple requests</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># within a single block.</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">response</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">open</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">request</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">buffered</span><span class="o">=</span><span class="n">buffered</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">follow_redirects</span><span class="o">=</span><span class="n">follow_redirects</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">response</span><span class="o">.</span><span class="n">json_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">json</span>  <span class="c1"># type: ignore[assignment]</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># Re-push contexts that were preserved during the request.</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="n">cm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">        <span class="k">return</span> <span class="n">response</span></span>
+            </pre>
+            <p><b>Path 3</b>: 18 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> buffered</button> False (18) </p>
+                <p><button class="input"><span>&#8594;</span> follow_redirects</button> False (17) True (1) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> ('/',) (6) ('/key',) (2) ('/fail',) (2) ('/abort',) (1) ('/none',) (1) ('/small_tuple',) (1) ('/large_tuple',) (1) ('/bad_type',) (1) ('/bad_wsgi',) (...</p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {'method': 'GET'} (16) dict (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (5) ZeroDivisionError (3) ValueError (2) BadRequestKeyError (2) KeyboardInterrupt (1) BadRequest (1) NotFound (1) DebugFilesKeyError (1) For...</p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">open</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">buffered</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">follow_redirects</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestResponse</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">args</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">BaseRequest</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">builder</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="ow">or</span> <span class="p">{})</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">EnvironBuilder</span><span class="o">.</span><span class="n">from_environ</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">app</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="p">,</span> <span class="n">environ_base</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">({})</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="p">)</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># isinstance(args[0], BaseRequest)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">request</span><span class="o">.</span><span class="n">environ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="c1"># request is None</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_from_builder_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># Pop any previously preserved contexts. This prevents contexts</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># from being preserved across redirects or multiple requests</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># within a single block.</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">response</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">open</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">request</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">buffered</span><span class="o">=</span><span class="n">buffered</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">follow_redirects</span><span class="o">=</span><span class="n">follow_redirects</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">        <span class="n">response</span><span class="o">.</span><span class="n">json_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">json</span>  <span class="c1"># type: ignore[assignment]</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># Re-push contexts that were preserved during the request.</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">cm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">response</span></span>
+            </pre>
+            <p><b>Path 4</b>: 3 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> buffered</button> False (3) </p>
+                <p><button class="input"><span>&#8594;</span> follow_redirects</button> False (3) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> tuple (3) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> WrapperTestResponse (3) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">open</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">buffered</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">follow_redirects</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestResponse</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">args</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">BaseRequest</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">builder</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="ow">or</span> <span class="p">{})</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="n">request</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">EnvironBuilder</span><span class="o">.</span><span class="n">from_environ</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">app</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="p">,</span> <span class="n">environ_base</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">({})</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="p">)</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># isinstance(args[0], BaseRequest)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">request</span><span class="o">.</span><span class="n">environ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="c1"># request is None</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_from_builder_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># Pop any previously preserved contexts. This prevents contexts</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># from being preserved across redirects or multiple requests</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># within a single block.</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">response</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">open</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">request</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">buffered</span><span class="o">=</span><span class="n">buffered</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">follow_redirects</span><span class="o">=</span><span class="n">follow_redirects</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">response</span><span class="o">.</span><span class="n">json_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">json</span>  <span class="c1"># type: ignore[assignment]</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># Re-push contexts that were preserved during the request.</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">cm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">        <span class="k">return</span> <span class="n">response</span></span>
+            </pre>
+            <p><b>Path 5</b>: 2 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> buffered</button> False (2) </p>
+                <p><button class="input"><span>&#8594;</span> follow_redirects</button> False (2) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> () (2) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {'method': 'GET'} (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> WrapperTestResponse (2) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">open</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">buffered</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">follow_redirects</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestResponse</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">args</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">BaseRequest</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">builder</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="ow">or</span> <span class="p">{})</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">EnvironBuilder</span><span class="o">.</span><span class="n">from_environ</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">app</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="p">,</span> <span class="n">environ_base</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">({})</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="p">)</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># isinstance(args[0], BaseRequest)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">request</span><span class="o">.</span><span class="n">environ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="c1"># request is None</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_from_builder_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># Pop any previously preserved contexts. This prevents contexts</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># from being preserved across redirects or multiple requests</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># within a single block.</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">response</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">open</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">request</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">buffered</span><span class="o">=</span><span class="n">buffered</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">follow_redirects</span><span class="o">=</span><span class="n">follow_redirects</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">response</span><span class="o">.</span><span class="n">json_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">json</span>  <span class="c1"># type: ignore[assignment]</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># Re-push contexts that were preserved during the request.</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">cm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">        <span class="k">return</span> <span class="n">response</span></span>
+            </pre>
+            <p><b>Path 6</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> buffered</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> follow_redirects</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> tuple (1) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> WrapperTestResponse (1) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">open</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">buffered</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">follow_redirects</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestResponse</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">args</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">BaseRequest</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">builder</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="ow">or</span> <span class="p">{})</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="n">request</span> <span class="o">=</span> <span class="n">EnvironBuilder</span><span class="o">.</span><span class="n">from_environ</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">app</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="p">,</span> <span class="n">environ_base</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">({})</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="p">)</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># isinstance(args[0], BaseRequest)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">request</span><span class="o">.</span><span class="n">environ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="c1"># request is None</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_from_builder_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># Pop any previously preserved contexts. This prevents contexts</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># from being preserved across redirects or multiple requests</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># within a single block.</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">response</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">open</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">request</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">buffered</span><span class="o">=</span><span class="n">buffered</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">follow_redirects</span><span class="o">=</span><span class="n">follow_redirects</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">response</span><span class="o">.</span><span class="n">json_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">json</span>  <span class="c1"># type: ignore[assignment]</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># Re-push contexts that were preserved during the request.</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">cm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">        <span class="k">return</span> <span class="n">response</span></span>
+            </pre>
+            <p><b>Path 7</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> buffered</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> follow_redirects</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> args</button> tuple (1) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> WrapperTestResponse (1) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">open</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">buffered</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">follow_redirects</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestResponse</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">args</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">BaseRequest</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">werkzeug</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">EnvironBuilder</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">builder</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">environ_base</span> <span class="ow">or</span> <span class="p">{})</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="n">request</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">EnvironBuilder</span><span class="o">.</span><span class="n">from_environ</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">app</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="p">,</span> <span class="n">environ_base</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">({})</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="p">)</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># isinstance(args[0], BaseRequest)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">request</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">request</span><span class="o">.</span><span class="n">environ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_environ</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="c1"># request is None</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_from_builder_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># Pop any previously preserved contexts. This prevents contexts</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># from being preserved across redirects or multiple requests</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># within a single block.</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">response</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">open</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">request</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">buffered</span><span class="o">=</span><span class="n">buffered</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">follow_redirects</span><span class="o">=</span><span class="n">follow_redirects</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">response</span><span class="o">.</span><span class="n">json_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">json</span>  <span class="c1"># type: ignore[assignment]</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># Re-push contexts that were preserved during the request.</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="n">cm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_contexts</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_context_stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">        <span class="k">return</span> <span class="n">response</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

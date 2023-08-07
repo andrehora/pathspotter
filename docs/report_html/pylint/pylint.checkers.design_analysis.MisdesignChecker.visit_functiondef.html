@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.design_analysis.MisdesignChecker.visit_functiondef</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.design_analysis.MisdesignChecker.visit_functiondef</h1>
+                <span>Calls: 3521, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 3411 calls (0.97)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (3358) AsyncFunctionDef (53) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@only_required_for_messages</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="s2">&quot;too-many-return-statements&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="s2">&quot;too-many-branches&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="s2">&quot;too-many-arguments&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="s2">&quot;too-many-locals&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="s2">&quot;too-many-statements&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="s2">&quot;keyword-arg-before-vararg&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="k">def</span> <span class="nf">visit_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check function name, docstring, arguments, redefinition,</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        variable names, max locals.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># init branch and returns counters</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_returns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># check number of arguments</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">args</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">ignored_argument_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ignored_argument_names</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">ignored_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="mi">1</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span> <span class="k">if</span> <span class="n">ignored_argument_names</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">argnum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">-</span> <span class="n">ignored_args_num</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">if</span> <span class="n">argnum</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_args</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="s2">&quot;too-many-arguments&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_args</span><span class="p">),</span></span>
+<span class="num"><a href="#31">31</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># check number of local variables</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">locnum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">)</span> <span class="o">-</span> <span class="n">ignored_args_num</span></span>
+<span class="num"><a href="#36">36</a></span><span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1"># decrement number of local variables if &#39;_&#39; is one of them</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">            <span class="n">locnum</span> <span class="o">-=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">if</span> <span class="n">locnum</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_locals</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="s2">&quot;too-many-locals&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">locnum</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_locals</span><span class="p">),</span></span>
+<span class="num"><a href="#46">46</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#47">47</a></span><span>        <span class="c1"># init new statements counter</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_stmts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 100 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (100) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@only_required_for_messages</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="s2">&quot;too-many-return-statements&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="s2">&quot;too-many-branches&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="s2">&quot;too-many-arguments&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="s2">&quot;too-many-locals&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="s2">&quot;too-many-statements&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="s2">&quot;keyword-arg-before-vararg&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="k">def</span> <span class="nf">visit_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check function name, docstring, arguments, redefinition,</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        variable names, max locals.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># init branch and returns counters</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_returns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># check number of arguments</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">args</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">ignored_argument_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ignored_argument_names</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">ignored_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="mi">1</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span> <span class="k">if</span> <span class="n">ignored_argument_names</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">argnum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">-</span> <span class="n">ignored_args_num</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">if</span> <span class="n">argnum</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_args</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="s2">&quot;too-many-arguments&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_args</span><span class="p">),</span></span>
+<span class="num"><a href="#31">31</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># check number of local variables</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">locnum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">)</span> <span class="o">-</span> <span class="n">ignored_args_num</span></span>
+<span class="num"><a href="#36">36</a></span><span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1"># decrement number of local variables if &#39;_&#39; is one of them</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">locnum</span> <span class="o">-=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">if</span> <span class="n">locnum</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_locals</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="s2">&quot;too-many-locals&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">locnum</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_locals</span><span class="p">),</span></span>
+<span class="num"><a href="#46">46</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#47">47</a></span><span>        <span class="c1"># init new statements counter</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_stmts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 6 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (6) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@only_required_for_messages</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="s2">&quot;too-many-return-statements&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="s2">&quot;too-many-branches&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="s2">&quot;too-many-arguments&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="s2">&quot;too-many-locals&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="s2">&quot;too-many-statements&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="s2">&quot;keyword-arg-before-vararg&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="k">def</span> <span class="nf">visit_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check function name, docstring, arguments, redefinition,</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        variable names, max locals.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># init branch and returns counters</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_returns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># check number of arguments</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">args</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">ignored_argument_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ignored_argument_names</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">ignored_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="mi">1</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span> <span class="k">if</span> <span class="n">ignored_argument_names</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">argnum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">-</span> <span class="n">ignored_args_num</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">if</span> <span class="n">argnum</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_args</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                    <span class="s2">&quot;too-many-arguments&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_args</span><span class="p">),</span></span>
+<span class="num"><a href="#31">31</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># check number of local variables</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">locnum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">)</span> <span class="o">-</span> <span class="n">ignored_args_num</span></span>
+<span class="num"><a href="#36">36</a></span><span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1"># decrement number of local variables if &#39;_&#39; is one of them</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">            <span class="n">locnum</span> <span class="o">-=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">if</span> <span class="n">locnum</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_locals</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="s2">&quot;too-many-locals&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">locnum</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_locals</span><span class="p">),</span></span>
+<span class="num"><a href="#46">46</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#47">47</a></span><span>        <span class="c1"># init new statements counter</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_stmts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 3 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (3) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@only_required_for_messages</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="s2">&quot;too-many-return-statements&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="s2">&quot;too-many-branches&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="s2">&quot;too-many-arguments&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="s2">&quot;too-many-locals&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="s2">&quot;too-many-statements&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="s2">&quot;keyword-arg-before-vararg&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="k">def</span> <span class="nf">visit_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check function name, docstring, arguments, redefinition,</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        variable names, max locals.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># init branch and returns counters</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_returns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># check number of arguments</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">args</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">ignored_argument_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ignored_argument_names</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">ignored_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="mi">1</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span> <span class="k">if</span> <span class="n">ignored_argument_names</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">argnum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">-</span> <span class="n">ignored_args_num</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">if</span> <span class="n">argnum</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_args</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="s2">&quot;too-many-arguments&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_args</span><span class="p">),</span></span>
+<span class="num"><a href="#31">31</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># check number of local variables</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">locnum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">)</span> <span class="o">-</span> <span class="n">ignored_args_num</span></span>
+<span class="num"><a href="#36">36</a></span><span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1"># decrement number of local variables if &#39;_&#39; is one of them</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">            <span class="n">locnum</span> <span class="o">-=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">if</span> <span class="n">locnum</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_locals</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">                <span class="s2">&quot;too-many-locals&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">locnum</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_locals</span><span class="p">),</span></span>
+<span class="num"><a href="#46">46</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#47">47</a></span><span>        <span class="c1"># init new statements counter</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_stmts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> AsyncFunctionDef (1) </p>
+            <button class="run" title="lines run...">19 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@only_required_for_messages</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="s2">&quot;too-many-return-statements&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="s2">&quot;too-many-branches&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="s2">&quot;too-many-arguments&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="s2">&quot;too-many-locals&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="s2">&quot;too-many-statements&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="s2">&quot;keyword-arg-before-vararg&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="k">def</span> <span class="nf">visit_functiondef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check function name, docstring, arguments, redefinition,</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        variable names, max locals.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># init branch and returns counters</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_returns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># check number of arguments</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">args</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">ignored_argument_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ignored_argument_names</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="n">ignored_argument_names</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="mi">1</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span> <span class="k">if</span> <span class="n">ignored_argument_names</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="n">argnum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">-</span> <span class="n">ignored_args_num</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">if</span> <span class="n">argnum</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_args</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                    <span class="s2">&quot;too-many-arguments&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                    <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_args</span><span class="p">),</span></span>
+<span class="num"><a href="#31">31</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">ignored_args_num</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># check number of local variables</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="n">locnum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">)</span> <span class="o">-</span> <span class="n">ignored_args_num</span></span>
+<span class="num"><a href="#36">36</a></span><span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1"># decrement number of local variables if &#39;_&#39; is one of them</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">locals</span><span class="p">:</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">locnum</span> <span class="o">-=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">if</span> <span class="n">locnum</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_locals</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="s2">&quot;too-many-locals&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">locnum</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_locals</span><span class="p">),</span></span>
+<span class="num"><a href="#46">46</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#47">47</a></span><span>        <span class="c1"># init new statements counter</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_stmts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

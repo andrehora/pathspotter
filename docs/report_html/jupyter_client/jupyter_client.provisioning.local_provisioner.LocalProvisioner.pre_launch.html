@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>jupyter_client.provisioning.local_provisioner.LocalProvisioner.pre_launch</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: jupyter_client.provisioning.local_provisioner.LocalProvisioner.pre_launch</h1>
+                <span>Calls: 18, </span>
+                <span>Exceptions: 18, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 18 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (18) </p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (18) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> StopIteration (18) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">async</span> <span class="k">def</span> <span class="nf">pre_launch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform any steps in preparation for kernel process launch.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This includes applying additional substitutions to the kernel launch command and env.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        It also includes preparation of launch parameters.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        Returns the updated kwargs.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># This should be considered temporary until a better division of labor can be defined.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">km</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">if</span> <span class="n">km</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">if</span> <span class="n">km</span><span class="o">.</span><span class="n">transport</span> <span class="o">==</span> <span class="s1">&#39;tcp&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_local_ip</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">ip</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                    <span class="s2">&quot;Can only launch a kernel on a local interface. &quot;</span></span>
+<span class="num"><a href="#16">16</a></span><span>                    <span class="s2">&quot;This one is not: </span><span class="si">{}</span><span class="s2">.&quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span>                    <span class="s2">&quot;Make sure that the &#39;*_address&#39; attributes are &quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>                    <span class="s2">&quot;configured properly. &quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="s2">&quot;Currently valid addresses are: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">local_ips</span><span class="p">())</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="c1"># build the Popen cmd</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">extra_arguments</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;extra_arguments&#39;</span><span class="p">,</span> <span class="p">[])</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="c1"># write connection file / get default ports</span></span>
+<span class="num"><a href="#26">26</a></span><span>            <span class="c1"># TODO - change when handshake pattern is adopted</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">if</span> <span class="n">km</span><span class="o">.</span><span class="n">cache_ports</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports_cached</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="n">lpc</span> <span class="o">=</span> <span class="n">LocalPortCache</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="n">km</span><span class="o">.</span><span class="n">shell_port</span> <span class="o">=</span> <span class="n">lpc</span><span class="o">.</span><span class="n">find_available_port</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">km</span><span class="o">.</span><span class="n">iopub_port</span> <span class="o">=</span> <span class="n">lpc</span><span class="o">.</span><span class="n">find_available_port</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="n">km</span><span class="o">.</span><span class="n">stdin_port</span> <span class="o">=</span> <span class="n">lpc</span><span class="o">.</span><span class="n">find_available_port</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                <span class="n">km</span><span class="o">.</span><span class="n">hb_port</span> <span class="o">=</span> <span class="n">lpc</span><span class="o">.</span><span class="n">find_available_port</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="n">km</span><span class="o">.</span><span class="n">control_port</span> <span class="o">=</span> <span class="n">lpc</span><span class="o">.</span><span class="n">find_available_port</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">ports_cached</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="n">km</span><span class="o">.</span><span class="n">write_connection_file</span><span class="p">()</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">connection_info</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">get_connection_info</span><span class="p">()</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">kernel_cmd</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">format_kernel_cmd</span><span class="p">(</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                <span class="n">extra_arguments</span><span class="o">=</span><span class="n">extra_arguments</span></span>
+<span class="num"><a href="#41">41</a></span><span>            <span class="p">)</span>  <span class="c1"># This needs to remain here for b/c</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">            <span class="n">extra_arguments</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;extra_arguments&#39;</span><span class="p">,</span> <span class="p">[])</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">            <span class="n">kernel_cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_spec</span><span class="o">.</span><span class="n">argv</span> <span class="o">+</span> <span class="n">extra_arguments</span></span>
+<span class="num"><a href="#45">45</a></span><span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="k">return</span> <span class="k">await</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">pre_launch</span><span class="p">(</span><span class="n">cmd</span><span class="o">=</span><span class="n">kernel_cmd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

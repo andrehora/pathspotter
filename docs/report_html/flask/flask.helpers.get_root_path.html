@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.helpers.get_root_path</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.helpers.get_root_path</h1>
+                <span>Calls: 220, </span>
+                <span>Exceptions: 27, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 192 calls (0.87)</p>
+                <p><button class="input"><span>&#8594;</span> import_name</button> 'test_blueprints' (73) 'test_config' (22) 'test_basic' (21) 'test_async' (16) 'test_cli' (11) 'test_helpers' (10) 'test_templating' (7) 'test_reqctx' ...</p>
+                <p><button class="output"><span>&#8617; return</span></button> '/Users/andrehora/Documents/git/projects-pathspotter/flask/tests' (182) '/Users/andrehora/Documents/git/projects-pathspotter/flask/tests/test_apps/hel...</p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">19 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_root_path</span><span class="p">(</span><span class="n">import_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the root path of a package, or the path that contains a</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    module. If it cannot be found, returns the current working</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    directory.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    Not to be confused with the value returned by :func:`find_package`.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    :meta private:</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="c1"># Module already imported and has a file attribute. Use that first.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="n">mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">if</span> <span class="n">mod</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;__file__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mod</span><span class="o">.</span><span class="vm">__file__</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>    <span class="c1"># Next attempt: check the loader.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="n">loader</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#24">24</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="n">loader</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">loader</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>    <span class="c1"># Loader does not exist or we&#39;re referring to an unloaded main</span></span>
+<span class="num"><a href="#28">28</a></span><span>    <span class="c1"># module or a main module without path (interactive sessions), go</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># with the current working directory.</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">loader</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="s2">&quot;get_filename&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">        <span class="n">filepath</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_filename</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># Fall back to imports.</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">        <span class="nb">__import__</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">        <span class="n">mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">import_name</span><span class="p">]</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">        <span class="n">filepath</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;__file__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="c1"># If we don&#39;t have a file path it might be because it is a</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="c1"># namespace package. In this case pick the root path from the</span></span>
+<span class="num"><a href="#43">43</a></span><span>        <span class="c1"># first module that is contained in the package.</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="s2">&quot;No root path can be found for the provided module&quot;</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">import_name</span><span class="si">!r}</span><span class="s2">. This can happen because the module&quot;</span></span>
+<span class="num"><a href="#48">48</a></span><span>                <span class="s2">&quot; came from an import hook that does not provide file&quot;</span></span>
+<span class="num"><a href="#49">49</a></span><span>                <span class="s2">&quot; name information or because it&#39;s a namespace package.&quot;</span></span>
+<span class="num"><a href="#50">50</a></span><span>                <span class="s2">&quot; In this case the root path needs to be explicitly&quot;</span></span>
+<span class="num"><a href="#51">51</a></span><span>                <span class="s2">&quot; provided.&quot;</span></span>
+<span class="num"><a href="#52">52</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#53">53</a></span><span></span>
+<span class="num"><a href="#54">54</a></span><span>    <span class="c1"># filepath is import_name.py for a module, or __init__.py for a package.</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 2</b>: 27 calls (0.12)</p>
+                <p><button class="input"><span>&#8594;</span> import_name</button> 'testapp' (6) 'appname' (6) 'app' (4) 'appname1' (3) 'flaskgroup' (3) 'app2_foo_bar' (2) 'appname2' (1) 'createapp' (1) 'testappgroup' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '/Users/andrehora/Documents/git/projects-pathspotter/flask' (27) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (27) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_root_path</span><span class="p">(</span><span class="n">import_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the root path of a package, or the path that contains a</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    module. If it cannot be found, returns the current working</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    directory.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    Not to be confused with the value returned by :func:`find_package`.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    :meta private:</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="c1"># Module already imported and has a file attribute. Use that first.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="n">mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">if</span> <span class="n">mod</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;__file__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mod</span><span class="o">.</span><span class="vm">__file__</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>    <span class="c1"># Next attempt: check the loader.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="n">spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">raise</span> <span class="ne">ValueError</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="n">loader</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#24">24</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="n">loader</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">loader</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>    <span class="c1"># Loader does not exist or we&#39;re referring to an unloaded main</span></span>
+<span class="num"><a href="#28">28</a></span><span>    <span class="c1"># module or a main module without path (interactive sessions), go</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># with the current working directory.</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="k">if</span> <span class="n">loader</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="s2">&quot;get_filename&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">        <span class="n">filepath</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_filename</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># Fall back to imports.</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">        <span class="nb">__import__</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">        <span class="n">mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">import_name</span><span class="p">]</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">        <span class="n">filepath</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;__file__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="c1"># If we don&#39;t have a file path it might be because it is a</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="c1"># namespace package. In this case pick the root path from the</span></span>
+<span class="num"><a href="#43">43</a></span><span>        <span class="c1"># first module that is contained in the package.</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="s2">&quot;No root path can be found for the provided module&quot;</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">import_name</span><span class="si">!r}</span><span class="s2">. This can happen because the module&quot;</span></span>
+<span class="num"><a href="#48">48</a></span><span>                <span class="s2">&quot; came from an import hook that does not provide file&quot;</span></span>
+<span class="num"><a href="#49">49</a></span><span>                <span class="s2">&quot; name information or because it&#39;s a namespace package.&quot;</span></span>
+<span class="num"><a href="#50">50</a></span><span>                <span class="s2">&quot; In this case the root path needs to be explicitly&quot;</span></span>
+<span class="num"><a href="#51">51</a></span><span>                <span class="s2">&quot; provided.&quot;</span></span>
+<span class="num"><a href="#52">52</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#53">53</a></span><span></span>
+<span class="num"><a href="#54">54</a></span><span>    <span class="c1"># filepath is import_name.py for a module, or __init__.py for a package.</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> import_name</button> 'importerror' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '/Users/andrehora/Documents/git/projects-pathspotter/flask/.tox/tmp/py310/test_name_with_import_error0/modules_tmp' (1) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_root_path</span><span class="p">(</span><span class="n">import_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the root path of a package, or the path that contains a</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    module. If it cannot be found, returns the current working</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    directory.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    Not to be confused with the value returned by :func:`find_package`.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    :meta private:</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span>    <span class="c1"># Module already imported and has a file attribute. Use that first.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="n">mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">if</span> <span class="n">mod</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;__file__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mod</span><span class="o">.</span><span class="vm">__file__</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>    <span class="c1"># Next attempt: check the loader.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="n">spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="n">loader</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#24">24</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">loader</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">loader</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>    <span class="c1"># Loader does not exist or we&#39;re referring to an unloaded main</span></span>
+<span class="num"><a href="#28">28</a></span><span>    <span class="c1"># module or a main module without path (interactive sessions), go</span></span>
+<span class="num"><a href="#29">29</a></span><span>    <span class="c1"># with the current working directory.</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="k">if</span> <span class="n">loader</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="s2">&quot;get_filename&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="n">filepath</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_filename</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># Fall back to imports.</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">        <span class="nb">__import__</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">        <span class="n">mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">import_name</span><span class="p">]</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">        <span class="n">filepath</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;__file__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="c1"># If we don&#39;t have a file path it might be because it is a</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="c1"># namespace package. In this case pick the root path from the</span></span>
+<span class="num"><a href="#43">43</a></span><span>        <span class="c1"># first module that is contained in the package.</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="s2">&quot;No root path can be found for the provided module&quot;</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">import_name</span><span class="si">!r}</span><span class="s2">. This can happen because the module&quot;</span></span>
+<span class="num"><a href="#48">48</a></span><span>                <span class="s2">&quot; came from an import hook that does not provide file&quot;</span></span>
+<span class="num"><a href="#49">49</a></span><span>                <span class="s2">&quot; name information or because it&#39;s a namespace package.&quot;</span></span>
+<span class="num"><a href="#50">50</a></span><span>                <span class="s2">&quot; In this case the root path needs to be explicitly&quot;</span></span>
+<span class="num"><a href="#51">51</a></span><span>                <span class="s2">&quot; provided.&quot;</span></span>
+<span class="num"><a href="#52">52</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#53">53</a></span><span></span>
+<span class="num"><a href="#54">54</a></span><span>    <span class="c1"># filepath is import_name.py for a module, or __init__.py for a package.</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

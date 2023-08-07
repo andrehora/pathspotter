@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>argparse._ActionsContainer.__init__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: argparse._ActionsContainer.__init__</h1>
+                <span>Calls: 7749, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 7748 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> description</button> None (7423) 'main description' (53) '1 description' (49) '2 description' (49) '3 description' (49) 'description' (24) 'DESCRIPTION' (24) 'Keep the for...</p>
+                <p><button class="input"><span>&#8594;</span> prefix_chars</button> '-' (7416) '+:/' (107) '+' (100) '+-' (52) '-+' (52) '^;' (18) '+:-' (3) </p>
+                <p><button class="input"><span>&#8594;</span> argument_default</button> None (7640) 42 (56) '==SUPPRESS==' (52) </p>
+                <p><button class="input"><span>&#8594;</span> conflict_handler</button> 'error' (7745) 'resolve' (3) </p>
+            <button class="run" title="lines run...">26 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">description</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">prefix_chars</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>                 <span class="n">argument_default</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>                 <span class="n">conflict_handler</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="nb">super</span><span class="p">(</span><span class="n">_ActionsContainer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">argument_default</span> <span class="o">=</span> <span class="n">argument_default</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span> <span class="o">=</span> <span class="n">prefix_chars</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">conflict_handler</span> <span class="o">=</span> <span class="n">conflict_handler</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># set up registries</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_registries</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># register actions</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">_StoreAction</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;store&#39;</span><span class="p">,</span> <span class="n">_StoreAction</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;store_const&#39;</span><span class="p">,</span> <span class="n">_StoreConstAction</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">_StoreTrueAction</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;store_false&#39;</span><span class="p">,</span> <span class="n">_StoreFalseAction</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;append&#39;</span><span class="p">,</span> <span class="n">_AppendAction</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;append_const&#39;</span><span class="p">,</span> <span class="n">_AppendConstAction</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">_CountAction</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">_HelpAction</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="n">_VersionAction</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;parsers&#39;</span><span class="p">,</span> <span class="n">_SubParsersAction</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;extend&#39;</span><span class="p">,</span> <span class="n">_ExtendAction</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># raise an exception if the conflict handler is invalid</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_get_handler</span><span class="p">()</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># action storage</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_actions</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#36">36</a></span><span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1"># groups</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_action_groups</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_mutually_exclusive_groups</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="c1"># defaults storage</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># determines whether an &quot;option&quot; looks like a negative number</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span> <span class="o">=</span> <span class="n">_re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^-\d+$|^-\d*\.\d+$&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span></span>
+<span class="num"><a href="#47">47</a></span><span>        <span class="c1"># whether or not there are any optionals that look like negative</span></span>
+<span class="num"><a href="#48">48</a></span><span>        <span class="c1"># numbers -- uses a list so it can be shared and edited</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span> <span class="o">=</span> <span class="p">[]</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> description</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> prefix_chars</button> '-' (1) </p>
+                <p><button class="input"><span>&#8594;</span> argument_default</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> conflict_handler</button> 'foo' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (1) </p>
+            <button class="run" title="lines run...">19 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">description</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">prefix_chars</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>                 <span class="n">argument_default</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>                 <span class="n">conflict_handler</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="nb">super</span><span class="p">(</span><span class="n">_ActionsContainer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">argument_default</span> <span class="o">=</span> <span class="n">argument_default</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span> <span class="o">=</span> <span class="n">prefix_chars</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">conflict_handler</span> <span class="o">=</span> <span class="n">conflict_handler</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># set up registries</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_registries</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># register actions</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">_StoreAction</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;store&#39;</span><span class="p">,</span> <span class="n">_StoreAction</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;store_const&#39;</span><span class="p">,</span> <span class="n">_StoreConstAction</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">_StoreTrueAction</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;store_false&#39;</span><span class="p">,</span> <span class="n">_StoreFalseAction</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;append&#39;</span><span class="p">,</span> <span class="n">_AppendAction</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;append_const&#39;</span><span class="p">,</span> <span class="n">_AppendConstAction</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">_CountAction</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">_HelpAction</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="n">_VersionAction</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;parsers&#39;</span><span class="p">,</span> <span class="n">_SubParsersAction</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;extend&#39;</span><span class="p">,</span> <span class="n">_ExtendAction</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># raise an exception if the conflict handler is invalid</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_get_handler</span><span class="p">()</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># action storage</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_actions</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#36">36</a></span><span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1"># groups</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_action_groups</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_mutually_exclusive_groups</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="c1"># defaults storage</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># determines whether an &quot;option&quot; looks like a negative number</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span> <span class="o">=</span> <span class="n">_re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^-\d+$|^-\d*\.\d+$&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span></span>
+<span class="num"><a href="#47">47</a></span><span>        <span class="c1"># whether or not there are any optionals that look like negative</span></span>
+<span class="num"><a href="#48">48</a></span><span>        <span class="c1"># numbers -- uses a list so it can be shared and edited</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span> <span class="o">=</span> <span class="p">[]</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

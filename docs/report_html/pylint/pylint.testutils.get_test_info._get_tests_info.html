@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.testutils.get_test_info._get_tests_info</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.testutils.get_test_info._get_tests_info</h1>
+                <span>Calls: 26, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 14 calls (0.54)</p>
+                <p><button class="input"><span>&#8594;</span> input_dir</button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/input' (14) </p>
+                <p><button class="input"><span>&#8594;</span> msg_dir</button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/messages' (14) </p>
+                <p><button class="input"><span>&#8594;</span> prefix</button> 'i0013' (2) 'i0022' (2) 'i0012' (2) 'noerror' (2) 'i0011' (2) 'i0020' (2) 'i0014' (2) </p>
+                <p><button class="input"><span>&#8594;</span> suffix</button> '.py' (14) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [] (14) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">17 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_tests_info</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">msg_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="nb">str</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get python input examples and output messages.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    We use following conventions for input files and messages:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    for different inputs:</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        test for python  &gt;= x.y    -&gt;  input   =  &lt;name&gt;_pyxy.py</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        test for python  &lt;  x.y    -&gt;  input   =  &lt;name&gt;_py_xy.py</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    for one input and different messages:</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        message for python &gt;=  x.y -&gt;  message =  &lt;name&gt;_pyxy.txt</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        lower versions             -&gt;  message with highest num</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;*&quot;</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="n">infile</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="n">fbase</span> <span class="o">=</span> <span class="n">splitext</span><span class="p">(</span><span class="n">infile</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># filter input files :</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="n">pyrestr</span> <span class="o">=</span> <span class="n">fbase</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;_py&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># like _26 or 26</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">pyrestr</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>  <span class="c1"># &#39;24&#39;, &#39;25&#39;...</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">pyrestr</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">SYS_VERS_STR</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">pyrestr</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">pyrestr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pyrestr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="c1"># skip test for higher python versions</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">pyrestr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">SYS_VERS_STR</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pyrestr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="n">messages</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">msg_dir</span><span class="p">,</span> <span class="n">fbase</span> <span class="o">+</span> <span class="s2">&quot;*.txt&quot;</span><span class="p">))</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># the last one will be without ext, i.e. for all or upper versions:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">messages</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">outfile</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">py_rest</span> <span class="o">=</span> <span class="n">outfile</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;_py&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">py_rest</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">SYS_VERS_STR</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">py_rest</span><span class="p">):</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span>            <span class="c1"># This will provide an error message indicating the missing filename.</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="n">outfile</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">msg_dir</span><span class="p">,</span> <span class="n">fbase</span> <span class="o">+</span> <span class="s2">&quot;.txt&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">infile</span><span class="p">,</span> <span class="n">outfile</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">    <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+            <p><b>Path 2</b>: 10 calls (0.38)</p>
+                <p><button class="input"><span>&#8594;</span> input_dir</button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/input' (10) </p>
+                <p><button class="input"><span>&#8594;</span> msg_dir</button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/messages' (10) </p>
+                <p><button class="input"><span>&#8594;</span> prefix</button> 'w0401' (8) 'w0801' (2) </p>
+                <p><button class="input"><span>&#8594;</span> suffix</button> '.py' (10) </p>
+                <p><button class="output"><span>&#8617; return</span></button> list (10) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_tests_info</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">msg_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="nb">str</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get python input examples and output messages.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    We use following conventions for input files and messages:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    for different inputs:</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        test for python  &gt;= x.y    -&gt;  input   =  &lt;name&gt;_pyxy.py</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        test for python  &lt;  x.y    -&gt;  input   =  &lt;name&gt;_py_xy.py</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    for one input and different messages:</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        message for python &gt;=  x.y -&gt;  message =  &lt;name&gt;_pyxy.txt</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        lower versions             -&gt;  message with highest num</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;*&quot;</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">infile</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">fbase</span> <span class="o">=</span> <span class="n">splitext</span><span class="p">(</span><span class="n">infile</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># filter input files :</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">pyrestr</span> <span class="o">=</span> <span class="n">fbase</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;_py&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># like _26 or 26</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="n">pyrestr</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>  <span class="c1"># &#39;24&#39;, &#39;25&#39;...</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">pyrestr</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">SYS_VERS_STR</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">pyrestr</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">pyrestr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pyrestr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="c1"># skip test for higher python versions</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">pyrestr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">SYS_VERS_STR</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pyrestr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">messages</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">msg_dir</span><span class="p">,</span> <span class="n">fbase</span> <span class="o">+</span> <span class="s2">&quot;*.txt&quot;</span><span class="p">))</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># the last one will be without ext, i.e. for all or upper versions:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">if</span> <span class="n">messages</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">outfile</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">py_rest</span> <span class="o">=</span> <span class="n">outfile</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;_py&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">py_rest</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">SYS_VERS_STR</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">py_rest</span><span class="p">):</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span>            <span class="c1"># This will provide an error message indicating the missing filename.</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="n">outfile</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">msg_dir</span><span class="p">,</span> <span class="n">fbase</span> <span class="o">+</span> <span class="s2">&quot;.txt&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">infile</span><span class="p">,</span> <span class="n">outfile</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">    <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (0.08)</p>
+                <p><button class="input"><span>&#8594;</span> input_dir</button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/input' (2) </p>
+                <p><button class="input"><span>&#8594;</span> msg_dir</button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/messages' (2) </p>
+                <p><button class="input"><span>&#8594;</span> prefix</button> 'func_' (2) </p>
+                <p><button class="input"><span>&#8594;</span> suffix</button> '' (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> list (2) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_tests_info</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">msg_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="nb">str</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get python input examples and output messages.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    We use following conventions for input files and messages:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    for different inputs:</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        test for python  &gt;= x.y    -&gt;  input   =  &lt;name&gt;_pyxy.py</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        test for python  &lt;  x.y    -&gt;  input   =  &lt;name&gt;_py_xy.py</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    for one input and different messages:</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        message for python &gt;=  x.y -&gt;  message =  &lt;name&gt;_pyxy.txt</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        lower versions             -&gt;  message with highest num</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;*&quot;</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">infile</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">fbase</span> <span class="o">=</span> <span class="n">splitext</span><span class="p">(</span><span class="n">infile</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># filter input files :</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">pyrestr</span> <span class="o">=</span> <span class="n">fbase</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;_py&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># like _26 or 26</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="n">pyrestr</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>  <span class="c1"># &#39;24&#39;, &#39;25&#39;...</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">pyrestr</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">SYS_VERS_STR</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">pyrestr</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">pyrestr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pyrestr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="c1"># skip test for higher python versions</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="k">if</span> <span class="n">pyrestr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">SYS_VERS_STR</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pyrestr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">messages</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">msg_dir</span><span class="p">,</span> <span class="n">fbase</span> <span class="o">+</span> <span class="s2">&quot;*.txt&quot;</span><span class="p">))</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># the last one will be without ext, i.e. for all or upper versions:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">if</span> <span class="n">messages</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="k">for</span> <span class="n">outfile</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="n">py_rest</span> <span class="o">=</span> <span class="n">outfile</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;_py&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                <span class="k">if</span> <span class="n">py_rest</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">SYS_VERS_STR</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">py_rest</span><span class="p">):</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="k">break</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span>            <span class="c1"># This will provide an error message indicating the missing filename.</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="n">outfile</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">msg_dir</span><span class="p">,</span> <span class="n">fbase</span> <span class="o">+</span> <span class="s2">&quot;.txt&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">infile</span><span class="p">,</span> <span class="n">outfile</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">    <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

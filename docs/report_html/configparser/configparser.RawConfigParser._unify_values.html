@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>configparser.RawConfigParser._unify_values</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: configparser.RawConfigParser._unify_values</h1>
+                <span>Calls: 4362, </span>
+                <span>Exceptions: 318, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 3988 calls (0.91)</p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Types' (1340) 'Foo Bar' (478) 'Spacey Bar From The Beginning' (300) 'BOOLTEST' (294) 'Spacey Bar' (222) 'Commented Bar' (183) 'Spaces' (180) 'Foo' (1...</p>
+                <p><button class="input"><span>&#8594;</span> vars</button> None (3988) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ChainMap (3988) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_unify_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a sequence of lookups with &#39;vars&#39; taking priority over</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        the &#39;section&#39; which takes priority over the DEFAULTSECT.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">sectiondict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">sectiondict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">section</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_section</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">raise</span> <span class="n">NoSectionError</span><span class="p">(</span><span class="n">section</span><span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># Update with the entry specific variables</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">vardict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">vars</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">vars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">vardict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">optionxform</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">return</span> <span class="n">_ChainMap</span><span class="p">(</span><span class="n">vardict</span><span class="p">,</span> <span class="n">sectiondict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 189 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'DEFAULT' (148) 'common' (27) 'general' (14) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> None (189) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ChainMap (189) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (189) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_unify_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a sequence of lookups with &#39;vars&#39; taking priority over</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        the &#39;section&#39; which takes priority over the DEFAULTSECT.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">sectiondict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">sectiondict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">section</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_section</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">raise</span> <span class="n">NoSectionError</span><span class="p">(</span><span class="n">section</span><span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># Update with the entry specific variables</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">vardict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">vars</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">vars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">vardict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">optionxform</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">return</span> <span class="n">_ChainMap</span><span class="p">(</span><span class="n">vardict</span><span class="p">,</span> <span class="n">sectiondict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 127 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'No Such Foo Bar' (56) 'No Such Spacey Bar' (28) 'No Such Types' (28) 'foo' (14) 'wrong_section' (1) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> None (127) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> NoSectionError (127) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_unify_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a sequence of lookups with &#39;vars&#39; taking priority over</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        the &#39;section&#39; which takes priority over the DEFAULTSECT.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">sectiondict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">sectiondict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">section</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_section</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="k">raise</span> <span class="n">NoSectionError</span><span class="p">(</span><span class="n">section</span><span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># Update with the entry specific variables</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="n">vardict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">vars</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">vars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                    <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">vardict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">optionxform</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">_ChainMap</span><span class="p">(</span><span class="n">vardict</span><span class="p">,</span> <span class="n">sectiondict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 56 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Foo Bar' (56) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> {'foo': 'baz'} (56) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ChainMap (56) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_unify_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a sequence of lookups with &#39;vars&#39; taking priority over</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        the &#39;section&#39; which takes priority over the DEFAULTSECT.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">sectiondict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">sectiondict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">section</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_section</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">raise</span> <span class="n">NoSectionError</span><span class="p">(</span><span class="n">section</span><span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># Update with the entry specific variables</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">vardict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">vars</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">vars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">vardict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">optionxform</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">return</span> <span class="n">_ChainMap</span><span class="p">(</span><span class="n">vardict</span><span class="p">,</span> <span class="n">sectiondict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 2 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'DEFAULT' (2) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> {'interpolate': '-1'} (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ChainMap (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (2) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_unify_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a sequence of lookups with &#39;vars&#39; taking priority over</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        the &#39;section&#39; which takes priority over the DEFAULTSECT.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">sectiondict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">sectiondict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="n">section</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_section</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">raise</span> <span class="n">NoSectionError</span><span class="p">(</span><span class="n">section</span><span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># Update with the entry specific variables</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">vardict</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="nb">vars</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">vars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">vardict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">optionxform</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">return</span> <span class="n">_ChainMap</span><span class="p">(</span><span class="n">vardict</span><span class="p">,</span> <span class="n">sectiondict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

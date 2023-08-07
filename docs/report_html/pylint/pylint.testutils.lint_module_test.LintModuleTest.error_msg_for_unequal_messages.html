@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.testutils.lint_module_test.LintModuleTest.error_msg_for_unequal_messages</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.testutils.lint_module_test.LintModuleTest.error_msg_for_unequal_messages</h1>
+                <span>Calls: 1, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> actual_messages</button> Counter (1) </p>
+                <p><button class="input"><span>&#8594;</span> expected_messages</button> Counter (1) </p>
+                <p><button class="input"><span>&#8594;</span> actual_output</button> list (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'Wrong results for file "/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-178/test_lint_module_output_update0/foo":...</p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">error_msg_for_unequal_messages</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">actual_messages</span><span class="p">:</span> <span class="n">MessageCounter</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">expected_messages</span><span class="p">:</span> <span class="n">MessageCounter</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">actual_output</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">OutputLine</span><span class="p">],</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">msg</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Wrong results for file &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_test_file</span><span class="o">.</span><span class="n">base</span><span class="si">}</span><span class="s1">&quot;:&#39;</span><span class="p">]</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">missing</span><span class="p">,</span> <span class="n">unexpected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiset_difference</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">expected_messages</span><span class="p">,</span> <span class="n">actual_messages</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">missing</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Expected in testdata:&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="n">msg</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">3</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">missing</span><span class="p">))</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">if</span> <span class="n">unexpected</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Unexpected in testdata:&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">3</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">unexpected</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">error_msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">&quot;verbose&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">error_msg</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Actual pylint output for this file:</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="n">error_msg</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">actual_output</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">return</span> <span class="n">error_msg</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

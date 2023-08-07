@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>difflib.Differ._qformat</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: difflib.Differ._qformat</h1>
+                <span>Calls: 73, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 49 calls (0.67)</p>
+                <p><button class="input"><span>&#8594;</span> aline</button> '   1. Beautiful is beTTer than ugly.' (18) 'line 4   changed' (3) 'line 5   changed' (3) 'line 6   changed' (3) 'just fits in!!' (3) 'just fits in tw...</p>
+                <p><button class="input"><span>&#8594;</span> bline</button> '   1. Beautiful is better than ugly.' (17) 'line 4   chanGEd' (3) 'line 5a  chanGed' (3) 'line 6a  changEd' (3) 'just fitS in!!' (3) 'just fits in tw...</p>
+                <p><button class="input"><span>&#8594;</span> atags</button> '                     ^^             ' (17) '             ^^ ' (3) '      ^      ^  ' (3) '      ^       ^ ' (3) '        ^     ' (3) '               ...</p>
+                <p><button class="input"><span>&#8594;</span> btags</button> '                     ^^             ' (17) '             ^^ ' (3) '      ^      ^  ' (3) '      ^       ^ ' (3) '        ^     ' (3) '               ...</p>
+                <p><button class="output"><span>&#8647; yield</span></button> None (49) '?                      ^^\n' (34) '-    1. Beautiful is beTTer than ugly.' (18) '+    1. Beautiful is better than ugly.' (17) '?           ...</p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_qformat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aline</span><span class="p">,</span> <span class="n">bline</span><span class="p">,</span> <span class="n">atags</span><span class="p">,</span> <span class="n">btags</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Format &quot;?&quot; output and deal with tabs.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        Example:</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &gt;&gt;&gt; d = Differ()</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        &gt;&gt;&gt; results = d._qformat(&#39;\tabcDefghiJkl\n&#39;, &#39;\tabcdefGhijkl\n&#39;,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        ...                      &#39;  ^ ^  ^      &#39;, &#39;  ^ ^  ^      &#39;)</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &gt;&gt;&gt; for line in results: print(repr(line))</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        ...</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        &#39;- \tabcDefghiJkl\n&#39;</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &#39;? \t ^ ^  ^\n&#39;</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        &#39;+ \tabcdefGhijkl\n&#39;</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        &#39;? \t ^ ^  ^\n&#39;</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">atags</span> <span class="o">=</span> <span class="n">_keep_original_ws</span><span class="p">(</span><span class="n">aline</span><span class="p">,</span> <span class="n">atags</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">btags</span> <span class="o">=</span> <span class="n">_keep_original_ws</span><span class="p">(</span><span class="n">bline</span><span class="p">,</span> <span class="n">btags</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">yield</span> <span class="s2">&quot;- &quot;</span> <span class="o">+</span> <span class="n">aline</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">atags</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">yield</span> <span class="sa">f</span><span class="s2">&quot;? </span><span class="si">{</span><span class="n">atags</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">yield</span> <span class="s2">&quot;+ &quot;</span> <span class="o">+</span> <span class="n">bline</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="n">btags</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">yield</span> <span class="sa">f</span><span class="s2">&quot;? </span><span class="si">{</span><span class="n">btags</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+            </pre>
+            <p><b>Path 2</b>: 19 calls (0.26)</p>
+                <p><button class="input"><span>&#8594;</span> aline</button> '   3. Simple is better than complex.' (17) '\t \t \t^' (1) '  3. Simple is better than complex.\n' (1) </p>
+                <p><button class="input"><span>&#8594;</span> bline</button> '   3.   Simple is better than complex.' (17) '\t \t \t^\n' (1) '  3.   Simple is better than complex.\n' (1) </p>
+                <p><button class="input"><span>&#8594;</span> atags</button> '                                    ' (18) '      ' (1) </p>
+                <p><button class="input"><span>&#8594;</span> btags</button> '     ++                               ' (17) '      +' (1) '    ++                                ' (1) </p>
+                <p><button class="output"><span>&#8647; yield</span></button> None (19) '-    3. Simple is better than complex.' (17) '+    3.   Simple is better than complex.' (17) '?      ++\n' (17) '- \t \t \t^' (1) '+ \t \t ...</p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_qformat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aline</span><span class="p">,</span> <span class="n">bline</span><span class="p">,</span> <span class="n">atags</span><span class="p">,</span> <span class="n">btags</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Format &quot;?&quot; output and deal with tabs.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        Example:</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &gt;&gt;&gt; d = Differ()</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        &gt;&gt;&gt; results = d._qformat(&#39;\tabcDefghiJkl\n&#39;, &#39;\tabcdefGhijkl\n&#39;,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        ...                      &#39;  ^ ^  ^      &#39;, &#39;  ^ ^  ^      &#39;)</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &gt;&gt;&gt; for line in results: print(repr(line))</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        ...</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        &#39;- \tabcDefghiJkl\n&#39;</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &#39;? \t ^ ^  ^\n&#39;</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        &#39;+ \tabcdefGhijkl\n&#39;</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        &#39;? \t ^ ^  ^\n&#39;</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">atags</span> <span class="o">=</span> <span class="n">_keep_original_ws</span><span class="p">(</span><span class="n">aline</span><span class="p">,</span> <span class="n">atags</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">btags</span> <span class="o">=</span> <span class="n">_keep_original_ws</span><span class="p">(</span><span class="n">bline</span><span class="p">,</span> <span class="n">btags</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">yield</span> <span class="s2">&quot;- &quot;</span> <span class="o">+</span> <span class="n">aline</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">atags</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">yield</span> <span class="sa">f</span><span class="s2">&quot;? </span><span class="si">{</span><span class="n">atags</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">yield</span> <span class="s2">&quot;+ &quot;</span> <span class="o">+</span> <span class="n">bline</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="n">btags</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="k">yield</span> <span class="sa">f</span><span class="s2">&quot;? </span><span class="si">{</span><span class="n">btags</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+            </pre>
+            <p><b>Path 3</b>: 5 calls (0.07)</p>
+                <p><button class="input"><span>&#8594;</span> aline</button> 'three\n' (3) 'Line 5: has from:[t] to:[ss] at end\t' (1) 'Line 5: has from:[t] to:[ss] at end\t\t\t\t\t' (1) </p>
+                <p><button class="input"><span>&#8594;</span> bline</button> 'tree\n' (3) 'Line 5: has from:[t] to:[ss] at end' (2) </p>
+                <p><button class="input"><span>&#8594;</span> atags</button> ' -    ' (3) '                                   -' (1) '                                   -----' (1) </p>
+                <p><button class="input"><span>&#8594;</span> btags</button> '     ' (3) '                                   ' (2) </p>
+                <p><button class="output"><span>&#8647; yield</span></button> '- three\n' (3) '?  -\n' (3) '+ tree\n' (3) '+ Line 5: has from:[t] to:[ss] at end' (2) '- Line 5: has from:[t] to:[ss] at end\t' (1) '?              ...</p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_qformat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aline</span><span class="p">,</span> <span class="n">bline</span><span class="p">,</span> <span class="n">atags</span><span class="p">,</span> <span class="n">btags</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Format &quot;?&quot; output and deal with tabs.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        Example:</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &gt;&gt;&gt; d = Differ()</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        &gt;&gt;&gt; results = d._qformat(&#39;\tabcDefghiJkl\n&#39;, &#39;\tabcdefGhijkl\n&#39;,</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        ...                      &#39;  ^ ^  ^      &#39;, &#39;  ^ ^  ^      &#39;)</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &gt;&gt;&gt; for line in results: print(repr(line))</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        ...</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        &#39;- \tabcDefghiJkl\n&#39;</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &#39;? \t ^ ^  ^\n&#39;</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        &#39;+ \tabcdefGhijkl\n&#39;</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        &#39;? \t ^ ^  ^\n&#39;</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">atags</span> <span class="o">=</span> <span class="n">_keep_original_ws</span><span class="p">(</span><span class="n">aline</span><span class="p">,</span> <span class="n">atags</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">btags</span> <span class="o">=</span> <span class="n">_keep_original_ws</span><span class="p">(</span><span class="n">bline</span><span class="p">,</span> <span class="n">btags</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">yield</span> <span class="s2">&quot;- &quot;</span> <span class="o">+</span> <span class="n">aline</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">atags</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">yield</span> <span class="sa">f</span><span class="s2">&quot;? </span><span class="si">{</span><span class="n">atags</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">yield</span> <span class="s2">&quot;+ &quot;</span> <span class="o">+</span> <span class="n">bline</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">if</span> <span class="n">btags</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="k">yield</span> <span class="sa">f</span><span class="s2">&quot;? </span><span class="si">{</span><span class="n">btags</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

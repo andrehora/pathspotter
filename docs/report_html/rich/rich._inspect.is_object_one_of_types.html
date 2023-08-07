@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>rich._inspect.is_object_one_of_types</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: rich._inspect.is_object_one_of_types</h1>
+                <span>Calls: 15, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 11 calls (0.73)</p>
+                <p><button class="input"><span>&#8594;</span> obj</button> Foo (3) Foo def (3) 'hi' (2) str def (2) test_ipy_display_hook__classes_to_not_render.<locals>.Thing (1) </p>
+                <p><button class="input"><span>&#8594;</span> fully_qualified_types_names</button> ['builtins.str'] (2) ['builtins.str', 'foo'] (2) ['tests.test_inspect.Foo'] (2) ['builtins.str', 'tests.test_inspect.Foo'] (1) ['builtins.int', 'tests...</p>
+                <p><button class="output"><span>&#8617; return</span></button> True (11) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_object_one_of_types</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">obj</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">fully_qualified_types_names</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    Returns `True` if the given object&#39;s class (or the object itself, if it&#39;s a class) has one of the</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    fully qualified names in its MRO.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">for</span> <span class="n">type_name</span> <span class="ow">in</span> <span class="n">get_object_types_mro_as_strings</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">type_name</span> <span class="ow">in</span> <span class="n">fully_qualified_types_names</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 2</b>: 4 calls (0.27)</p>
+                <p><button class="input"><span>&#8594;</span> obj</button> Foo (1) Foo def (1) test_ipy_display_hook__no_special_repr_methods.<locals>.Thing (1) Text (1) </p>
+                <p><button class="input"><span>&#8594;</span> fully_qualified_types_names</button> ['tests.test_inspect.FooSubclass'] (2) {'matplotlib.artist.Artist'} (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (4) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_object_one_of_types</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">obj</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">fully_qualified_types_names</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    Returns `True` if the given object&#39;s class (or the object itself, if it&#39;s a class) has one of the</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    fully qualified names in its MRO.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">for</span> <span class="n">type_name</span> <span class="ow">in</span> <span class="n">get_object_types_mro_as_strings</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">type_name</span> <span class="ow">in</span> <span class="n">fully_qualified_types_names</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

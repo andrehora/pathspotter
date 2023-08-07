@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>requests.api.request</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: requests.api.request</h1>
+                <span>Calls: 180, </span>
+                <span>Exceptions: 63, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 180 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> method</button> 'get' (141) 'post' (31) 'head' (4) 'put' (2) 'POST' (1) bytes (1) </p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://127.0.0.1:64692/get' (33) 'http://127.0.0.1:64692/post' (24) 'http://127.0.0.1:64692/digest-auth/auth/user/pass/MD5' (7) 'http://127.0.0.1:646...</p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> dict (96) {'params': None} (56) {'data': None, 'json': None} (5) {'allow_redirects': True} (3) {'params': None, 'timeout': 1} (3) {'params': None, 'st...</p>
+                <p><button class="output"><span>&#8617; return</span></button> None (63) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> InvalidHeader (19) ConnectionError (11) InvalidURL (5) ValueError (5) InvalidProxyURL (4) ConnectTimeout (4) InvalidSchema (3) OSError (3) ReadTimeout...</p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Constructs and sends a :class:`Request &lt;Request&gt;`.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    :param method: method for the new :class:`Request` object: ``GET``, ``OPTIONS``, ``HEAD``, ``POST``, ``PUT``, ``PATCH``, or ``DELETE``.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    :param url: URL for the new :class:`Request` object.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    :param params: (optional) Dictionary, list of tuples or bytes to send</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        in the query string for the :class:`Request`.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    :param data: (optional) Dictionary, list of tuples, bytes, or file-like</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        object to send in the body of the :class:`Request`.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    :param json: (optional) A JSON serializable Python object to send in the body of the :class:`Request`.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    :param headers: (optional) Dictionary of HTTP Headers to send with the :class:`Request`.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    :param cookies: (optional) Dict or CookieJar object to send with the :class:`Request`.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    :param files: (optional) Dictionary of ``&#39;name&#39;: file-like-objects`` (or ``{&#39;name&#39;: file-tuple}``) for multipart encoding upload.</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        ``file-tuple`` can be a 2-tuple ``(&#39;filename&#39;, fileobj)``, 3-tuple ``(&#39;filename&#39;, fileobj, &#39;content_type&#39;)``</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">        or a 4-tuple ``(&#39;filename&#39;, fileobj, &#39;content_type&#39;, custom_headers)``, where ``&#39;content-type&#39;`` is a string</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        defining the content type of the given file and ``custom_headers`` a dict-like object containing additional headers</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        to add for the file.</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    :param auth: (optional) Auth tuple to enable Basic/Digest/Custom HTTP Auth.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    :param timeout: (optional) How many seconds to wait for the server to send data</span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        before giving up, as a float, or a :ref:`(connect timeout, read</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        timeout) &lt;timeouts&gt;` tuple.</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    :type timeout: float or tuple</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">    :param allow_redirects: (optional) Boolean. Enable/disable GET/OPTIONS/POST/PUT/PATCH/DELETE/HEAD redirection. Defaults to ``True``.</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">    :type allow_redirects: bool</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">    :param proxies: (optional) Dictionary mapping protocol to the URL of the proxy.</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">    :param verify: (optional) Either a boolean, in which case it controls whether we verify</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">            the server&#39;s TLS certificate, or a string, in which case it must be a path</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">            to a CA bundle to use. Defaults to ``True``.</span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">    :param stream: (optional) if ``False``, the response content will be immediately downloaded.</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">    :param cert: (optional) if String, path to ssl client cert file (.pem). If Tuple, (&#39;cert&#39;, &#39;key&#39;) pair.</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">    :return: :class:`Response &lt;Response&gt;` object</span></span>
+<span class="num"><a href="#32">32</a></span><span><span class="sd">    :rtype: requests.Response</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">    Usage::</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">      &gt;&gt;&gt; import requests</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">      &gt;&gt;&gt; req = requests.request(&#39;GET&#39;, &#39;https://httpbin.org/get&#39;)</span></span>
+<span class="num"><a href="#38">38</a></span><span><span class="sd">      &gt;&gt;&gt; req</span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">      &lt;Response [200]&gt;</span></span>
+<span class="num"><a href="#40">40</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#41">41</a></span><span></span>
+<span class="num"><a href="#42">42</a></span><span>    <span class="c1"># By using the &#39;with&#39; statement we are sure the session is closed, thus we</span></span>
+<span class="num"><a href="#43">43</a></span><span>    <span class="c1"># avoid leaving sockets open which can trigger a ResourceWarning in some</span></span>
+<span class="num"><a href="#44">44</a></span><span>    <span class="c1"># cases, and look like a memory leak in others.</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">    <span class="k">with</span> <span class="n">sessions</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

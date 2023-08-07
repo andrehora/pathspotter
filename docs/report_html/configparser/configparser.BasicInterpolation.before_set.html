@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>configparser.BasicInterpolation.before_set</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: configparser.BasicInterpolation.before_set</h1>
+                <span>Calls: 18364, </span>
+                <span>Exceptions: 12, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 18352 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> parser</button> ConfigParser (18352) </p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'section2' (191) 'section1' (184) 'section3' (184) 'section0' (180) 'section4' (180) 'section5' (180) 'section6' (180) 'section7' (180) 'section8' (18...</p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'lovely_spam0' (1800) 'lovely_spam1' (1800) 'lovely_spam2' (1800) 'lovely_spam3' (1800) 'lovely_spam4' (1800) 'lovely_spam5' (1800) 'lovely_spam6' (18...</p>
+                <p><button class="input"><span>&#8594;</span> value</button> "I'm\t\nhaving\t\nspam\t\nspam\t\nspam\t\nspam\t\nspam\t\nspam\t\nspam\t\nbeaked\t\nbeans\t\nspam\t\nspam\t\nspam\t\nand\t\nspam!" (18000) 'value' (47...</p>
+                <p><button class="output"><span>&#8617; return</span></button> "I'm\t\nhaving\t\nspam\t\nspam\t\nspam\t\nspam\t\nspam\t\nspam\t\nspam\t\nbeaked\t\nbeans\t\nspam\t\nspam\t\nspam\t\nand\t\nspam!" (18000) 'value' (47...</p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">before_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">tmp_value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%%</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="c1"># escaped percent signs</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">tmp_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_KEYCRE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tmp_value</span><span class="p">)</span> <span class="c1"># valid syntax</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;%&#39;</span> <span class="ow">in</span> <span class="n">tmp_value</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid interpolation syntax in </span><span class="si">%r</span><span class="s2"> at &quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">                             <span class="s2">&quot;position </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">tmp_value</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">)))</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">return</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 2</b>: 12 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> parser</button> ConfigParser (12) </p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'sect' (12) </p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'option1' (12) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> '%foo' (4) 'foo%' (4) 'f%oo' (4) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (12) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">before_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">tmp_value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%%</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="c1"># escaped percent signs</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">tmp_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_KEYCRE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tmp_value</span><span class="p">)</span> <span class="c1"># valid syntax</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;%&#39;</span> <span class="ow">in</span> <span class="n">tmp_value</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid interpolation syntax in </span><span class="si">%r</span><span class="s2"> at &quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                             <span class="s2">&quot;position </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">tmp_value</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">)))</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">value</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

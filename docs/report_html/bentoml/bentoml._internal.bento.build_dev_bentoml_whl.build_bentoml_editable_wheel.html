@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>bentoml._internal.bento.build_dev_bentoml_whl.build_bentoml_editable_wheel</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: bentoml._internal.bento.build_dev_bentoml_whl.build_bentoml_editable_wheel</h1>
+                <span>Calls: 5, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 5 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> target_path</button> '/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/tmp649z16q7bentoml_bento_test.simplebento/env/python/wheels' (1) '/var/folders/yp/qx0crmvd4sbck7chb5...</p>
+                <p><button class="input"><span>&#8594;</span> _internal_protocol_version</button> 'v1' (5) </p>
+            <button class="run" title="lines run...">22 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">build_bentoml_editable_wheel</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">target_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">_internal_protocol_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">LATEST_PROTOCOL_VERSION</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    This is for BentoML developers to create Bentos that contains the local bentoml</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    build based on their development branch. To enable this behavior, one must</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    set envar :code:`BENTOML_BUNDLE_LOCAL_BUILD=True` before building a Bento.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BENTOML_DEV_BUILD</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;true&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">return</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">if</span> <span class="n">is_pypi_installed_bentoml</span><span class="p">():</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># skip this entirely if BentoML is installed from PyPI</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">return</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># NOTE: build.env is a standalone library,</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># different from build. However, isort sometimes</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># incorrectly re-order the imports order.</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># isort: off</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">build.env</span> <span class="kn">import</span> <span class="n">IsolatedEnvBuilder</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">build</span> <span class="kn">import</span> <span class="n">ProjectBuilder</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># isort: on</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">    <span class="k">except</span> <span class="ne">ModuleNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="k">raise</span> <span class="n">MissingDependencyException</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="sa">f</span><span class="s2">&quot;Environment variable &#39;</span><span class="si">{</span><span class="n">BENTOML_DEV_BUILD</span><span class="si">}</span><span class="s2">=True&#39;, which requires the &#39;pypa/build&#39; package (</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">). Install development dependencies with &#39;pip install -r requirements/dev-requirements.txt&#39; and try again.&quot;</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#30">30</a></span><span></span>
+<span class="num"><a href="#31">31</a></span><span>    <span class="c1"># Find bentoml module path</span></span>
+<span class="num"><a href="#32">32</a></span><span>    <span class="c1"># This will be $GIT_ROOT/src/bentoml</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="n">module_location</span> <span class="o">=</span> <span class="n">source_locations</span><span class="p">(</span><span class="s2">&quot;bentoml&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">module_location</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">        <span class="k">raise</span> <span class="n">BentoMLException</span><span class="p">(</span><span class="s2">&quot;Could not find bentoml module location.&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">    <span class="n">bentoml_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">module_location</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="n">module_location</span><span class="p">,</span> <span class="s2">&quot;grpc&quot;</span><span class="p">,</span> <span class="n">_internal_protocol_version</span><span class="p">,</span> <span class="s2">&quot;service_pb2.py&quot;</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">    <span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ModuleNotFoundError</span><span class="p">(</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="sa">f</span><span class="s2">&quot;Generated stubs for version </span><span class="si">{</span><span class="n">_internal_protocol_version</span><span class="si">}</span><span class="s2"> are missing. Make sure to run &#39;</span><span class="si">{</span><span class="n">bentoml_path</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span><span class="si">}</span><span class="s2">/scripts/generate_grpc_stubs.sh </span><span class="si">{</span><span class="n">_internal_protocol_version</span><span class="si">}</span><span class="s2">&#39; beforehand to generate gRPC stubs.&quot;</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">        <span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span>    <span class="c1"># location to pyproject.toml</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">    <span class="n">pyproject</span> <span class="o">=</span> <span class="n">bentoml_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;pyproject.toml&quot;</span></span>
+<span class="num"><a href="#47">47</a></span><span></span>
+<span class="num"><a href="#48">48</a></span><span>    <span class="c1"># this is for BentoML developer to create Service containing custom development</span></span>
+<span class="num"><a href="#49">49</a></span><span>    <span class="c1"># branches of BentoML library, it is True only when BentoML module is installed</span></span>
+<span class="num"><a href="#50">50</a></span><span>    <span class="c1"># in development mode via &quot;pip install --editable .&quot;</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">pyproject</span><span class="p">):</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">            <span class="s2">&quot;BentoML is installed in `editable` mode; building BentoML distribution with the local BentoML code base. The built wheel file will be included in the target bento.&quot;</span></span>
+<span class="num"><a href="#54">54</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">        <span class="k">with</span> <span class="n">IsolatedEnvBuilder</span><span class="p">()</span> <span class="k">as</span> <span class="n">env</span><span class="p">:</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">            <span class="n">builder</span> <span class="o">=</span> <span class="n">ProjectBuilder</span><span class="p">(</span><span class="n">pyproject</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">            <span class="n">builder</span><span class="o">.</span><span class="n">python_executable</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">executable</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">            <span class="n">builder</span><span class="o">.</span><span class="n">scripts_dir</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">scripts_dir</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">            <span class="n">env</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">build_system_requires</span><span class="p">)</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full run">            <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">                <span class="s2">&quot;wheel&quot;</span><span class="p">,</span> <span class="n">target_path</span><span class="p">,</span> <span class="n">config_settings</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;--global-option&quot;</span><span class="p">:</span> <span class="s2">&quot;--quiet&quot;</span><span class="p">}</span></span>
+<span class="num"><a href="#62">62</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#63">63</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full not_run">        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full not_run">            <span class="s2">&quot;Custom BentoML build is detected. For a Bento to use the same build at serving time, add your custom BentoML build to the pip packages list, e.g. `packages=[&#39;git+https://github.com/bentoml/bentoml.git@13dfb36&#39;]`&quot;</span></span>
+<span class="num"><a href="#66">66</a></span><span>        <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

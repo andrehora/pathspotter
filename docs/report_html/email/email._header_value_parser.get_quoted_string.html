@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email._header_value_parser.get_quoted_string</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email._header_value_parser.get_quoted_string</h1>
+                <span>Calls: 2498, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 2400 calls (0.96)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> '"==="' (920) '"+++"' (326) '"___"' (252) '"utf-8"' (117) '"==="; type=text/html' (116) '"==="; type=text/html; start="<body>"' (116) '"<body>"' (116)...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (2400) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_quoted_string</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;quoted-string = [CFWS] &lt;bare-quoted-string&gt; [CFWS]</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    &#39;bare-quoted-string&#39; is an intermediate class defined by this</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    parser and not by the RFC grammar.  It is the quoted string</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    without any attached CFWS.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="n">quoted_string</span> <span class="o">=</span> <span class="n">QuotedString</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CFWS_LEADER</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_cfws</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_bare_quoted_string</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CFWS_LEADER</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_cfws</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="k">return</span> <span class="n">quoted_string</span><span class="p">,</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 2</b>: 88 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> '"=?utf-8?q?=C3=89ric?=" <foo@example.com>' (4) '"Fred Flintstone" <dinsdale@test.example.com>' (3) '"Fred Blunt" <sharp@example.com>, "J.P.Cool" <hot...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (88) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_quoted_string</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;quoted-string = [CFWS] &lt;bare-quoted-string&gt; [CFWS]</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    &#39;bare-quoted-string&#39; is an intermediate class defined by this</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    parser and not by the RFC grammar.  It is the quoted string</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    without any attached CFWS.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="n">quoted_string</span> <span class="o">=</span> <span class="n">QuotedString</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CFWS_LEADER</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_cfws</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_bare_quoted_string</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CFWS_LEADER</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_cfws</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="k">return</span> <span class="n">quoted_string</span><span class="p">,</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 3</b>: 5 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> ' (a) "bob" (a' (1) '\t "bob" fee' (1) ' (foo) "bob"(bar)' (1) ' (foo) (bar) "bob"(bird)' (1) '\t "bob"  ' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (5) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_quoted_string</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;quoted-string = [CFWS] &lt;bare-quoted-string&gt; [CFWS]</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    &#39;bare-quoted-string&#39; is an intermediate class defined by this</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    parser and not by the RFC grammar.  It is the quoted string</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    without any attached CFWS.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="n">quoted_string</span> <span class="o">=</span> <span class="n">QuotedString</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CFWS_LEADER</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_cfws</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_bare_quoted_string</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CFWS_LEADER</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_cfws</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="k">return</span> <span class="n">quoted_string</span><span class="p">,</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 4</b>: 4 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> ' (a) "bob' (1) ' (a) "foo  bar "' (1) ' (\n) "bob"' (1) ' (a) "a\x0b"' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (4) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_quoted_string</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;quoted-string = [CFWS] &lt;bare-quoted-string&gt; [CFWS]</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    &#39;bare-quoted-string&#39; is an intermediate class defined by this</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    parser and not by the RFC grammar.  It is the quoted string</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    without any attached CFWS.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="n">quoted_string</span> <span class="o">=</span> <span class="n">QuotedString</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CFWS_LEADER</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_cfws</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_bare_quoted_string</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CFWS_LEADER</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_cfws</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="k">return</span> <span class="n">quoted_string</span><span class="p">,</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> ' (ab) xyz' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> HeaderParseError (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_quoted_string</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;quoted-string = [CFWS] &lt;bare-quoted-string&gt; [CFWS]</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    &#39;bare-quoted-string&#39; is an intermediate class defined by this</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    parser and not by the RFC grammar.  It is the quoted string</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    without any attached CFWS.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="n">quoted_string</span> <span class="o">=</span> <span class="n">QuotedString</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CFWS_LEADER</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_cfws</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_bare_quoted_string</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">    <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">CFWS_LEADER</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_cfws</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="n">quoted_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">quoted_string</span><span class="p">,</span> <span class="n">value</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

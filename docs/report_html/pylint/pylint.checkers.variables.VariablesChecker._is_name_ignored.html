@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.variables.VariablesChecker._is_name_ignored</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.variables.VariablesChecker._is_name_ignored</h1>
+                <span>Calls: 1512, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 991 calls (0.66)</p>
+                <p><button class="input"><span>&#8594;</span> stmt</button> AssignName (991) </p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'self' (598) 'cls' (52) 'arg' (24) 'arg1' (22) 'arg2' (15) '_' (14) 'x' (12) 'y' (12) 'name' (10) 'doc_type' (10) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (960) Match (31) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_name_ignored</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">stmt</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">authorized_rgx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dummy_variables_rgx</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AssignName</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stmt</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">regex</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ignored_argument_names</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">regex</span> <span class="o">=</span> <span class="n">authorized_rgx</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># See https://stackoverflow.com/a/47007761/2519059 to</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># understand what this function return. Please do NOT use</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># this elsewhere, this is confusing for no benefit</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">return</span> <span class="n">regex</span> <span class="ow">and</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 414 calls (0.27)</p>
+                <p><button class="input"><span>&#8594;</span> stmt</button> AssignName (414) </p>
+                <p><button class="input"><span>&#8594;</span> name</button> '_' (75) 'a' (42) 'c' (29) 'b' (26) 'i' (17) 'var' (12) 'd' (12) 'e' (12) 'variable' (10) 'x' (8) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (331) Match (83) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_name_ignored</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">stmt</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">authorized_rgx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dummy_variables_rgx</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AssignName</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stmt</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">regex</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ignored_argument_names</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">regex</span> <span class="o">=</span> <span class="n">authorized_rgx</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># See https://stackoverflow.com/a/47007761/2519059 to</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># understand what this function return. Please do NOT use</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># this elsewhere, this is confusing for no benefit</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">return</span> <span class="n">regex</span> <span class="ow">and</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 69 calls (0.05)</p>
+                <p><button class="input"><span>&#8594;</span> stmt</button> FunctionDef (26) Import (24) ImportFrom (15) ClassDef (3) AsyncFunctionDef (1) </p>
+                <p><button class="input"><span>&#8594;</span> name</button> '_inner' (5) 'inner_func' (3) 'sys' (3) 'namedtuple' (2) 'stuff' (2) 'open' (2) 'OS' (2) 'collections' (2) 'PATH' (2) 'deque' (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (59) Match (10) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_name_ignored</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">stmt</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">authorized_rgx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dummy_variables_rgx</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AssignName</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stmt</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="n">regex</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ignored_argument_names</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">regex</span> <span class="o">=</span> <span class="n">authorized_rgx</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># See https://stackoverflow.com/a/47007761/2519059 to</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># understand what this function return. Please do NOT use</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># this elsewhere, this is confusing for no benefit</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">return</span> <span class="n">regex</span> <span class="ow">and</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 38 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> stmt</button> Arguments (38) </p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'kwargs' (19) 'args' (13) '_args' (2) '_kwargs' (2) '_' (1) 'params' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (31) Match (7) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_name_ignored</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">stmt</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">authorized_rgx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dummy_variables_rgx</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AssignName</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stmt</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">regex</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ignored_argument_names</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">regex</span> <span class="o">=</span> <span class="n">authorized_rgx</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># See https://stackoverflow.com/a/47007761/2519059 to</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># understand what this function return. Please do NOT use</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># this elsewhere, this is confusing for no benefit</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">return</span> <span class="n">regex</span> <span class="ow">and</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

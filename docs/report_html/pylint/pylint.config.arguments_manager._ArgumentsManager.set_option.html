@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.config.arguments_manager._ArgumentsManager.set_option</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.config.arguments_manager._ArgumentsManager.set_option</h1>
+                <span>Calls: 101, </span>
+                <span>Exceptions: 3, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 70 calls (0.69)</p>
+                <p><button class="input"><span>&#8594;</span> optname</button> 'reports' (9) 'persistent' (8) 'score' (8) 'ignore_paths' (7) 'disable' (5) 'notes' (3) 'test-opt' (3) 'output-format' (3) 'ignore-imports' (2) 'ignor...</p>
+                <p><button class="input"><span>&#8594;</span> value</button> False (26) True (8) Pattern (7) '' (4) ('os',) (2) '.*/lint/.*' (2) 'imports' (1) 'import.dot' (1) 'ext_import.dot' (1) 'int_import.dot' (1) </p>
+                <p><button class="input"><span>&#8594;</span> action</button> 'default_value' (70) </p>
+                <p><button class="input"><span>&#8594;</span> optdict</button> 'default_value' (70) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_option</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">optname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">action</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;default_value&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">optdict</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">OptionDict</span> <span class="o">=</span> <span class="s2">&quot;default_value&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set an option on the namespace object.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># TODO: 3.0: Remove deprecated arguments.</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="n">action</span> <span class="o">!=</span> <span class="s2">&quot;default_value&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="s2">&quot;The &#39;action&#39; argument has been deprecated. You can use set_option &quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="s2">&quot;without the &#39;action&#39; or &#39;optdict&#39; arguments.&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">optdict</span> <span class="o">!=</span> <span class="s2">&quot;default_value&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="s2">&quot;The &#39;optdict&#39; argument has been deprecated. You can use set_option &quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="s2">&quot;without the &#39;action&#39; or &#39;optdict&#39; arguments.&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arg_parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">optname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">_parse_rich_type_value</span><span class="p">(</span><span class="n">value</span><span class="p">)],</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+            </pre>
+            <p><b>Path 2</b>: 28 calls (0.28)</p>
+                <p><button class="input"><span>&#8594;</span> optname</button> 'ignore' (1) 'ignore-patterns' (1) 'ignore-paths' (1) 'persistent' (1) 'load-plugins' (1) 'output-format' (1) 'reports' (1) 'evaluation' (1) 'score' (...</p>
+                <p><button class="input"><span>&#8594;</span> value</button> False (7) () (4) [] (3) True (3) '' (2) ('CVS',) (1) tuple (1) 'text' (1) 'max(0, 0 if fatal else 10.0 - ((float(5 * error + warning + refactor + conv...</p>
+                <p><button class="input"><span>&#8594;</span> action</button> None (23) 'store_true' (2) _OutputFormatAction def (1) _EnableAction def (1) _DisableAction def (1) </p>
+                <p><button class="input"><span>&#8594;</span> optdict</button> dict (12) {'default': True, 'type': 'yn', 'metavar': '<y or n>', 'help': 'Pickle collected data for later comparisons.'} (1) {'default': False, 'type'...</p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_option</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">optname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">action</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;default_value&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">optdict</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">OptionDict</span> <span class="o">=</span> <span class="s2">&quot;default_value&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set an option on the namespace object.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># TODO: 3.0: Remove deprecated arguments.</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="n">action</span> <span class="o">!=</span> <span class="s2">&quot;default_value&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="s2">&quot;The &#39;action&#39; argument has been deprecated. You can use set_option &quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="s2">&quot;without the &#39;action&#39; or &#39;optdict&#39; arguments.&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">optdict</span> <span class="o">!=</span> <span class="s2">&quot;default_value&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="s2">&quot;The &#39;optdict&#39; argument has been deprecated. You can use set_option &quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="s2">&quot;without the &#39;action&#39; or &#39;optdict&#39; arguments.&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arg_parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">optname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">_parse_rich_type_value</span><span class="p">(</span><span class="n">value</span><span class="p">)],</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+            </pre>
+            <p><b>Path 3</b>: 3 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> optname</button> 'output-format' (3) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'missing.module.Class' (1) 'lint.unittest_lint._CustomPyLinter' (1) 'lint.unittest_lint.MyReporter' (1) </p>
+                <p><button class="input"><span>&#8594;</span> action</button> 'default_value' (3) </p>
+                <p><button class="input"><span>&#8594;</span> optdict</button> 'default_value' (3) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> InvalidReporterError (3) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">set_option</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">optname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">action</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;default_value&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">optdict</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">OptionDict</span> <span class="o">=</span> <span class="s2">&quot;default_value&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set an option on the namespace object.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># TODO: 3.0: Remove deprecated arguments.</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="n">action</span> <span class="o">!=</span> <span class="s2">&quot;default_value&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="s2">&quot;The &#39;action&#39; argument has been deprecated. You can use set_option &quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="s2">&quot;without the &#39;action&#39; or &#39;optdict&#39; arguments.&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">optdict</span> <span class="o">!=</span> <span class="s2">&quot;default_value&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="s2">&quot;The &#39;optdict&#39; argument has been deprecated. You can use set_option &quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="s2">&quot;without the &#39;action&#39; or &#39;optdict&#39; arguments.&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arg_parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">optname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">_parse_rich_type_value</span><span class="p">(</span><span class="n">value</span><span class="p">)],</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

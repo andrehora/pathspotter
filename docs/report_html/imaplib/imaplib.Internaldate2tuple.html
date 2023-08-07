@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>imaplib.Internaldate2tuple</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: imaplib.Internaldate2tuple</h1>
+                <span>Calls: 5, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 4 calls (0.8)</p>
+                <p><button class="input"><span>&#8594;</span> resp</button> bytes (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> struct_time (4) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">Internaldate2tuple</span><span class="p">(</span><span class="n">resp</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse an IMAP4 INTERNALDATE string.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Return corresponding local time.  The return value is a</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    time.struct_time tuple or None if the string has wrong format.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="n">mo</span> <span class="o">=</span> <span class="n">InternalDate</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">mo</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">mon</span> <span class="o">=</span> <span class="n">Mon2num</span><span class="p">[</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;mon&#39;</span><span class="p">)]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">zonen</span> <span class="o">=</span> <span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;zonen&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="nb">min</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;min&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">sec</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;sec&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">zoneh</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;zoneh&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">    <span class="n">zonem</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;zonem&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span>    <span class="c1"># INTERNALDATE timezone must be subtracted to get UT</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">    <span class="n">zone</span> <span class="o">=</span> <span class="p">(</span><span class="n">zoneh</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="n">zonem</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="k">if</span> <span class="n">zonen</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;-&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="n">zone</span> <span class="o">=</span> <span class="o">-</span><span class="n">zone</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">    <span class="n">tt</span> <span class="o">=</span> <span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">mon</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="n">sec</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">utc</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">timegm</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span> <span class="o">-</span> <span class="n">zone</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">utc</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (0.2)</p>
+                <p><button class="input"><span>&#8594;</span> resp</button> bytes (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> struct_time (1) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">Internaldate2tuple</span><span class="p">(</span><span class="n">resp</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse an IMAP4 INTERNALDATE string.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Return corresponding local time.  The return value is a</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    time.struct_time tuple or None if the string has wrong format.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="n">mo</span> <span class="o">=</span> <span class="n">InternalDate</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">mo</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">mon</span> <span class="o">=</span> <span class="n">Mon2num</span><span class="p">[</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;mon&#39;</span><span class="p">)]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">zonen</span> <span class="o">=</span> <span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;zonen&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="nb">min</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;min&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">sec</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;sec&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">zoneh</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;zoneh&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">    <span class="n">zonem</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;zonem&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span>    <span class="c1"># INTERNALDATE timezone must be subtracted to get UT</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">    <span class="n">zone</span> <span class="o">=</span> <span class="p">(</span><span class="n">zoneh</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="n">zonem</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="k">if</span> <span class="n">zonen</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;-&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">zone</span> <span class="o">=</span> <span class="o">-</span><span class="n">zone</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">    <span class="n">tt</span> <span class="o">=</span> <span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">mon</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="n">sec</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">    <span class="n">utc</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">timegm</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span> <span class="o">-</span> <span class="n">zone</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">    <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">utc</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

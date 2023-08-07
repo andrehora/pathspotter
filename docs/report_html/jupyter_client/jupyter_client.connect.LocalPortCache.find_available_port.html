@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>jupyter_client.connect.LocalPortCache.find_available_port</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: jupyter_client.connect.LocalPortCache.find_available_port</h1>
+                <span>Calls: 90, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 90 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> ip</button> '127.0.0.1' (90) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 62434 (1) 62435 (1) 62436 (1) 62437 (1) 62438 (1) 64896 (1) 64897 (1) 64898 (1) 64899 (1) 64900 (1) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">find_available_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="n">tmp_sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">tmp_sock</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SO_LINGER</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\0</span><span class="s2">&quot;</span> <span class="o">*</span> <span class="mi">8</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">tmp_sock</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">port</span> <span class="o">=</span> <span class="n">tmp_sock</span><span class="o">.</span><span class="n">getsockname</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="n">tmp_sock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>            <span class="c1"># This is a workaround for https://github.com/jupyter/jupyter_client/issues/487</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="c1"># We prevent two kernels to have the same ports.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">if</span> <span class="n">port</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">currently_used_ports</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">currently_used_ports</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">port</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">return</span> <span class="n">port</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>jupyter_client.kernelspec.KernelSpecManager._get_kernel_spec_by_name</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: jupyter_client.kernelspec.KernelSpecManager._get_kernel_spec_by_name</h1>
+                <span>Calls: 21, </span>
+                <span>Exceptions: 2, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 13 calls (0.62)</p>
+                <p><button class="input"><span>&#8594;</span> kernel_name</button> 'echo' (4) 'no_provisioner' (2) 'custom_provisioner' (2) 'sample' (1) 'SAMPLE' (1) 'subclassed_provisioner' (1) 'default_provisioner' (1) 'new_provisi...</p>
+                <p><button class="input"><span>&#8594;</span> resource_dir</button> '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-173/test_find_all_specs0/data/kernels/echo' (1) '/private/var/fol...</p>
+                <p><button class="output"><span>&#8617; return</span></button> KernelSpec (13) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_kernel_spec_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_name</span><span class="p">,</span> <span class="n">resource_dir</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a :class:`KernelSpec` instance for a given kernel_name</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        and resource_dir.</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">kspec</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">kernel_name</span> <span class="o">==</span> <span class="n">NATIVE_KERNEL_NAME</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="kn">from</span> <span class="nn">ipykernel.kernelspec</span> <span class="kn">import</span> <span class="n">RESOURCES</span><span class="p">,</span> <span class="n">get_kernel_dict</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>                <span class="c1"># It should be impossible to reach this, but let&#39;s play it safe</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">resource_dir</span> <span class="o">==</span> <span class="n">RESOURCES</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="n">kspec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_spec_class</span><span class="p">(</span><span class="n">resource_dir</span><span class="o">=</span><span class="n">resource_dir</span><span class="p">,</span> <span class="o">**</span><span class="n">get_kernel_dict</span><span class="p">())</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">kspec</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">kspec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_spec_class</span><span class="o">.</span><span class="n">from_resource_dir</span><span class="p">(</span><span class="n">resource_dir</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">KPF</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">is_provisioner_available</span><span class="p">(</span><span class="n">kspec</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">NoSuchKernel</span><span class="p">(</span><span class="n">kernel_name</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">return</span> <span class="n">kspec</span></span>
+            </pre>
+            <p><b>Path 2</b>: 6 calls (0.29)</p>
+                <p><button class="input"><span>&#8594;</span> kernel_name</button> 'python3' (6) </p>
+                <p><button class="input"><span>&#8594;</span> resource_dir</button> '/Users/andrehora/Documents/git/projects-pathspotter/jupyter_client/.venv/lib/python3.10/site-packages/ipykernel/resources' (6) </p>
+                <p><button class="output"><span>&#8617; return</span></button> KernelSpec (6) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_kernel_spec_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_name</span><span class="p">,</span> <span class="n">resource_dir</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a :class:`KernelSpec` instance for a given kernel_name</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        and resource_dir.</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">kspec</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">kernel_name</span> <span class="o">==</span> <span class="n">NATIVE_KERNEL_NAME</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                <span class="kn">from</span> <span class="nn">ipykernel.kernelspec</span> <span class="kn">import</span> <span class="n">RESOURCES</span><span class="p">,</span> <span class="n">get_kernel_dict</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>                <span class="c1"># It should be impossible to reach this, but let&#39;s play it safe</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">if</span> <span class="n">resource_dir</span> <span class="o">==</span> <span class="n">RESOURCES</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                    <span class="n">kspec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_spec_class</span><span class="p">(</span><span class="n">resource_dir</span><span class="o">=</span><span class="n">resource_dir</span><span class="p">,</span> <span class="o">**</span><span class="n">get_kernel_dict</span><span class="p">())</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">kspec</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">kspec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_spec_class</span><span class="o">.</span><span class="n">from_resource_dir</span><span class="p">(</span><span class="n">resource_dir</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">KPF</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">is_provisioner_available</span><span class="p">(</span><span class="n">kspec</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">NoSuchKernel</span><span class="p">(</span><span class="n">kernel_name</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">return</span> <span class="n">kspec</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (0.1)</p>
+                <p><button class="input"><span>&#8594;</span> kernel_name</button> 'missing_provisioner' (2) </p>
+                <p><button class="input"><span>&#8594;</span> resource_dir</button> '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-173/test_find_all_specs1/data/kernels/missing_provisioner' (1) '/...</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> NoSuchKernel (2) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_kernel_spec_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_name</span><span class="p">,</span> <span class="n">resource_dir</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a :class:`KernelSpec` instance for a given kernel_name</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        and resource_dir.</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">kspec</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="n">kernel_name</span> <span class="o">==</span> <span class="n">NATIVE_KERNEL_NAME</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                <span class="kn">from</span> <span class="nn">ipykernel.kernelspec</span> <span class="kn">import</span> <span class="n">RESOURCES</span><span class="p">,</span> <span class="n">get_kernel_dict</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>                <span class="c1"># It should be impossible to reach this, but let&#39;s play it safe</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="k">pass</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">resource_dir</span> <span class="o">==</span> <span class="n">RESOURCES</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="n">kspec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_spec_class</span><span class="p">(</span><span class="n">resource_dir</span><span class="o">=</span><span class="n">resource_dir</span><span class="p">,</span> <span class="o">**</span><span class="n">get_kernel_dict</span><span class="p">())</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">kspec</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">kspec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_spec_class</span><span class="o">.</span><span class="n">from_resource_dir</span><span class="p">(</span><span class="n">resource_dir</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">KPF</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">is_provisioner_available</span><span class="p">(</span><span class="n">kspec</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">raise</span> <span class="n">NoSuchKernel</span><span class="p">(</span><span class="n">kernel_name</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">kspec</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.contentmanager._finalize_set</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.contentmanager._finalize_set</h1>
+                <span>Calls: 72, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 6</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 42 calls (0.58)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> EmailMessage (39) MIMEPart (3) </p>
+                <p><button class="input"><span>&#8594;</span> disposition</button> None (42) </p>
+                <p><button class="input"><span>&#8594;</span> filename</button> None (42) </p>
+                <p><button class="input"><span>&#8594;</span> cid</button> None (42) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> None (42) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_finalize_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">disposition</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">if</span> <span class="n">disposition</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">        <span class="n">disposition</span> <span class="o">=</span> <span class="s1">&#39;attachment&#39;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">if</span> <span class="n">disposition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">disposition</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="n">msg</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                      <span class="n">filename</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                      <span class="n">header</span><span class="o">=</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                      <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">if</span> <span class="n">cid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cid</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">msg</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 9 calls (0.12)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> EmailMessage (9) </p>
+                <p><button class="input"><span>&#8594;</span> disposition</button> 'inline' (7) 'attachment' (1) 'foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> filename</button> None (9) </p>
+                <p><button class="input"><span>&#8594;</span> cid</button> None (9) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> None (9) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_finalize_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">disposition</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">if</span> <span class="n">disposition</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">        <span class="n">disposition</span> <span class="o">=</span> <span class="s1">&#39;attachment&#39;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">if</span> <span class="n">disposition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">disposition</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="n">msg</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                      <span class="n">filename</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                      <span class="n">header</span><span class="o">=</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                      <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">if</span> <span class="n">cid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cid</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">msg</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 7 calls (0.1)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> EmailMessage (7) </p>
+                <p><button class="input"><span>&#8594;</span> disposition</button> 'inline' (7) </p>
+                <p><button class="input"><span>&#8594;</span> filename</button> 'b&#225;r.txt' (6) 'bar.txt' (1) </p>
+                <p><button class="input"><span>&#8594;</span> cid</button> None (7) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> None (7) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_finalize_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">disposition</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">if</span> <span class="n">disposition</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">        <span class="n">disposition</span> <span class="o">=</span> <span class="s1">&#39;attachment&#39;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">if</span> <span class="n">disposition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">disposition</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">msg</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                      <span class="n">filename</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                      <span class="n">header</span><span class="o">=</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                      <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">if</span> <span class="n">cid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cid</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">msg</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 6 calls (0.08)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> EmailMessage (6) </p>
+                <p><button class="input"><span>&#8594;</span> disposition</button> None (6) </p>
+                <p><button class="input"><span>&#8594;</span> filename</button> None (6) </p>
+                <p><button class="input"><span>&#8594;</span> cid</button> 'some_random_stuff' (6) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> None (6) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_finalize_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">disposition</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">if</span> <span class="n">disposition</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">        <span class="n">disposition</span> <span class="o">=</span> <span class="s1">&#39;attachment&#39;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">if</span> <span class="n">disposition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">disposition</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="n">msg</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                      <span class="n">filename</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                      <span class="n">header</span><span class="o">=</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                      <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">if</span> <span class="n">cid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cid</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">msg</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 6 calls (0.08)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> EmailMessage (6) </p>
+                <p><button class="input"><span>&#8594;</span> disposition</button> None (6) </p>
+                <p><button class="input"><span>&#8594;</span> filename</button> None (6) </p>
+                <p><button class="input"><span>&#8594;</span> cid</button> None (6) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> {'foo': 'b&#225;r', 'abc': 'xyz'} (6) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_finalize_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">disposition</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">if</span> <span class="n">disposition</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">        <span class="n">disposition</span> <span class="o">=</span> <span class="s1">&#39;attachment&#39;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">if</span> <span class="n">disposition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">disposition</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="n">msg</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                      <span class="n">filename</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                      <span class="n">header</span><span class="o">=</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                      <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">if</span> <span class="n">cid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cid</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="n">msg</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 2 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> msg</button> EmailMessage (2) </p>
+                <p><button class="input"><span>&#8594;</span> disposition</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> filename</button> 'bar.txt' (1) '&#225;b&#225;r&#238;.txt' (1) </p>
+                <p><button class="input"><span>&#8594;</span> cid</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> params</button> None (2) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_finalize_set</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">disposition</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">if</span> <span class="n">disposition</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">disposition</span> <span class="o">=</span> <span class="s1">&#39;attachment&#39;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">if</span> <span class="n">disposition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">disposition</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">msg</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                      <span class="n">filename</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                      <span class="n">header</span><span class="o">=</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                      <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">if</span> <span class="n">cid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Content-ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cid</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">msg</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

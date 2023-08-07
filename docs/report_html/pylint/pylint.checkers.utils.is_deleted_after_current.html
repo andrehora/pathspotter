@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.utils.is_deleted_after_current</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.utils.is_deleted_after_current</h1>
+                <span>Calls: 21, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 21 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Global (21) </p>
+                <p><button class="input"><span>&#8594;</span> varname</button> 'CONST' (3) 'CONSTANT' (2) 'missing' (2) 'SOMETHING' (2) 'HOP' (1) 'sys' (1) 'namedtuple' (1) 'RAN_DB_SET' (1) 'RAN_DB_DICT' (1) 'GLOBAL_VAR' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (20) True (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> GeneratorExit (1) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_deleted_after_current</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="n">varname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if the given variable name is deleted in the same scope after the current</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    node.</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">        <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="n">varname</span> <span class="ow">and</span> <span class="n">target</span><span class="o">.</span><span class="n">lineno</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">lineno</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">del_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">scope</span><span class="p">()</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Delete</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">del_node</span><span class="o">.</span><span class="n">targets</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

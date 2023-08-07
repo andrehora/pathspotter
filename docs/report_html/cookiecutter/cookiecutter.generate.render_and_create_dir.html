@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>cookiecutter.generate.render_and_create_dir</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: cookiecutter.generate.render_and_create_dir</h1>
+                <span>Calls: 78, </span>
+                <span>Exceptions: 7, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 61 calls (0.78)</p>
+                <p><button class="input"><span>&#8594;</span> dirname</button> '{{cookiecutter.repo_name}}' (18) '{{cookiecutter.project_slug}}' (14) 'input{{cookiecutter.food}}' (8) 'input{{cookiecutter.shellhooks}}' (4) 'input{...</p>
+                <p><button class="input"><span>&#8594;</span> context</button> dict (32) OrderedDict (29) </p>
+                <p><button class="input"><span>&#8594;</span> output_dir</button> '.' (30) PosixPath (14) 'tests/test-pyhooks/' (2) '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-186/test_hooks_...</p>
+                <p><button class="input"><span>&#8594;</span> environment</button> StrictEnvironment (61) </p>
+                <p><button class="input"><span>&#8594;</span> overwrite_if_exists</button> False (56) True (5) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (61) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">render_and_create_dir</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">dirname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">output_dir</span><span class="p">:</span> <span class="s2">&quot;os.PathLike[str]&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">overwrite_if_exists</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Render name of a directory, create the directory, return its path.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="n">name_tmpl</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="n">rendered_dirname</span> <span class="o">=</span> <span class="n">name_tmpl</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="n">context</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">dir_to_create</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">rendered_dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="s1">&#39;Rendered dir </span><span class="si">%s</span><span class="s1"> must exist in output_dir </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">dir_to_create</span><span class="p">,</span> <span class="n">output_dir</span></span>
+<span class="num"><a href="#16">16</a></span><span>    <span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="n">output_dir_exists</span> <span class="o">=</span> <span class="n">dir_to_create</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">output_dir_exists</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">overwrite_if_exists</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="s1">&#39;Output directory </span><span class="si">%s</span><span class="s1"> already exists, overwriting it&#39;</span><span class="p">,</span> <span class="n">dir_to_create</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Error: &quot;</span><span class="si">{</span><span class="n">dir_to_create</span><span class="si">}</span><span class="s1">&quot; directory already exists&#39;</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">OutputDirExistsException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="n">make_sure_path_exists</span><span class="p">(</span><span class="n">dir_to_create</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">    <span class="k">return</span> <span class="n">dir_to_create</span><span class="p">,</span> <span class="ow">not</span> <span class="n">output_dir_exists</span></span>
+            </pre>
+            <p><b>Path 2</b>: 10 calls (0.13)</p>
+                <p><button class="input"><span>&#8594;</span> dirname</button> '{{cookiecutter.repo_name}}' (3) 'input{{cookiecutter.food}}' (2) '{{cookiecutter.project_slug}}' (2) '/Users/andrehora/Documents/git/projects-pathspo...</p>
+                <p><button class="input"><span>&#8594;</span> context</button> dict (8) OrderedDict (2) </p>
+                <p><button class="input"><span>&#8594;</span> output_dir</button> '.' (6) PosixPath (2) '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-186/test_raise_undefined_variable_1/output'...</p>
+                <p><button class="input"><span>&#8594;</span> environment</button> StrictEnvironment (10) </p>
+                <p><button class="input"><span>&#8594;</span> overwrite_if_exists</button> True (10) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (10) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">render_and_create_dir</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">dirname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">output_dir</span><span class="p">:</span> <span class="s2">&quot;os.PathLike[str]&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">overwrite_if_exists</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Render name of a directory, create the directory, return its path.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="n">name_tmpl</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="n">rendered_dirname</span> <span class="o">=</span> <span class="n">name_tmpl</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="n">context</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">dir_to_create</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">rendered_dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="s1">&#39;Rendered dir </span><span class="si">%s</span><span class="s1"> must exist in output_dir </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">dir_to_create</span><span class="p">,</span> <span class="n">output_dir</span></span>
+<span class="num"><a href="#16">16</a></span><span>    <span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="n">output_dir_exists</span> <span class="o">=</span> <span class="n">dir_to_create</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">output_dir_exists</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">overwrite_if_exists</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="s1">&#39;Output directory </span><span class="si">%s</span><span class="s1"> already exists, overwriting it&#39;</span><span class="p">,</span> <span class="n">dir_to_create</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Error: &quot;</span><span class="si">{</span><span class="n">dir_to_create</span><span class="si">}</span><span class="s1">&quot; directory already exists&#39;</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">OutputDirExistsException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="n">make_sure_path_exists</span><span class="p">(</span><span class="n">dir_to_create</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">    <span class="k">return</span> <span class="n">dir_to_create</span><span class="p">,</span> <span class="ow">not</span> <span class="n">output_dir_exists</span></span>
+            </pre>
+            <p><b>Path 3</b>: 4 calls (0.05)</p>
+                <p><button class="input"><span>&#8594;</span> dirname</button> '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-186/test_raise_undefined_variable_3/output/testproject/./{{cookie...</p>
+                <p><button class="input"><span>&#8594;</span> context</button> dict (3) OrderedDict (1) </p>
+                <p><button class="input"><span>&#8594;</span> output_dir</button> '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-186/test_raise_undefined_variable_3/output' (1) '/private/var/fol...</p>
+                <p><button class="input"><span>&#8594;</span> environment</button> StrictEnvironment (4) </p>
+                <p><button class="input"><span>&#8594;</span> overwrite_if_exists</button> False (3) True (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UndefinedError (4) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">render_and_create_dir</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">dirname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">output_dir</span><span class="p">:</span> <span class="s2">&quot;os.PathLike[str]&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">overwrite_if_exists</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Render name of a directory, create the directory, return its path.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="n">name_tmpl</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="n">rendered_dirname</span> <span class="o">=</span> <span class="n">name_tmpl</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="n">context</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">    <span class="n">dir_to_create</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">rendered_dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="s1">&#39;Rendered dir </span><span class="si">%s</span><span class="s1"> must exist in output_dir </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">dir_to_create</span><span class="p">,</span> <span class="n">output_dir</span></span>
+<span class="num"><a href="#16">16</a></span><span>    <span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">    <span class="n">output_dir_exists</span> <span class="o">=</span> <span class="n">dir_to_create</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">output_dir_exists</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">overwrite_if_exists</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="s1">&#39;Output directory </span><span class="si">%s</span><span class="s1"> already exists, overwriting it&#39;</span><span class="p">,</span> <span class="n">dir_to_create</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Error: &quot;</span><span class="si">{</span><span class="n">dir_to_create</span><span class="si">}</span><span class="s1">&quot; directory already exists&#39;</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">OutputDirExistsException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="n">make_sure_path_exists</span><span class="p">(</span><span class="n">dir_to_create</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">dir_to_create</span><span class="p">,</span> <span class="ow">not</span> <span class="n">output_dir_exists</span></span>
+            </pre>
+            <p><b>Path 4</b>: 3 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> dirname</button> '{{cookiecutter.repo_name}}' (1) 'input{{cookiecutter.food}}' (1) '{{cookiecutter.test_name}}' (1) </p>
+                <p><button class="input"><span>&#8594;</span> context</button> OrderedDict (2) dict (1) </p>
+                <p><button class="input"><span>&#8594;</span> output_dir</button> '.' (2) PosixPath (1) </p>
+                <p><button class="input"><span>&#8594;</span> environment</button> StrictEnvironment (3) </p>
+                <p><button class="input"><span>&#8594;</span> overwrite_if_exists</button> False (3) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> OutputDirExistsException (3) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">render_and_create_dir</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">dirname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">output_dir</span><span class="p">:</span> <span class="s2">&quot;os.PathLike[str]&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">overwrite_if_exists</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Render name of a directory, create the directory, return its path.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="n">name_tmpl</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="n">rendered_dirname</span> <span class="o">=</span> <span class="n">name_tmpl</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="n">context</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">dir_to_create</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">rendered_dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="s1">&#39;Rendered dir </span><span class="si">%s</span><span class="s1"> must exist in output_dir </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">dir_to_create</span><span class="p">,</span> <span class="n">output_dir</span></span>
+<span class="num"><a href="#16">16</a></span><span>    <span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="n">output_dir_exists</span> <span class="o">=</span> <span class="n">dir_to_create</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">if</span> <span class="n">output_dir_exists</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">overwrite_if_exists</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="s1">&#39;Output directory </span><span class="si">%s</span><span class="s1"> already exists, overwriting it&#39;</span><span class="p">,</span> <span class="n">dir_to_create</span></span>
+<span class="num"><a href="#24">24</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Error: &quot;</span><span class="si">{</span><span class="n">dir_to_create</span><span class="si">}</span><span class="s1">&quot; directory already exists&#39;</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="k">raise</span> <span class="n">OutputDirExistsException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">        <span class="n">make_sure_path_exists</span><span class="p">(</span><span class="n">dir_to_create</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">dir_to_create</span><span class="p">,</span> <span class="ow">not</span> <span class="n">output_dir_exists</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.classes.class_checker._is_attribute_property</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.classes.class_checker._is_attribute_property</h1>
+                <span>Calls: 24, </span>
+                <span>Exceptions: 14, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 14 calls (0.58)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> '_' (5) 'missing' (3) 'answer' (1) 'test' (1) '_bar' (1) 'teta' (1) '__reader' (1) '__writer' (1) </p>
+                <p><button class="input"><span>&#8594;</span> klass</button> ClassDef (14) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (14) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeInferenceError (14) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_attribute_property</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">klass</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if the given attribute *name* is a property in the given *klass*.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    It will look for `property` calls or for functions</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    with the given name, decorated by `property` or `property`</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    subclasses.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    Returns ``True`` if the name is a property in the given klass,</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    ``False`` otherwise.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">attributes</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">NotFoundError</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">    <span class="n">property_name</span> <span class="o">=</span> <span class="s2">&quot;builtins.property&quot;</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">attr</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="n">inferred</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">attr</span><span class="o">.</span><span class="n">infer</span><span class="p">())</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="ow">and</span> <span class="n">decorated_with_property</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">inferred</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">inferred</span><span class="o">.</span><span class="n">pytype</span><span class="p">()</span> <span class="o">!=</span> <span class="n">property_name</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">        <span class="bp">cls</span> <span class="o">=</span> <span class="n">node_frame_class</span><span class="p">(</span><span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">cls</span> <span class="o">==</span> <span class="n">klass</span><span class="o">.</span><span class="n">declared_metaclass</span><span class="p">():</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 2</b>: 5 calls (0.21)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> '__class__' (2) 'data_descriptor' (1) 'non_data_descriptor' (1) 'attr2' (1) </p>
+                <p><button class="input"><span>&#8594;</span> klass</button> ClassDef (5) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (5) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_attribute_property</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">klass</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if the given attribute *name* is a property in the given *klass*.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    It will look for `property` calls or for functions</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    with the given name, decorated by `property` or `property`</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    subclasses.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    Returns ``True`` if the name is a property in the given klass,</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    ``False`` otherwise.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">attributes</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">    <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">NotFoundError</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="n">property_name</span> <span class="o">=</span> <span class="s2">&quot;builtins.property&quot;</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">attr</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">inferred</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">attr</span><span class="o">.</span><span class="n">infer</span><span class="p">())</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="ow">and</span> <span class="n">decorated_with_property</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">inferred</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="n">inferred</span><span class="o">.</span><span class="n">pytype</span><span class="p">()</span> <span class="o">!=</span> <span class="n">property_name</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">continue</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">        <span class="bp">cls</span> <span class="o">=</span> <span class="n">node_frame_class</span><span class="p">(</span><span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">cls</span> <span class="o">==</span> <span class="n">klass</span><span class="o">.</span><span class="n">declared_metaclass</span><span class="p">():</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 3</b>: 4 calls (0.17)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'test' (2) 'prop' (1) 'other' (1) </p>
+                <p><button class="input"><span>&#8594;</span> klass</button> ClassDef (4) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_attribute_property</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">klass</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if the given attribute *name* is a property in the given *klass*.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    It will look for `property` calls or for functions</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    with the given name, decorated by `property` or `property`</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    subclasses.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    Returns ``True`` if the name is a property in the given klass,</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    ``False`` otherwise.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">attributes</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">    <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">NotFoundError</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="n">property_name</span> <span class="o">=</span> <span class="s2">&quot;builtins.property&quot;</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">attr</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">inferred</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">attr</span><span class="o">.</span><span class="n">infer</span><span class="p">())</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="ow">and</span> <span class="n">decorated_with_property</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">inferred</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="n">inferred</span><span class="o">.</span><span class="n">pytype</span><span class="p">()</span> <span class="o">!=</span> <span class="n">property_name</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">cls</span> <span class="o">=</span> <span class="n">node_frame_class</span><span class="p">(</span><span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">cls</span> <span class="o">==</span> <span class="n">klass</span><span class="o">.</span><span class="n">declared_metaclass</span><span class="p">():</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> name</button> 'nargs' (1) </p>
+                <p><button class="input"><span>&#8594;</span> klass</button> ClassDef (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (1) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_attribute_property</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">klass</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if the given attribute *name* is a property in the given *klass*.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    It will look for `property` calls or for functions</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    with the given name, decorated by `property` or `property`</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    subclasses.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    Returns ``True`` if the name is a property in the given klass,</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    ``False`` otherwise.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="n">attributes</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">    <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">NotFoundError</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="n">property_name</span> <span class="o">=</span> <span class="s2">&quot;builtins.property&quot;</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">attr</span> <span class="ow">is</span> <span class="n">astroid</span><span class="o">.</span><span class="n">Uninferable</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">inferred</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">attr</span><span class="o">.</span><span class="n">infer</span><span class="p">())</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">except</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="ow">and</span> <span class="n">decorated_with_property</span><span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">inferred</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="n">inferred</span><span class="o">.</span><span class="n">pytype</span><span class="p">()</span> <span class="o">!=</span> <span class="n">property_name</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="bp">cls</span> <span class="o">=</span> <span class="n">node_frame_class</span><span class="p">(</span><span class="n">inferred</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">cls</span> <span class="o">==</span> <span class="n">klass</span><span class="o">.</span><span class="n">declared_metaclass</span><span class="p">():</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="k">continue</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

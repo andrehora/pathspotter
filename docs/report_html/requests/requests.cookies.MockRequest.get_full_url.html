@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>requests.cookies.MockRequest.get_full_url</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: requests.cookies.MockRequest.get_full_url</h1>
+                <span>Calls: 1178, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1165 calls (0.99)</p>
+                <p><button class="output"><span>&#8617; return</span></button> 'http://127.0.0.1:64692/digest-auth/auth/user/pass/MD5' (269) 'http://127.0.0.1:64692/digest-auth/auth/user/pass/SHA-256' (269) 'http://127.0.0.1:6469...</p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_full_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># Only return the response&#39;s URL if the user hadn&#39;t set the Host</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># header</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_r</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Host&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_r</span><span class="o">.</span><span class="n">url</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># If they did set it, retrieve it and reconstruct the expected domain</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="n">host</span> <span class="o">=</span> <span class="n">to_native_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_r</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;Host&quot;</span><span class="p">],</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_r</span><span class="o">.</span><span class="n">url</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Reconstruct the URL as we expect it</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">urlunparse</span><span class="p">(</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="p">[</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">host</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="n">parsed</span><span class="o">.</span><span class="n">path</span><span class="p">,</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="n">parsed</span><span class="o">.</span><span class="n">params</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="n">parsed</span><span class="o">.</span><span class="n">query</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                <span class="n">parsed</span><span class="o">.</span><span class="n">fragment</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="p">]</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 13 calls (0.01)</p>
+                <p><button class="output"><span>&#8617; return</span></button> 'http://httpbin.org/cookies/set?cookie=value' (9) 'http://httpbin.org/cookies' (4) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_full_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># Only return the response&#39;s URL if the user hadn&#39;t set the Host</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># header</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_r</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Host&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_r</span><span class="o">.</span><span class="n">url</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># If they did set it, retrieve it and reconstruct the expected domain</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">host</span> <span class="o">=</span> <span class="n">to_native_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_r</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;Host&quot;</span><span class="p">],</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_r</span><span class="o">.</span><span class="n">url</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Reconstruct the URL as we expect it</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">return</span> <span class="n">urlunparse</span><span class="p">(</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="p">[</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="n">host</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="n">parsed</span><span class="o">.</span><span class="n">path</span><span class="p">,</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="n">parsed</span><span class="o">.</span><span class="n">params</span><span class="p">,</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="n">parsed</span><span class="o">.</span><span class="n">query</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="n">parsed</span><span class="o">.</span><span class="n">fragment</span><span class="p">,</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="p">]</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

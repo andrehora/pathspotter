@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.imports.ImportsChecker.deprecated_modules</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.imports.ImportsChecker.deprecated_modules</h1>
+                <span>Calls: 1281, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1281 calls (1.0)</p>
+                <p><button class="output"><span>&#8617; return</span></button> {'imp', 'smtpd', 'macpath', 'xml.etree.cElementTree', 'tkinter.tix', 'symbol', 'typing.io', 'typing.re', 'optparse', 'binhex', 'asynchat', 'fpectl', '...</p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">deprecated_modules</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Callback returning the deprecated modules.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># First get the modules the user indicated</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">all_deprecated_modules</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">deprecated_modules</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># Now get the hard-coded ones from the stdlib</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">for</span> <span class="n">since_vers</span><span class="p">,</span> <span class="n">mod_set</span> <span class="ow">in</span> <span class="n">DEPRECATED_MODULES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">if</span> <span class="n">since_vers</span> <span class="o">&lt;=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                <span class="n">all_deprecated_modules</span> <span class="o">=</span> <span class="n">all_deprecated_modules</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">mod_set</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">return</span> <span class="n">all_deprecated_modules</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>requests.sessions.SessionRedirectMixin.should_strip_auth</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: requests.sessions.SessionRedirectMixin.should_strip_auth</h1>
+                <span>Calls: 14, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 8</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 3 calls (0.21)</p>
+                <p><button class="input"><span>&#8594;</span> old_url</button> 'http://example.com/foo' (2) 'http://example.com:80/foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> new_url</button> 'https://example.com/bar' (2) 'https://example.com:443/bar' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (3) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">should_strip_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_url</span><span class="p">,</span> <span class="n">new_url</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Decide whether Authorization header should be removed when redirecting&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">old_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">old_url</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">new_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">hostname</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Special case: allow http -&gt; https redirect when using the standard</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># ports. This isn&#39;t specified by RFC 7235, but is kept to avoid</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># breaking backwards compatibility with older versions of requests</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># that allowed any redirects on the same host.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;http&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;https&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">443</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># Handle default port usage corresponding to scheme.</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="n">changed_port</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="n">changed_scheme</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="n">default_port</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_PORTS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="ow">not</span> <span class="n">changed_scheme</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># Standard case: root URI must match</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">changed_port</span> <span class="ow">or</span> <span class="n">changed_scheme</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2 calls (0.14)</p>
+                <p><button class="input"><span>&#8594;</span> old_url</button> 'https://127.0.0.1:64837/redirect-to?url=http%3A%2F%2F127.0.0.1%3A64692%2Fget' (1) 'https://example.com/foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> new_url</button> 'http://127.0.0.1:64692/get' (1) 'http://example.com/bar' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (2) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">should_strip_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_url</span><span class="p">,</span> <span class="n">new_url</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Decide whether Authorization header should be removed when redirecting&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">old_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">old_url</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">new_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">hostname</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Special case: allow http -&gt; https redirect when using the standard</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># ports. This isn&#39;t specified by RFC 7235, but is kept to avoid</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># breaking backwards compatibility with older versions of requests</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># that allowed any redirects on the same host.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;http&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;https&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">443</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># Handle default port usage corresponding to scheme.</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">changed_port</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">changed_scheme</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">default_port</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_PORTS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="ow">not</span> <span class="n">changed_scheme</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># Standard case: root URI must match</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">changed_port</span> <span class="ow">or</span> <span class="n">changed_scheme</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (0.14)</p>
+                <p><button class="input"><span>&#8594;</span> old_url</button> 'http://example.com:8080/foo' (1) 'http://example.com:1234/foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> new_url</button> 'https://example.com/bar' (1) 'https://example.com:4321/bar' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (2) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">should_strip_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_url</span><span class="p">,</span> <span class="n">new_url</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Decide whether Authorization header should be removed when redirecting&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">old_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">old_url</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">new_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">hostname</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Special case: allow http -&gt; https redirect when using the standard</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># ports. This isn&#39;t specified by RFC 7235, but is kept to avoid</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># breaking backwards compatibility with older versions of requests</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># that allowed any redirects on the same host.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;http&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;https&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">443</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># Handle default port usage corresponding to scheme.</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">changed_port</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">changed_scheme</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">default_port</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_PORTS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="ow">not</span> <span class="n">changed_scheme</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># Standard case: root URI must match</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">changed_port</span> <span class="ow">or</span> <span class="n">changed_scheme</span></span>
+            </pre>
+            <p><b>Path 4</b>: 2 calls (0.14)</p>
+                <p><button class="input"><span>&#8594;</span> old_url</button> 'https://example.com:443/foo' (1) 'https://example.com/foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> new_url</button> 'https://example.com/bar' (1) 'https://example.com:443/bar' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (2) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">should_strip_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_url</span><span class="p">,</span> <span class="n">new_url</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Decide whether Authorization header should be removed when redirecting&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">old_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">old_url</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">new_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">hostname</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Special case: allow http -&gt; https redirect when using the standard</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># ports. This isn&#39;t specified by RFC 7235, but is kept to avoid</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># breaking backwards compatibility with older versions of requests</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># that allowed any redirects on the same host.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;http&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;https&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">443</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># Handle default port usage corresponding to scheme.</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">changed_port</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">changed_scheme</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">default_port</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_PORTS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="ow">not</span> <span class="n">changed_scheme</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># Standard case: root URI must match</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">changed_port</span> <span class="ow">or</span> <span class="n">changed_scheme</span></span>
+            </pre>
+            <p><b>Path 5</b>: 2 calls (0.14)</p>
+                <p><button class="input"><span>&#8594;</span> old_url</button> 'http://example.com:80/foo' (1) 'http://example.com/foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> new_url</button> 'http://example.com/bar' (1) 'http://example.com:80/bar' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (2) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">should_strip_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_url</span><span class="p">,</span> <span class="n">new_url</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Decide whether Authorization header should be removed when redirecting&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">old_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">old_url</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">new_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">hostname</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Special case: allow http -&gt; https redirect when using the standard</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># ports. This isn&#39;t specified by RFC 7235, but is kept to avoid</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># breaking backwards compatibility with older versions of requests</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># that allowed any redirects on the same host.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;http&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;https&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">443</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># Handle default port usage corresponding to scheme.</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">changed_port</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">changed_scheme</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">default_port</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_PORTS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="ow">not</span> <span class="n">changed_scheme</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># Standard case: root URI must match</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">changed_port</span> <span class="ow">or</span> <span class="n">changed_scheme</span></span>
+            </pre>
+            <p><b>Path 6</b>: 1 calls (0.07)</p>
+                <p><button class="input"><span>&#8594;</span> old_url</button> 'http://127.0.0.1:64692/redirect/1' (1) </p>
+                <p><button class="input"><span>&#8594;</span> new_url</button> 'http://127.0.0.1:64692/get' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (1) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">should_strip_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_url</span><span class="p">,</span> <span class="n">new_url</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Decide whether Authorization header should be removed when redirecting&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">old_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">old_url</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">new_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">hostname</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Special case: allow http -&gt; https redirect when using the standard</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># ports. This isn&#39;t specified by RFC 7235, but is kept to avoid</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># breaking backwards compatibility with older versions of requests</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># that allowed any redirects on the same host.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;http&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;https&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">443</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># Handle default port usage corresponding to scheme.</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">changed_port</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">changed_scheme</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">default_port</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_PORTS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="ow">not</span> <span class="n">changed_scheme</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># Standard case: root URI must match</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">changed_port</span> <span class="ow">or</span> <span class="n">changed_scheme</span></span>
+            </pre>
+            <p><b>Path 7</b>: 1 calls (0.07)</p>
+                <p><button class="input"><span>&#8594;</span> old_url</button> 'http://example.com/foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> new_url</button> 'http://another.example.com/' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">15 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">should_strip_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_url</span><span class="p">,</span> <span class="n">new_url</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Decide whether Authorization header should be removed when redirecting&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">old_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">old_url</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">new_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">hostname</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Special case: allow http -&gt; https redirect when using the standard</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># ports. This isn&#39;t specified by RFC 7235, but is kept to avoid</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># breaking backwards compatibility with older versions of requests</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># that allowed any redirects on the same host.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;http&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;https&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">443</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># Handle default port usage corresponding to scheme.</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="n">changed_port</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="n">changed_scheme</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="n">default_port</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_PORTS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="ow">not</span> <span class="n">changed_scheme</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># Standard case: root URI must match</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">changed_port</span> <span class="ow">or</span> <span class="n">changed_scheme</span></span>
+            </pre>
+            <p><b>Path 8</b>: 1 calls (0.07)</p>
+                <p><button class="input"><span>&#8594;</span> old_url</button> 'http://example.com/foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> new_url</button> 'https://example.com:8443/bar' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (1) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">should_strip_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_url</span><span class="p">,</span> <span class="n">new_url</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Decide whether Authorization header should be removed when redirecting&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">old_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">old_url</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">new_parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">hostname</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Special case: allow http -&gt; https redirect when using the standard</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1"># ports. This isn&#39;t specified by RFC 7235, but is kept to avoid</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># breaking backwards compatibility with older versions of requests</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># that allowed any redirects on the same host.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;http&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;https&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">443</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># Handle default port usage corresponding to scheme.</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">changed_port</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">changed_scheme</span> <span class="o">=</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">!=</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">scheme</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">default_port</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_PORTS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">old_parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="ow">not</span> <span class="n">changed_scheme</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">old_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">new_parsed</span><span class="o">.</span><span class="n">port</span> <span class="ow">in</span> <span class="n">default_port</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># Standard case: root URI must match</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">changed_port</span> <span class="ow">or</span> <span class="n">changed_scheme</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

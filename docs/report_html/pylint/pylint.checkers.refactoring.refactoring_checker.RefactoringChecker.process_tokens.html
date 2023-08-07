@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.refactoring.refactoring_checker.RefactoringChecker.process_tokens</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.refactoring.refactoring_checker.RefactoringChecker.process_tokens</h1>
+                <span>Calls: 1121, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1086 calls (0.97)</p>
+                <p><button class="input"><span>&#8594;</span> tokens</button> list (1086) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">process_tokens</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokens</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">tokenize</span><span class="o">.</span><span class="n">TokenInfo</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># Process tokens and look for &#39;if&#39; or &#39;elif&#39;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">token</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">token_string</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="n">token_string</span> <span class="o">==</span> <span class="s2">&quot;elif&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span>                <span class="c1"># AST exists by the time process_tokens is called, so</span></span>
+<span class="num"><a href="#7">7</a></span><span>                <span class="c1"># it&#39;s safe to assume tokens[index+1] exists.</span></span>
+<span class="num"><a href="#8">8</a></span><span>                <span class="c1"># tokens[index+1][2] is the elif&#39;s position as</span></span>
+<span class="num"><a href="#9">9</a></span><span>                <span class="c1"># reported by CPython and PyPy,</span></span>
+<span class="num"><a href="#10">10</a></span><span>                <span class="c1"># token[2] is the actual position and also is</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="c1"># reported by IronPython.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_elifs</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">token</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">tokens</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]])</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">elif</span> <span class="n">_is_trailing_comma</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">is_message_enabled</span><span class="p">(</span><span class="s2">&quot;trailing-comma-tuple&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;trailing-comma-tuple&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="n">token</span><span class="o">.</span><span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+            </pre>
+            <p><b>Path 2</b>: 34 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> tokens</button> list (34) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">process_tokens</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokens</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">tokenize</span><span class="o">.</span><span class="n">TokenInfo</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># Process tokens and look for &#39;if&#39; or &#39;elif&#39;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">token</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">token_string</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="n">token_string</span> <span class="o">==</span> <span class="s2">&quot;elif&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span>                <span class="c1"># AST exists by the time process_tokens is called, so</span></span>
+<span class="num"><a href="#7">7</a></span><span>                <span class="c1"># it&#39;s safe to assume tokens[index+1] exists.</span></span>
+<span class="num"><a href="#8">8</a></span><span>                <span class="c1"># tokens[index+1][2] is the elif&#39;s position as</span></span>
+<span class="num"><a href="#9">9</a></span><span>                <span class="c1"># reported by CPython and PyPy,</span></span>
+<span class="num"><a href="#10">10</a></span><span>                <span class="c1"># token[2] is the actual position and also is</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="c1"># reported by IronPython.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_elifs</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">token</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">tokens</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]])</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">elif</span> <span class="n">_is_trailing_comma</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">is_message_enabled</span><span class="p">(</span><span class="s2">&quot;trailing-comma-tuple&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;trailing-comma-tuple&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="n">token</span><span class="o">.</span><span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> tokens</button> list (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">process_tokens</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokens</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">tokenize</span><span class="o">.</span><span class="n">TokenInfo</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># Process tokens and look for &#39;if&#39; or &#39;elif&#39;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">token</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">token_string</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="n">token_string</span> <span class="o">==</span> <span class="s2">&quot;elif&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span>                <span class="c1"># AST exists by the time process_tokens is called, so</span></span>
+<span class="num"><a href="#7">7</a></span><span>                <span class="c1"># it&#39;s safe to assume tokens[index+1] exists.</span></span>
+<span class="num"><a href="#8">8</a></span><span>                <span class="c1"># tokens[index+1][2] is the elif&#39;s position as</span></span>
+<span class="num"><a href="#9">9</a></span><span>                <span class="c1"># reported by CPython and PyPy,</span></span>
+<span class="num"><a href="#10">10</a></span><span>                <span class="c1"># token[2] is the actual position and also is</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="c1"># reported by IronPython.</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_elifs</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">token</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">tokens</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]])</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">elif</span> <span class="n">_is_trailing_comma</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">linter</span><span class="o">.</span><span class="n">is_message_enabled</span><span class="p">(</span><span class="s2">&quot;trailing-comma-tuple&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;trailing-comma-tuple&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="n">token</span><span class="o">.</span><span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

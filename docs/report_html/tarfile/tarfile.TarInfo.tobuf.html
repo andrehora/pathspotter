@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>tarfile.TarInfo.tobuf</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: tarfile.TarInfo.tobuf</h1>
+                <span>Calls: 372, </span>
+                <span>Exceptions: 23, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 309 calls (0.83)</p>
+                <p><button class="input"><span>&#8594;</span> format</button> 2 (309) </p>
+                <p><button class="input"><span>&#8594;</span> encoding</button> 'utf-8' (293) 'iso8859-1' (15) 'utf7' (1) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'surrogateescape' (306) 'strict' (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> bytes (309) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">tobuf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">DEFAULT_FORMAT</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">ENCODING</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;surrogateescape&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a tar header as a string of 512 byte blocks.</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_info</span><span class="p">()</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">USTAR_FORMAT</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_ustar_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">GNU_FORMAT</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_gnu_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">PAX_FORMAT</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_pax_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid format&quot;</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 44 calls (0.12)</p>
+                <p><button class="input"><span>&#8594;</span> format</button> 0 (44) </p>
+                <p><button class="input"><span>&#8594;</span> encoding</button> 'utf-8' (39) 'iso8859-1' (2) 'ascii' (2) 'utf7' (1) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'surrogateescape' (39) 'strict' (5) </p>
+                <p><button class="output"><span>&#8617; return</span></button> bytes (24) None (20) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (18) UnicodeEncodeError (2) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">tobuf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">DEFAULT_FORMAT</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">ENCODING</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;surrogateescape&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a tar header as a string of 512 byte blocks.</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_info</span><span class="p">()</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">USTAR_FORMAT</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_ustar_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">GNU_FORMAT</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_gnu_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">PAX_FORMAT</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_pax_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid format&quot;</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 19 calls (0.05)</p>
+                <p><button class="input"><span>&#8594;</span> format</button> 1 (19) </p>
+                <p><button class="input"><span>&#8594;</span> encoding</button> 'utf-8' (14) 'iso8859-1' (2) 'ascii' (2) 'utf7' (1) </p>
+                <p><button class="input"><span>&#8594;</span> errors</button> 'surrogateescape' (14) 'strict' (5) </p>
+                <p><button class="output"><span>&#8617; return</span></button> bytes (16) None (3) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UnicodeEncodeError (2) ValueError (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">tobuf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">DEFAULT_FORMAT</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">ENCODING</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;surrogateescape&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a tar header as a string of 512 byte blocks.</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_info</span><span class="p">()</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">USTAR_FORMAT</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_ustar_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">GNU_FORMAT</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_gnu_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">PAX_FORMAT</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_pax_header</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid format&quot;</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.extensions.no_self_use._has_bare_super_call</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.extensions.no_self_use._has_bare_super_call</h1>
+                <span>Calls: 8, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 5 calls (0.62)</p>
+                <p><button class="input"><span>&#8594;</span> fundef_node</button> FunctionDef (5) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (5) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_has_bare_super_call</span><span class="p">(</span><span class="n">fundef_node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">for</span> <span class="n">call</span> <span class="ow">in</span> <span class="n">fundef_node</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">        <span class="n">func</span> <span class="o">=</span> <span class="n">call</span><span class="o">.</span><span class="n">func</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span> <span class="ow">and</span> <span class="n">func</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;super&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">call</span><span class="o">.</span><span class="n">args</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2 calls (0.25)</p>
+                <p><button class="input"><span>&#8594;</span> fundef_node</button> FunctionDef (1) AsyncFunctionDef (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (2) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_has_bare_super_call</span><span class="p">(</span><span class="n">fundef_node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">for</span> <span class="n">call</span> <span class="ow">in</span> <span class="n">fundef_node</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">func</span> <span class="o">=</span> <span class="n">call</span><span class="o">.</span><span class="n">func</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span> <span class="ow">and</span> <span class="n">func</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;super&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">call</span><span class="o">.</span><span class="n">args</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.12)</p>
+                <p><button class="input"><span>&#8594;</span> fundef_node</button> FunctionDef (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_has_bare_super_call</span><span class="p">(</span><span class="n">fundef_node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">for</span> <span class="n">call</span> <span class="ow">in</span> <span class="n">fundef_node</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">func</span> <span class="o">=</span> <span class="n">call</span><span class="o">.</span><span class="n">func</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span> <span class="ow">and</span> <span class="n">func</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;super&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">call</span><span class="o">.</span><span class="n">args</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

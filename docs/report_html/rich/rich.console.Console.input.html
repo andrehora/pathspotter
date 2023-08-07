@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>rich.console.Console.input</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: rich.console.Console.input</h1>
+                <span>Calls: 16, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 14 calls (0.88)</p>
+                <p><button class="input"><span>&#8594;</span> prompt</button> Text (14) </p>
+                <p><button class="input"><span>&#8594;</span> markup</button> True (14) </p>
+                <p><button class="input"><span>&#8594;</span> emoji</button> True (14) </p>
+                <p><button class="input"><span>&#8594;</span> password</button> False (14) </p>
+                <p><button class="input"><span>&#8594;</span> stream</button> StringIO (14) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'foo\n' (4) 'NO\n' (3) 'y' (2) 'egg\n' (1) 'foo' (1) '' (1) '100' (1) 'n' (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">input</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">prompt</span><span class="p">:</span> <span class="n">TextType</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="o">*</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">markup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">emoji</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">password</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">stream</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TextIO</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="sd">&quot;&quot;&quot;Displays a prompt and waits for input from the user. The prompt may contain color / style.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        It works in the same way as Python&#39;s builtin :func:`input` function and provides elaborate line editing and history features if Python&#39;s builtin :mod:`readline` module is previously loaded.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            prompt (Union[str, Text]): Text to render in the prompt.</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            markup (bool, optional): Enable console markup (requires a str prompt). Defaults to True.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">            emoji (bool, optional): Enable emoji (requires a str prompt). Defaults to True.</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">            password: (bool, optional): Hide typed text. Defaults to False.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            stream: (TextIO, optional): Optional file to read input from (rather than stdin). Defaults to None.</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        Returns:</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            str: Text read from stdin.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">if</span> <span class="n">prompt</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">markup</span><span class="o">=</span><span class="n">markup</span><span class="p">,</span> <span class="n">emoji</span><span class="o">=</span><span class="n">emoji</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">password</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="n">result</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">stream</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">if</span> <span class="n">stream</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                <span class="n">result</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (0.06)</p>
+                <p><button class="input"><span>&#8594;</span> prompt</button> 'foo:' (1) </p>
+                <p><button class="input"><span>&#8594;</span> markup</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> emoji</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> password</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> stream</button> None (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'bar' (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">input</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">prompt</span><span class="p">:</span> <span class="n">TextType</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="o">*</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">markup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">emoji</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">password</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">stream</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TextIO</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="sd">&quot;&quot;&quot;Displays a prompt and waits for input from the user. The prompt may contain color / style.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        It works in the same way as Python&#39;s builtin :func:`input` function and provides elaborate line editing and history features if Python&#39;s builtin :mod:`readline` module is previously loaded.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            prompt (Union[str, Text]): Text to render in the prompt.</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            markup (bool, optional): Enable console markup (requires a str prompt). Defaults to True.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">            emoji (bool, optional): Enable emoji (requires a str prompt). Defaults to True.</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">            password: (bool, optional): Hide typed text. Defaults to False.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            stream: (TextIO, optional): Optional file to read input from (rather than stdin). Defaults to None.</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        Returns:</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            str: Text read from stdin.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">if</span> <span class="n">prompt</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">markup</span><span class="o">=</span><span class="n">markup</span><span class="p">,</span> <span class="n">emoji</span><span class="o">=</span><span class="n">emoji</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">password</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="n">result</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">stream</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">if</span> <span class="n">stream</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="n">result</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.06)</p>
+                <p><button class="input"><span>&#8594;</span> prompt</button> 'foo:' (1) </p>
+                <p><button class="input"><span>&#8594;</span> markup</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> emoji</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> password</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> stream</button> None (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'bar' (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">input</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">prompt</span><span class="p">:</span> <span class="n">TextType</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="o">*</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">markup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">emoji</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="n">password</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="n">stream</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TextIO</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="sd">&quot;&quot;&quot;Displays a prompt and waits for input from the user. The prompt may contain color / style.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        It works in the same way as Python&#39;s builtin :func:`input` function and provides elaborate line editing and history features if Python&#39;s builtin :mod:`readline` module is previously loaded.</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        Args:</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            prompt (Union[str, Text]): Text to render in the prompt.</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">            markup (bool, optional): Enable console markup (requires a str prompt). Defaults to True.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">            emoji (bool, optional): Enable emoji (requires a str prompt). Defaults to True.</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">            password: (bool, optional): Hide typed text. Defaults to False.</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">            stream: (TextIO, optional): Optional file to read input from (rather than stdin). Defaults to None.</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        Returns:</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">            str: Text read from stdin.</span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="k">if</span> <span class="n">prompt</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">markup</span><span class="o">=</span><span class="n">markup</span><span class="p">,</span> <span class="n">emoji</span><span class="o">=</span><span class="n">emoji</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">password</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="n">result</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">stream</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">stream</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                <span class="n">result</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span></span>
+<span class="num"><a href="#31">31</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

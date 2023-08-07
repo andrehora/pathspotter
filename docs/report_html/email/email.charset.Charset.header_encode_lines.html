@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.charset.Charset.header_encode_lines</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.charset.Charset.header_encode_lines</h1>
+                <span>Calls: 56, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 30 calls (0.54)</p>
+                <p><button class="input"><span>&#8594;</span> string</button> 'b\udcc3\udca1z' (4) ' Jean de Baddie' (4) '&#12495;&#12525;&#12540;&#12527;&#12540;&#12523;&#12489;&#65281;' (2) '&#382;lu&#357;ou&#269;k&#253; k&#367;&#328;' (2) 'Maintenant je vous pr\udcc3\udca9sente mon coll\udcc3\udca8gue, le pouf...</p>
+                <p><button class="input"><span>&#8594;</span> maxlengths</button> _ValueFormatter._maxlengths def (30) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['=?unknown-8bit?q?b=C3=A1z?='] (4) ['=?unknown-8bit?q?_Jean_de_Baddie?='] (4) ['=?iso-2022-jp?b?GyRCJU8lbSE8JW8hPCVrJUkhKhsoQg==?='] (2) ['=?utf-8?b?...</p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_encode_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">maxlengths</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Header-encode a string by converting it first to bytes.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This is similar to `header_encode()` except that the string is fit</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        into maximum line lengths as given by the argument.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        :param string: A unicode string for the header.  It must be possible</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">            to encode this string to bytes using the character set&#39;s</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            output codec.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        :param maxlengths: Maximum line length iterator.  Each element</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            returned from this iterator will provide the next maximum line</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            length.  This parameter is used as an argument to built-in next()</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">            and should never be exhausted.  The maximum line lengths should</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            not count the RFC 2047 chrome.  These line lengths are only a</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            hint; the splitter does the best it can.</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        :return: Lines of encoded strings, each with RFC 2047 chrome.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># See which encoding we should use.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">codec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">encoder_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">encoder</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">encoder_module</span><span class="o">.</span><span class="n">header_encode</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1"># Calculate the number of characters that the RFC 2047 chrome will</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># contribute to each line.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_output_charset</span><span class="p">()</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">extra</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span> <span class="o">+</span> <span class="n">RFC2047_CHROME_LEN</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># Now comes the hard part.  We must encode bytes but we can&#39;t split on</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># bytes because some character sets are variable length and each</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># encoded word must stand on its own.  So the problem is you have to</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># encode to bytes to figure out this word&#39;s length, but you must split</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># on characters.  This causes two problems: first, we don&#39;t know how</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># many octets a specific substring of unicode characters will get</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># encoded to, and second, we don&#39;t know how many ASCII characters</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># those octets will get encoded to.  Unless we try it.  Which seems</span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1"># inefficient.  In the interest of being correct rather than fast (and</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># in the hope that there will be few encoded headers in any such</span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1"># message), brute force it. :(</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="n">current_line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="n">maxlen</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">maxlengths</span><span class="p">)</span> <span class="o">-</span> <span class="n">extra</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="n">current_line</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">character</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="n">this_line</span> <span class="o">=</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_line</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">            <span class="n">length</span> <span class="o">=</span> <span class="n">encoder_module</span><span class="o">.</span><span class="n">header_length</span><span class="p">(</span><span class="n">_encode</span><span class="p">(</span><span class="n">this_line</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="n">maxlen</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span>                <span class="c1"># This last character doesn&#39;t fit so pop it off.</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">                <span class="n">current_line</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#48">48</a></span><span>                <span class="c1"># Does nothing fit on the first line?</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">lines</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">current_line</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                    <span class="n">separator</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="k">if</span> <span class="n">lines</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">                    <span class="n">joined_line</span> <span class="o">=</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_line</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">                    <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">joined_line</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">))</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full not_run">                <span class="n">current_line</span> <span class="o">=</span> <span class="p">[</span><span class="n">character</span><span class="p">]</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">                <span class="n">maxlen</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">maxlengths</span><span class="p">)</span> <span class="o">-</span> <span class="n">extra</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">        <span class="n">joined_line</span> <span class="o">=</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_line</span><span class="p">)</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">joined_line</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full run">        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">))</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">        <span class="k">return</span> <span class="n">lines</span></span>
+            </pre>
+            <p><b>Path 2</b>: 23 calls (0.41)</p>
+                <p><button class="input"><span>&#8594;</span> string</button> 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx ' (4) 'Die Mieter treten hier ein werden mit eine...</p>
+                <p><button class="input"><span>&#8594;</span> maxlengths</button> _ValueFormatter._maxlengths def (23) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['=?unknown-8bit?q?Maintenant_je_vous_pr=C3=A9sente_mon_coll=C3=A8gue?=', '=?unknown-8bit?q?=2C_le_pouf_c=C3=A9l=C3=A8bre?='] (2) ['=?iso-8859-1?q?Bri...</p>
+            <button class="run" title="lines run...">26 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_encode_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">maxlengths</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Header-encode a string by converting it first to bytes.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This is similar to `header_encode()` except that the string is fit</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        into maximum line lengths as given by the argument.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        :param string: A unicode string for the header.  It must be possible</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">            to encode this string to bytes using the character set&#39;s</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            output codec.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        :param maxlengths: Maximum line length iterator.  Each element</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            returned from this iterator will provide the next maximum line</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            length.  This parameter is used as an argument to built-in next()</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">            and should never be exhausted.  The maximum line lengths should</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            not count the RFC 2047 chrome.  These line lengths are only a</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            hint; the splitter does the best it can.</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        :return: Lines of encoded strings, each with RFC 2047 chrome.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># See which encoding we should use.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">codec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">encoder_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">encoder</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">encoder_module</span><span class="o">.</span><span class="n">header_encode</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1"># Calculate the number of characters that the RFC 2047 chrome will</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># contribute to each line.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_output_charset</span><span class="p">()</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">extra</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span> <span class="o">+</span> <span class="n">RFC2047_CHROME_LEN</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># Now comes the hard part.  We must encode bytes but we can&#39;t split on</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># bytes because some character sets are variable length and each</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># encoded word must stand on its own.  So the problem is you have to</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># encode to bytes to figure out this word&#39;s length, but you must split</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># on characters.  This causes two problems: first, we don&#39;t know how</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># many octets a specific substring of unicode characters will get</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># encoded to, and second, we don&#39;t know how many ASCII characters</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># those octets will get encoded to.  Unless we try it.  Which seems</span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1"># inefficient.  In the interest of being correct rather than fast (and</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># in the hope that there will be few encoded headers in any such</span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1"># message), brute force it. :(</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="n">current_line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="n">maxlen</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">maxlengths</span><span class="p">)</span> <span class="o">-</span> <span class="n">extra</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="n">current_line</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">character</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="n">this_line</span> <span class="o">=</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_line</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">            <span class="n">length</span> <span class="o">=</span> <span class="n">encoder_module</span><span class="o">.</span><span class="n">header_length</span><span class="p">(</span><span class="n">_encode</span><span class="p">(</span><span class="n">this_line</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="n">maxlen</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span>                <span class="c1"># This last character doesn&#39;t fit so pop it off.</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">                <span class="n">current_line</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#48">48</a></span><span>                <span class="c1"># Does nothing fit on the first line?</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">lines</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">current_line</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">                    <span class="n">separator</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="k">if</span> <span class="n">lines</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">                    <span class="n">joined_line</span> <span class="o">=</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_line</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">                    <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">joined_line</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">))</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">                <span class="n">current_line</span> <span class="o">=</span> <span class="p">[</span><span class="n">character</span><span class="p">]</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">                <span class="n">maxlen</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">maxlengths</span><span class="p">)</span> <span class="o">-</span> <span class="n">extra</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">        <span class="n">joined_line</span> <span class="o">=</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_line</span><span class="p">)</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">joined_line</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full run">        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">))</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">        <span class="k">return</span> <span class="n">lines</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> string</button> 'Gr&#252;&#223; Gott!' (2) </p>
+                <p><button class="input"><span>&#8594;</span> maxlengths</button> _ValueFormatter._maxlengths def (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [None, '=?iso-8859-1?q?Gr=FC=DF_Gott!?='] (2) </p>
+            <button class="run" title="lines run...">23 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_encode_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">maxlengths</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Header-encode a string by converting it first to bytes.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This is similar to `header_encode()` except that the string is fit</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        into maximum line lengths as given by the argument.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        :param string: A unicode string for the header.  It must be possible</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">            to encode this string to bytes using the character set&#39;s</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            output codec.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        :param maxlengths: Maximum line length iterator.  Each element</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            returned from this iterator will provide the next maximum line</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            length.  This parameter is used as an argument to built-in next()</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">            and should never be exhausted.  The maximum line lengths should</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            not count the RFC 2047 chrome.  These line lengths are only a</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            hint; the splitter does the best it can.</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        :return: Lines of encoded strings, each with RFC 2047 chrome.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># See which encoding we should use.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">codec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">encoder_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">encoder</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">encoder_module</span><span class="o">.</span><span class="n">header_encode</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1"># Calculate the number of characters that the RFC 2047 chrome will</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># contribute to each line.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_output_charset</span><span class="p">()</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">extra</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span> <span class="o">+</span> <span class="n">RFC2047_CHROME_LEN</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># Now comes the hard part.  We must encode bytes but we can&#39;t split on</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># bytes because some character sets are variable length and each</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># encoded word must stand on its own.  So the problem is you have to</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># encode to bytes to figure out this word&#39;s length, but you must split</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># on characters.  This causes two problems: first, we don&#39;t know how</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># many octets a specific substring of unicode characters will get</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># encoded to, and second, we don&#39;t know how many ASCII characters</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># those octets will get encoded to.  Unless we try it.  Which seems</span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1"># inefficient.  In the interest of being correct rather than fast (and</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># in the hope that there will be few encoded headers in any such</span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1"># message), brute force it. :(</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="n">current_line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="n">maxlen</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">maxlengths</span><span class="p">)</span> <span class="o">-</span> <span class="n">extra</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="n">current_line</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">character</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="n">this_line</span> <span class="o">=</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_line</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">            <span class="n">length</span> <span class="o">=</span> <span class="n">encoder_module</span><span class="o">.</span><span class="n">header_length</span><span class="p">(</span><span class="n">_encode</span><span class="p">(</span><span class="n">this_line</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="n">maxlen</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span>                <span class="c1"># This last character doesn&#39;t fit so pop it off.</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">                <span class="n">current_line</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#48">48</a></span><span>                <span class="c1"># Does nothing fit on the first line?</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">lines</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">current_line</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">                    <span class="n">separator</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="k">if</span> <span class="n">lines</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">                    <span class="n">joined_line</span> <span class="o">=</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_line</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">                    <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">joined_line</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">))</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">                <span class="n">current_line</span> <span class="o">=</span> <span class="p">[</span><span class="n">character</span><span class="p">]</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">                <span class="n">maxlen</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">maxlengths</span><span class="p">)</span> <span class="o">-</span> <span class="n">extra</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">        <span class="n">joined_line</span> <span class="o">=</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_line</span><span class="p">)</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">joined_line</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full run">        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">))</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">        <span class="k">return</span> <span class="n">lines</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.02)</p>
+                <p><button class="input"><span>&#8594;</span> string</button> '&#27491;&#30906;&#12395;&#35328;&#12358;&#12392;&#32763;&#35379;&#12399;&#12373;&#12428;&#12390;&#12356;&#12414;&#12379;&#12435;&#12290;&#19968;&#37096;&#12399;&#12489;&#12452;&#12484;&#35486;&#12391;&#12377;&#12364;&#12289;&#12354;&#12392;&#12399;&#12391;&#12383;&#12425;&#12417;&#12391;&#12377;&#12290;&#23455;&#38555;&#12395;&#12399;&#12300;Wenn ist das Nunstuck git und Slotermeyer? Ja! Beiherhund das Oder die Flipperwaldt gersput.&#12301;&#12392;&#35328;&#12387;&#12390;&#12356;&#12414;&#12377;&#12290;' (1)...</p>
+                <p><button class="input"><span>&#8594;</span> maxlengths</button> _ValueFormatter._maxlengths def (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [None, '=?utf-8?b?5q2j56K644Gr6KiA44GG44Go57+76Kiz44Gv44GV44KM44Gm44GE44G+44Gb?=', '=?utf-8?b?44KT44CC5LiA6YOo44Gv44OJ44Kk44OE6Kqe44Gn44GZ44GM44CB44GC...</p>
+            <button class="run" title="lines run...">27 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_encode_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">maxlengths</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Header-encode a string by converting it first to bytes.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This is similar to `header_encode()` except that the string is fit</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        into maximum line lengths as given by the argument.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        :param string: A unicode string for the header.  It must be possible</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">            to encode this string to bytes using the character set&#39;s</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            output codec.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        :param maxlengths: Maximum line length iterator.  Each element</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">            returned from this iterator will provide the next maximum line</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">            length.  This parameter is used as an argument to built-in next()</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">            and should never be exhausted.  The maximum line lengths should</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            not count the RFC 2047 chrome.  These line lengths are only a</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">            hint; the splitter does the best it can.</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        :return: Lines of encoded strings, each with RFC 2047 chrome.</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># See which encoding we should use.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">codec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_codec</span> <span class="ow">or</span> <span class="s1">&#39;us-ascii&#39;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">encoder_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">encoder</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">encoder_module</span><span class="o">.</span><span class="n">header_encode</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1"># Calculate the number of characters that the RFC 2047 chrome will</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># contribute to each line.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">charset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_output_charset</span><span class="p">()</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">extra</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span> <span class="o">+</span> <span class="n">RFC2047_CHROME_LEN</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># Now comes the hard part.  We must encode bytes but we can&#39;t split on</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># bytes because some character sets are variable length and each</span></span>
+<span class="num"><a href="#29">29</a></span><span>        <span class="c1"># encoded word must stand on its own.  So the problem is you have to</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># encode to bytes to figure out this word&#39;s length, but you must split</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="c1"># on characters.  This causes two problems: first, we don&#39;t know how</span></span>
+<span class="num"><a href="#32">32</a></span><span>        <span class="c1"># many octets a specific substring of unicode characters will get</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="c1"># encoded to, and second, we don&#39;t know how many ASCII characters</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># those octets will get encoded to.  Unless we try it.  Which seems</span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1"># inefficient.  In the interest of being correct rather than fast (and</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="c1"># in the hope that there will be few encoded headers in any such</span></span>
+<span class="num"><a href="#37">37</a></span><span>        <span class="c1"># message), brute force it. :(</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="n">current_line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="n">maxlen</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">maxlengths</span><span class="p">)</span> <span class="o">-</span> <span class="n">extra</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">        <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="n">current_line</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">character</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="n">this_line</span> <span class="o">=</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_line</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">            <span class="n">length</span> <span class="o">=</span> <span class="n">encoder_module</span><span class="o">.</span><span class="n">header_length</span><span class="p">(</span><span class="n">_encode</span><span class="p">(</span><span class="n">this_line</span><span class="p">,</span> <span class="n">charset</span><span class="p">))</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="n">maxlen</span><span class="p">:</span></span>
+<span class="num"><a href="#46">46</a></span><span>                <span class="c1"># This last character doesn&#39;t fit so pop it off.</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">                <span class="n">current_line</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></span>
+<span class="num"><a href="#48">48</a></span><span>                <span class="c1"># Does nothing fit on the first line?</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">lines</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">current_line</span><span class="p">:</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#51">51</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">                    <span class="n">separator</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="k">if</span> <span class="n">lines</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">                    <span class="n">joined_line</span> <span class="o">=</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_line</span><span class="p">)</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">                    <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">joined_line</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">))</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">                <span class="n">current_line</span> <span class="o">=</span> <span class="p">[</span><span class="n">character</span><span class="p">]</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">                <span class="n">maxlen</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">maxlengths</span><span class="p">)</span> <span class="o">-</span> <span class="n">extra</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">        <span class="n">joined_line</span> <span class="o">=</span> <span class="n">EMPTYSTRING</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_line</span><span class="p">)</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">joined_line</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full run">        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoder</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">))</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">        <span class="k">return</span> <span class="n">lines</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

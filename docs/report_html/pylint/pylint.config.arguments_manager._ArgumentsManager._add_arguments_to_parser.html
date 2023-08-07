@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.config.arguments_manager._ArgumentsManager._add_arguments_to_parser</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.config.arguments_manager._ArgumentsManager._add_arguments_to_parser</h1>
+                <span>Calls: 169985, </span>
+                <span>Exceptions: 22058, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 147927 calls (0.87)</p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Basic' (35363) 'Main' (29308) 'Typecheck' (12551) 'Design' (12544) 'Imports' (10314) 'Variables' (8029) 'Format' (8015) 'Reports' (5952) 'Spelling' (...</p>
+                <p><button class="input"><span>&#8594;</span> section_desc</button> None (64681) 'Try to find bugs in the code using type inference.' (12551) 'Checker of potential misdesigns.' (12540) 'BaseChecker for import statement...</p>
+                <p><button class="input"><span>&#8594;</span> argument</button> _StoreArgument (135190) _CallableArgument (6602) _StoreTrueArgument (3127) _StoreOldNamesArgument (1837) _StoreNewNamesArgument (1141) _ExtendArgument...</p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_add_arguments_to_parser</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">section_desc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">argument</span><span class="p">:</span> <span class="n">_Argument</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an argument to the correct argument section/group.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">section_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argument_groups_dict</span><span class="p">[</span><span class="n">section</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">section_desc</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="n">section_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arg_parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                    <span class="n">section</span><span class="p">,</span> <span class="n">section_desc</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">section_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arg_parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">section</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_argument_groups_dict</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="n">section_group</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_add_parser_option</span><span class="p">(</span><span class="n">section_group</span><span class="p">,</span> <span class="n">argument</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 19390 calls (0.11)</p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Reports' (1488) 'Messages control' (1488) 'Miscellaneous' (1148) 'Variables' (1147) 'Imports' (1146) 'Format' (1145) 'Typecheck' (1141) 'Similarities...</p>
+                <p><button class="input"><span>&#8594;</span> section_desc</button> 'Options related to output formatting and reporting' (1488) 'Options controlling analysis messages' (1488) 'BaseChecker for encoding issues.' (1148) '...</p>
+                <p><button class="input"><span>&#8594;</span> argument</button> _StoreArgument (17607) _CallableArgument (1747) _StoreOldNamesArgument (30) _StoreTrueArgument (6) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (19390) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_add_arguments_to_parser</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">section_desc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">argument</span><span class="p">:</span> <span class="n">_Argument</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an argument to the correct argument section/group.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">section_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argument_groups_dict</span><span class="p">[</span><span class="n">section</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="n">section_desc</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                <span class="n">section_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arg_parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                    <span class="n">section</span><span class="p">,</span> <span class="n">section_desc</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">section_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arg_parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">section</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_argument_groups_dict</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="n">section_group</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_add_parser_option</span><span class="p">(</span><span class="n">section_group</span><span class="p">,</span> <span class="n">argument</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2668 calls (0.02)</p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Main' (1488) 'Basic' (1144) 'Deprecated_builtins' (24) 'Dummy_plugin' (8) '' (2) 'Checker' (2) </p>
+                <p><button class="input"><span>&#8594;</span> section_desc</button> None (2668) </p>
+                <p><button class="input"><span>&#8594;</span> argument</button> _StoreOldNamesArgument (1229) _StoreArgument (1177) _CallableArgument (259) _StoreTrueArgument (3) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (2668) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_add_arguments_to_parser</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">section_desc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">argument</span><span class="p">:</span> <span class="n">_Argument</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an argument to the correct argument section/group.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">section_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argument_groups_dict</span><span class="p">[</span><span class="n">section</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="n">section_desc</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="n">section_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arg_parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                    <span class="n">section</span><span class="p">,</span> <span class="n">section_desc</span></span>
+<span class="num"><a href="#11">11</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="n">section_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arg_parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">section</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_argument_groups_dict</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="n">section_group</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_add_parser_option</span><span class="p">(</span><span class="n">section_group</span><span class="p">,</span> <span class="n">argument</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

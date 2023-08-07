@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.utils.parsedate_to_datetime</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.utils.parsedate_to_datetime</h1>
+                <span>Calls: 23, </span>
+                <span>Exceptions: 13, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 11 calls (0.48)</p>
+                <p><button class="input"><span>&#8594;</span> data</button> 'Sun, 23 Sep 2001 20:10:55 -0700' (5) 'Tue, 29 May 2012 09:24:26 +1000' (3) 'Tue, 06 Jun 2017 27:39:33 +0600' (1) 'Sat, 2 Feb 2002 17:00:06 -0800' (1)...</p>
+                <p><button class="output"><span>&#8617; return</span></button> datetime (9) None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (2) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parsedate_to_datetime</span><span class="p">(</span><span class="n">data</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">parsed_date_tz</span> <span class="o">=</span> <span class="n">_parsedate_tz</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="n">parsed_date_tz</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid date value or format &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="o">*</span><span class="n">dtuple</span><span class="p">,</span> <span class="n">tz</span> <span class="o">=</span> <span class="n">parsed_date_tz</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">if</span> <span class="n">tz</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">dtuple</span><span class="p">[:</span><span class="mi">6</span><span class="p">])</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">dtuple</span><span class="p">[:</span><span class="mi">6</span><span class="p">],</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">tzinfo</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">tz</span><span class="p">)))</span></span>
+            </pre>
+            <p><b>Path 2</b>: 10 calls (0.43)</p>
+                <p><button class="input"><span>&#8594;</span> data</button> 'Not a date header' (1) '' (1) ' ' (1) '0' (1) 'A Complete Waste of Time' (1) 'Wed, 3 Apr 2002 12.34.56.78+0800Tue, 06 Jun 2017 27:39:33 +0600' (1) '1...</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (10) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parsedate_to_datetime</span><span class="p">(</span><span class="n">data</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">parsed_date_tz</span> <span class="o">=</span> <span class="n">_parsedate_tz</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="n">parsed_date_tz</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid date value or format &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">    <span class="o">*</span><span class="n">dtuple</span><span class="p">,</span> <span class="n">tz</span> <span class="o">=</span> <span class="n">parsed_date_tz</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">tz</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">dtuple</span><span class="p">[:</span><span class="mi">6</span><span class="p">])</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">dtuple</span><span class="p">[:</span><span class="mi">6</span><span class="p">],</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">tzinfo</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">tz</span><span class="p">)))</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (0.09)</p>
+                <p><button class="input"><span>&#8594;</span> data</button> 'Sun, 23 Sep 2001 20:10:55 -0000' (1) 'Tue, 06 Jun 2017 27:39:33' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> datetime (1) None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">parsedate_to_datetime</span><span class="p">(</span><span class="n">data</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">parsed_date_tz</span> <span class="o">=</span> <span class="n">_parsedate_tz</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="n">parsed_date_tz</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid date value or format &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="o">*</span><span class="n">dtuple</span><span class="p">,</span> <span class="n">tz</span> <span class="o">=</span> <span class="n">parsed_date_tz</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="k">if</span> <span class="n">tz</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">dtuple</span><span class="p">[:</span><span class="mi">6</span><span class="p">])</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">dtuple</span><span class="p">[:</span><span class="mi">6</span><span class="p">],</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">tzinfo</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">tz</span><span class="p">)))</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

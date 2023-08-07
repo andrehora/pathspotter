@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>tarfile.TarFile.extractfile</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: tarfile.TarFile.extractfile</h1>
+                <span>Calls: 531, </span>
+                <span>Exceptions: 28, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 411 calls (0.77)</p>
+                <p><button class="input"><span>&#8594;</span> member</button> TarInfo (411) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ExFileObject (411) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extractfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">member</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract a member from the archive as a file object. `member&#39; may be</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">           a filename or a TarInfo object. If `member&#39; is a regular file or</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">           a link, an io.BufferedReader object is returned. For all other</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">           existing members, None is returned. If `member&#39; does not appear</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">           in the archive, KeyError is raised.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="n">tarinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getmember</span><span class="p">(</span><span class="n">member</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="n">tarinfo</span> <span class="o">=</span> <span class="n">member</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">isreg</span><span class="p">()</span> <span class="ow">or</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SUPPORTED_TYPES</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># Members with unknown types are treated as regular files.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fileobject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tarinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">islnk</span><span class="p">()</span> <span class="ow">or</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">issym</span><span class="p">():</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fileobj</span><span class="p">,</span> <span class="n">_Stream</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span>                <span class="c1"># A small but ugly workaround for the case that someone tries</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># to extract a (sym)link as a file-object from a non-seekable</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="c1"># stream of tar blocks.</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">raise</span> <span class="n">StreamError</span><span class="p">(</span><span class="s2">&quot;cannot extract (sym)link as file object&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span>                <span class="c1"># A (sym)link&#39;s file object is its target&#39;s file object.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extractfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_find_link_target</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">))</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>            <span class="c1"># If there&#39;s no data associated with the member (directory, chrdev,</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="c1"># blkdev, etc.), return None instead of a file object.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 2</b>: 48 calls (0.09)</p>
+                <p><button class="input"><span>&#8594;</span> member</button> TarInfo (48) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (48) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extractfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">member</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract a member from the archive as a file object. `member&#39; may be</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">           a filename or a TarInfo object. If `member&#39; is a regular file or</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">           a link, an io.BufferedReader object is returned. For all other</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">           existing members, None is returned. If `member&#39; does not appear</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">           in the archive, KeyError is raised.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="n">tarinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getmember</span><span class="p">(</span><span class="n">member</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="n">tarinfo</span> <span class="o">=</span> <span class="n">member</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">isreg</span><span class="p">()</span> <span class="ow">or</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SUPPORTED_TYPES</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># Members with unknown types are treated as regular files.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fileobject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tarinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">elif</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">islnk</span><span class="p">()</span> <span class="ow">or</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">issym</span><span class="p">():</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fileobj</span><span class="p">,</span> <span class="n">_Stream</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span>                <span class="c1"># A small but ugly workaround for the case that someone tries</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># to extract a (sym)link as a file-object from a non-seekable</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="c1"># stream of tar blocks.</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">raise</span> <span class="n">StreamError</span><span class="p">(</span><span class="s2">&quot;cannot extract (sym)link as file object&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span>                <span class="c1"># A (sym)link&#39;s file object is its target&#39;s file object.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extractfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_find_link_target</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">))</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>            <span class="c1"># If there&#39;s no data associated with the member (directory, chrdev,</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="c1"># blkdev, etc.), return None instead of a file object.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 3</b>: 28 calls (0.05)</p>
+                <p><button class="input"><span>&#8594;</span> member</button> TarInfo (28) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> StreamError (28) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extractfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">member</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract a member from the archive as a file object. `member&#39; may be</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">           a filename or a TarInfo object. If `member&#39; is a regular file or</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">           a link, an io.BufferedReader object is returned. For all other</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">           existing members, None is returned. If `member&#39; does not appear</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">           in the archive, KeyError is raised.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="n">tarinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getmember</span><span class="p">(</span><span class="n">member</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="n">tarinfo</span> <span class="o">=</span> <span class="n">member</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">isreg</span><span class="p">()</span> <span class="ow">or</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SUPPORTED_TYPES</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># Members with unknown types are treated as regular files.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fileobject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tarinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">elif</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">islnk</span><span class="p">()</span> <span class="ow">or</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">issym</span><span class="p">():</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fileobj</span><span class="p">,</span> <span class="n">_Stream</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span>                <span class="c1"># A small but ugly workaround for the case that someone tries</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># to extract a (sym)link as a file-object from a non-seekable</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="c1"># stream of tar blocks.</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="k">raise</span> <span class="n">StreamError</span><span class="p">(</span><span class="s2">&quot;cannot extract (sym)link as file object&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span>                <span class="c1"># A (sym)link&#39;s file object is its target&#39;s file object.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extractfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_find_link_target</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">))</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>            <span class="c1"># If there&#39;s no data associated with the member (directory, chrdev,</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="c1"># blkdev, etc.), return None instead of a file object.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 4</b>: 24 calls (0.05)</p>
+                <p><button class="input"><span>&#8594;</span> member</button> 'ustar/regtype' (16) 'ustar/linktest1/regtype' (8) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ExFileObject (24) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extractfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">member</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract a member from the archive as a file object. `member&#39; may be</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">           a filename or a TarInfo object. If `member&#39; is a regular file or</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">           a link, an io.BufferedReader object is returned. For all other</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">           existing members, None is returned. If `member&#39; does not appear</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">           in the archive, KeyError is raised.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">tarinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getmember</span><span class="p">(</span><span class="n">member</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="n">tarinfo</span> <span class="o">=</span> <span class="n">member</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">isreg</span><span class="p">()</span> <span class="ow">or</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SUPPORTED_TYPES</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># Members with unknown types are treated as regular files.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fileobject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tarinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">islnk</span><span class="p">()</span> <span class="ow">or</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">issym</span><span class="p">():</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fileobj</span><span class="p">,</span> <span class="n">_Stream</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span>                <span class="c1"># A small but ugly workaround for the case that someone tries</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># to extract a (sym)link as a file-object from a non-seekable</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="c1"># stream of tar blocks.</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">raise</span> <span class="n">StreamError</span><span class="p">(</span><span class="s2">&quot;cannot extract (sym)link as file object&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span>                <span class="c1"># A (sym)link&#39;s file object is its target&#39;s file object.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extractfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_find_link_target</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">))</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>            <span class="c1"># If there&#39;s no data associated with the member (directory, chrdev,</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="c1"># blkdev, etc.), return None instead of a file object.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 5</b>: 20 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> member</button> 'ustar/lnktype' (4) './ustar/linktest2/lnktype' (4) 'ustar/symtype' (4) './ustar/linktest2/symtype' (4) 'symtype2' (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ExFileObject (20) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extractfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">member</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract a member from the archive as a file object. `member&#39; may be</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">           a filename or a TarInfo object. If `member&#39; is a regular file or</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">           a link, an io.BufferedReader object is returned. For all other</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">           existing members, None is returned. If `member&#39; does not appear</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">           in the archive, KeyError is raised.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">tarinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getmember</span><span class="p">(</span><span class="n">member</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="n">tarinfo</span> <span class="o">=</span> <span class="n">member</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">isreg</span><span class="p">()</span> <span class="ow">or</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SUPPORTED_TYPES</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># Members with unknown types are treated as regular files.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fileobject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tarinfo</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">elif</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">islnk</span><span class="p">()</span> <span class="ow">or</span> <span class="n">tarinfo</span><span class="o">.</span><span class="n">issym</span><span class="p">():</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fileobj</span><span class="p">,</span> <span class="n">_Stream</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span>                <span class="c1"># A small but ugly workaround for the case that someone tries</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="c1"># to extract a (sym)link as a file-object from a non-seekable</span></span>
+<span class="num"><a href="#23">23</a></span><span>                <span class="c1"># stream of tar blocks.</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">raise</span> <span class="n">StreamError</span><span class="p">(</span><span class="s2">&quot;cannot extract (sym)link as file object&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#26">26</a></span><span>                <span class="c1"># A (sym)link&#39;s file object is its target&#39;s file object.</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extractfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_find_link_target</span><span class="p">(</span><span class="n">tarinfo</span><span class="p">))</span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>            <span class="c1"># If there&#39;s no data associated with the member (directory, chrdev,</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="c1"># blkdev, etc.), return None instead of a file object.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

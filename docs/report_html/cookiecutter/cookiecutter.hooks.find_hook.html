@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>cookiecutter.hooks.find_hook</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: cookiecutter.hooks.find_hook</h1>
+                <span>Calls: 118, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 95 calls (0.81)</p>
+                <p><button class="input"><span>&#8594;</span> hook_name</button> 'pre_gen_project' (52) 'post_gen_project' (43) </p>
+                <p><button class="input"><span>&#8594;</span> hooks_dir</button> 'hooks' (94) 'hooks_dir' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (95) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">find_hook</span><span class="p">(</span><span class="n">hook_name</span><span class="p">,</span> <span class="n">hooks_dir</span><span class="o">=</span><span class="s1">&#39;hooks&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dict of all hook scripts provided.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Must be called with the project template as the current working directory.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    Dict&#39;s key will be the hook/script&#39;s name, without extension, while values</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    will be the absolute path to the script. Missing scripts will not be</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    included in the returned dict.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    :param hook_name: The hook to find</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    :param hooks_dir: The hook directory in the template</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    :return: The absolute path to the hook script or None</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;hooks_dir is </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">hooks_dir</span><span class="p">))</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">hooks_dir</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;No hooks/dir in template_dir&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">    <span class="n">scripts</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">    <span class="k">for</span> <span class="n">hook_file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">hooks_dir</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">valid_hook</span><span class="p">(</span><span class="n">hook_file</span><span class="p">,</span> <span class="n">hook_name</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">scripts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">hooks_dir</span><span class="p">,</span> <span class="n">hook_file</span><span class="p">)))</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scripts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">scripts</span></span>
+            </pre>
+            <p><b>Path 2</b>: 20 calls (0.17)</p>
+                <p><button class="input"><span>&#8594;</span> hook_name</button> 'pre_gen_project' (13) 'post_gen_project' (7) </p>
+                <p><button class="input"><span>&#8594;</span> hooks_dir</button> 'hooks' (20) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['/Users/andrehora/Documents/git/projects-pathspotter/cookiecutter/tests/test-pyhooks/hooks/pre_gen_project.py'] (3) ['/Users/andrehora/Documents/git/...</p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">find_hook</span><span class="p">(</span><span class="n">hook_name</span><span class="p">,</span> <span class="n">hooks_dir</span><span class="o">=</span><span class="s1">&#39;hooks&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dict of all hook scripts provided.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Must be called with the project template as the current working directory.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    Dict&#39;s key will be the hook/script&#39;s name, without extension, while values</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    will be the absolute path to the script. Missing scripts will not be</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    included in the returned dict.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    :param hook_name: The hook to find</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    :param hooks_dir: The hook directory in the template</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    :return: The absolute path to the hook script or None</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;hooks_dir is </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">hooks_dir</span><span class="p">))</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">hooks_dir</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;No hooks/dir in template_dir&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">scripts</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">for</span> <span class="n">hook_file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">hooks_dir</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">valid_hook</span><span class="p">(</span><span class="n">hook_file</span><span class="p">,</span> <span class="n">hook_name</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">scripts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">hooks_dir</span><span class="p">,</span> <span class="n">hook_file</span><span class="p">)))</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scripts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="k">return</span> <span class="n">scripts</span></span>
+            </pre>
+            <p><b>Path 3</b>: 3 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> hook_name</button> 'unknown_hook' (1) 'pre_gen_project' (1) 'post_gen_project' (1) </p>
+                <p><button class="input"><span>&#8594;</span> hooks_dir</button> 'hooks' (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (3) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">find_hook</span><span class="p">(</span><span class="n">hook_name</span><span class="p">,</span> <span class="n">hooks_dir</span><span class="o">=</span><span class="s1">&#39;hooks&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dict of all hook scripts provided.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Must be called with the project template as the current working directory.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    Dict&#39;s key will be the hook/script&#39;s name, without extension, while values</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    will be the absolute path to the script. Missing scripts will not be</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    included in the returned dict.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    :param hook_name: The hook to find</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    :param hooks_dir: The hook directory in the template</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    :return: The absolute path to the hook script or None</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;hooks_dir is </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">hooks_dir</span><span class="p">))</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">hooks_dir</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;No hooks/dir in template_dir&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">    <span class="n">scripts</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">for</span> <span class="n">hook_file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">hooks_dir</span><span class="p">):</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">valid_hook</span><span class="p">(</span><span class="n">hook_file</span><span class="p">,</span> <span class="n">hook_name</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">scripts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">hooks_dir</span><span class="p">,</span> <span class="n">hook_file</span><span class="p">)))</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scripts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">scripts</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

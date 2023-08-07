@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.utils._is_property_kind</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.utils._is_property_kind</h1>
+                <span>Calls: 9129, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 7713 calls (0.84)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (7463) UnboundMethod (126) AsyncFunctionDef (122) BoundMethod (2) </p>
+                <p><button class="input"><span>&#8594;</span> kinds</button> ('setter',) (3726) ('deleter',) (3545) ('setter', 'deleter') (442) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (7713) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_property_kind</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="o">*</span><span class="n">kinds</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">astroid</span><span class="o">.</span><span class="n">UnboundMethod</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">decorators</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">decorator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">decorators</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decorator</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span> <span class="ow">and</span> <span class="n">decorator</span><span class="o">.</span><span class="n">attrname</span> <span class="ow">in</span> <span class="n">kinds</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1276 calls (0.14)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (1246) AsyncFunctionDef (14) UnboundMethod (11) BoundMethod (5) </p>
+                <p><button class="input"><span>&#8594;</span> kinds</button> ('setter',) (626) ('deleter',) (596) ('setter', 'deleter') (54) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (1276) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_property_kind</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="o">*</span><span class="n">kinds</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">astroid</span><span class="o">.</span><span class="n">UnboundMethod</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">decorators</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">for</span> <span class="n">decorator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">decorators</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decorator</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span> <span class="ow">and</span> <span class="n">decorator</span><span class="o">.</span><span class="n">attrname</span> <span class="ow">in</span> <span class="n">kinds</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 3</b>: 82 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ClassDef (72) Module (10) </p>
+                <p><button class="input"><span>&#8594;</span> kinds</button> ('setter',) (82) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (82) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_property_kind</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="o">*</span><span class="n">kinds</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">astroid</span><span class="o">.</span><span class="n">UnboundMethod</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">decorators</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">decorator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">decorators</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decorator</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span> <span class="ow">and</span> <span class="n">decorator</span><span class="o">.</span><span class="n">attrname</span> <span class="ow">in</span> <span class="n">kinds</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 4</b>: 58 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (55) UnboundMethod (3) </p>
+                <p><button class="input"><span>&#8594;</span> kinds</button> ('setter',) (51) ('setter', 'deleter') (4) ('deleter',) (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (58) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_is_property_kind</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="o">*</span><span class="n">kinds</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">astroid</span><span class="o">.</span><span class="n">UnboundMethod</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">decorators</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">for</span> <span class="n">decorator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">decorators</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decorator</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span> <span class="ow">and</span> <span class="n">decorator</span><span class="o">.</span><span class="n">attrname</span> <span class="ow">in</span> <span class="n">kinds</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

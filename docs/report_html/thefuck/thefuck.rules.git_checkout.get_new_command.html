@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>thefuck.rules.git_checkout.get_new_command</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: thefuck.rules.git_checkout.get_new_command</h1>
+                <span>Calls: 4, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1 calls (0.25)</p>
+                <p><button class="input"><span>&#8594;</span> command</button> Command (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['git checkout -b unknown'] (1) </p>
+            <button class="run" title="lines run...">0 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@git_support</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="k">def</span> <span class="nf">get_new_command</span><span class="p">(</span><span class="n">command</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">missing_file</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="sa">r</span><span class="s2">&quot;error: pathspec &#39;([^&#39;]*)&#39; &quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="sa">r</span><span class="s2">&quot;did not match any file\(s\) known to git&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">output</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">closest_branch</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_closest</span><span class="p">(</span><span class="n">missing_file</span><span class="p">,</span> <span class="n">get_branches</span><span class="p">(),</span></span>
+<span class="num"><a href="#7">7</a></span><span>                                       <span class="n">fallback_to_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="n">new_commands</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>    <span class="k">if</span> <span class="n">closest_branch</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">new_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">replace_argument</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">script</span><span class="p">,</span> <span class="n">missing_file</span><span class="p">,</span> <span class="n">closest_branch</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="k">if</span> <span class="n">command</span><span class="o">.</span><span class="n">script_parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;checkout&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="n">new_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">replace_argument</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">script</span><span class="p">,</span> <span class="s1">&#39;checkout&#39;</span><span class="p">,</span> <span class="s1">&#39;checkout -b&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">new_commands</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="n">new_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shell</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span><span class="s1">&#39;git branch </span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="n">missing_file</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">script</span><span class="p">))</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>    <span class="k">return</span> <span class="n">new_commands</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (0.25)</p>
+                <p><button class="input"><span>&#8594;</span> command</button> Command (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['git branch unknown && git commit unknown'] (1) </p>
+            <button class="run" title="lines run...">0 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@git_support</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="k">def</span> <span class="nf">get_new_command</span><span class="p">(</span><span class="n">command</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">missing_file</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="sa">r</span><span class="s2">&quot;error: pathspec &#39;([^&#39;]*)&#39; &quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="sa">r</span><span class="s2">&quot;did not match any file\(s\) known to git&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">output</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">closest_branch</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_closest</span><span class="p">(</span><span class="n">missing_file</span><span class="p">,</span> <span class="n">get_branches</span><span class="p">(),</span></span>
+<span class="num"><a href="#7">7</a></span><span>                                       <span class="n">fallback_to_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="n">new_commands</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>    <span class="k">if</span> <span class="n">closest_branch</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">new_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">replace_argument</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">script</span><span class="p">,</span> <span class="n">missing_file</span><span class="p">,</span> <span class="n">closest_branch</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="k">if</span> <span class="n">command</span><span class="o">.</span><span class="n">script_parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;checkout&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="n">new_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">replace_argument</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">script</span><span class="p">,</span> <span class="s1">&#39;checkout&#39;</span><span class="p">,</span> <span class="s1">&#39;checkout -b&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">new_commands</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="n">new_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shell</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span><span class="s1">&#39;git branch </span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="n">missing_file</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">script</span><span class="p">))</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>    <span class="k">return</span> <span class="n">new_commands</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.25)</p>
+                <p><button class="input"><span>&#8594;</span> command</button> Command (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['git checkout test-random-branch-123', 'git checkout -b tst-rdm-brnch-123'] (1) </p>
+            <button class="run" title="lines run...">0 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@git_support</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="k">def</span> <span class="nf">get_new_command</span><span class="p">(</span><span class="n">command</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">missing_file</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="sa">r</span><span class="s2">&quot;error: pathspec &#39;([^&#39;]*)&#39; &quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="sa">r</span><span class="s2">&quot;did not match any file\(s\) known to git&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">output</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">closest_branch</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_closest</span><span class="p">(</span><span class="n">missing_file</span><span class="p">,</span> <span class="n">get_branches</span><span class="p">(),</span></span>
+<span class="num"><a href="#7">7</a></span><span>                                       <span class="n">fallback_to_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="n">new_commands</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>    <span class="k">if</span> <span class="n">closest_branch</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">new_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">replace_argument</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">script</span><span class="p">,</span> <span class="n">missing_file</span><span class="p">,</span> <span class="n">closest_branch</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="k">if</span> <span class="n">command</span><span class="o">.</span><span class="n">script_parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;checkout&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="n">new_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">replace_argument</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">script</span><span class="p">,</span> <span class="s1">&#39;checkout&#39;</span><span class="p">,</span> <span class="s1">&#39;checkout -b&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">new_commands</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="n">new_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shell</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span><span class="s1">&#39;git branch </span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="n">missing_file</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">script</span><span class="p">))</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>    <span class="k">return</span> <span class="n">new_commands</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.25)</p>
+                <p><button class="input"><span>&#8594;</span> command</button> Command (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['git commit test-random-branch-123'] (1) </p>
+            <button class="run" title="lines run...">0 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@git_support</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="k">def</span> <span class="nf">get_new_command</span><span class="p">(</span><span class="n">command</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">missing_file</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="sa">r</span><span class="s2">&quot;error: pathspec &#39;([^&#39;]*)&#39; &quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="sa">r</span><span class="s2">&quot;did not match any file\(s\) known to git&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">output</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">closest_branch</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_closest</span><span class="p">(</span><span class="n">missing_file</span><span class="p">,</span> <span class="n">get_branches</span><span class="p">(),</span></span>
+<span class="num"><a href="#7">7</a></span><span>                                       <span class="n">fallback_to_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="n">new_commands</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>    <span class="k">if</span> <span class="n">closest_branch</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="n">new_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">replace_argument</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">script</span><span class="p">,</span> <span class="n">missing_file</span><span class="p">,</span> <span class="n">closest_branch</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="k">if</span> <span class="n">command</span><span class="o">.</span><span class="n">script_parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;checkout&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="n">new_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">replace_argument</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">script</span><span class="p">,</span> <span class="s1">&#39;checkout&#39;</span><span class="p">,</span> <span class="s1">&#39;checkout -b&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">new_commands</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="n">new_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shell</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span><span class="s1">&#39;git branch </span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="n">missing_file</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">script</span><span class="p">))</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>    <span class="k">return</span> <span class="n">new_commands</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

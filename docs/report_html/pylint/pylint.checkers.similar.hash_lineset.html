@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.similar.hash_lineset</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.similar.hash_lineset</h1>
+                <span>Calls: 1480, </span>
+                <span>Exceptions: 388, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1092 calls (0.74)</p>
+                <p><button class="input"><span>&#8594;</span> lineset</button> LineSet (1092) </p>
+                <p><button class="input"><span>&#8594;</span> min_common_lines</button> 4 (1058) 6 (34) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (1092) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">hash_lineset</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">lineset</span><span class="p">:</span> <span class="n">LineSet</span><span class="p">,</span> <span class="n">min_common_lines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_MIN_SIMILARITY_LINE</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">HashToIndex_T</span><span class="p">,</span> <span class="n">IndexToLines_T</span><span class="p">]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return two dicts.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    The first associates the hash of successive stripped lines of a lineset</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    to the indices of the starting lines.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    The second dict, associates the index of the starting line in the lineset&#39;s stripped lines to the</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    couple [start, end] lines number in the corresponding file.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    :param lineset: lineset object (i.e the lines in a file)</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    :param min_common_lines: number of successive lines that are used to compute the hash</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    :return: a dict linking hashes to corresponding start index and a dict that links this</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">             index to the start and end lines in the file</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="n">hash2index</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="n">index2lines</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#18">18</a></span><span>    <span class="c1"># Comments, docstring and other specific patterns maybe excluded -&gt; call to stripped_lines</span></span>
+<span class="num"><a href="#19">19</a></span><span>    <span class="c1"># to get only what is desired</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">lines</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lineset</span><span class="o">.</span><span class="n">stripped_lines</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span>    <span class="c1"># Need different iterators on same lines but each one is shifted 1 from the precedent</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="n">shifted_lines</span> <span class="o">=</span> <span class="p">[</span><span class="nb">iter</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_common_lines</span><span class="p">)]</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="o">*</span><span class="n">succ_lines</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">shifted_lines</span><span class="p">)):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="n">start_linenumber</span> <span class="o">=</span> <span class="n">LineNumber</span><span class="p">(</span><span class="n">lineset</span><span class="o">.</span><span class="n">stripped_lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">line_number</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="n">end_linenumber</span> <span class="o">=</span> <span class="n">lineset</span><span class="o">.</span><span class="n">stripped_lines</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">min_common_lines</span><span class="p">]</span><span class="o">.</span><span class="n">line_number</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="n">end_linenumber</span> <span class="o">=</span> <span class="n">LineNumber</span><span class="p">(</span><span class="n">lineset</span><span class="o">.</span><span class="n">stripped_lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">line_number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="n">index</span> <span class="o">=</span> <span class="n">Index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">        <span class="n">index2lines</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">SuccessiveLinesLimits</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">start</span><span class="o">=</span><span class="n">start_linenumber</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end_linenumber</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">        <span class="n">l_c</span> <span class="o">=</span> <span class="n">LinesChunk</span><span class="p">(</span><span class="n">lineset</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="o">*</span><span class="n">succ_lines</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">        <span class="n">hash2index</span><span class="p">[</span><span class="n">l_c</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">    <span class="k">return</span> <span class="n">hash2index</span><span class="p">,</span> <span class="n">index2lines</span></span>
+            </pre>
+            <p><b>Path 2</b>: 388 calls (0.26)</p>
+                <p><button class="input"><span>&#8594;</span> lineset</button> LineSet (388) </p>
+                <p><button class="input"><span>&#8594;</span> min_common_lines</button> 4 (388) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (388) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> IndexError (388) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">hash_lineset</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">lineset</span><span class="p">:</span> <span class="n">LineSet</span><span class="p">,</span> <span class="n">min_common_lines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_MIN_SIMILARITY_LINE</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">HashToIndex_T</span><span class="p">,</span> <span class="n">IndexToLines_T</span><span class="p">]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return two dicts.</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    The first associates the hash of successive stripped lines of a lineset</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    to the indices of the starting lines.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    The second dict, associates the index of the starting line in the lineset&#39;s stripped lines to the</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    couple [start, end] lines number in the corresponding file.</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    :param lineset: lineset object (i.e the lines in a file)</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    :param min_common_lines: number of successive lines that are used to compute the hash</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    :return: a dict linking hashes to corresponding start index and a dict that links this</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">             index to the start and end lines in the file</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="n">hash2index</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="n">index2lines</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#18">18</a></span><span>    <span class="c1"># Comments, docstring and other specific patterns maybe excluded -&gt; call to stripped_lines</span></span>
+<span class="num"><a href="#19">19</a></span><span>    <span class="c1"># to get only what is desired</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">lines</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lineset</span><span class="o">.</span><span class="n">stripped_lines</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span>    <span class="c1"># Need different iterators on same lines but each one is shifted 1 from the precedent</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">    <span class="n">shifted_lines</span> <span class="o">=</span> <span class="p">[</span><span class="nb">iter</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_common_lines</span><span class="p">)]</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="o">*</span><span class="n">succ_lines</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">shifted_lines</span><span class="p">)):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">start_linenumber</span> <span class="o">=</span> <span class="n">LineNumber</span><span class="p">(</span><span class="n">lineset</span><span class="o">.</span><span class="n">stripped_lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">line_number</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="n">end_linenumber</span> <span class="o">=</span> <span class="n">lineset</span><span class="o">.</span><span class="n">stripped_lines</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">min_common_lines</span><span class="p">]</span><span class="o">.</span><span class="n">line_number</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="n">end_linenumber</span> <span class="o">=</span> <span class="n">LineNumber</span><span class="p">(</span><span class="n">lineset</span><span class="o">.</span><span class="n">stripped_lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">line_number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="n">index</span> <span class="o">=</span> <span class="n">Index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="n">index2lines</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">SuccessiveLinesLimits</span><span class="p">(</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">start</span><span class="o">=</span><span class="n">start_linenumber</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end_linenumber</span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">        <span class="n">l_c</span> <span class="o">=</span> <span class="n">LinesChunk</span><span class="p">(</span><span class="n">lineset</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="o">*</span><span class="n">succ_lines</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="n">hash2index</span><span class="p">[</span><span class="n">l_c</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">    <span class="k">return</span> <span class="n">hash2index</span><span class="p">,</span> <span class="n">index2lines</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>argparse.HelpFormatter._format_usage.<locals>.get_lines</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: argparse.HelpFormatter._format_usage.&lt;locals&gt;.get_lines</h1>
+                <span>Calls: 239, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 67 calls (0.28)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19}'] (30) ['spam', '[badger]'] (6) ['a', 'b', 'b', '[c]', '[d ...]', 'e', '[e ...]'] (6) ['[-h]', '...</p>
+                <p><button class="input"><span>&#8594;</span> indent</button> '                        ' (30) '            ' (24) '       ' (13) </p>
+                <p><button class="input"><span>&#8594;</span> prefix</button> None (67) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['                        {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19}'] (30) ['            spam [badger]'] (6) ['            a b b [c] [d ...]...</p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_lines</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">indent</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">                    <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">                    <span class="n">line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">                    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">                        <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span>                    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                        <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                        <span class="k">if</span> <span class="n">line_len</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">text_width</span> <span class="ow">and</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                            <span class="n">line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                            <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                        <span class="n">line</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                        <span class="n">line_len</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="k">if</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                        <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">):]</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="k">return</span> <span class="n">lines</span></span>
+            </pre>
+            <p><b>Path 2</b>: 54 calls (0.23)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['aaaaaaaaaaaaaaaaaaaaaaaaa', 'bbbbbbbbbbbbbbbbbbbbbbbbb', 'ccccccccccccccccccccccccc'] (24) ['[-h]', '[-w WWWWWWWWWWWWWWWWWWWWWWWWW]', '[-x XXXXXXXXX...</p>
+                <p><button class="input"><span>&#8594;</span> indent</button> '       ' (42) '            ' (12) </p>
+                <p><button class="input"><span>&#8594;</span> prefix</button> None (54) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['       aaaaaaaaaaaaaaaaaaaaaaaaa bbbbbbbbbbbbbbbbbbbbbbbbb', '       ccccccccccccccccccccccccc'] (12) ['            aaaaaaaaaaaaaaaaaaaaaaaaa bbbbbb...</p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_lines</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">indent</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">                    <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">                    <span class="n">line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">                    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">                        <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span>                    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                        <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                        <span class="k">if</span> <span class="n">line_len</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">text_width</span> <span class="ow">and</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                            <span class="n">line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                            <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                        <span class="n">line</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                        <span class="n">line_len</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="k">if</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                        <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">):]</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="k">return</span> <span class="n">lines</span></span>
+            </pre>
+            <p><b>Path 3</b>: 50 calls (0.21)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['PROG', '[-h]', '[-x XXXXXXXXXXXXXXXXXXXXXXXXX]', '[-y YYYYYYYYYYYYYYYYYYYYYYYYY]', '[-z ZZZZZZZZZZZZZZZZZZZZZZZZZ]'] (12) ['PROG', '[-h]', '[--abcde...</p>
+                <p><button class="input"><span>&#8594;</span> indent</button> '            ' (50) </p>
+                <p><button class="input"><span>&#8594;</span> prefix</button> 'usage: ' (50) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['PROG [-h] [-x XXXXXXXXXXXXXXXXXXXXXXXXX] [-y YYYYYYYYYYYYYYYYYYYYYYYYY]', '            [-z ZZZZZZZZZZZZZZZZZZZZZZZZZ]'] (12) ['PROG [-h] [--abcde AB...</p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_lines</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">indent</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">                    <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">                    <span class="n">line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">                    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                        <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span>                    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                        <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                        <span class="k">if</span> <span class="n">line_len</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">text_width</span> <span class="ow">and</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                            <span class="n">line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                            <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                        <span class="n">line</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                        <span class="n">line_len</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="k">if</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                        <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">):]</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="k">return</span> <span class="n">lines</span></span>
+            </pre>
+            <p><b>Path 4</b>: 42 calls (0.18)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> ['test_argparse.py', '[-h]'] (30) ['PROG', '[-h]', '[-x X]', '[-y Y]', '[-z Z]'] (6) ['PROG', '[-h]', '[-x X]', '[-y]', '[--foo {a,b,c}]', '[--bar BBB...</p>
+                <p><button class="input"><span>&#8594;</span> indent</button> '                        ' (30) '            ' (12) </p>
+                <p><button class="input"><span>&#8594;</span> prefix</button> 'usage: ' (42) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['test_argparse.py [-h]'] (30) ['PROG [-h] [-x X] [-y Y] [-z Z]'] (6) ['PROG [-h] [-x X] [-y] [--foo {a,b,c}] [--bar BBB] [-a A] [-b B]'] (6) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_lines</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">indent</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">                    <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">                    <span class="n">line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">                    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                        <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span>                    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                        <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                        <span class="k">if</span> <span class="n">line_len</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">text_width</span> <span class="ow">and</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                            <span class="n">line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                            <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                        <span class="n">line</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                        <span class="n">line_len</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="k">if</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                        <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">):]</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="k">return</span> <span class="n">lines</span></span>
+            </pre>
+            <p><b>Path 5</b>: 26 calls (0.11)</p>
+                <p><button class="input"><span>&#8594;</span> parts</button> [] (26) </p>
+                <p><button class="input"><span>&#8594;</span> indent</button> '            ' (20) '       ' (6) </p>
+                <p><button class="input"><span>&#8594;</span> prefix</button> None (26) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [] (26) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_lines</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">indent</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">                    <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">                    <span class="n">line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">                    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">                        <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span>                    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                        <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                        <span class="k">if</span> <span class="n">line_len</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">text_width</span> <span class="ow">and</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                            <span class="n">line</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                            <span class="n">line_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                        <span class="n">line</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                        <span class="n">line_len</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="k">if</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                        <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="n">indent</span><span class="p">):]</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="k">return</span> <span class="n">lines</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

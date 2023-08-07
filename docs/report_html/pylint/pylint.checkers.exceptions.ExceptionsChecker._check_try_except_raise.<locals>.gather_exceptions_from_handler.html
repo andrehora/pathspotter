@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.exceptions.ExceptionsChecker._check_try_except_raise.<locals>.gather_exceptions_from_handler</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.exceptions.ExceptionsChecker._check_try_except_raise.&lt;locals&gt;.gather_exceptions_from_handler</h1>
+                <span>Calls: 42, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 23 calls (0.55)</p>
+                <p><button class="input"><span>&#8594;</span> handler</button> ExceptHandler (23) </p>
+                <p><button class="output"><span>&#8617; return</span></button> list (23) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">gather_exceptions_from_handler</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>            <span class="n">handler</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ExceptHandler</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">InferenceResult</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">exceptions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">InferenceResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">type</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                <span class="n">exceptions_in_handler</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">type</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exceptions_in_handler</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Tuple</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                    <span class="n">exceptions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                        <span class="p">{</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                            <span class="n">exception</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                            <span class="k">for</span> <span class="n">exception</span> <span class="ow">in</span> <span class="n">exceptions_in_handler</span><span class="o">.</span><span class="n">elts</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span>                        <span class="p">}</span></span>
+<span class="num"><a href="#14">14</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="k">elif</span> <span class="n">exceptions_in_handler</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                    <span class="n">exceptions</span> <span class="o">=</span> <span class="p">[</span><span class="n">exceptions_in_handler</span><span class="p">]</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span>                    <span class="c1"># Break when we cannot infer anything reliably.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">return</span> <span class="n">exceptions</span></span>
+            </pre>
+            <p><b>Path 2</b>: 12 calls (0.29)</p>
+                <p><button class="input"><span>&#8594;</span> handler</button> ExceptHandler (12) </p>
+                <p><button class="output"><span>&#8617; return</span></button> list (12) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">gather_exceptions_from_handler</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>            <span class="n">handler</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ExceptHandler</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">InferenceResult</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">exceptions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">InferenceResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">type</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                <span class="n">exceptions_in_handler</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">type</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exceptions_in_handler</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Tuple</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                    <span class="n">exceptions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                        <span class="p">{</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                            <span class="n">exception</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                            <span class="k">for</span> <span class="n">exception</span> <span class="ow">in</span> <span class="n">exceptions_in_handler</span><span class="o">.</span><span class="n">elts</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span>                        <span class="p">}</span></span>
+<span class="num"><a href="#14">14</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="k">elif</span> <span class="n">exceptions_in_handler</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="n">exceptions</span> <span class="o">=</span> <span class="p">[</span><span class="n">exceptions_in_handler</span><span class="p">]</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span>                    <span class="c1"># Break when we cannot infer anything reliably.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">return</span> <span class="n">exceptions</span></span>
+            </pre>
+            <p><b>Path 3</b>: 5 calls (0.12)</p>
+                <p><button class="input"><span>&#8594;</span> handler</button> ExceptHandler (5) </p>
+                <p><button class="output"><span>&#8617; return</span></button> [] (5) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">gather_exceptions_from_handler</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>            <span class="n">handler</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ExceptHandler</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">InferenceResult</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">exceptions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">InferenceResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">type</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">                <span class="n">exceptions_in_handler</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">type</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exceptions_in_handler</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Tuple</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                    <span class="n">exceptions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                        <span class="p">{</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                            <span class="n">exception</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                            <span class="k">for</span> <span class="n">exception</span> <span class="ow">in</span> <span class="n">exceptions_in_handler</span><span class="o">.</span><span class="n">elts</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span>                        <span class="p">}</span></span>
+<span class="num"><a href="#14">14</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="k">elif</span> <span class="n">exceptions_in_handler</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="n">exceptions</span> <span class="o">=</span> <span class="p">[</span><span class="n">exceptions_in_handler</span><span class="p">]</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span>                    <span class="c1"># Break when we cannot infer anything reliably.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">return</span> <span class="n">exceptions</span></span>
+            </pre>
+            <p><b>Path 4</b>: 2 calls (0.05)</p>
+                <p><button class="input"><span>&#8594;</span> handler</button> ExceptHandler (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (2) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">gather_exceptions_from_handler</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>            <span class="n">handler</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ExceptHandler</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">InferenceResult</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">exceptions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">InferenceResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">type</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                <span class="n">exceptions_in_handler</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">type</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exceptions_in_handler</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Tuple</span><span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                    <span class="n">exceptions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                        <span class="p">{</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                            <span class="n">exception</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                            <span class="k">for</span> <span class="n">exception</span> <span class="ow">in</span> <span class="n">exceptions_in_handler</span><span class="o">.</span><span class="n">elts</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span>                        <span class="p">}</span></span>
+<span class="num"><a href="#14">14</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                <span class="k">elif</span> <span class="n">exceptions_in_handler</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="n">exceptions</span> <span class="o">=</span> <span class="p">[</span><span class="n">exceptions_in_handler</span><span class="p">]</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span>                    <span class="c1"># Break when we cannot infer anything reliably.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">exceptions</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

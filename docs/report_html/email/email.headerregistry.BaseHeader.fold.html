@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.headerregistry.BaseHeader.fold</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.headerregistry.BaseHeader.fold</h1>
+                <span>Calls: 387, </span>
+                <span>Exceptions: 3, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 384 calls (0.99)</p>
+                <p><button class="input"><span>&#8594;</span> policy</button> EmailPolicy (384) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'Content-Type: text/plain; charset="utf-8"\n' (26) 'MIME-Version: 1.0\n' (18) 'From:\n nobody_you_want_to_know@example.com\n' (16) 'Content-Transfer-E...</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> HeaderParseError (3) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">fold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Fold header according to policy.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        The parsed representation of the header is folded according to</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        RFC5322 rules, as modified by the policy.  If the parse tree</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        contains surrogateescaped bytes, the bytes are CTE encoded using</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        the charset &#39;unknown-8bit&quot;.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        Any non-ASCII characters in the parse tree are CTE encoded using</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        charset utf-8. XXX: make this a policy setting.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        The returned value is an ASCII-only string possibly containing linesep</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        characters, and ending with a linesep character.  The string includes</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        the header name and the &#39;: &#39; separator.</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># At some point we need to put fws here if it was in the source.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">header</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">Header</span><span class="p">([</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">parser</span><span class="o">.</span><span class="n">HeaderLabel</span><span class="p">([</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="n">parser</span><span class="o">.</span><span class="n">ValueTerminal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;header-name&#39;</span><span class="p">),</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">parser</span><span class="o">.</span><span class="n">ValueTerminal</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;header-sep&#39;</span><span class="p">)]),</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="p">])</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_tree</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">parser</span><span class="o">.</span><span class="n">CFWSList</span><span class="p">([</span><span class="n">parser</span><span class="o">.</span><span class="n">WhiteSpaceTerminal</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;fws&#39;</span><span class="p">)]))</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parse_tree</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">return</span> <span class="n">header</span><span class="o">.</span><span class="n">fold</span><span class="p">(</span><span class="n">policy</span><span class="o">=</span><span class="n">policy</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 3 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> policy</button> EmailPolicy (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'Content-Disposition:\n' (1) 'Content-Transfer-Encoding:\n' (1) 'MIME-Version:\n' (1) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">fold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Fold header according to policy.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        The parsed representation of the header is folded according to</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        RFC5322 rules, as modified by the policy.  If the parse tree</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        contains surrogateescaped bytes, the bytes are CTE encoded using</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        the charset &#39;unknown-8bit&quot;.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        Any non-ASCII characters in the parse tree are CTE encoded using</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        charset utf-8. XXX: make this a policy setting.</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        The returned value is an ASCII-only string possibly containing linesep</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        characters, and ending with a linesep character.  The string includes</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">        the header name and the &#39;: &#39; separator.</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># At some point we need to put fws here if it was in the source.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="n">header</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">Header</span><span class="p">([</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">parser</span><span class="o">.</span><span class="n">HeaderLabel</span><span class="p">([</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="n">parser</span><span class="o">.</span><span class="n">ValueTerminal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;header-name&#39;</span><span class="p">),</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">parser</span><span class="o">.</span><span class="n">ValueTerminal</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;header-sep&#39;</span><span class="p">)]),</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="p">])</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_tree</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">parser</span><span class="o">.</span><span class="n">CFWSList</span><span class="p">([</span><span class="n">parser</span><span class="o">.</span><span class="n">WhiteSpaceTerminal</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;fws&#39;</span><span class="p">)]))</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parse_tree</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">return</span> <span class="n">header</span><span class="o">.</span><span class="n">fold</span><span class="p">(</span><span class="n">policy</span><span class="o">=</span><span class="n">policy</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

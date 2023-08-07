@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>bentoml._internal.io_descriptors.numpy.NumpyNdarray.__init__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: bentoml._internal.io_descriptors.numpy.NumpyNdarray.__init__</h1>
+                <span>Calls: 59, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 54 calls (0.92)</p>
+                <p><button class="input"><span>&#8594;</span> dtype</button> None (45) Float64DType (8) VoidDType (1) </p>
+                <p><button class="input"><span>&#8594;</span> enforce_dtype</button> False (53) True (1) </p>
+                <p><button class="input"><span>&#8594;</span> shape</button> None (46) (2, 2, 3, 2) (8) </p>
+                <p><button class="input"><span>&#8594;</span> enforce_shape</button> False (53) True (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">dtype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">ext</span><span class="o">.</span><span class="n">NpDTypeLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">enforce_dtype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">enforce_shape</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">dtype</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span>            <span class="c1"># Convert from primitive type or type string, e.g.: np.dtype(float) or np.dtype(&quot;float64&quot;)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">raise</span> <span class="n">UnprocessableEntity</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid dtype &quot;</span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s1">&quot;: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span> <span class="o">=</span> <span class="n">dtype</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span> <span class="o">=</span> <span class="n">shape</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_enforce_dtype</span> <span class="o">=</span> <span class="n">enforce_dtype</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_enforce_shape</span> <span class="o">=</span> <span class="n">enforce_shape</span></span>
+            </pre>
+            <p><b>Path 2</b>: 4 calls (0.07)</p>
+                <p><button class="input"><span>&#8594;</span> dtype</button> 'float' (2) '>U8' (1) float32 def (1) </p>
+                <p><button class="input"><span>&#8594;</span> enforce_dtype</button> False (3) True (1) </p>
+                <p><button class="input"><span>&#8594;</span> shape</button> None (4) </p>
+                <p><button class="input"><span>&#8594;</span> enforce_shape</button> False (4) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">dtype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">ext</span><span class="o">.</span><span class="n">NpDTypeLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">enforce_dtype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">enforce_shape</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">dtype</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span>            <span class="c1"># Convert from primitive type or type string, e.g.: np.dtype(float) or np.dtype(&quot;float64&quot;)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">raise</span> <span class="n">UnprocessableEntity</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid dtype &quot;</span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s1">&quot;: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span> <span class="o">=</span> <span class="n">dtype</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span> <span class="o">=</span> <span class="n">shape</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_enforce_dtype</span> <span class="o">=</span> <span class="n">enforce_dtype</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_enforce_shape</span> <span class="o">=</span> <span class="n">enforce_shape</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.02)</p>
+                <p><button class="input"><span>&#8594;</span> dtype</button> 'asdf' (1) </p>
+                <p><button class="input"><span>&#8594;</span> enforce_dtype</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> shape</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> enforce_shape</button> False (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UnprocessableEntity (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">dtype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">ext</span><span class="o">.</span><span class="n">NpDTypeLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">enforce_dtype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">enforce_shape</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">dtype</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span>            <span class="c1"># Convert from primitive type or type string, e.g.: np.dtype(float) or np.dtype(&quot;float64&quot;)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">raise</span> <span class="n">UnprocessableEntity</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid dtype &quot;</span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s1">&quot;: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span> <span class="o">=</span> <span class="n">dtype</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span> <span class="o">=</span> <span class="n">shape</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_enforce_dtype</span> <span class="o">=</span> <span class="n">enforce_dtype</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">_enforce_shape</span> <span class="o">=</span> <span class="n">enforce_shape</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

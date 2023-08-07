@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.utils.get_node_first_ancestor_of_type</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.utils.get_node_first_ancestor_of_type</h1>
+                <span>Calls: 36911, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 34556 calls (0.94)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Name (16286) AssignName (4778) Assign (3187) FunctionDef (2911) Expr (1517) Return (1174) ClassDef (1079) If (662) For (634) ImportFrom (593) </p>
+                <p><button class="input"><span>&#8594;</span> ancestor_type</button> ComprehensionScope def (14946) ExceptHandler def (13093) If def (4692) FunctionDef def (1759) Compare def (29) NamedExpr def (15) tuple (9) AnnAssign ...</p>
+                <p><button class="output"><span>&#8617; return</span></button> None (34556) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_node_first_ancestor_of_type</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="n">ancestor_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">_NodeT</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">_NodeT</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_NodeT</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the first parent node that is any of the provided types (or None).&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">node_ancestors</span><span class="p">():</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ancestor</span><span class="p">,</span> <span class="n">ancestor_type</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">ancestor</span>  <span class="c1"># type: ignore[no-any-return]</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2355 calls (0.06)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Name (1632) AssignName (236) Const (136) Assign (108) Attribute (96) Call (48) Expr (42) If (10) Raise (8) AugAssign (6) </p>
+                <p><button class="input"><span>&#8594;</span> ancestor_type</button> FunctionDef def (946) ComprehensionScope def (946) If def (219) ExceptHandler def (192) tuple (25) Compare def (18) Lambda def (6) NamedExpr def (1) C...</p>
+                <p><button class="output"><span>&#8617; return</span></button> FunctionDef (935) ListComp (494) GeneratorExp (233) If (219) ExceptHandler (192) DictComp (136) SetComp (83) Compare (18) Assign (16) AsyncFunctionDef...</p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_node_first_ancestor_of_type</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span> <span class="n">ancestor_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">_NodeT</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">_NodeT</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_NodeT</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the first parent node that is any of the provided types (or None).&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">node_ancestors</span><span class="p">():</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ancestor</span><span class="p">,</span> <span class="n">ancestor_type</span><span class="p">):</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="k">return</span> <span class="n">ancestor</span>  <span class="c1"># type: ignore[no-any-return]</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">    <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

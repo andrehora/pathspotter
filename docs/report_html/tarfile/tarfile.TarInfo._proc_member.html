@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>tarfile.TarInfo._proc_member</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: tarfile.TarInfo._proc_member</h1>
+                <span>Calls: 9842, </span>
+                <span>Exceptions: 10, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 6840 calls (0.69)</p>
+                <p><button class="input"><span>&#8594;</span> tarfile</button> TarFile (6840) </p>
+                <p><button class="output"><span>&#8617; return</span></button> TarInfo (6840) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_proc_member</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tarfile</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Choose the right processing method depending on</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">           the type and call it.</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">GNUTYPE_LONGNAME</span><span class="p">,</span> <span class="n">GNUTYPE_LONGLINK</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_gnulong</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">GNUTYPE_SPARSE</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_sparse</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">XHDTYPE</span><span class="p">,</span> <span class="n">XGLTYPE</span><span class="p">,</span> <span class="n">SOLARIS_XHDTYPE</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_pax</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_builtin</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2332 calls (0.24)</p>
+                <p><button class="input"><span>&#8594;</span> tarfile</button> TarFile (2332) </p>
+                <p><button class="output"><span>&#8617; return</span></button> TarInfo (2323) None (9) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> InvalidHeaderError (8) SubsequentHeaderError (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_proc_member</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tarfile</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Choose the right processing method depending on</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">           the type and call it.</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">GNUTYPE_LONGNAME</span><span class="p">,</span> <span class="n">GNUTYPE_LONGLINK</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_gnulong</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">GNUTYPE_SPARSE</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_sparse</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">XHDTYPE</span><span class="p">,</span> <span class="n">XGLTYPE</span><span class="p">,</span> <span class="n">SOLARIS_XHDTYPE</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_pax</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_builtin</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 506 calls (0.05)</p>
+                <p><button class="input"><span>&#8594;</span> tarfile</button> TarFile (506) </p>
+                <p><button class="output"><span>&#8617; return</span></button> TarInfo (505) None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> SubsequentHeaderError (1) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_proc_member</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tarfile</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Choose the right processing method depending on</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">           the type and call it.</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">GNUTYPE_LONGNAME</span><span class="p">,</span> <span class="n">GNUTYPE_LONGLINK</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_gnulong</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">GNUTYPE_SPARSE</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_sparse</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">XHDTYPE</span><span class="p">,</span> <span class="n">XGLTYPE</span><span class="p">,</span> <span class="n">SOLARIS_XHDTYPE</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_pax</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_builtin</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 164 calls (0.02)</p>
+                <p><button class="input"><span>&#8594;</span> tarfile</button> TarFile (164) </p>
+                <p><button class="output"><span>&#8617; return</span></button> TarInfo (164) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_proc_member</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tarfile</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Choose the right processing method depending on</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">           the type and call it.</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">GNUTYPE_LONGNAME</span><span class="p">,</span> <span class="n">GNUTYPE_LONGLINK</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_gnulong</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">GNUTYPE_SPARSE</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_sparse</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">XHDTYPE</span><span class="p">,</span> <span class="n">XGLTYPE</span><span class="p">,</span> <span class="n">SOLARIS_XHDTYPE</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_pax</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_builtin</span><span class="p">(</span><span class="n">tarfile</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

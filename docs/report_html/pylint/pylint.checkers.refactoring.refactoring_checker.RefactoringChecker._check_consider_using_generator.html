@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.refactoring.refactoring_checker.RefactoringChecker._check_consider_using_generator</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.refactoring.refactoring_checker.RefactoringChecker._check_consider_using_generator</h1>
+                <span>Calls: 5679, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 3798 calls (0.67)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (3798) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># &#39;any&#39;, &#39;all&#39;, definitely should use generator, while &#39;list&#39;, &#39;tuple&#39;,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># &#39;sum&#39;, &#39;max&#39;, and &#39;min&#39; need to be considered first</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># See https://github.com/PyCQA/pylint/pull/3309#discussion_r576683109</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># https://github.com/PyCQA/pylint/pull/6595#issuecomment-1125704244</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># and https://peps.python.org/pep-0289/</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">checked_call</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;tuple&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">checked_call</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># functions in checked_calls take exactly one argument</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># check whether the argument is list comprehension</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ListComp</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># remove square brackets &#39;[]&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">inside_comp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">as_string</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">call_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">call_name</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="s2">&quot;use-a-generator&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">call_name</span><span class="p">,</span> <span class="n">inside_comp</span><span class="p">),</span></span>
+<span class="num"><a href="#25">25</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="s2">&quot;consider-using-generator&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">call_name</span><span class="p">,</span> <span class="n">inside_comp</span><span class="p">),</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1765 calls (0.31)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (1765) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># &#39;any&#39;, &#39;all&#39;, definitely should use generator, while &#39;list&#39;, &#39;tuple&#39;,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># &#39;sum&#39;, &#39;max&#39;, and &#39;min&#39; need to be considered first</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># See https://github.com/PyCQA/pylint/pull/3309#discussion_r576683109</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># https://github.com/PyCQA/pylint/pull/6595#issuecomment-1125704244</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># and https://peps.python.org/pep-0289/</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">checked_call</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;tuple&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">checked_call</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># functions in checked_calls take exactly one argument</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># check whether the argument is list comprehension</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ListComp</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># remove square brackets &#39;[]&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">inside_comp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">as_string</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">call_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">call_name</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="s2">&quot;use-a-generator&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">call_name</span><span class="p">,</span> <span class="n">inside_comp</span><span class="p">),</span></span>
+<span class="num"><a href="#25">25</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="s2">&quot;consider-using-generator&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">call_name</span><span class="p">,</span> <span class="n">inside_comp</span><span class="p">),</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 109 calls (0.02)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (109) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># &#39;any&#39;, &#39;all&#39;, definitely should use generator, while &#39;list&#39;, &#39;tuple&#39;,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># &#39;sum&#39;, &#39;max&#39;, and &#39;min&#39; need to be considered first</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># See https://github.com/PyCQA/pylint/pull/3309#discussion_r576683109</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># https://github.com/PyCQA/pylint/pull/6595#issuecomment-1125704244</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># and https://peps.python.org/pep-0289/</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">checked_call</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;tuple&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">checked_call</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># functions in checked_calls take exactly one argument</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># check whether the argument is list comprehension</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ListComp</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># remove square brackets &#39;[]&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">inside_comp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">as_string</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">call_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">call_name</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="s2">&quot;use-a-generator&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">call_name</span><span class="p">,</span> <span class="n">inside_comp</span><span class="p">),</span></span>
+<span class="num"><a href="#25">25</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="s2">&quot;consider-using-generator&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">call_name</span><span class="p">,</span> <span class="n">inside_comp</span><span class="p">),</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 5 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (5) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># &#39;any&#39;, &#39;all&#39;, definitely should use generator, while &#39;list&#39;, &#39;tuple&#39;,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># &#39;sum&#39;, &#39;max&#39;, and &#39;min&#39; need to be considered first</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># See https://github.com/PyCQA/pylint/pull/3309#discussion_r576683109</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># https://github.com/PyCQA/pylint/pull/6595#issuecomment-1125704244</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># and https://peps.python.org/pep-0289/</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">checked_call</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;tuple&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">checked_call</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># functions in checked_calls take exactly one argument</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># check whether the argument is list comprehension</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ListComp</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># remove square brackets &#39;[]&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">inside_comp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">as_string</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">call_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="k">if</span> <span class="n">call_name</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                        <span class="s2">&quot;use-a-generator&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">call_name</span><span class="p">,</span> <span class="n">inside_comp</span><span class="p">),</span></span>
+<span class="num"><a href="#25">25</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                        <span class="s2">&quot;consider-using-generator&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">call_name</span><span class="p">,</span> <span class="n">inside_comp</span><span class="p">),</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 2 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (2) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># &#39;any&#39;, &#39;all&#39;, definitely should use generator, while &#39;list&#39;, &#39;tuple&#39;,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># &#39;sum&#39;, &#39;max&#39;, and &#39;min&#39; need to be considered first</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># See https://github.com/PyCQA/pylint/pull/3309#discussion_r576683109</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># https://github.com/PyCQA/pylint/pull/6595#issuecomment-1125704244</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># and https://peps.python.org/pep-0289/</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">checked_call</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;tuple&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">checked_call</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># functions in checked_calls take exactly one argument</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># check whether the argument is list comprehension</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ListComp</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># remove square brackets &#39;[]&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">inside_comp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">as_string</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">call_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="k">if</span> <span class="n">call_name</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                        <span class="s2">&quot;use-a-generator&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">call_name</span><span class="p">,</span> <span class="n">inside_comp</span><span class="p">),</span></span>
+<span class="num"><a href="#25">25</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                        <span class="s2">&quot;consider-using-generator&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">call_name</span><span class="p">,</span> <span class="n">inside_comp</span><span class="p">),</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.testutils._primer.primer_compare_command.CompareCommand._create_comment_for_package</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.testutils._primer.primer_compare_command.CompareCommand._create_comment_for_package</h1>
+                <span>Calls: 2, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 2 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> package</button> 'astroid' (2) </p>
+                <p><button class="input"><span>&#8594;</span> new_messages</button> dict (2) </p>
+                <p><button class="input"><span>&#8594;</span> missing_messages</button> dict (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '\n\n**Effect on [astroid](https://github.com/PyCQA/astroid):**\nThe following messages are now emitted:\n\n<details>\n\n1) locally-disabled:\n*Locall...</p>
+            <button class="run" title="lines run...">39 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_create_comment_for_package</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">package</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">new_messages</span><span class="p">:</span> <span class="n">PackageData</span><span class="p">,</span> <span class="n">missing_messages</span><span class="p">:</span> <span class="n">PackageData</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">comment</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">**Effect on [</span><span class="si">{</span><span class="n">package</span><span class="si">}</span><span class="s2">](</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">packages</span><span class="p">[</span><span class="n">package</span><span class="p">]</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">):**</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># Create comment for new messages</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">astroid_errors</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">new_non_astroid_messages</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">new_messages</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">]:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Now emitted:&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">new_messages</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">]:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">filepath</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="n">PurePosixPath</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">packages</span><span class="p">[</span><span class="n">package</span><span class="p">]</span><span class="o">.</span><span class="n">clone_directory</span></span>
+<span class="num"><a href="#15">15</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="c1"># Existing astroid errors may still show up as &quot;new&quot; because the timestamp</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="c1"># in the message is slightly different.</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">if</span> <span class="n">message</span><span class="p">[</span><span class="s2">&quot;symbol&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;astroid-error&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="n">astroid_errors</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="n">new_non_astroid_messages</span> <span class="o">+=</span> <span class="p">(</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">) </span><span class="si">{</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;symbol&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="s2">*</span><span class="si">{</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">*</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">packages</span><span class="p">[</span><span class="n">package</span><span class="p">]</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">/blob/</span><span class="si">{</span><span class="n">new_messages</span><span class="p">[</span><span class="s1">&#39;commit&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">#L</span><span class="si">{</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">if</span> <span class="n">astroid_errors</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">comment</span> <span class="o">+=</span> <span class="p">(</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">astroid_errors</span><span class="si">}</span><span class="s1"> &quot;astroid error(s)&quot; were found. &#39;</span></span>
+<span class="num"><a href="#32">32</a></span><span>                <span class="s2">&quot;Please open the GitHub Actions log to see what failed or crashed.</span><span class="se">\n\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#33">33</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="k">if</span> <span class="n">new_non_astroid_messages</span><span class="p">:</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">comment</span> <span class="o">+=</span> <span class="p">(</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                <span class="s2">&quot;The following messages are now emitted:</span><span class="se">\n\n</span><span class="s2">&lt;details&gt;</span><span class="se">\n\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="o">+</span> <span class="n">new_non_astroid_messages</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&lt;/details&gt;</span><span class="se">\n\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#39">39</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span>        <span class="c1"># Create comment for missing messages</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">        <span class="k">if</span> <span class="n">missing_messages</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">]:</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">            <span class="n">comment</span> <span class="o">+=</span> <span class="s2">&quot;The following messages are no longer emitted:</span><span class="se">\n\n</span><span class="s2">&lt;details&gt;</span><span class="se">\n\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No longer emitted:&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">missing_messages</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">]:</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">            <span class="n">comment</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">) </span><span class="si">{</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;symbol&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="s2">*</span><span class="si">{</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">*</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="n">filepath</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">                <span class="n">PurePosixPath</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">packages</span><span class="p">[</span><span class="n">package</span><span class="p">]</span><span class="o">.</span><span class="n">clone_directory</span></span>
+<span class="num"><a href="#51">51</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#52">52</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">            <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">packages</span><span class="p">[</span><span class="n">package</span><span class="p">]</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">                <span class="s2">&quot;.git&quot;</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">            <span class="p">),</span> <span class="s2">&quot;You don&#39;t need the .git at the end of the github url.&quot;</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">            <span class="n">comment</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">packages</span><span class="p">[</span><span class="n">package</span><span class="p">]</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">/blob/</span><span class="si">{</span><span class="n">new_messages</span><span class="p">[</span><span class="s1">&#39;commit&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">#L</span><span class="si">{</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">            <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">        <span class="k">if</span> <span class="n">missing_messages</span><span class="p">:</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full run">            <span class="n">comment</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&lt;/details&gt;</span><span class="se">\n\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">        <span class="k">return</span> <span class="n">comment</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

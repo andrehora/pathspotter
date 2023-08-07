@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.refactoring.implicit_booleaness_checker.ImplicitBooleanessChecker._check_use_implicit_booleaness_not_comparison</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.refactoring.implicit_booleaness_checker.ImplicitBooleanessChecker._check_use_implicit_booleaness_not_comparison</h1>
+                <span>Calls: 1137, </span>
+                <span>Exceptions: 40, </span>
+                <span>Paths: 15</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1078 calls (0.95)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (1078) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 11 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (11) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> GeneratorExit (11) </p>
+            <button class="run" title="lines run...">23 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 10 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (10) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> GeneratorExit (10) </p>
+            <button class="run" title="lines run...">22 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 9 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (9) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> GeneratorExit (9) </p>
+            <button class="run" title="lines run...">22 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 7 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (7) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> GeneratorExit (7) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 4 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (4) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 7</b>: 3 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (3) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 8</b>: 3 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (3) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 9</b>: 3 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (3) </p>
+            <button class="run" title="lines run...">23 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 10</b>: 2 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (2) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> GeneratorExit (2) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 11</b>: 2 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (2) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">14 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 12</b>: 2 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (2) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">20 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 13</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (1) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 14</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> GeneratorExit (1) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 15</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (1) </p>
+            <button class="run" title="lines run...">23 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_use_implicit_booleaness_not_comparison</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for left side and right side of the node for empty literals.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">is_left_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># Check both left-hand side and right-hand side for literals</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">for</span> <span class="n">operator</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">is_right_empty_literal</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_base_container</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="n">comparator</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_empty_dict_literal</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># Using Exclusive OR (XOR) to compare between two side.</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># If two sides are both literal, it should be different error.</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="o">^</span> <span class="n">is_left_empty_literal</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span>                <span class="c1"># set target_node to opposite side of literal</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">comparator</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">literal_node</span> <span class="o">=</span> <span class="n">comparator</span> <span class="k">if</span> <span class="n">is_right_empty_literal</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># Infer node to check</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="n">target_instance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">safe_infer</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="k">if</span> <span class="n">target_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="n">mother_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_names_of_instance</span><span class="p">(</span><span class="n">target_instance</span><span class="p">)</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">is_base_comprehension_type</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="n">t</span> <span class="ow">in</span> <span class="n">mother_classes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tuple&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="c1"># Only time we bypass check is when target_node is not inherited by</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># collection literals and have its own __bool__ implementation.</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_base_comprehension_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_has_bool</span><span class="p">(</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                    <span class="n">target_instance</span></span>
+<span class="num"><a href="#33">33</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span>                <span class="c1"># No need to check for operator when visiting compare node</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="k">if</span> <span class="n">operator</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                        <span class="s2">&quot;use-implicit-booleaness-not-comparison&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                        <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_implicit_booleaness_message_args</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                            <span class="n">literal_node</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">target_node</span></span>
+<span class="num"><a href="#42">42</a></span><span>                        <span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">                        <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                        <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span><span class="p">,</span></span>
+<span class="num"><a href="#45">45</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

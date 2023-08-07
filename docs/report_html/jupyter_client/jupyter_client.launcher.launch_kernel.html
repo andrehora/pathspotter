@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>jupyter_client.launcher.launch_kernel</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: jupyter_client.launcher.launch_kernel</h1>
+                <span>Calls: 3, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 3 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> cmd</button> ['/Users/andrehora/Documents/git/projects-pathspotter/jupyter_client/.venv/bin/python', '-m', 'tests.signalkernel', '-f', '/private/var/folders/yp/qx0...</p>
+                <p><button class="input"><span>&#8594;</span> stdin</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> stdout</button> -1 (3) </p>
+                <p><button class="input"><span>&#8594;</span> stderr</button> -1 (3) </p>
+                <p><button class="input"><span>&#8594;</span> env</button> {'TERM_PROGRAM': 'Apple_Terminal', 'SHELL': '/bin/zsh', 'TERM': 'xterm-256color', 'TMPDIR': '/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/', 'TERM...</p>
+                <p><button class="input"><span>&#8594;</span> independent</button> False (3) </p>
+                <p><button class="input"><span>&#8594;</span> cwd</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> kw</button> {} (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> Popen (3) </p>
+            <button class="run" title="lines run...">26 run</button>
+            <button class="not_run" title="lines not run...">39 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">launch_kernel</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">cmd</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">stdin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">stdout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">stderr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>    <span class="n">env</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="n">independent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="n">cwd</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Popen</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Launches a localhost kernel, binding to the specified ports.</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    Parameters</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">    ----------</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    cmd : Popen list,</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">        A string of Python code that imports and executes a kernel entry point.</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    stdin, stdout, stderr : optional (default None)</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">        Standards streams, as defined in subprocess.Popen.</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    env: dict, optional</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">        Environment variables passed to the kernel</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">    independent : bool, optional (default False)</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        If set, the kernel process is guaranteed to survive if this process</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">        dies. If not set, an effort is made to ensure that the kernel is killed</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">        when this process dies. Note that in this case it is still good practice</span></span>
+<span class="num"><a href="#28">28</a></span><span><span class="sd">        to kill kernels manually before exiting.</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">    cwd : path, optional</span></span>
+<span class="num"><a href="#31">31</a></span><span><span class="sd">        The working dir of the kernel process (default: cwd of this process).</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span><span class="sd">    **kw: optional</span></span>
+<span class="num"><a href="#34">34</a></span><span><span class="sd">        Additional arguments for Popen</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span><span class="sd">    Returns</span></span>
+<span class="num"><a href="#37">37</a></span><span><span class="sd">    -------</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span><span class="sd">    Popen instance for the kernel subprocess</span></span>
+<span class="num"><a href="#40">40</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#41">41</a></span><span></span>
+<span class="num"><a href="#42">42</a></span><span>    <span class="c1"># Popen will fail (sometimes with a deadlock) if stdin, stdout, and stderr</span></span>
+<span class="num"><a href="#43">43</a></span><span>    <span class="c1"># are invalid. Unfortunately, there is in general no way to detect whether</span></span>
+<span class="num"><a href="#44">44</a></span><span>    <span class="c1"># they are valid.  The following two blocks redirect them to (temporary)</span></span>
+<span class="num"><a href="#45">45</a></span><span>    <span class="c1"># pipes in certain important cases.</span></span>
+<span class="num"><a href="#46">46</a></span><span></span>
+<span class="num"><a href="#47">47</a></span><span>    <span class="c1"># If this process has been backgrounded, our stdin is invalid. Since there</span></span>
+<span class="num"><a href="#48">48</a></span><span>    <span class="c1"># is no compelling reason for the kernel to inherit our stdin anyway, we&#39;ll</span></span>
+<span class="num"><a href="#49">49</a></span><span>    <span class="c1"># place this one safe and always redirect.</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">    <span class="n">redirect_in</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">    <span class="n">_stdin</span> <span class="o">=</span> <span class="n">PIPE</span> <span class="k">if</span> <span class="n">stdin</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">stdin</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span>    <span class="c1"># If this process in running on pythonw, we know that stdin, stdout, and</span></span>
+<span class="num"><a href="#54">54</a></span><span>    <span class="c1"># stderr are all invalid.</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">    <span class="n">redirect_out</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;pythonw.exe&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">    <span class="k">if</span> <span class="n">redirect_out</span><span class="p">:</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="n">blackhole</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">        <span class="n">_stdout</span> <span class="o">=</span> <span class="n">blackhole</span> <span class="k">if</span> <span class="n">stdout</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">stdout</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full not_run">        <span class="n">_stderr</span> <span class="o">=</span> <span class="n">blackhole</span> <span class="k">if</span> <span class="n">stderr</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">stderr</span></span>
+<span class="num"><a href="#60">60</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">        <span class="n">_stdout</span><span class="p">,</span> <span class="n">_stderr</span> <span class="o">=</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span></span>
+<span class="num"><a href="#62">62</a></span><span></span>
+<span class="num"><a href="#63">63</a></span><span class="full run">    <span class="n">env</span> <span class="o">=</span> <span class="n">env</span> <span class="k">if</span> <span class="p">(</span><span class="n">env</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></span>
+<span class="num"><a href="#64">64</a></span><span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">    <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">    <span class="n">main_args</span> <span class="o">=</span> <span class="p">{</span></span>
+<span class="num"><a href="#67">67</a></span><span class="full run">        <span class="s2">&quot;stdin&quot;</span><span class="p">:</span> <span class="n">_stdin</span><span class="p">,</span></span>
+<span class="num"><a href="#68">68</a></span><span class="full run">        <span class="s2">&quot;stdout&quot;</span><span class="p">:</span> <span class="n">_stdout</span><span class="p">,</span></span>
+<span class="num"><a href="#69">69</a></span><span class="full run">        <span class="s2">&quot;stderr&quot;</span><span class="p">:</span> <span class="n">_stderr</span><span class="p">,</span></span>
+<span class="num"><a href="#70">70</a></span><span class="full run">        <span class="s2">&quot;cwd&quot;</span><span class="p">:</span> <span class="n">cwd</span><span class="p">,</span></span>
+<span class="num"><a href="#71">71</a></span><span class="full run">        <span class="s2">&quot;env&quot;</span><span class="p">:</span> <span class="n">env</span><span class="p">,</span></span>
+<span class="num"><a href="#72">72</a></span><span>    <span class="p">}</span></span>
+<span class="num"><a href="#73">73</a></span><span class="full run">    <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">main_args</span><span class="p">)</span></span>
+<span class="num"><a href="#74">74</a></span><span></span>
+<span class="num"><a href="#75">75</a></span><span>    <span class="c1"># Spawn a kernel.</span></span>
+<span class="num"><a href="#76">76</a></span><span class="full run">    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#77">77</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">cwd</span><span class="p">:</span></span>
+<span class="num"><a href="#78">78</a></span><span class="full not_run">            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cwd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cwd</span></span>
+<span class="num"><a href="#79">79</a></span><span></span>
+<span class="num"><a href="#80">80</a></span><span class="full not_run">        <span class="kn">from</span> <span class="nn">.win_interrupt</span> <span class="kn">import</span> <span class="n">create_interrupt_event</span></span>
+<span class="num"><a href="#81">81</a></span><span></span>
+<span class="num"><a href="#82">82</a></span><span>        <span class="c1"># Create a Win32 event for interrupting the kernel</span></span>
+<span class="num"><a href="#83">83</a></span><span>        <span class="c1"># and store it in an environment variable.</span></span>
+<span class="num"><a href="#84">84</a></span><span class="full not_run">        <span class="n">interrupt_event</span> <span class="o">=</span> <span class="n">create_interrupt_event</span><span class="p">()</span></span>
+<span class="num"><a href="#85">85</a></span><span class="full not_run">        <span class="n">env</span><span class="p">[</span><span class="s2">&quot;JPY_INTERRUPT_EVENT&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">interrupt_event</span><span class="p">)</span></span>
+<span class="num"><a href="#86">86</a></span><span>        <span class="c1"># deprecated old env name:</span></span>
+<span class="num"><a href="#87">87</a></span><span class="full not_run">        <span class="n">env</span><span class="p">[</span><span class="s2">&quot;IPY_INTERRUPT_EVENT&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s2">&quot;JPY_INTERRUPT_EVENT&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#88">88</a></span><span></span>
+<span class="num"><a href="#89">89</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#90">90</a></span><span class="full not_run">            <span class="kn">from</span> <span class="nn">_winapi</span> <span class="kn">import</span> <span class="p">(</span></span>
+<span class="num"><a href="#91">91</a></span><span>                <span class="n">CREATE_NEW_PROCESS_GROUP</span><span class="p">,</span></span>
+<span class="num"><a href="#92">92</a></span><span>                <span class="n">DUPLICATE_SAME_ACCESS</span><span class="p">,</span></span>
+<span class="num"><a href="#93">93</a></span><span>                <span class="n">DuplicateHandle</span><span class="p">,</span></span>
+<span class="num"><a href="#94">94</a></span><span>                <span class="n">GetCurrentProcess</span><span class="p">,</span></span>
+<span class="num"><a href="#95">95</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#96">96</a></span><span class="full not_run">        <span class="k">except</span><span class="p">:</span>  <span class="c1"># noqa</span></span>
+<span class="num"><a href="#97">97</a></span><span class="full not_run">            <span class="kn">from</span> <span class="nn">_subprocess</span> <span class="kn">import</span> <span class="p">(</span></span>
+<span class="num"><a href="#98">98</a></span><span>                <span class="n">CREATE_NEW_PROCESS_GROUP</span><span class="p">,</span></span>
+<span class="num"><a href="#99">99</a></span><span>                <span class="n">DUPLICATE_SAME_ACCESS</span><span class="p">,</span></span>
+<span class="num"><a href="#100">100</a></span><span>                <span class="n">DuplicateHandle</span><span class="p">,</span></span>
+<span class="num"><a href="#101">101</a></span><span>                <span class="n">GetCurrentProcess</span><span class="p">,</span></span>
+<span class="num"><a href="#102">102</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#103">103</a></span><span></span>
+<span class="num"><a href="#104">104</a></span><span>        <span class="c1"># create a handle on the parent to be inherited</span></span>
+<span class="num"><a href="#105">105</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">independent</span><span class="p">:</span></span>
+<span class="num"><a href="#106">106</a></span><span class="full not_run">            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;creationflags&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CREATE_NEW_PROCESS_GROUP</span></span>
+<span class="num"><a href="#107">107</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#108">108</a></span><span class="full not_run">            <span class="n">pid</span> <span class="o">=</span> <span class="n">GetCurrentProcess</span><span class="p">()</span></span>
+<span class="num"><a href="#109">109</a></span><span class="full not_run">            <span class="n">handle</span> <span class="o">=</span> <span class="n">DuplicateHandle</span><span class="p">(</span></span>
+<span class="num"><a href="#110">110</a></span><span class="full not_run">                <span class="n">pid</span><span class="p">,</span></span>
+<span class="num"><a href="#111">111</a></span><span class="full not_run">                <span class="n">pid</span><span class="p">,</span></span>
+<span class="num"><a href="#112">112</a></span><span class="full not_run">                <span class="n">pid</span><span class="p">,</span></span>
+<span class="num"><a href="#113">113</a></span><span class="full not_run">                <span class="mi">0</span><span class="p">,</span></span>
+<span class="num"><a href="#114">114</a></span><span class="full not_run">                <span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#115">115</a></span><span class="full not_run">                <span class="n">DUPLICATE_SAME_ACCESS</span><span class="p">,</span>  <span class="c1"># Inheritable by new processes.</span></span>
+<span class="num"><a href="#116">116</a></span><span>            <span class="p">)</span></span>
+<span class="num"><a href="#117">117</a></span><span class="full not_run">            <span class="n">env</span><span class="p">[</span><span class="s2">&quot;JPY_PARENT_PID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">handle</span><span class="p">))</span></span>
+<span class="num"><a href="#118">118</a></span><span></span>
+<span class="num"><a href="#119">119</a></span><span>        <span class="c1"># Prevent creating new console window on pythonw</span></span>
+<span class="num"><a href="#120">120</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">redirect_out</span><span class="p">:</span></span>
+<span class="num"><a href="#121">121</a></span><span class="full not_run">            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;creationflags&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#122">122</a></span><span class="full not_run">                <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;creationflags&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="mh">0x08000000</span></span>
+<span class="num"><a href="#123">123</a></span><span>            <span class="p">)</span>  <span class="c1"># CREATE_NO_WINDOW</span></span>
+<span class="num"><a href="#124">124</a></span><span></span>
+<span class="num"><a href="#125">125</a></span><span>        <span class="c1"># Avoid closing the above parent and interrupt handles.</span></span>
+<span class="num"><a href="#126">126</a></span><span>        <span class="c1"># close_fds is True by default on Python &gt;=3.7</span></span>
+<span class="num"><a href="#127">127</a></span><span>        <span class="c1"># or when no stream is captured on Python &lt;3.7</span></span>
+<span class="num"><a href="#128">128</a></span><span>        <span class="c1"># (we always capture stdin, so this is already False by default on &lt;3.7)</span></span>
+<span class="num"><a href="#129">129</a></span><span class="full not_run">        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;close_fds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#130">130</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#131">131</a></span><span>        <span class="c1"># Create a new session.</span></span>
+<span class="num"><a href="#132">132</a></span><span>        <span class="c1"># This makes it easier to interrupt the kernel,</span></span>
+<span class="num"><a href="#133">133</a></span><span>        <span class="c1"># because we want to interrupt the whole process group.</span></span>
+<span class="num"><a href="#134">134</a></span><span>        <span class="c1"># We don&#39;t use setpgrp, which is known to cause problems for kernels starting</span></span>
+<span class="num"><a href="#135">135</a></span><span>        <span class="c1"># certain interactive subprocesses, such as bash -i.</span></span>
+<span class="num"><a href="#136">136</a></span><span class="full run">        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;start_new_session&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#137">137</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">independent</span><span class="p">:</span></span>
+<span class="num"><a href="#138">138</a></span><span class="full run">            <span class="n">env</span><span class="p">[</span><span class="s2">&quot;JPY_PARENT_PID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span></span>
+<span class="num"><a href="#139">139</a></span><span></span>
+<span class="num"><a href="#140">140</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#141">141</a></span><span>        <span class="c1"># Allow to use ~/ in the command or its arguments</span></span>
+<span class="num"><a href="#142">142</a></span><span class="full run">        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">cmd</span><span class="p">]</span></span>
+<span class="num"><a href="#143">143</a></span><span class="full run">        <span class="n">proc</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#144">144</a></span><span class="full not_run">    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span></span>
+<span class="num"><a href="#145">145</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#146">146</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Failed to run command:</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">    PATH=</span><span class="si">{!r}</span><span class="se">\n</span><span class="s2">    with kwargs:</span><span class="se">\n</span><span class="si">{!r}</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#147">147</a></span><span>            <span class="c1"># exclude environment variables,</span></span>
+<span class="num"><a href="#148">148</a></span><span>            <span class="c1"># which may contain access tokens and the like.</span></span>
+<span class="num"><a href="#149">149</a></span><span class="full not_run">            <span class="n">without_env</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s2">&quot;env&quot;</span><span class="p">}</span></span>
+<span class="num"><a href="#150">150</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PATH&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">defpath</span><span class="p">),</span> <span class="n">without_env</span><span class="p">)</span></span>
+<span class="num"><a href="#151">151</a></span><span class="full not_run">            <span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#152">152</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex2</span><span class="p">:</span>  <span class="c1"># Don&#39;t let a formatting/logger issue lead to the wrong exception</span></span>
+<span class="num"><a href="#153">153</a></span><span class="full not_run">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to run command: &#39;</span><span class="si">{</span><span class="n">cmd</span><span class="si">}</span><span class="s2">&#39; due to exception: </span><span class="si">{</span><span class="n">ex</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#154">154</a></span><span class="full not_run">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The following exception occurred handling the previous failure: </span><span class="si">{</span><span class="n">ex2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#155">155</a></span><span class="full not_run">        <span class="k">raise</span> <span class="n">ex</span></span>
+<span class="num"><a href="#156">156</a></span><span></span>
+<span class="num"><a href="#157">157</a></span><span class="full run">    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#158">158</a></span><span>        <span class="c1"># Attach the interrupt event to the Popen objet so it can be used later.</span></span>
+<span class="num"><a href="#159">159</a></span><span class="full not_run">        <span class="n">proc</span><span class="o">.</span><span class="n">win32_interrupt_event</span> <span class="o">=</span> <span class="n">interrupt_event</span></span>
+<span class="num"><a href="#160">160</a></span><span></span>
+<span class="num"><a href="#161">161</a></span><span>    <span class="c1"># Clean up pipes created to work around Popen bug.</span></span>
+<span class="num"><a href="#162">162</a></span><span class="full run">    <span class="k">if</span> <span class="n">redirect_in</span> <span class="ow">and</span> <span class="n">stdin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#163">163</a></span><span class="full run">        <span class="k">assert</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></span>
+<span class="num"><a href="#164">164</a></span><span class="full run">        <span class="n">proc</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span>
+<span class="num"><a href="#165">165</a></span><span></span>
+<span class="num"><a href="#166">166</a></span><span class="full run">    <span class="k">return</span> <span class="n">proc</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

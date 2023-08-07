@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>logging.handlers.HTTPHandler.__init__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: logging.handlers.HTTPHandler.__init__</h1>
+                <span>Calls: 5, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 4 calls (0.8)</p>
+                <p><button class="input"><span>&#8594;</span> host</button> 'localhost' (2) 'localhost:50191' (1) 'localhost:50196' (1) </p>
+                <p><button class="input"><span>&#8594;</span> url</button> '/frob' (2) '/log' (2) </p>
+                <p><button class="input"><span>&#8594;</span> method</button> 'GET' (3) 'POST' (1) </p>
+                <p><button class="input"><span>&#8594;</span> secure</button> False (3) SSLContext (1) </p>
+                <p><button class="input"><span>&#8594;</span> credentials</button> ('foo', 'bar') (2) None (2) </p>
+                <p><button class="input"><span>&#8594;</span> context</button> None (3) SSLContext (1) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">secure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Initialize the instance with the host, the request URL, and the method</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        (&quot;GET&quot; or &quot;POST&quot;)</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">logging</span><span class="o">.</span><span class="n">Handler</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">method</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">]:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;method must be GET or POST&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">secure</span> <span class="ow">and</span> <span class="n">context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;context parameter only makes sense &quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>                             <span class="s2">&quot;with secure=True&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">secure</span> <span class="o">=</span> <span class="n">secure</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">credentials</span> <span class="o">=</span> <span class="n">credentials</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (0.2)</p>
+                <p><button class="input"><span>&#8594;</span> host</button> 'localhost' (1) </p>
+                <p><button class="input"><span>&#8594;</span> url</button> '/log' (1) </p>
+                <p><button class="input"><span>&#8594;</span> method</button> 'PUT' (1) </p>
+                <p><button class="input"><span>&#8594;</span> secure</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> credentials</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> context</button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">secure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        Initialize the instance with the host, the request URL, and the method</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        (&quot;GET&quot; or &quot;POST&quot;)</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">logging</span><span class="o">.</span><span class="n">Handler</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">method</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">]:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;method must be GET or POST&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">secure</span> <span class="ow">and</span> <span class="n">context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;context parameter only makes sense &quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span>                             <span class="s2">&quot;with secure=True&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">secure</span> <span class="o">=</span> <span class="n">secure</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">credentials</span> <span class="o">=</span> <span class="n">credentials</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

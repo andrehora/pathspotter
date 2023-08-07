@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>imaplib._Authenticator.encode</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: imaplib._Authenticator.encode</h1>
+                <span>Calls: 30, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 18 calls (0.6)</p>
+                <p><button class="input"><span>&#8594;</span> inp</button> bytes (18) </p>
+                <p><button class="output"><span>&#8617; return</span></button> bytes (18) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inp</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1">#  Invoke binascii.b2a_base64 iteratively with</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1">#  short even length buffers, strip the trailing</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1">#  line feed from the result and append.  &quot;Even&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1">#  means a number that factors to both 6 and 8,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1">#  so when it gets to the end of the 8-bit input</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1">#  there&#39;s no partial 6-bit output.</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">oup</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">inp</span> <span class="o">=</span> <span class="n">inp</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">while</span> <span class="n">inp</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">48</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="n">t</span> <span class="o">=</span> <span class="n">inp</span><span class="p">[:</span><span class="mi">48</span><span class="p">]</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="n">inp</span> <span class="o">=</span> <span class="n">inp</span><span class="p">[</span><span class="mi">48</span><span class="p">:]</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">t</span> <span class="o">=</span> <span class="n">inp</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">inp</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">e</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">b2a_base64</span><span class="p">(</span><span class="n">t</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="n">oup</span> <span class="o">=</span> <span class="n">oup</span> <span class="o">+</span> <span class="n">e</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">return</span> <span class="n">oup</span></span>
+            </pre>
+            <p><b>Path 2</b>: 12 calls (0.4)</p>
+                <p><button class="input"><span>&#8594;</span> inp</button> 'tim f1ca6be464b9efa1cca6ffd6cf2d9f32' (8) 'fake' (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> bytes (12) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inp</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1">#  Invoke binascii.b2a_base64 iteratively with</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1">#  short even length buffers, strip the trailing</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1">#  line feed from the result and append.  &quot;Even&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1">#  means a number that factors to both 6 and 8,</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1">#  so when it gets to the end of the 8-bit input</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="c1">#  there&#39;s no partial 6-bit output.</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">oup</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">inp</span> <span class="o">=</span> <span class="n">inp</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">while</span> <span class="n">inp</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">48</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                <span class="n">t</span> <span class="o">=</span> <span class="n">inp</span><span class="p">[:</span><span class="mi">48</span><span class="p">]</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="n">inp</span> <span class="o">=</span> <span class="n">inp</span><span class="p">[</span><span class="mi">48</span><span class="p">:]</span></span>
+<span class="num"><a href="#17">17</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">t</span> <span class="o">=</span> <span class="n">inp</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                <span class="n">inp</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="n">e</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">b2a_base64</span><span class="p">(</span><span class="n">t</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="n">oup</span> <span class="o">=</span> <span class="n">oup</span> <span class="o">+</span> <span class="n">e</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">return</span> <span class="n">oup</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

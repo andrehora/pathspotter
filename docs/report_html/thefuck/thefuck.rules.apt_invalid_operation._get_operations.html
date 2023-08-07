@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>thefuck.rules.apt_invalid_operation._get_operations</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: thefuck.rules.apt_invalid_operation._get_operations</h1>
+                <span>Calls: 5, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 3 calls (0.6)</p>
+                <p><button class="input"><span>&#8594;</span> app</button> 'apt-get' (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['update', 'upgrade', 'install', 'remove', 'autoremove', 'purge', 'source', 'build-dep', 'dist-upgrade', 'dselect-upgrade', 'clean', 'autoclean', 'che...</p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_operations</span><span class="p">(</span><span class="n">app</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="n">app</span><span class="p">,</span> <span class="s1">&#39;--help&#39;</span><span class="p">],</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">                            <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">                            <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">lines</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">if</span> <span class="n">app</span> <span class="o">==</span> <span class="s1">&#39;apt&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">_parse_apt_operations</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">return</span> <span class="n">_parse_apt_get_and_cache_operations</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2 calls (0.4)</p>
+                <p><button class="input"><span>&#8594;</span> app</button> 'apt' (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['list', 'search', 'show', 'update', 'install', 'remove', 'upgrade', 'full-upgrade', 'edit-sources'] (2) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_get_operations</span><span class="p">(</span><span class="n">app</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">    <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="n">app</span><span class="p">,</span> <span class="s1">&#39;--help&#39;</span><span class="p">],</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">                            <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">                            <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">lines</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">if</span> <span class="n">app</span> <span class="o">==</span> <span class="s1">&#39;apt&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="n">_parse_apt_operations</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">_parse_apt_get_and_cache_operations</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

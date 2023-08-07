@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>bentoml._internal.configuration.load_config</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: bentoml._internal.configuration.load_config</h1>
+                <span>Calls: 1, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> bentoml_config_file</button> None (1) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">load_config</span><span class="p">(</span><span class="n">bentoml_config_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Load global configuration of BentoML&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="kn">from</span> <span class="nn">.containers</span> <span class="kn">import</span> <span class="n">BentoMLContainer</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="kn">from</span> <span class="nn">.containers</span> <span class="kn">import</span> <span class="n">BentoMLConfiguration</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">bentoml_config_file</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">bentoml_config_file</span> <span class="o">=</span> <span class="n">get_bentoml_config_file_from_env</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">if</span> <span class="n">bentoml_config_file</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">bentoml_config_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s2">&quot;.yml&quot;</span><span class="p">,</span> <span class="s2">&quot;.yaml&quot;</span><span class="p">)):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">BentoMLConfigException</span><span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot;BentoML config file specified in ENV VAR does not end with either &#39;.yaml&#39; or &#39;.yml&#39;: &#39;BENTOML_CONFIG=</span><span class="si">{</span><span class="n">bentoml_config_file</span><span class="si">}</span><span class="s2">&#39;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">bentoml_config_file</span><span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                <span class="sa">f</span><span class="s2">&quot;BentoML config file specified in ENV VAR not found: &#39;BENTOML_CONFIG=</span><span class="si">{</span><span class="n">bentoml_config_file</span><span class="si">}</span><span class="s2">&#39;&quot;</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">BentoMLContainer</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">BentoMLConfiguration</span><span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">override_config_file</span><span class="o">=</span><span class="n">bentoml_config_file</span><span class="p">,</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">            <span class="n">override_config_values</span><span class="o">=</span><span class="n">get_bentoml_override_config_from_env</span><span class="p">(),</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">        <span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>    <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

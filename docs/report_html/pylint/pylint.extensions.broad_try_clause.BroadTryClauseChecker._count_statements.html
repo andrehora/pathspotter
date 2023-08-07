@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.extensions.broad_try_clause.BroadTryClauseChecker._count_statements</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.extensions.broad_try_clause.BroadTryClauseChecker._count_statements</h1>
+                <span>Calls: 9, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 8 calls (0.89)</p>
+                <p><button class="input"><span>&#8594;</span> try_node</button> TryExcept (3) TryFinally (2) If (1) While (1) For (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 1 (4) 3 (2) 4 (1) 2 (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_count_statements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">try_node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">TryExcept</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">TryFinally</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">statement_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">try_node</span><span class="o">.</span><span class="n">body</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">for</span> <span class="n">body_node</span> <span class="ow">in</span> <span class="n">try_node</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">body_node</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">For</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">If</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">While</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">With</span><span class="p">)):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">                <span class="n">statement_count</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count_statements</span><span class="p">(</span><span class="n">body_node</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="n">statement_count</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (0.11)</p>
+                <p><button class="input"><span>&#8594;</span> try_node</button> TryExcept (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 7 (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_count_statements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">try_node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">TryExcept</span> <span class="o">|</span> <span class="n">nodes</span><span class="o">.</span><span class="n">TryFinally</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">statement_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">try_node</span><span class="o">.</span><span class="n">body</span><span class="p">)</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">for</span> <span class="n">body_node</span> <span class="ow">in</span> <span class="n">try_node</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">body_node</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">For</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">If</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">While</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">With</span><span class="p">)):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                <span class="n">statement_count</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count_statements</span><span class="p">(</span><span class="n">body_node</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="n">statement_count</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

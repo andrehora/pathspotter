@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.epylint.py_run</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.epylint.py_run</h1>
+                <span>Calls: 2, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 2 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> command_options</button> "/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-178/test_epylint_good_command0/my_app.py -E --disable=E1111 --msg...</p>
+                <p><button class="input"><span>&#8594;</span> return_std</button> True (2) </p>
+                <p><button class="input"><span>&#8594;</span> stdout</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> stderr</button> None (2) </p>
+            <button class="run" title="lines run...">23 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">py_run</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">command_options</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">return_std</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">stdout</span><span class="p">:</span> <span class="n">TextIO</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">stderr</span><span class="p">:</span> <span class="n">TextIO</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">StringIO</span><span class="p">,</span> <span class="n">StringIO</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pylint from python.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    ``command_options`` is a string containing ``pylint`` command line options;</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    ``return_std`` (boolean) indicates return of created standard output</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    and error (see below);</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    ``stdout`` and ``stderr`` are &#39;file-like&#39; objects in which standard output</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">    could be written.</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">    Calling agent is responsible for stdout/err management (creation, close).</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    Default standard output and error are those from sys,</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">    or standalone ones (``subprocess.PIPE``) are used</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">    if they are not set and ``return_std``.</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">    If ``return_std`` is set to ``True``, this function returns a 2-uple</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">    containing standard output and error related to created process,</span></span>
+<span class="num"><a href="#22">22</a></span><span><span class="sd">    as follows: ``(stdout, stderr)``.</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">    To silently run Pylint on a module, and get its standard output and error:</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">        &gt;&gt;&gt; (pylint_stdout, pylint_stderr) = py_run( &#39;module_name.py&#39;, True)</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="s2">&quot;&#39;epylint&#39; will be removed in pylint 3.0, use https://github.com/emacsorphanage/pylint instead.&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="ne">DeprecationWarning</span><span class="p">,</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span>    <span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span>    <span class="c1"># Detect if we use Python as executable or not, else default to `python`</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="n">executable</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span> <span class="k">if</span> <span class="s2">&quot;python&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span> <span class="k">else</span> <span class="s2">&quot;python&quot;</span></span>
+<span class="num"><a href="#34">34</a></span><span></span>
+<span class="num"><a href="#35">35</a></span><span>    <span class="c1"># Create command line to call pylint</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">    <span class="n">epylint_part</span> <span class="o">=</span> <span class="p">[</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;from pylint import epylint;epylint.Run()&quot;</span><span class="p">]</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">    <span class="n">options</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">command_options</span><span class="p">,</span> <span class="n">posix</span><span class="o">=</span><span class="ow">not</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;win&quot;</span><span class="p">))</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">    <span class="n">cli</span> <span class="o">=</span> <span class="n">epylint_part</span> <span class="o">+</span> <span class="n">options</span></span>
+<span class="num"><a href="#39">39</a></span><span></span>
+<span class="num"><a href="#40">40</a></span><span>    <span class="c1"># Providing standard output and/or error if not set</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">    <span class="k">if</span> <span class="n">stdout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="n">stdout</span> <span class="o">=</span> <span class="n">PIPE</span> <span class="k">if</span> <span class="n">return_std</span> <span class="k">else</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">    <span class="k">if</span> <span class="n">stderr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">        <span class="n">stderr</span> <span class="o">=</span> <span class="n">PIPE</span> <span class="k">if</span> <span class="n">return_std</span> <span class="k">else</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span></span>
+<span class="num"><a href="#45">45</a></span><span>    <span class="c1"># Call pylint in a sub-process</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">    <span class="k">with</span> <span class="n">Popen</span><span class="p">(</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="n">cli</span><span class="p">,</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">        <span class="n">shell</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">        <span class="n">stdout</span><span class="o">=</span><span class="n">stdout</span><span class="p">,</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full run">        <span class="n">stderr</span><span class="o">=</span><span class="n">stderr</span><span class="p">,</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full run">        <span class="n">env</span><span class="o">=</span><span class="n">_get_env</span><span class="p">(),</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">    <span class="p">)</span> <span class="k">as</span> <span class="n">process</span><span class="p">:</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full run">        <span class="n">proc_stdout</span><span class="p">,</span> <span class="n">proc_stderr</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># Return standard output and error</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">        <span class="k">if</span> <span class="n">return_std</span><span class="p">:</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">            <span class="k">return</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">proc_stdout</span><span class="p">),</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">proc_stderr</span><span class="p">)</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

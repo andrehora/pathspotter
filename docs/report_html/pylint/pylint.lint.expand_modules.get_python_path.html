@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.lint.expand_modules.get_python_path</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.lint.expand_modules.get_python_path</h1>
+                <span>Calls: 3398, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1967 calls (0.58)</p>
+                <p><button class="input"><span>&#8594;</span> filepath</button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/config/file_to_lint.py' (150) '/Users/andrehora/Documents/git/projects-pathspotter/p...</p>
+                <p><button class="output"><span>&#8617; return</span></button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/regrtest_data' (336) '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tes...</p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_python_path</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;TODO This get the python path with the (bad) assumption that there is always</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    an __init__.py.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    This is not true since python 3.3 and is causing problem.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s2">&quot;__init__.py&quot;</span><span class="p">)):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">return</span> <span class="n">dirname</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="n">old_dirname</span> <span class="o">=</span> <span class="n">dirname</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">old_dirname</span> <span class="o">==</span> <span class="n">dirname</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1259 calls (0.37)</p>
+                <p><button class="input"><span>&#8594;</span> filepath</button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/functional/t/too/too_many_branches.py' (15) '/Users/andrehora/Documents/git/projects...</p>
+                <p><button class="output"><span>&#8617; return</span></button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests' (1221) '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/regrtest_d...</p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_python_path</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;TODO This get the python path with the (bad) assumption that there is always</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    an __init__.py.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    This is not true since python 3.3 and is causing problem.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s2">&quot;__init__.py&quot;</span><span class="p">)):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">return</span> <span class="n">dirname</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">old_dirname</span> <span class="o">=</span> <span class="n">dirname</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="n">old_dirname</span> <span class="o">==</span> <span class="n">dirname</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 3</b>: 152 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> filepath</button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/lint/../regrtest_data/directory/package' (24) '/Users/andrehora/Documents/git/projec...</p>
+                <p><button class="output"><span>&#8617; return</span></button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/regrtest_data/directory' (45) '/Users/andrehora/Documents/git/projects-pathspotter/p...</p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_python_path</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;TODO This get the python path with the (bad) assumption that there is always</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    an __init__.py.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    This is not true since python 3.3 and is causing problem.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s2">&quot;__init__.py&quot;</span><span class="p">)):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">return</span> <span class="n">dirname</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">old_dirname</span> <span class="o">=</span> <span class="n">dirname</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="n">old_dirname</span> <span class="o">==</span> <span class="n">dirname</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 4</b>: 20 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> filepath</button> 'a' (5) '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/checkers/../regrtest_data/beyond_top_two' (3) '/Users/andrehora/Documents/gi...</p>
+                <p><button class="output"><span>&#8617; return</span></button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/regrtest_data/beyond_top_two' (3) '/Users/andrehora/Documents/git/projects-pathspott...</p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_python_path</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;TODO This get the python path with the (bad) assumption that there is always</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    an __init__.py.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    This is not true since python 3.3 and is causing problem.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s2">&quot;__init__.py&quot;</span><span class="p">)):</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">return</span> <span class="n">dirname</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="n">old_dirname</span> <span class="o">=</span> <span class="n">dirname</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">old_dirname</span> <span class="o">==</span> <span class="n">dirname</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

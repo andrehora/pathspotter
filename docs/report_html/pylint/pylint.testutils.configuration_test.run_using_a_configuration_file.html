@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.testutils.configuration_test.run_using_a_configuration_file</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.testutils.configuration_test.run_using_a_configuration_file</h1>
+                <span>Calls: 61, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 61 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> configuration_path</button> '$tmp_path_env' (1) '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-178/test_functional_config_loading0/pylintrc'...</p>
+                <p><button class="input"><span>&#8594;</span> file_to_lint</button> '/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/config/file_to_lint.py' (61) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (61) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">run_using_a_configuration_file</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">configuration_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_to_lint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="vm">__file__</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Mock</span><span class="p">,</span> <span class="n">Mock</span><span class="p">,</span> <span class="n">Run</span><span class="p">]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulate a run with a configuration without really launching the checks.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">configuration_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">configuration_path</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;--rcfile&quot;</span><span class="p">,</span> <span class="n">configuration_path</span><span class="p">,</span> <span class="n">file_to_lint</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="c1"># We do not capture the `SystemExit` as then the `runner` variable</span></span>
+<span class="num"><a href="#8">8</a></span><span>    <span class="c1"># would not be accessible outside the `with` block.</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">with</span> <span class="n">unittest</span><span class="o">.</span><span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">&quot;sys.exit&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mocked_exit</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># Do not actually run checks, that could be slow. We don&#39;t mock</span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># `PyLinter.check`: it calls `PyLinter.initialize` which is</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># needed to properly set up messages inclusion/exclusion</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># in `_msg_states`, used by `is_message_enabled`.</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">check</span> <span class="o">=</span> <span class="s2">&quot;pylint.lint.pylinter.check_parallel&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">with</span> <span class="n">unittest</span><span class="o">.</span><span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">check</span><span class="p">)</span> <span class="k">as</span> <span class="n">mocked_check_parallel</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">runner</span> <span class="o">=</span> <span class="n">Run</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="k">return</span> <span class="n">mocked_exit</span><span class="p">,</span> <span class="n">mocked_check_parallel</span><span class="p">,</span> <span class="n">runner</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>argparse.HelpFormatter._format_text</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: argparse.HelpFormatter._format_text</h1>
+                <span>Calls: 83, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 81 calls (0.98)</p>
+                <p><button class="input"><span>&#8594;</span> text</button> 'description' (12) 'DESCRIPTION' (12) 'main description' (9) 'EPILOG' (9) 'Keep the formatting\n    exactly as it is written\n\nhere\n' (6) '    This ...</p>
+                <p><button class="output"><span>&#8617; return</span></button> 'DESCRIPTION\n\n' (12) 'main description\n\n' (9) 'description\n\n' (9) 'EPILOG\n\n' (9) 'Keep the formatting\n    exactly as it is written\n\nhere\n\...</p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_format_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;%(prog)&#39;</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span> <span class="o">%</span> <span class="nb">dict</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_prog</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">text_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_width</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_indent</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_indent</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fill_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">text_width</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2 calls (0.02)</p>
+                <p><button class="input"><span>&#8594;</span> text</button> '%(prog)s 3.7' (1) '%(prog)s 3.5' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'XXX 3.7\n\n' (1) 'PPP 3.5\n\n' (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_format_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;%(prog)&#39;</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span> <span class="o">%</span> <span class="nb">dict</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_prog</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="n">text_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_width</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_indent</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_indent</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fill_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">text_width</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

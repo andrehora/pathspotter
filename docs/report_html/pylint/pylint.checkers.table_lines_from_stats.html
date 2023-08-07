@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.table_lines_from_stats</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.table_lines_from_stats</h1>
+                <span>Calls: 6, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 3 calls (0.5)</p>
+                <p><button class="input"><span>&#8594;</span> stats</button> LinterStats (3) </p>
+                <p><button class="input"><span>&#8594;</span> old_stats</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> stat_type</button> 'duplicated_lines' (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['nb duplicated lines', '0', 'NC', 'NC', 'percent duplicated lines', '0.000', 'NC', 'NC'] (3) </p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">20 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">table_lines_from_stats</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">stats</span><span class="p">:</span> <span class="n">LinterStats</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">old_stats</span><span class="p">:</span> <span class="n">LinterStats</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">stat_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;duplicated_lines&quot;</span><span class="p">,</span> <span class="s2">&quot;message_types&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get values listed in &lt;columns&gt; from &lt;stats&gt; and &lt;old_stats&gt;,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    and return a formatted list of values.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    The return value is designed to be given to a ureport.Table object</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="n">lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">if</span> <span class="n">stat_type</span> <span class="o">==</span> <span class="s2">&quot;duplicated_lines&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">new</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="p">(</span><span class="s2">&quot;nb_duplicated_lines&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">duplicated_lines</span><span class="p">[</span><span class="s2">&quot;nb_duplicated_lines&quot;</span><span class="p">]),</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">            <span class="p">(</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="s2">&quot;percent_duplicated_lines&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="n">stats</span><span class="o">.</span><span class="n">duplicated_lines</span><span class="p">[</span><span class="s2">&quot;percent_duplicated_lines&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="p">),</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="n">old_stats</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">old</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="p">(</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="s2">&quot;nb_duplicated_lines&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="n">old_stats</span><span class="o">.</span><span class="n">duplicated_lines</span><span class="p">[</span><span class="s2">&quot;nb_duplicated_lines&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">),</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="p">(</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                    <span class="s2">&quot;percent_duplicated_lines&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="n">old_stats</span><span class="o">.</span><span class="n">duplicated_lines</span><span class="p">[</span><span class="s2">&quot;percent_duplicated_lines&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">),</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="n">old</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;nb_duplicated_lines&quot;</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;percent_duplicated_lines&quot;</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">)]</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">    <span class="k">elif</span> <span class="n">stat_type</span> <span class="o">==</span> <span class="s2">&quot;message_types&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">        <span class="n">new</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="p">(</span><span class="s2">&quot;convention&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">convention</span><span class="p">),</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="p">(</span><span class="s2">&quot;refactor&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">refactor</span><span class="p">),</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="p">(</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">warning</span><span class="p">),</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">error</span><span class="p">),</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">old_stats</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">old</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="p">(</span><span class="s2">&quot;convention&quot;</span><span class="p">,</span> <span class="n">old_stats</span><span class="o">.</span><span class="n">convention</span><span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="p">(</span><span class="s2">&quot;refactor&quot;</span><span class="p">,</span> <span class="n">old_stats</span><span class="o">.</span><span class="n">refactor</span><span class="p">),</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="p">(</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="n">old_stats</span><span class="o">.</span><span class="n">warning</span><span class="p">),</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">old_stats</span><span class="o">.</span><span class="n">error</span><span class="p">),</span></span>
+<span class="num"><a href="#46">46</a></span><span>            <span class="p">]</span></span>
+<span class="num"><a href="#47">47</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="n">old</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#49">49</a></span><span>                <span class="p">(</span><span class="s2">&quot;convention&quot;</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#50">50</a></span><span>                <span class="p">(</span><span class="s2">&quot;refactor&quot;</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#51">51</a></span><span>                <span class="p">(</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#52">52</a></span><span>                <span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#53">53</a></span><span>            <span class="p">]</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new</span><span class="p">):</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">        <span class="n">new_value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">        <span class="n">old_value</span> <span class="o">=</span> <span class="n">old</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">        <span class="n">diff_str</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">            <span class="n">diff_string</span><span class="p">(</span><span class="n">old_value</span><span class="p">,</span> <span class="n">new_value</span><span class="p">)</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old_value</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">            <span class="k">else</span> <span class="n">old_value</span></span>
+<span class="num"><a href="#62">62</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full run">        <span class="n">new_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">new_value</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_value</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full run">        <span class="n">old_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">old_value</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old_value</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">old_value</span><span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">        <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">),</span> <span class="n">new_str</span><span class="p">,</span> <span class="n">old_str</span><span class="p">,</span> <span class="n">diff_str</span><span class="p">))</span>  <span class="c1"># type: ignore[arg-type]</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">    <span class="k">return</span> <span class="n">lines</span></span>
+            </pre>
+            <p><b>Path 2</b>: 3 calls (0.5)</p>
+                <p><button class="input"><span>&#8594;</span> stats</button> LinterStats (3) </p>
+                <p><button class="input"><span>&#8594;</span> old_stats</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> stat_type</button> 'message_types' (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> ['convention', '75', 'NC', 'NC', 'refactor', '10', 'NC', 'NC', 'warning', '53', 'NC', 'NC', 'error', '26', 'NC', 'NC'] (1) ['convention', '0', 'NC', '...</p>
+            <button class="run" title="lines run...">21 run</button>
+            <button class="not_run" title="lines not run...">19 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">table_lines_from_stats</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">stats</span><span class="p">:</span> <span class="n">LinterStats</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">old_stats</span><span class="p">:</span> <span class="n">LinterStats</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">stat_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;duplicated_lines&quot;</span><span class="p">,</span> <span class="s2">&quot;message_types&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get values listed in &lt;columns&gt; from &lt;stats&gt; and &lt;old_stats&gt;,</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    and return a formatted list of values.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    The return value is designed to be given to a ureport.Table object</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="n">lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">if</span> <span class="n">stat_type</span> <span class="o">==</span> <span class="s2">&quot;duplicated_lines&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="n">new</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="p">(</span><span class="s2">&quot;nb_duplicated_lines&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">duplicated_lines</span><span class="p">[</span><span class="s2">&quot;nb_duplicated_lines&quot;</span><span class="p">]),</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="p">(</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="s2">&quot;percent_duplicated_lines&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                <span class="n">stats</span><span class="o">.</span><span class="n">duplicated_lines</span><span class="p">[</span><span class="s2">&quot;percent_duplicated_lines&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#18">18</a></span><span>            <span class="p">),</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">old_stats</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">old</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="p">(</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="s2">&quot;nb_duplicated_lines&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="n">old_stats</span><span class="o">.</span><span class="n">duplicated_lines</span><span class="p">[</span><span class="s2">&quot;nb_duplicated_lines&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">),</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="p">(</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                    <span class="s2">&quot;percent_duplicated_lines&quot;</span><span class="p">,</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                    <span class="n">old_stats</span><span class="o">.</span><span class="n">duplicated_lines</span><span class="p">[</span><span class="s2">&quot;percent_duplicated_lines&quot;</span><span class="p">],</span></span>
+<span class="num"><a href="#29">29</a></span><span>                <span class="p">),</span></span>
+<span class="num"><a href="#30">30</a></span><span>            <span class="p">]</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">old</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;nb_duplicated_lines&quot;</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;percent_duplicated_lines&quot;</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">)]</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">    <span class="k">elif</span> <span class="n">stat_type</span> <span class="o">==</span> <span class="s2">&quot;message_types&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">        <span class="n">new</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="p">(</span><span class="s2">&quot;convention&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">convention</span><span class="p">),</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="p">(</span><span class="s2">&quot;refactor&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">refactor</span><span class="p">),</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="p">(</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">warning</span><span class="p">),</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">error</span><span class="p">),</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="p">]</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">if</span> <span class="n">old_stats</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">old</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="p">(</span><span class="s2">&quot;convention&quot;</span><span class="p">,</span> <span class="n">old_stats</span><span class="o">.</span><span class="n">convention</span><span class="p">),</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">                <span class="p">(</span><span class="s2">&quot;refactor&quot;</span><span class="p">,</span> <span class="n">old_stats</span><span class="o">.</span><span class="n">refactor</span><span class="p">),</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="p">(</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="n">old_stats</span><span class="o">.</span><span class="n">warning</span><span class="p">),</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">old_stats</span><span class="o">.</span><span class="n">error</span><span class="p">),</span></span>
+<span class="num"><a href="#46">46</a></span><span>            <span class="p">]</span></span>
+<span class="num"><a href="#47">47</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="n">old</span> <span class="o">=</span> <span class="p">[</span></span>
+<span class="num"><a href="#49">49</a></span><span>                <span class="p">(</span><span class="s2">&quot;convention&quot;</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#50">50</a></span><span>                <span class="p">(</span><span class="s2">&quot;refactor&quot;</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#51">51</a></span><span>                <span class="p">(</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#52">52</a></span><span>                <span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">),</span></span>
+<span class="num"><a href="#53">53</a></span><span>            <span class="p">]</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span class="full run">    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new</span><span class="p">):</span></span>
+<span class="num"><a href="#56">56</a></span><span class="full run">        <span class="n">new_value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">        <span class="n">old_value</span> <span class="o">=</span> <span class="n">old</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="num"><a href="#58">58</a></span><span class="full run">        <span class="n">diff_str</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#59">59</a></span><span class="full run">            <span class="n">diff_string</span><span class="p">(</span><span class="n">old_value</span><span class="p">,</span> <span class="n">new_value</span><span class="p">)</span></span>
+<span class="num"><a href="#60">60</a></span><span class="full run">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old_value</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span></span>
+<span class="num"><a href="#61">61</a></span><span class="full run">            <span class="k">else</span> <span class="n">old_value</span></span>
+<span class="num"><a href="#62">62</a></span><span>        <span class="p">)</span></span>
+<span class="num"><a href="#63">63</a></span><span class="full run">        <span class="n">new_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">new_value</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_value</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span></span>
+<span class="num"><a href="#64">64</a></span><span class="full run">        <span class="n">old_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">old_value</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old_value</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">old_value</span><span class="p">)</span></span>
+<span class="num"><a href="#65">65</a></span><span class="full run">        <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">),</span> <span class="n">new_str</span><span class="p">,</span> <span class="n">old_str</span><span class="p">,</span> <span class="n">diff_str</span><span class="p">))</span>  <span class="c1"># type: ignore[arg-type]</span></span>
+<span class="num"><a href="#66">66</a></span><span class="full run">    <span class="k">return</span> <span class="n">lines</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

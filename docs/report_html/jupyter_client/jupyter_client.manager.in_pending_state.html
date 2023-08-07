@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>jupyter_client.manager.in_pending_state</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: jupyter_client.manager.in_pending_state</h1>
+                <span>Calls: 2, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 2 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> method</button> KernelManager._async_start_kernel def (1) KernelManager._async_shutdown_kernel def (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> KernelManager._async_start_kernel def (1) KernelManager._async_shutdown_kernel def (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">in_pending_state</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">F</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets the kernel to a pending state by</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">    creating a fresh Future for the KernelManager&#39;s `ready`</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    attribute. Once the method is finished, set the Future&#39;s results.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="nd">@t</span><span class="o">.</span><span class="n">no_type_check</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">method</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">async</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a future for the decorated method.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attempted_start</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ready</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_ready</span> <span class="o">=</span> <span class="n">_get_future</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span>            <span class="c1"># call wrapped method, await, and set the result or exception.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">            <span class="n">out</span> <span class="o">=</span> <span class="k">await</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># Add a small sleep to ensure tests can capture the state before done</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_ready</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">out</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_ready</span><span class="o">.</span><span class="n">set_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ready</span><span class="o">.</span><span class="n">exception</span><span class="p">())</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">e</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">    <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

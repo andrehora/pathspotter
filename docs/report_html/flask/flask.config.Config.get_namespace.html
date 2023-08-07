@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>flask.config.Config.get_namespace</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: flask.config.Config.get_namespace</h1>
+                <span>Calls: 4, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1 calls (0.25)</p>
+                <p><button class="input"><span>&#8594;</span> namespace</button> 'FOO_' (1) </p>
+                <p><button class="input"><span>&#8594;</span> lowercase</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> trim_namespace</button> True (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> {'option_1': 'foo option 1', 'option_2': 'foo option 2'} (1) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_namespace</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lowercase</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">trim_namespace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a dictionary containing a subset of configuration options</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        that match the specified namespace/prefix. Example usage::</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            app.config[&#39;IMAGE_STORE_TYPE&#39;] = &#39;fs&#39;</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">            app.config[&#39;IMAGE_STORE_PATH&#39;] = &#39;/var/app/images&#39;</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            app.config[&#39;IMAGE_STORE_BASE_URL&#39;] = &#39;http://img.website.com&#39;</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            image_store_config = app.config.get_namespace(&#39;IMAGE_STORE_&#39;)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        The resulting dictionary `image_store_config` would look like::</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            {</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">                &#39;type&#39;: &#39;fs&#39;,</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">                &#39;path&#39;: &#39;/var/app/images&#39;,</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">                &#39;base_url&#39;: &#39;http://img.website.com&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">            }</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        This is often useful when configuration options map directly to</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        keyword arguments in functions or class constructors.</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        :param namespace: a configuration namespace</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        :param lowercase: a flag indicating if the keys of the resulting</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">                          dictionary should be lowercase</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">        :param trim_namespace: a flag indicating if the keys of the resulting</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">                          dictionary should not include the namespace</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">        .. versionadded:: 0.11</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="n">rv</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">namespace</span><span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="k">if</span> <span class="n">trim_namespace</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                <span class="n">key</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">namespace</span><span class="p">)</span> <span class="p">:]</span></span>
+<span class="num"><a href="#37">37</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                <span class="n">key</span> <span class="o">=</span> <span class="n">k</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="k">if</span> <span class="n">lowercase</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="n">rv</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="k">return</span> <span class="n">rv</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (0.25)</p>
+                <p><button class="input"><span>&#8594;</span> namespace</button> 'BAR_' (1) </p>
+                <p><button class="input"><span>&#8594;</span> lowercase</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> trim_namespace</button> True (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> {'STUFF_1': 'bar stuff 1', 'STUFF_2': 'bar stuff 2'} (1) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_namespace</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lowercase</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">trim_namespace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a dictionary containing a subset of configuration options</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        that match the specified namespace/prefix. Example usage::</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            app.config[&#39;IMAGE_STORE_TYPE&#39;] = &#39;fs&#39;</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">            app.config[&#39;IMAGE_STORE_PATH&#39;] = &#39;/var/app/images&#39;</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            app.config[&#39;IMAGE_STORE_BASE_URL&#39;] = &#39;http://img.website.com&#39;</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            image_store_config = app.config.get_namespace(&#39;IMAGE_STORE_&#39;)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        The resulting dictionary `image_store_config` would look like::</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            {</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">                &#39;type&#39;: &#39;fs&#39;,</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">                &#39;path&#39;: &#39;/var/app/images&#39;,</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">                &#39;base_url&#39;: &#39;http://img.website.com&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">            }</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        This is often useful when configuration options map directly to</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        keyword arguments in functions or class constructors.</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        :param namespace: a configuration namespace</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        :param lowercase: a flag indicating if the keys of the resulting</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">                          dictionary should be lowercase</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">        :param trim_namespace: a flag indicating if the keys of the resulting</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">                          dictionary should not include the namespace</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">        .. versionadded:: 0.11</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="n">rv</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">namespace</span><span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="k">if</span> <span class="n">trim_namespace</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                <span class="n">key</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">namespace</span><span class="p">)</span> <span class="p">:]</span></span>
+<span class="num"><a href="#37">37</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                <span class="n">key</span> <span class="o">=</span> <span class="n">k</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="k">if</span> <span class="n">lowercase</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="n">rv</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="k">return</span> <span class="n">rv</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.25)</p>
+                <p><button class="input"><span>&#8594;</span> namespace</button> 'FOO_' (1) </p>
+                <p><button class="input"><span>&#8594;</span> lowercase</button> True (1) </p>
+                <p><button class="input"><span>&#8594;</span> trim_namespace</button> False (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> {'foo_option_1': 'foo option 1', 'foo_option_2': 'foo option 2'} (1) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_namespace</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lowercase</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">trim_namespace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a dictionary containing a subset of configuration options</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        that match the specified namespace/prefix. Example usage::</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            app.config[&#39;IMAGE_STORE_TYPE&#39;] = &#39;fs&#39;</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">            app.config[&#39;IMAGE_STORE_PATH&#39;] = &#39;/var/app/images&#39;</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            app.config[&#39;IMAGE_STORE_BASE_URL&#39;] = &#39;http://img.website.com&#39;</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            image_store_config = app.config.get_namespace(&#39;IMAGE_STORE_&#39;)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        The resulting dictionary `image_store_config` would look like::</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            {</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">                &#39;type&#39;: &#39;fs&#39;,</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">                &#39;path&#39;: &#39;/var/app/images&#39;,</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">                &#39;base_url&#39;: &#39;http://img.website.com&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">            }</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        This is often useful when configuration options map directly to</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        keyword arguments in functions or class constructors.</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        :param namespace: a configuration namespace</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        :param lowercase: a flag indicating if the keys of the resulting</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">                          dictionary should be lowercase</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">        :param trim_namespace: a flag indicating if the keys of the resulting</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">                          dictionary should not include the namespace</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">        .. versionadded:: 0.11</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="n">rv</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">namespace</span><span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="k">if</span> <span class="n">trim_namespace</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="n">key</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">namespace</span><span class="p">)</span> <span class="p">:]</span></span>
+<span class="num"><a href="#37">37</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                <span class="n">key</span> <span class="o">=</span> <span class="n">k</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="k">if</span> <span class="n">lowercase</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">                <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="n">rv</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="k">return</span> <span class="n">rv</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.25)</p>
+                <p><button class="input"><span>&#8594;</span> namespace</button> 'BAR_' (1) </p>
+                <p><button class="input"><span>&#8594;</span> lowercase</button> False (1) </p>
+                <p><button class="input"><span>&#8594;</span> trim_namespace</button> False (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> {'BAR_STUFF_1': 'bar stuff 1', 'BAR_STUFF_2': 'bar stuff 2'} (1) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_namespace</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span> <span class="n">namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lowercase</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">trim_namespace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]:</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a dictionary containing a subset of configuration options</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        that match the specified namespace/prefix. Example usage::</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">            app.config[&#39;IMAGE_STORE_TYPE&#39;] = &#39;fs&#39;</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">            app.config[&#39;IMAGE_STORE_PATH&#39;] = &#39;/var/app/images&#39;</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">            app.config[&#39;IMAGE_STORE_BASE_URL&#39;] = &#39;http://img.website.com&#39;</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">            image_store_config = app.config.get_namespace(&#39;IMAGE_STORE_&#39;)</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        The resulting dictionary `image_store_config` would look like::</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">            {</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">                &#39;type&#39;: &#39;fs&#39;,</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">                &#39;path&#39;: &#39;/var/app/images&#39;,</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">                &#39;base_url&#39;: &#39;http://img.website.com&#39;</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">            }</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span><span class="sd">        This is often useful when configuration options map directly to</span></span>
+<span class="num"><a href="#21">21</a></span><span><span class="sd">        keyword arguments in functions or class constructors.</span></span>
+<span class="num"><a href="#22">22</a></span><span></span>
+<span class="num"><a href="#23">23</a></span><span><span class="sd">        :param namespace: a configuration namespace</span></span>
+<span class="num"><a href="#24">24</a></span><span><span class="sd">        :param lowercase: a flag indicating if the keys of the resulting</span></span>
+<span class="num"><a href="#25">25</a></span><span><span class="sd">                          dictionary should be lowercase</span></span>
+<span class="num"><a href="#26">26</a></span><span><span class="sd">        :param trim_namespace: a flag indicating if the keys of the resulting</span></span>
+<span class="num"><a href="#27">27</a></span><span><span class="sd">                          dictionary should not include the namespace</span></span>
+<span class="num"><a href="#28">28</a></span><span></span>
+<span class="num"><a href="#29">29</a></span><span><span class="sd">        .. versionadded:: 0.11</span></span>
+<span class="num"><a href="#30">30</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="n">rv</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">namespace</span><span class="p">):</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="k">continue</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="k">if</span> <span class="n">trim_namespace</span><span class="p">:</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                <span class="n">key</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">namespace</span><span class="p">)</span> <span class="p">:]</span></span>
+<span class="num"><a href="#37">37</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                <span class="n">key</span> <span class="o">=</span> <span class="n">k</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="k">if</span> <span class="n">lowercase</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">                <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="n">rv</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">        <span class="k">return</span> <span class="n">rv</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

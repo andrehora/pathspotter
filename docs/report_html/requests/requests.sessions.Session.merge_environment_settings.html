@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>requests.sessions.Session.merge_environment_settings</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: requests.sessions.Session.merge_environment_settings</h1>
+                <span>Calls: 198, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 180 calls (0.91)</p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://127.0.0.1:64692/post' (19) 'http://127.0.0.1:64692/get' (17) 'http://127.0.0.1:64692/digest-auth/auth/user/pass/MD5' (9) 'http://127.0.0.1:646...</p>
+                <p><button class="input"><span>&#8594;</span> proxies</button> {} (175) {'http': 'non-resolvable-address'} (1) {'https': 'http:/badproxyurl:3128'} (1) {'http': 'http://:8080'} (1) {'https': 'https://'} (1) {'http'...</p>
+                <p><button class="input"><span>&#8594;</span> stream</button> None (162) True (11) False (7) </p>
+                <p><button class="input"><span>&#8594;</span> verify</button> None (176) True (4) </p>
+                <p><button class="input"><span>&#8594;</span> cert</button> None (177) '/garbage' (1) ('.', '/garbage') (1) '.' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (180) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">merge_environment_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">proxies</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">verify</span><span class="p">,</span> <span class="n">cert</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Check the environment and merge it with some settings.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        :rtype: dict</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Gather clues from the surrounding environment.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trust_env</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span>            <span class="c1"># Set environment&#39;s proxies.</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">no_proxy</span> <span class="o">=</span> <span class="n">proxies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;no_proxy&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">proxies</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">env_proxies</span> <span class="o">=</span> <span class="n">get_environ_proxies</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">no_proxy</span><span class="o">=</span><span class="n">no_proxy</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">env_proxies</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">proxies</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># Look for requests environment configuration</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># and be compatible with cURL.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="n">verify</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">verify</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">verify</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;REQUESTS_CA_BUNDLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CURL_CA_BUNDLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">verify</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Merge all the kwargs.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">proxies</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">proxies</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxies</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">stream</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">verify</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">verify</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">cert</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;proxies&quot;</span><span class="p">:</span> <span class="n">proxies</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="n">stream</span><span class="p">,</span> <span class="s2">&quot;verify&quot;</span><span class="p">:</span> <span class="n">verify</span><span class="p">,</span> <span class="s2">&quot;cert&quot;</span><span class="p">:</span> <span class="n">cert</span><span class="p">}</span></span>
+            </pre>
+            <p><b>Path 2</b>: 10 calls (0.05)</p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://httpbin.org/' (4) 'https://httpbin.org/' (4) 'http://127.0.0.1:64692/' (2) </p>
+                <p><button class="input"><span>&#8594;</span> proxies</button> {} (10) </p>
+                <p><button class="input"><span>&#8594;</span> stream</button> None (10) </p>
+                <p><button class="input"><span>&#8594;</span> verify</button> None (10) </p>
+                <p><button class="input"><span>&#8594;</span> cert</button> None (10) </p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (10) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">merge_environment_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">proxies</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">verify</span><span class="p">,</span> <span class="n">cert</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Check the environment and merge it with some settings.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        :rtype: dict</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Gather clues from the surrounding environment.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trust_env</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span>            <span class="c1"># Set environment&#39;s proxies.</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">no_proxy</span> <span class="o">=</span> <span class="n">proxies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;no_proxy&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">proxies</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">env_proxies</span> <span class="o">=</span> <span class="n">get_environ_proxies</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">no_proxy</span><span class="o">=</span><span class="n">no_proxy</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">env_proxies</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="n">proxies</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># Look for requests environment configuration</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># and be compatible with cURL.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="n">verify</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">verify</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">verify</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;REQUESTS_CA_BUNDLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CURL_CA_BUNDLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">verify</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Merge all the kwargs.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">proxies</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">proxies</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxies</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">stream</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">verify</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">verify</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">cert</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;proxies&quot;</span><span class="p">:</span> <span class="n">proxies</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="n">stream</span><span class="p">,</span> <span class="s2">&quot;verify&quot;</span><span class="p">:</span> <span class="n">verify</span><span class="p">,</span> <span class="s2">&quot;cert&quot;</span><span class="p">:</span> <span class="n">cert</span><span class="p">}</span></span>
+            </pre>
+            <p><b>Path 3</b>: 4 calls (0.02)</p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://127.0.0.1:64692/get' (2) 'https://127.0.0.1:64837/status/301' (1) 'https://127.0.0.1:64837/redirect-to?url=http%3A%2F%2F127.0.0.1%3A64692%2Fge...</p>
+                <p><button class="input"><span>&#8594;</span> proxies</button> {} (4) </p>
+                <p><button class="input"><span>&#8594;</span> stream</button> None (2) False (2) </p>
+                <p><button class="input"><span>&#8594;</span> verify</button> None (2) True (2) </p>
+                <p><button class="input"><span>&#8594;</span> cert</button> None (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (4) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">merge_environment_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">proxies</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">verify</span><span class="p">,</span> <span class="n">cert</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Check the environment and merge it with some settings.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        :rtype: dict</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Gather clues from the surrounding environment.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trust_env</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span>            <span class="c1"># Set environment&#39;s proxies.</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">no_proxy</span> <span class="o">=</span> <span class="n">proxies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;no_proxy&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">proxies</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">env_proxies</span> <span class="o">=</span> <span class="n">get_environ_proxies</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">no_proxy</span><span class="o">=</span><span class="n">no_proxy</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">env_proxies</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">proxies</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># Look for requests environment configuration</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># and be compatible with cURL.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="n">verify</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">verify</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">verify</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;REQUESTS_CA_BUNDLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CURL_CA_BUNDLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">verify</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Merge all the kwargs.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">proxies</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">proxies</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxies</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">stream</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">verify</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">verify</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">cert</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;proxies&quot;</span><span class="p">:</span> <span class="n">proxies</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="n">stream</span><span class="p">,</span> <span class="s2">&quot;verify&quot;</span><span class="p">:</span> <span class="n">verify</span><span class="p">,</span> <span class="s2">&quot;cert&quot;</span><span class="p">:</span> <span class="n">cert</span><span class="p">}</span></span>
+            </pre>
+            <p><b>Path 4</b>: 2 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'https://127.0.0.1:64837/' (1) 'https://localhost:64939/' (1) </p>
+                <p><button class="input"><span>&#8594;</span> proxies</button> {} (2) </p>
+                <p><button class="input"><span>&#8594;</span> stream</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> verify</button> '/garbage' (1) '/private/var/folders/yp/qx0crmvd4sbck7chb52sws500000gn/T/pytest-of-andrehora/pytest-181/certs0/ca.pem' (1) </p>
+                <p><button class="input"><span>&#8594;</span> cert</button> None (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (2) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">merge_environment_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">proxies</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">verify</span><span class="p">,</span> <span class="n">cert</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Check the environment and merge it with some settings.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        :rtype: dict</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Gather clues from the surrounding environment.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trust_env</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span>            <span class="c1"># Set environment&#39;s proxies.</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">no_proxy</span> <span class="o">=</span> <span class="n">proxies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;no_proxy&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">proxies</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">env_proxies</span> <span class="o">=</span> <span class="n">get_environ_proxies</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">no_proxy</span><span class="o">=</span><span class="n">no_proxy</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">env_proxies</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">proxies</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># Look for requests environment configuration</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># and be compatible with cURL.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="n">verify</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">verify</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                <span class="n">verify</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">                    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;REQUESTS_CA_BUNDLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CURL_CA_BUNDLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">verify</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Merge all the kwargs.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">proxies</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">proxies</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxies</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">stream</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">verify</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">verify</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">cert</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;proxies&quot;</span><span class="p">:</span> <span class="n">proxies</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="n">stream</span><span class="p">,</span> <span class="s2">&quot;verify&quot;</span><span class="p">:</span> <span class="n">verify</span><span class="p">,</span> <span class="s2">&quot;cert&quot;</span><span class="p">:</span> <span class="n">cert</span><span class="p">}</span></span>
+            </pre>
+            <p><b>Path 5</b>: 2 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://127.0.0.1:64692/get' (2) </p>
+                <p><button class="input"><span>&#8594;</span> proxies</button> {} (2) </p>
+                <p><button class="input"><span>&#8594;</span> stream</button> False (2) </p>
+                <p><button class="input"><span>&#8594;</span> verify</button> True (2) </p>
+                <p><button class="input"><span>&#8594;</span> cert</button> None (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (2) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">merge_environment_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">proxies</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">verify</span><span class="p">,</span> <span class="n">cert</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Check the environment and merge it with some settings.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        :rtype: dict</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># Gather clues from the surrounding environment.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trust_env</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span>            <span class="c1"># Set environment&#39;s proxies.</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">no_proxy</span> <span class="o">=</span> <span class="n">proxies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;no_proxy&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">proxies</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="n">env_proxies</span> <span class="o">=</span> <span class="n">get_environ_proxies</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">no_proxy</span><span class="o">=</span><span class="n">no_proxy</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">env_proxies</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="n">proxies</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="c1"># Look for requests environment configuration</span></span>
+<span class="num"><a href="#16">16</a></span><span>            <span class="c1"># and be compatible with cURL.</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">if</span> <span class="n">verify</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">verify</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                <span class="n">verify</span> <span class="o">=</span> <span class="p">(</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">                    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;REQUESTS_CA_BUNDLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CURL_CA_BUNDLE&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">verify</span></span>
+<span class="num"><a href="#22">22</a></span><span>                <span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># Merge all the kwargs.</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">proxies</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">proxies</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxies</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">stream</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">)</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">verify</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">verify</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">cert</span> <span class="o">=</span> <span class="n">merge_setting</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;proxies&quot;</span><span class="p">:</span> <span class="n">proxies</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="n">stream</span><span class="p">,</span> <span class="s2">&quot;verify&quot;</span><span class="p">:</span> <span class="n">verify</span><span class="p">,</span> <span class="s2">&quot;cert&quot;</span><span class="p">:</span> <span class="n">cert</span><span class="p">}</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

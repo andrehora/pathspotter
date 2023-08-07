@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.non_ascii_names.NonAsciiNameChecker.visit_assignname</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.non_ascii_names.NonAsciiNameChecker.visit_assignname</h1>
+                <span>Calls: 9183, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 4562 calls (0.5)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> AssignName (4562) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@utils</span><span class="o">.</span><span class="n">only_required_for_messages</span><span class="p">(</span><span class="s2">&quot;non-ascii-name&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="k">def</span> <span class="nf">visit_assignname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AssignName</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check module level assigned names.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># The NameChecker from which this Checker originates knows a lot of different</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># versions of variables, i.e. constants, inline variables etc.</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># To simplify we use only `variable` here, as we don&#39;t need to apply different</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># rules to different types of variables.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">frame</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">frame</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>                <span class="c1"># Only perform the check if the assignment was done in within the body</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="c1"># of the function (and not the function parameter definition</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># (will be handled in visit_functiondef)</span></span>
+<span class="num"><a href="#15">15</a></span><span>                <span class="c1"># or within a decorator (handled in visit_call)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_check_name</span><span class="p">(</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_name</span><span class="p">(</span><span class="s2">&quot;attr&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Possibilities here:</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1"># - isinstance(node.assign_type(), nodes.Comprehension) == inlinevar</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="c1"># - isinstance(frame, nodes.Module) == variable (constant?)</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="c1"># - some other kind of assignment missed but still most likely a variable</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_name</span><span class="p">(</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2905 calls (0.32)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> AssignName (2905) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@utils</span><span class="o">.</span><span class="n">only_required_for_messages</span><span class="p">(</span><span class="s2">&quot;non-ascii-name&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="k">def</span> <span class="nf">visit_assignname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AssignName</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check module level assigned names.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># The NameChecker from which this Checker originates knows a lot of different</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># versions of variables, i.e. constants, inline variables etc.</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># To simplify we use only `variable` here, as we don&#39;t need to apply different</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># rules to different types of variables.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">frame</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">frame</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>                <span class="c1"># Only perform the check if the assignment was done in within the body</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="c1"># of the function (and not the function parameter definition</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># (will be handled in visit_functiondef)</span></span>
+<span class="num"><a href="#15">15</a></span><span>                <span class="c1"># or within a decorator (handled in visit_call)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_check_name</span><span class="p">(</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_name</span><span class="p">(</span><span class="s2">&quot;attr&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Possibilities here:</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1"># - isinstance(node.assign_type(), nodes.Comprehension) == inlinevar</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="c1"># - isinstance(frame, nodes.Module) == variable (constant?)</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="c1"># - some other kind of assignment missed but still most likely a variable</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_name</span><span class="p">(</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1164 calls (0.13)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> AssignName (1164) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@utils</span><span class="o">.</span><span class="n">only_required_for_messages</span><span class="p">(</span><span class="s2">&quot;non-ascii-name&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="k">def</span> <span class="nf">visit_assignname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AssignName</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check module level assigned names.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># The NameChecker from which this Checker originates knows a lot of different</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># versions of variables, i.e. constants, inline variables etc.</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># To simplify we use only `variable` here, as we don&#39;t need to apply different</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># rules to different types of variables.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">frame</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">frame</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>                <span class="c1"># Only perform the check if the assignment was done in within the body</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="c1"># of the function (and not the function parameter definition</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># (will be handled in visit_functiondef)</span></span>
+<span class="num"><a href="#15">15</a></span><span>                <span class="c1"># or within a decorator (handled in visit_call)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_check_name</span><span class="p">(</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_name</span><span class="p">(</span><span class="s2">&quot;attr&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Possibilities here:</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1"># - isinstance(node.assign_type(), nodes.Comprehension) == inlinevar</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="c1"># - isinstance(frame, nodes.Module) == variable (constant?)</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="c1"># - some other kind of assignment missed but still most likely a variable</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_name</span><span class="p">(</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 552 calls (0.06)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> AssignName (552) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@utils</span><span class="o">.</span><span class="n">only_required_for_messages</span><span class="p">(</span><span class="s2">&quot;non-ascii-name&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="k">def</span> <span class="nf">visit_assignname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AssignName</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check module level assigned names.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># The NameChecker from which this Checker originates knows a lot of different</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># versions of variables, i.e. constants, inline variables etc.</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># To simplify we use only `variable` here, as we don&#39;t need to apply different</span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># rules to different types of variables.</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">frame</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">frame</span><span class="p">()</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span>                <span class="c1"># Only perform the check if the assignment was done in within the body</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="c1"># of the function (and not the function parameter definition</span></span>
+<span class="num"><a href="#14">14</a></span><span>                <span class="c1"># (will be handled in visit_functiondef)</span></span>
+<span class="num"><a href="#15">15</a></span><span>                <span class="c1"># or within a decorator (handled in visit_call)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_check_name</span><span class="p">(</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_name</span><span class="p">(</span><span class="s2">&quot;attr&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># Possibilities here:</span></span>
+<span class="num"><a href="#21">21</a></span><span>            <span class="c1"># - isinstance(node.assign_type(), nodes.Comprehension) == inlinevar</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="c1"># - isinstance(frame, nodes.Module) == variable (constant?)</span></span>
+<span class="num"><a href="#23">23</a></span><span>            <span class="c1"># - some other kind of assignment missed but still most likely a variable</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_name</span><span class="p">(</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

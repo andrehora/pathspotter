@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.message._splitparam</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.message._splitparam</h1>
+                <span>Calls: 7301, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 4268 calls (0.58)</p>
+                <p><button class="input"><span>&#8594;</span> param</button> _ContentTypeHeader (1894) 'text/plain; charset=us-ascii' (635) 'multipart/mixed; boundary="BOUNDARY"' (180) 'text/plain; charset="us-ascii"' (151) 'mu...</p>
+                <p><button class="output"><span>&#8617; return</span></button> ('multipart/mixed', 'boundary="==="') (741) ('text/plain', 'charset=us-ascii') (635) ('text/plain', 'charset="utf-8"') (213) ('multipart/mixed', 'boun...</p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_splitparam</span><span class="p">(</span><span class="n">param</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="c1"># Split header parameters.  BAW: this may be too simple.  It isn&#39;t</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="c1"># strictly RFC 2045 (section 5.1) compliant, but it catches most headers</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="c1"># found in the wild.  We may eventually need a full fledged parser.</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="c1"># RDM: we might have a Header here; for now just stringify it.</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">a</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">param</span><span class="p">)</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">sep</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 2</b>: 3033 calls (0.42)</p>
+                <p><button class="input"><span>&#8594;</span> param</button> _ContentTypeHeader (2327) 'text/plain' (282) 'message/rfc822' (153) 'message/delivery-status' (115) 'application/octet-stream' (61) 'text/rfc822-heade...</p>
+                <p><button class="output"><span>&#8617; return</span></button> ('text/plain', None) (930) ('text/html', None) (583) ('image/jpg', None) (502) ('message/rfc822', None) (295) ('message/delivery-status', None) (115) ...</p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_splitparam</span><span class="p">(</span><span class="n">param</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="c1"># Split header parameters.  BAW: this may be too simple.  It isn&#39;t</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="c1"># strictly RFC 2045 (section 5.1) compliant, but it catches most headers</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="c1"># found in the wild.  We may eventually need a full fledged parser.</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="c1"># RDM: we might have a Header here; for now just stringify it.</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">a</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">param</span><span class="p">)</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">sep</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>configparser.SectionProxy.get</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: configparser.SectionProxy.get</h1>
+                <span>Calls: 854, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 621 calls (0.73)</p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'no-such-int' (140) 'no-such-float' (140) 'no-such-boolean' (140) 'float' (58) 'int' (57) 'boolean' (56) 'one' (5) 'two' (5) '1' (5) 'a' (5) </p>
+                <p><button class="input"><span>&#8594;</span> fallback</button> None (115) 18 (112) 0.0 (112) True (112) '18' (56) '0.0' (56) 'yes' (56) 0 (2) </p>
+                <p><button class="input"><span>&#8594;</span> raw</button> False (621) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> None (621) </p>
+                <p><button class="input"><span>&#8594;</span> _impl</button> RawConfigParser.getfloat def (207) RawConfigParser.getint def (197) RawConfigParser.getboolean def (197) partial (12) BlatantOverrideConvertersTestCas...</p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (621) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (86) True (57) 42 (56) 18 (56) '18' (56) 0.44 (56) 0.0 (56) '0.0' (56) False (56) 'yes' (56) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>            <span class="n">_impl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get an option value.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        Unless `fallback` is provided, `None` will be returned if the option</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        is not found.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># If `_impl` is provided, it should be a getter method on the parser</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># object that provides the desired type conversion.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_impl</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">_impl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">get</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">return</span> <span class="n">_impl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="n">raw</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="nb">vars</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                     <span class="n">fallback</span><span class="o">=</span><span class="n">fallback</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 233 calls (0.27)</p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'foo' (140) 'no-such-foo' (84) 'option-without-value' (4) 'no-such-option-without-value' (4) 'str' (1) </p>
+                <p><button class="input"><span>&#8594;</span> fallback</button> None (113) 'baz' (112) False (8) </p>
+                <p><button class="input"><span>&#8594;</span> raw</button> False (233) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> None (205) {'foo': 'baz'} (28) </p>
+                <p><button class="input"><span>&#8594;</span> _impl</button> None (233) </p>
+                <p><button class="input"><span>&#8594;</span> kwargs</button> {} (233) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'baz' (84) 'bar1' (56) 'bar2' (56) None (32) False (4) 'string' (1) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>            <span class="n">_impl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get an option value.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        Unless `fallback` is provided, `None` will be returned if the option</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        is not found.</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span>        <span class="c1"># If `_impl` is provided, it should be a getter method on the parser</span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># object that provides the desired type conversion.</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_impl</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">_impl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">get</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">return</span> <span class="n">_impl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="n">raw</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="nb">vars</span><span class="p">,</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                     <span class="n">fallback</span><span class="o">=</span><span class="n">fallback</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

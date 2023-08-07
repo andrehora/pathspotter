@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.utils.is_terminating_func</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.utils.is_terminating_func</h1>
+                <span>Calls: 5710, </span>
+                <span>Exceptions: 183, </span>
+                <span>Paths: 10</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 3829 calls (0.67)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (3829) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (3829) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_terminating_func</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect call to exit(), quit(), os._exit(), or sys.exit().&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Lambda</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">infer</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="nb">hasattr</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="s2">&quot;qname&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">inferred</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TERMINATING_FUNCS_QNAMES</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">StopIteration</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">pass</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1556 calls (0.27)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (1556) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (1556) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_terminating_func</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect call to exit(), quit(), os._exit(), or sys.exit().&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Lambda</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">infer</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="nb">hasattr</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="s2">&quot;qname&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">inferred</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TERMINATING_FUNCS_QNAMES</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">StopIteration</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">pass</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 3</b>: 151 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (151) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (151) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> InferenceError (116) NameInferenceError (35) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_terminating_func</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect call to exit(), quit(), os._exit(), or sys.exit().&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Lambda</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">infer</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="nb">hasattr</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="s2">&quot;qname&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">inferred</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TERMINATING_FUNCS_QNAMES</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="k">except</span> <span class="p">(</span><span class="ne">StopIteration</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">pass</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 4</b>: 68 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (68) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (68) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_terminating_func</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect call to exit(), quit(), os._exit(), or sys.exit().&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Lambda</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">infer</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="nb">hasattr</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="s2">&quot;qname&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">inferred</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TERMINATING_FUNCS_QNAMES</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">StopIteration</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">pass</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 5</b>: 47 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (47) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (47) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_terminating_func</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect call to exit(), quit(), os._exit(), or sys.exit().&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Lambda</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">infer</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="nb">hasattr</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="s2">&quot;qname&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">inferred</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TERMINATING_FUNCS_QNAMES</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">StopIteration</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">pass</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 6</b>: 32 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (32) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (32) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> NameInferenceError (32) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_terminating_func</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect call to exit(), quit(), os._exit(), or sys.exit().&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Lambda</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">infer</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="nb">hasattr</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="s2">&quot;qname&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">inferred</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TERMINATING_FUNCS_QNAMES</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">    <span class="k">except</span> <span class="p">(</span><span class="ne">StopIteration</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">pass</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 7</b>: 11 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (11) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (11) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_terminating_func</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect call to exit(), quit(), os._exit(), or sys.exit().&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Lambda</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">infer</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="nb">hasattr</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="s2">&quot;qname&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">inferred</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TERMINATING_FUNCS_QNAMES</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">StopIteration</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">pass</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 8</b>: 10 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (10) </p>
+                <p><button class="output"><span>&#8617; return</span></button> True (10) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_terminating_func</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect call to exit(), quit(), os._exit(), or sys.exit().&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Lambda</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">infer</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="nb">hasattr</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="s2">&quot;qname&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="ow">and</span> <span class="n">inferred</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TERMINATING_FUNCS_QNAMES</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">StopIteration</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">pass</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 9</b>: 5 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (5) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (5) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_terminating_func</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect call to exit(), quit(), os._exit(), or sys.exit().&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Lambda</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">infer</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="nb">hasattr</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="s2">&quot;qname&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">inferred</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TERMINATING_FUNCS_QNAMES</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">StopIteration</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">pass</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+            <p><b>Path 10</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> False (1) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">is_terminating_func</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect call to exit(), quit(), os._exit(), or sys.exit().&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">    <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Lambda</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">):</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">False</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">inferred</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">infer</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="nb">hasattr</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="s2">&quot;qname&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="ow">and</span> <span class="n">inferred</span><span class="o">.</span><span class="n">qname</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TERMINATING_FUNCS_QNAMES</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">True</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">StopIteration</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">InferenceError</span><span class="p">):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">pass</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="k">return</span> <span class="kc">False</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

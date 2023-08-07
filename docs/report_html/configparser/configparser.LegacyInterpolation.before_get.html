@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>configparser.LegacyInterpolation.before_get</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: configparser.LegacyInterpolation.before_get</h1>
+                <span>Calls: 141, </span>
+                <span>Exceptions: 3, </span>
+                <span>Paths: 6</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 131 calls (0.93)</p>
+                <p><button class="input"><span>&#8594;</span> parser</button> ConfigParser (131) </p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Types' (30) 'Foo Bar' (18) 'Spacey Bar From The Beginning' (16) 'BOOLTEST' (12) 'Spacey Bar' (10) 'DEFAULT' (9) 'Commented Bar' (8) 'Spaces' (8) 'sec...</p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'foo' (47) 'baz' (12) 'int' (10) 'float' (10) 'boolean' (8) 'key with spaces' (4) 'another with spaces' (4) 'option1' (4) '123' (2) 'forks' (2) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'qwe' (12) 'bar1' (10) 'bar2' (10) '42' (10) '0.44' (10) 'bar3' (8) 'value' (6) 'False' (5) 'bar4' (4) 'splat!' (4) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> ChainMap (126) {'foo': 'bar3', 'baz': 'qwe'} (4) {'default': '<default>', 'name': '%(value)s', 'key': '|%(name)s|', 'getdefault': '|%(default)s|', 'va...</p>
+                <p><button class="output"><span>&#8617; return</span></button> 'qwe' (12) 'bar1' (10) 'bar2' (10) '42' (10) '0.44' (10) 'bar3' (8) 'value' (6) 'False' (5) 'bar4' (4) 'splat!' (4) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">before_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">rawval</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">depth</span> <span class="o">=</span> <span class="n">MAX_INTERPOLATION_DEPTH</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">while</span> <span class="n">depth</span><span class="p">:</span>                    <span class="c1"># Loop through this until it&#39;s done</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">depth</span> <span class="o">-=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="s2">&quot;%(&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">                <span class="n">replace</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation_replace</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">                                            <span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_KEYCRE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">replace</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="o">%</span> <span class="nb">vars</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                    <span class="k">raise</span> <span class="n">InterpolationMissingOptionError</span><span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                        <span class="n">option</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rawval</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="s2">&quot;%(&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">InterpolationDepthError</span><span class="p">(</span><span class="n">option</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rawval</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">return</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 2</b>: 6 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> parser</button> ConfigParser (6) </p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'section' (4) 'Foo' (2) </p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'bar' (1) 'bar9' (1) 'name' (1) 'key' (1) 'getdefault' (1) 'ok' (1) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'something %(with1)s interpolation (1 step)' (1) 'something %(with9)s lots of interpolation (9 steps)' (1) '%(value)s' (1) '|%(name)s|' (1) '|%(defaul...</p>
+                <p><button class="input"><span>&#8594;</span> vars</button> ChainMap (3) {'default': '<default>', 'name': '%(value)s', 'key': '|%(name)s|', 'getdefault': '|%(default)s|', 'value': 'value'} (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'something with interpolation (1 step)' (1) 'something with lots of interpolation (9 steps)' (1) 'value' (1) '|value|' (1) '|<default>|' (1) 'xxx/%s' ...</p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">before_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">rawval</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">depth</span> <span class="o">=</span> <span class="n">MAX_INTERPOLATION_DEPTH</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">while</span> <span class="n">depth</span><span class="p">:</span>                    <span class="c1"># Loop through this until it&#39;s done</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">depth</span> <span class="o">-=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="s2">&quot;%(&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="n">replace</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation_replace</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                                            <span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_KEYCRE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">replace</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="o">%</span> <span class="nb">vars</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                    <span class="k">raise</span> <span class="n">InterpolationMissingOptionError</span><span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                        <span class="n">option</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rawval</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                <span class="k">break</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="s2">&quot;%(&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">InterpolationDepthError</span><span class="p">(</span><span class="n">option</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rawval</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">return</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> parser</button> ConfigParser (1) </p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'bar10' (1) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'something %(with10)s lots of interpolation (10 steps)' (1) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> ChainMap (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'something with lots of interpolation (10 steps)' (1) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">before_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">rawval</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">depth</span> <span class="o">=</span> <span class="n">MAX_INTERPOLATION_DEPTH</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">while</span> <span class="n">depth</span><span class="p">:</span>                    <span class="c1"># Loop through this until it&#39;s done</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">depth</span> <span class="o">-=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="s2">&quot;%(&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="n">replace</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation_replace</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                                            <span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_KEYCRE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">replace</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="o">%</span> <span class="nb">vars</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                    <span class="k">raise</span> <span class="n">InterpolationMissingOptionError</span><span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                        <span class="n">option</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rawval</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">break</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="s2">&quot;%(&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">InterpolationDepthError</span><span class="p">(</span><span class="n">option</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rawval</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="k">return</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> parser</button> ConfigParser (1) </p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'bar11' (1) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'something %(with11)s lots of interpolation (11 steps)' (1) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> ChainMap (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> InterpolationDepthError (1) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">before_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">rawval</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">depth</span> <span class="o">=</span> <span class="n">MAX_INTERPOLATION_DEPTH</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">while</span> <span class="n">depth</span><span class="p">:</span>                    <span class="c1"># Loop through this until it&#39;s done</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">depth</span> <span class="o">-=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="s2">&quot;%(&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="n">replace</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation_replace</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                                            <span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_KEYCRE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">replace</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="o">%</span> <span class="nb">vars</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                    <span class="k">raise</span> <span class="n">InterpolationMissingOptionError</span><span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                        <span class="n">option</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rawval</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">break</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="s2">&quot;%(&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">raise</span> <span class="n">InterpolationDepthError</span><span class="p">(</span><span class="n">option</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rawval</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> parser</button> ConfigParser (1) </p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'Interpolation Error' (1) </p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'name' (1) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> '%(reference)s' (1) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> ChainMap (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> InterpolationMissingOptionError (1) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">before_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">rawval</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">depth</span> <span class="o">=</span> <span class="n">MAX_INTERPOLATION_DEPTH</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">while</span> <span class="n">depth</span><span class="p">:</span>                    <span class="c1"># Loop through this until it&#39;s done</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">depth</span> <span class="o">-=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="s2">&quot;%(&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="n">replace</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation_replace</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                                            <span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_KEYCRE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">replace</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="o">%</span> <span class="nb">vars</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                    <span class="k">raise</span> <span class="n">InterpolationMissingOptionError</span><span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                        <span class="n">option</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rawval</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">break</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="s2">&quot;%(&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">InterpolationDepthError</span><span class="p">(</span><span class="n">option</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rawval</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 6</b>: 1 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> parser</button> ConfigParser (1) </p>
+                <p><button class="input"><span>&#8594;</span> section</button> 'section' (1) </p>
+                <p><button class="input"><span>&#8594;</span> option</button> 'not_ok' (1) </p>
+                <p><button class="input"><span>&#8594;</span> value</button> '%(option2)s/%%s' (1) </p>
+                <p><button class="input"><span>&#8594;</span> vars</button> ChainMap (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (1) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">before_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">rawval</span> <span class="o">=</span> <span class="n">value</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">depth</span> <span class="o">=</span> <span class="n">MAX_INTERPOLATION_DEPTH</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">while</span> <span class="n">depth</span><span class="p">:</span>                    <span class="c1"># Loop through this until it&#39;s done</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">depth</span> <span class="o">-=</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="s2">&quot;%(&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">                <span class="n">replace</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation_replace</span><span class="p">,</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">                                            <span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_KEYCRE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">replace</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="o">%</span> <span class="nb">vars</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                    <span class="k">raise</span> <span class="n">InterpolationMissingOptionError</span><span class="p">(</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                        <span class="n">option</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rawval</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="kn">from</span> <span class="kc">None</span></span>
+<span class="num"><a href="#15">15</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                <span class="k">break</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="s2">&quot;%(&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">raise</span> <span class="n">InterpolationDepthError</span><span class="p">(</span><span class="n">option</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rawval</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">value</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

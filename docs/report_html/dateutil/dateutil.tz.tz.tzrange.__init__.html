@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>dateutil.tz.tz.tzrange.__init__</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: dateutil.tz.tz.tzrange.__init__</h1>
+                <span>Calls: 102, </span>
+                <span>Exceptions: 95, </span>
+                <span>Paths: 13</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 29 calls (0.28)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> 'EST' (18) 'AEST' (4) 'WGT' (3) 'GMT' (1) 'CST' (1) 'WART' (1) 'IST' (1) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> -18000 (18) -10800 (3) 36000 (2) -14400 (2) 39600 (2) 0 (1) 7200 (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> 'EDT' (17) 'AEDT' (4) 'WGST' (3) 'BST' (1) 'EMT' (1) 'CST' (1) 'WARST' (1) 'IDT' (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> None (29) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> False (29) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> False (29) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (29) </p>
+            <button class="run" title="lines run...">22 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 18 calls (0.18)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> 'EST' (17) 'ET' (1) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> -18000 (17) -14400 (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> 'EDT' (18) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> -14400 (15) -10800 (2) -21600 (1) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> False (15) relativedelta (3) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> False (15) relativedelta (3) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (18) </p>
+            <button class="run" title="lines run...">21 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 18 calls (0.18)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> 'GMT' (13) 'UTC' (5) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> -10800 (2) 10800 (2) 0 (1) 14400 (1) 7200 (1) 18000 (1) 21600 (1) 25200 (1) 28800 (1) 32400 (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> None (18) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> None (18) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> False (18) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> False (18) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (18) </p>
+            <button class="run" title="lines run...">22 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 12 calls (0.12)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> 'EST' (9) 'WART' (1) 'IST' (1) 'WGT' (1) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> timedelta (12) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> 'EDT' (9) 'WARST' (1) 'IDT' (1) 'WGST' (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> None (12) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> relativedelta (12) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> relativedelta (12) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (12) </p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 7 calls (0.07)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> 'EST' (6) 'ET' (1) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> -18000 (6) -14000 (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> 'EDT' (6) 'EMT' (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> -14400 (6) -18000 (1) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> None (7) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> None (7) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (7) </p>
+            <button class="run" title="lines run...">23 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 5 calls (0.05)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> 'EST' (3) 'AEST' (1) 'GMT' (1) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> timedelta (5) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> 'EDT' (3) 'AEDT' (1) 'BST' (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> timedelta (5) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> relativedelta (5) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> relativedelta (5) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 7</b>: 4 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> 'WGT' (2) 'AEST' (2) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> timedelta (4) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> 'WGST' (2) 'AEDT' (2) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> None (4) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> None (4) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> None (4) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (4) </p>
+            <button class="run" title="lines run...">22 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 8</b>: 3 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> None (2) 'EST' (1) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> None (3) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> False (2) None (1) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> False (2) None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (3) </p>
+            <button class="run" title="lines run...">22 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 9</b>: 2 calls (0.02)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> 'EST' (2) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> timedelta (2) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> 'EDT' (2) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> timedelta (2) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> None (2) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> None (2) </p>
+            <button class="run" title="lines run...">19 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 10</b>: 1 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> 'EST' (1) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> -18000 (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> 'EDT' (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (1) </p>
+            <button class="run" title="lines run...">24 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 11</b>: 1 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> 'EST' (1) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> -18000 (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> 'EDT' (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> -14400 (1) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> relativedelta (1) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (1) </p>
+            <button class="run" title="lines run...">22 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 12</b>: 1 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> 'EST' (1) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> -18000 (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> 'EDT' (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> -14400 (1) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> relativedelta (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (1) </p>
+            <button class="run" title="lines run...">22 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 13</b>: 1 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> stdabbr</button> 'dflt' (1) </p>
+                <p><button class="input"><span>&#8594;</span> stdoffset</button> timedelta (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstabbr</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> dstoffset</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> start</button> None (1) </p>
+                <p><button class="input"><span>&#8594;</span> end</button> None (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> AttributeError (1) </p>
+            <button class="run" title="lines run...">20 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdabbr</span><span class="p">,</span> <span class="n">stdoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#2">2</a></span><span>                 <span class="n">dstabbr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dstoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>                 <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="k">global</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">relativedelta</span></span>
+<span class="num"><a href="#7">7</a></span><span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_std_abbr</span> <span class="o">=</span> <span class="n">stdabbr</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_abbr</span> <span class="o">=</span> <span class="n">dstabbr</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">stdoffset</span> <span class="o">=</span> <span class="n">stdoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="k">pass</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">dstoffset</span> <span class="o">=</span> <span class="n">dstoffset</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">pass</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">stdoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dstoffset</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">elif</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">stdoffset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">=</span> <span class="n">ZERO</span></span>
+<span class="num"><a href="#32">32</a></span><span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">2</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#36">36</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span> <span class="o">=</span> <span class="n">start</span></span>
+<span class="num"><a href="#38">38</a></span><span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">        <span class="k">if</span> <span class="n">dstabbr</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">                <span class="n">hours</span><span class="o">=+</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">weekday</span><span class="o">=</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">SU</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span>
+<span class="num"><a href="#42">42</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_end_delta</span> <span class="o">=</span> <span class="n">end</span></span>
+<span class="num"><a href="#44">44</a></span><span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_dst_base_offset_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dst_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_offset</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">hasdst</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_delta</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

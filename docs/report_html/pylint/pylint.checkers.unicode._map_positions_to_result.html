@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.unicode._map_positions_to_result</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.unicode._map_positions_to_result</h1>
+                <span>Calls: 41742, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 7</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 38612 calls (0.93)</p>
+                <p><button class="input"><span>&#8594;</span> line</button> '\n' (11278) '    pass\n' (655) '        pass\n' (409) '    """\n' (373) '"""\n' (274) '    def __init__(self):\n' (169) 'try:\n' (128) '    try:\n' (...</p>
+                <p><button class="input"><span>&#8594;</span> search_dict</button> dict (38612) </p>
+                <p><button class="input"><span>&#8594;</span> new_line</button> '\n' (38607) bytes (5) </p>
+                <p><button class="input"><span>&#8594;</span> byte_str_length</button> 1 (38608) 2 (2) 4 (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> {} (38612) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_map_positions_to_result</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">search_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">_StrLike</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">new_line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">byte_str_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get all occurrences of search dict keys within line.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    Ignores Windows end of line and can handle bytes as well as string.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    Also takes care of encodings for which the length of an encoded code point does not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    default to 8 Bit.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">for</span> <span class="n">search_for</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">search_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">search_for</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># Special Handling for Windows &#39;\r\n&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">unescaped</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span> <span class="ow">and</span> <span class="n">line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">new_line</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">byte_str_length</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="k">while</span> <span class="n">pos</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">pos</span> <span class="o">!=</span> <span class="n">ignore_pos</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># Calculate the column</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pos</span> <span class="o">/</span> <span class="n">byte_str_length</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="n">result</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">char</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">start</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">    <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2318 calls (0.06)</p>
+                <p><button class="input"><span>&#8594;</span> line</button> '        pass\r\n' (142) '                break\r\n' (53) '    pass\r\n' (37) '    """\r\n' (22) '        while True:  # [consider-refactoring-into-wh...</p>
+                <p><button class="input"><span>&#8594;</span> search_dict</button> dict (2318) </p>
+                <p><button class="input"><span>&#8594;</span> new_line</button> '\n' (2314) bytes (4) </p>
+                <p><button class="input"><span>&#8594;</span> byte_str_length</button> 1 (2316) 2 (1) 4 (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> {} (2318) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_map_positions_to_result</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">search_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">_StrLike</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">new_line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">byte_str_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get all occurrences of search dict keys within line.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    Ignores Windows end of line and can handle bytes as well as string.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    Also takes care of encodings for which the length of an encoded code point does not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    default to 8 Bit.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">for</span> <span class="n">search_for</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">search_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">search_for</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># Special Handling for Windows &#39;\r\n&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">unescaped</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span> <span class="ow">and</span> <span class="n">line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">new_line</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">byte_str_length</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">while</span> <span class="n">pos</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">if</span> <span class="n">pos</span> <span class="o">!=</span> <span class="n">ignore_pos</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># Calculate the column</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pos</span> <span class="o">/</span> <span class="n">byte_str_length</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="n">result</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">char</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">start</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">    <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+            <p><b>Path 3</b>: 675 calls (0.02)</p>
+                <p><button class="input"><span>&#8594;</span> line</button> '\r\n' (675) </p>
+                <p><button class="input"><span>&#8594;</span> search_dict</button> dict (675) </p>
+                <p><button class="input"><span>&#8594;</span> new_line</button> '\n' (675) </p>
+                <p><button class="input"><span>&#8594;</span> byte_str_length</button> 1 (675) </p>
+                <p><button class="output"><span>&#8617; return</span></button> {} (675) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_map_positions_to_result</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">search_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">_StrLike</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">new_line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">byte_str_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get all occurrences of search dict keys within line.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    Ignores Windows end of line and can handle bytes as well as string.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    Also takes care of encodings for which the length of an encoded code point does not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    default to 8 Bit.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">for</span> <span class="n">search_for</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">search_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">search_for</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># Special Handling for Windows &#39;\r\n&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">unescaped</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span> <span class="ow">and</span> <span class="n">line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">new_line</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">byte_str_length</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">while</span> <span class="n">pos</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">pos</span> <span class="o">!=</span> <span class="n">ignore_pos</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># Calculate the column</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pos</span> <span class="o">/</span> <span class="n">byte_str_length</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="n">result</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">char</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">start</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">    <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+            <p><b>Path 4</b>: 77 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> line</button> bytes (13) '# invalid char backspace: \x08\n' (5) '# Invalid char sub: \x1a\n' (5) '# Invalid char esc: \x1b\n' (5) '# file containing \x00 <-\n' (5) ...</p>
+                <p><button class="input"><span>&#8594;</span> search_dict</button> dict (77) </p>
+                <p><button class="input"><span>&#8594;</span> new_line</button> '\n' (64) bytes (13) </p>
+                <p><button class="input"><span>&#8594;</span> byte_str_length</button> 1 (71) 2 (3) 4 (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (77) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_map_positions_to_result</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">search_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">_StrLike</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">new_line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">byte_str_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get all occurrences of search dict keys within line.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    Ignores Windows end of line and can handle bytes as well as string.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    Also takes care of encodings for which the length of an encoded code point does not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    default to 8 Bit.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">for</span> <span class="n">search_for</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">search_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">search_for</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># Special Handling for Windows &#39;\r\n&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">unescaped</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span> <span class="ow">and</span> <span class="n">line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">new_line</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">byte_str_length</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">while</span> <span class="n">pos</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">if</span> <span class="n">pos</span> <span class="o">!=</span> <span class="n">ignore_pos</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># Calculate the column</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pos</span> <span class="o">/</span> <span class="n">byte_str_length</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                <span class="n">result</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">char</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">start</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">    <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+            <p><b>Path 5</b>: 33 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> line</button> bytes (13) '# invalid char backspace: \x08\r\n' (5) '# Invalid char sub: \x1a\r\n' (5) '# Invalid char esc: \x1b\r\n' (5) 'invalid\x08 back\r\n' (1) '...</p>
+                <p><button class="input"><span>&#8594;</span> search_dict</button> dict (33) </p>
+                <p><button class="input"><span>&#8594;</span> new_line</button> '\n' (20) bytes (13) </p>
+                <p><button class="input"><span>&#8594;</span> byte_str_length</button> 1 (27) 2 (3) 4 (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (33) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_map_positions_to_result</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">search_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">_StrLike</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">new_line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">byte_str_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get all occurrences of search dict keys within line.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    Ignores Windows end of line and can handle bytes as well as string.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    Also takes care of encodings for which the length of an encoded code point does not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    default to 8 Bit.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">for</span> <span class="n">search_for</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">search_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">search_for</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># Special Handling for Windows &#39;\r\n&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">unescaped</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span> <span class="ow">and</span> <span class="n">line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">new_line</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">byte_str_length</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">while</span> <span class="n">pos</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">if</span> <span class="n">pos</span> <span class="o">!=</span> <span class="n">ignore_pos</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># Calculate the column</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pos</span> <span class="o">/</span> <span class="n">byte_str_length</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                <span class="n">result</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">char</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">start</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">    <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+            <p><b>Path 6</b>: 21 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> line</button> bytes (8) '# Bad carriage-return \r # not at the end\n' (5) '# Bad carriage-return \r # not at the end\r\n' (5) '-->\r<---\n' (1) 'invalid\r windows\r...</p>
+                <p><button class="input"><span>&#8594;</span> search_dict</button> dict (21) </p>
+                <p><button class="input"><span>&#8594;</span> new_line</button> '\n' (13) bytes (8) </p>
+                <p><button class="input"><span>&#8594;</span> byte_str_length</button> 1 (17) 2 (2) 4 (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> dict (21) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_map_positions_to_result</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">search_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">_StrLike</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">new_line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">byte_str_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get all occurrences of search dict keys within line.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    Ignores Windows end of line and can handle bytes as well as string.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    Also takes care of encodings for which the length of an encoded code point does not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    default to 8 Bit.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">for</span> <span class="n">search_for</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">search_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">search_for</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># Special Handling for Windows &#39;\r\n&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">unescaped</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span> <span class="ow">and</span> <span class="n">line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">new_line</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">byte_str_length</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">while</span> <span class="n">pos</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="k">if</span> <span class="n">pos</span> <span class="o">!=</span> <span class="n">ignore_pos</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># Calculate the column</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pos</span> <span class="o">/</span> <span class="n">byte_str_length</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">                <span class="n">result</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">char</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">start</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">    <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+            <p><b>Path 7</b>: 6 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> line</button> '\x00p\x00r\x00i\x00n\x00t\x00(\x00"\x00t\x00e\x00s\x00t\x00_\x00u\x00t\x00f\x00_\x001\x006\x00_\x00l\x00e\x00_\x00u\x00t\x00f\x00_\x001\x006\x00.\x00...</p>
+                <p><button class="input"><span>&#8594;</span> search_dict</button> dict (6) </p>
+                <p><button class="input"><span>&#8594;</span> new_line</button> '\n' (6) </p>
+                <p><button class="input"><span>&#8594;</span> byte_str_length</button> 1 (6) </p>
+                <p><button class="output"><span>&#8617; return</span></button> {} (6) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_map_positions_to_result</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">search_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">_StrLike</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">],</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">new_line</span><span class="p">:</span> <span class="n">_StrLike</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">byte_str_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get all occurrences of search dict keys within line.</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    Ignores Windows end of line and can handle bytes as well as string.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    Also takes care of encodings for which the length of an encoded code point does not</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    default to 8 Bit.</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#13">13</a></span><span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_BadChar</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">for</span> <span class="n">search_for</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">search_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="k">if</span> <span class="n">search_for</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># Special Handling for Windows &#39;\r\n&#39;</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">unescaped</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span> <span class="ow">and</span> <span class="n">line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">new_line</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">byte_str_length</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="n">ignore_pos</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">while</span> <span class="n">pos</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">pos</span> <span class="o">!=</span> <span class="n">ignore_pos</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span>                <span class="c1"># Calculate the column</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pos</span> <span class="o">/</span> <span class="n">byte_str_length</span><span class="p">)</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">                <span class="n">result</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">char</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">start</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">pos</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search_for</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span></span>
+<span class="num"><a href="#35">35</a></span><span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">    <span class="k">return</span> <span class="n">result</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

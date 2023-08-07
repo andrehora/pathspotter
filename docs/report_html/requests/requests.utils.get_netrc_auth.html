@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>requests.utils.get_netrc_auth</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: requests.utils.get_netrc_auth</h1>
+                <span>Calls: 327, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 327 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> url</button> 'http://127.0.0.1:64692/get' (67) 'http://127.0.0.1:64692/post' (29) 'http://127.0.0.1:64692/redirect/1' (11) 'http://127.0.0.1:64692/cookies' (9) 'ht...</p>
+                <p><button class="input"><span>&#8594;</span> raise_errors</button> False (327) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (327) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">20 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_netrc_auth</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">raise_errors</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the Requests tuple auth for a given url from netrc.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="n">netrc_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;NETRC&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="k">if</span> <span class="n">netrc_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">        <span class="n">netrc_locations</span> <span class="o">=</span> <span class="p">(</span><span class="n">netrc_file</span><span class="p">,)</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="n">netrc_locations</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;~/</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">NETRC_FILES</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">    <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="kn">from</span> <span class="nn">netrc</span> <span class="kn">import</span> <span class="n">NetrcParseError</span><span class="p">,</span> <span class="n">netrc</span></span>
+<span class="num"><a href="#12">12</a></span><span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="n">netrc_path</span> <span class="o">=</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">netrc_locations</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="n">loc</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span>                <span class="c1"># os.path.expanduser can fail when $HOME is undefined and</span></span>
+<span class="num"><a href="#20">20</a></span><span>                <span class="c1"># getpwuid fails. See https://bugs.python.org/issue20164 &amp;</span></span>
+<span class="num"><a href="#21">21</a></span><span>                <span class="c1"># https://github.com/psf/requests/issues/1846</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="k">return</span></span>
+<span class="num"><a href="#23">23</a></span><span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">loc</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">netrc_path</span> <span class="o">=</span> <span class="n">loc</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                <span class="k">break</span></span>
+<span class="num"><a href="#27">27</a></span><span></span>
+<span class="num"><a href="#28">28</a></span><span>        <span class="c1"># Abort early if there isn&#39;t one.</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">        <span class="k">if</span> <span class="n">netrc_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#31">31</a></span><span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">        <span class="n">ri</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span>        <span class="c1"># Strip port numbers from netloc. This weird `if...encode`` dance is</span></span>
+<span class="num"><a href="#35">35</a></span><span>        <span class="c1"># used for Python 3.2, which doesn&#39;t support unicode literals.</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">        <span class="n">splitstr</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;:&quot;</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="n">splitstr</span> <span class="o">=</span> <span class="n">splitstr</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">        <span class="n">host</span> <span class="o">=</span> <span class="n">ri</span><span class="o">.</span><span class="n">netloc</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">splitstr</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#40">40</a></span><span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="n">_netrc</span> <span class="o">=</span> <span class="n">netrc</span><span class="p">(</span><span class="n">netrc_path</span><span class="p">)</span><span class="o">.</span><span class="n">authenticators</span><span class="p">(</span><span class="n">host</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">_netrc</span><span class="p">:</span></span>
+<span class="num"><a href="#44">44</a></span><span>                <span class="c1"># Return with login / password</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="n">login_i</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">_netrc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="mi">1</span></span>
+<span class="num"><a href="#46">46</a></span><span class="full not_run">                <span class="k">return</span> <span class="p">(</span><span class="n">_netrc</span><span class="p">[</span><span class="n">login_i</span><span class="p">],</span> <span class="n">_netrc</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="k">except</span> <span class="p">(</span><span class="n">NetrcParseError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span>            <span class="c1"># If there was a parsing error or a permissions issue reading the file,</span></span>
+<span class="num"><a href="#49">49</a></span><span>            <span class="c1"># we&#39;ll just skip netrc auth unless explicitly asked to raise errors.</span></span>
+<span class="num"><a href="#50">50</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">raise_errors</span><span class="p">:</span></span>
+<span class="num"><a href="#51">51</a></span><span class="full not_run">                <span class="k">raise</span></span>
+<span class="num"><a href="#52">52</a></span><span></span>
+<span class="num"><a href="#53">53</a></span><span>    <span class="c1"># App Engine hackiness.</span></span>
+<span class="num"><a href="#54">54</a></span><span class="full not_run">    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span></span>
+<span class="num"><a href="#55">55</a></span><span class="full not_run">        <span class="k">pass</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

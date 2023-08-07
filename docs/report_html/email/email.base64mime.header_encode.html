@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email.base64mime.header_encode</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email.base64mime.header_encode</h1>
+                <span>Calls: 81, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 76 calls (0.94)</p>
+                <p><button class="input"><span>&#8594;</span> header_bytes</button> bytes (76) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> 'koi8-r' (41) 'utf-8' (26) 'iso-2022-jp' (8) 'unknown-8bit' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '=?koi8-r?b?eHh4?=' (14) '=?koi8-r?b?eCB4?=' (7) '=?koi8-r?b?IHh4?=' (6) '=?koi8-r?b?eHgg?=' (6) '=?iso-2022-jp?b?GyRCJU8lbSE8JW8hPCVrJUkhKhsoQg==?=' ...</p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_encode</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;iso-8859-1&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode a single header line with Base64 encoding in a given charset.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    charset names the character set to use to encode the header.  It defaults</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    to iso-8859-1.  Base64 encoding is defined in RFC 2045.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">header_bytes</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="s2">&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">header_bytes</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="n">encoded</span> <span class="o">=</span> <span class="n">b64encode</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">return</span> <span class="s1">&#39;=?</span><span class="si">%s</span><span class="s1">?b?</span><span class="si">%s</span><span class="s1">?=&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">encoded</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 5 calls (0.06)</p>
+                <p><button class="input"><span>&#8594;</span> header_bytes</button> 'hello' (2) 'hello\nworld' (2) 'hello\r\nworld' (1) </p>
+                <p><button class="input"><span>&#8594;</span> charset</button> 'iso-8859-1' (4) 'iso-8859-2' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '=?iso-8859-1?b?aGVsbG8Kd29ybGQ=?=' (2) '=?iso-8859-1?b?aGVsbG8=?=' (1) '=?iso-8859-1?b?aGVsbG8NCndvcmxk?=' (1) '=?iso-8859-2?b?aGVsbG8=?=' (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">header_encode</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;iso-8859-1&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode a single header line with Base64 encoding in a given charset.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    charset names the character set to use to encode the header.  It defaults</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    to iso-8859-1.  Base64 encoding is defined in RFC 2045.</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">header_bytes</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="s2">&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">header_bytes</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">    <span class="n">encoded</span> <span class="o">=</span> <span class="n">b64encode</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="k">return</span> <span class="s1">&#39;=?</span><span class="si">%s</span><span class="s1">?b?</span><span class="si">%s</span><span class="s1">?=&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">charset</span><span class="p">,</span> <span class="n">encoded</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

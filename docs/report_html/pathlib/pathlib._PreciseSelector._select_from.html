@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pathlib._PreciseSelector._select_from</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pathlib._PreciseSelector._select_from</h1>
+                <span>Calls: 6083, </span>
+                <span>Exceptions: 210, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 5826 calls (0.96)</p>
+                <p><button class="input"><span>&#8594;</span> parent_path</button> PosixPath (5826) </p>
+                <p><button class="input"><span>&#8594;</span> is_dir</button> Path.is_dir def (5826) </p>
+                <p><button class="input"><span>&#8594;</span> exists</button> Path.exists def (5826) </p>
+                <p><button class="input"><span>&#8594;</span> scandir</button> builtin_function_or_method (5826) </p>
+                <p><button class="output"><span>&#8647; yield</span></button> PosixPath (5826) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_select_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_path</span><span class="p">,</span> <span class="n">is_dir</span><span class="p">,</span> <span class="n">exists</span><span class="p">,</span> <span class="n">scandir</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="n">path</span> <span class="o">=</span> <span class="n">parent_path</span><span class="o">.</span><span class="n">_make_child_relpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span><span class="n">is_dir</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dironly</span> <span class="k">else</span> <span class="n">exists</span><span class="p">)(</span><span class="n">path</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">successor</span><span class="o">.</span><span class="n">_select_from</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">is_dir</span><span class="p">,</span> <span class="n">exists</span><span class="p">,</span> <span class="n">scandir</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                    <span class="k">yield</span> <span class="n">p</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+            </pre>
+            <p><b>Path 2</b>: 200 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> parent_path</button> PosixPath (200) </p>
+                <p><button class="input"><span>&#8594;</span> is_dir</button> Path.is_dir def (200) </p>
+                <p><button class="input"><span>&#8594;</span> exists</button> Path.exists def (200) </p>
+                <p><button class="input"><span>&#8594;</span> scandir</button> builtin_function_or_method (200) </p>
+                <p><button class="output"><span>&#8647; yield</span></button> PosixPath (200) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> GeneratorExit (200) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_select_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_path</span><span class="p">,</span> <span class="n">is_dir</span><span class="p">,</span> <span class="n">exists</span><span class="p">,</span> <span class="n">scandir</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="n">path</span> <span class="o">=</span> <span class="n">parent_path</span><span class="o">.</span><span class="n">_make_child_relpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span><span class="n">is_dir</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dironly</span> <span class="k">else</span> <span class="n">exists</span><span class="p">)(</span><span class="n">path</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">successor</span><span class="o">.</span><span class="n">_select_from</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">is_dir</span><span class="p">,</span> <span class="n">exists</span><span class="p">,</span> <span class="n">scandir</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">                    <span class="k">yield</span> <span class="n">p</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+            </pre>
+            <p><b>Path 3</b>: 45 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> parent_path</button> PosixPath (45) </p>
+                <p><button class="input"><span>&#8594;</span> is_dir</button> Path.is_dir def (45) </p>
+                <p><button class="input"><span>&#8594;</span> exists</button> Path.exists def (45) </p>
+                <p><button class="input"><span>&#8594;</span> scandir</button> builtin_function_or_method (45) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_select_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_path</span><span class="p">,</span> <span class="n">is_dir</span><span class="p">,</span> <span class="n">exists</span><span class="p">,</span> <span class="n">scandir</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="n">path</span> <span class="o">=</span> <span class="n">parent_path</span><span class="o">.</span><span class="n">_make_child_relpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span><span class="n">is_dir</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dironly</span> <span class="k">else</span> <span class="n">exists</span><span class="p">)(</span><span class="n">path</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">successor</span><span class="o">.</span><span class="n">_select_from</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">is_dir</span><span class="p">,</span> <span class="n">exists</span><span class="p">,</span> <span class="n">scandir</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">                    <span class="k">yield</span> <span class="n">p</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+            </pre>
+            <p><b>Path 4</b>: 10 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> parent_path</button> PosixPath (10) </p>
+                <p><button class="input"><span>&#8594;</span> is_dir</button> Path.is_dir def (10) </p>
+                <p><button class="input"><span>&#8594;</span> exists</button> Path.exists def (10) </p>
+                <p><button class="input"><span>&#8594;</span> scandir</button> builtin_function_or_method (10) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (10) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> PermissionError (10) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_select_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_path</span><span class="p">,</span> <span class="n">is_dir</span><span class="p">,</span> <span class="n">exists</span><span class="p">,</span> <span class="n">scandir</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="n">path</span> <span class="o">=</span> <span class="n">parent_path</span><span class="o">.</span><span class="n">_make_child_relpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span><span class="n">is_dir</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dironly</span> <span class="k">else</span> <span class="n">exists</span><span class="p">)(</span><span class="n">path</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">successor</span><span class="o">.</span><span class="n">_select_from</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">is_dir</span><span class="p">,</span> <span class="n">exists</span><span class="p">,</span> <span class="n">scandir</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">                    <span class="k">yield</span> <span class="n">p</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">return</span></span>
+            </pre>
+            <p><b>Path 5</b>: 2 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> parent_path</button> PosixPath (2) </p>
+                <p><button class="input"><span>&#8594;</span> is_dir</button> Path.is_dir def (2) </p>
+                <p><button class="input"><span>&#8594;</span> exists</button> Path.exists def (2) </p>
+                <p><button class="input"><span>&#8594;</span> scandir</button> builtin_function_or_method (2) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_select_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_path</span><span class="p">,</span> <span class="n">is_dir</span><span class="p">,</span> <span class="n">exists</span><span class="p">,</span> <span class="n">scandir</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="n">path</span> <span class="o">=</span> <span class="n">parent_path</span><span class="o">.</span><span class="n">_make_child_relpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">if</span> <span class="p">(</span><span class="n">is_dir</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dironly</span> <span class="k">else</span> <span class="n">exists</span><span class="p">)(</span><span class="n">path</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">successor</span><span class="o">.</span><span class="n">_select_from</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">is_dir</span><span class="p">,</span> <span class="n">exists</span><span class="p">,</span> <span class="n">scandir</span><span class="p">):</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">                    <span class="k">yield</span> <span class="n">p</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

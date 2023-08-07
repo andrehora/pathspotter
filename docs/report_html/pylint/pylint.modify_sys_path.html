@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.modify_sys_path</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.modify_sys_path</h1>
+                <span>Calls: 14, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 10 calls (0.71)</p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">modify_sys_path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Modify sys path for execution as Python module.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Strip out the current working directory from sys.path.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    Having the working directory in `sys.path` means that `pylint` might</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    inadvertently import user code from modules having the same name as</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    stdlib or pylint&#39;s own modules.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    CPython issue: https://bugs.python.org/issue33053</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    - Remove the first entry. This will always be either &quot;&quot; or the working directory</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    - Remove the working directory from the second and third entries</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">      if PYTHONPATH includes a &quot;:&quot; at the beginning or the end.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">      https://github.com/PyCQA/pylint/issues/3636</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">      Don&#39;t remove it if PYTHONPATH contains the cwd or &#39;.&#39; as the entry will</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">      only be added once.</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    - Don&#39;t remove the working directory from the rest. It will be included</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">      if pylint is installed in an editable configuration (as the last item).</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">      https://github.com/PyCQA/pylint/issues/4161</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">cwd</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">    <span class="n">env_pythonpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PYTHONPATH&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">    <span class="k">if</span> <span class="n">env_pythonpath</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">env_pythonpath</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;:.&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="k">elif</span> <span class="n">env_pythonpath</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">env_pythonpath</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="s2">&quot;.:&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2 calls (0.14)</p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">modify_sys_path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Modify sys path for execution as Python module.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Strip out the current working directory from sys.path.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    Having the working directory in `sys.path` means that `pylint` might</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    inadvertently import user code from modules having the same name as</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    stdlib or pylint&#39;s own modules.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    CPython issue: https://bugs.python.org/issue33053</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    - Remove the first entry. This will always be either &quot;&quot; or the working directory</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    - Remove the working directory from the second and third entries</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">      if PYTHONPATH includes a &quot;:&quot; at the beginning or the end.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">      https://github.com/PyCQA/pylint/issues/3636</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">      Don&#39;t remove it if PYTHONPATH contains the cwd or &#39;.&#39; as the entry will</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">      only be added once.</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    - Don&#39;t remove the working directory from the rest. It will be included</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">      if pylint is installed in an editable configuration (as the last item).</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">      https://github.com/PyCQA/pylint/issues/4161</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">cwd</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">    <span class="n">env_pythonpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PYTHONPATH&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">    <span class="k">if</span> <span class="n">env_pythonpath</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">env_pythonpath</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;:.&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">    <span class="k">elif</span> <span class="n">env_pythonpath</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">env_pythonpath</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="s2">&quot;.:&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.07)</p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">modify_sys_path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Modify sys path for execution as Python module.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Strip out the current working directory from sys.path.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    Having the working directory in `sys.path` means that `pylint` might</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    inadvertently import user code from modules having the same name as</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    stdlib or pylint&#39;s own modules.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    CPython issue: https://bugs.python.org/issue33053</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    - Remove the first entry. This will always be either &quot;&quot; or the working directory</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    - Remove the working directory from the second and third entries</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">      if PYTHONPATH includes a &quot;:&quot; at the beginning or the end.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">      https://github.com/PyCQA/pylint/issues/3636</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">      Don&#39;t remove it if PYTHONPATH contains the cwd or &#39;.&#39; as the entry will</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">      only be added once.</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    - Don&#39;t remove the working directory from the rest. It will be included</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">      if pylint is installed in an editable configuration (as the last item).</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">      https://github.com/PyCQA/pylint/issues/4161</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">cwd</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">    <span class="n">env_pythonpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PYTHONPATH&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">    <span class="k">if</span> <span class="n">env_pythonpath</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">env_pythonpath</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;:.&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="k">elif</span> <span class="n">env_pythonpath</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">env_pythonpath</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="s2">&quot;.:&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.07)</p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">modify_sys_path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Modify sys path for execution as Python module.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    Strip out the current working directory from sys.path.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    Having the working directory in `sys.path` means that `pylint` might</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">    inadvertently import user code from modules having the same name as</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">    stdlib or pylint&#39;s own modules.</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">    CPython issue: https://bugs.python.org/issue33053</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    - Remove the first entry. This will always be either &quot;&quot; or the working directory</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    - Remove the working directory from the second and third entries</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">      if PYTHONPATH includes a &quot;:&quot; at the beginning or the end.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">      https://github.com/PyCQA/pylint/issues/3636</span></span>
+<span class="num"><a href="#14">14</a></span><span><span class="sd">      Don&#39;t remove it if PYTHONPATH contains the cwd or &#39;.&#39; as the entry will</span></span>
+<span class="num"><a href="#15">15</a></span><span><span class="sd">      only be added once.</span></span>
+<span class="num"><a href="#16">16</a></span><span><span class="sd">    - Don&#39;t remove the working directory from the rest. It will be included</span></span>
+<span class="num"><a href="#17">17</a></span><span><span class="sd">      if pylint is installed in an editable configuration (as the last item).</span></span>
+<span class="num"><a href="#18">18</a></span><span><span class="sd">      https://github.com/PyCQA/pylint/issues/4161</span></span>
+<span class="num"><a href="#19">19</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">cwd</span><span class="p">):</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">    <span class="n">env_pythonpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PYTHONPATH&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">    <span class="k">if</span> <span class="n">env_pythonpath</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">env_pythonpath</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;:.&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">    <span class="k">elif</span> <span class="n">env_pythonpath</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">env_pythonpath</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="s2">&quot;.:&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

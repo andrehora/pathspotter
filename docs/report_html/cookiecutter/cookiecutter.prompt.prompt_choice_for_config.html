@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>cookiecutter.prompt.prompt_choice_for_config</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: cookiecutter.prompt.prompt_choice_for_config</h1>
+                <span>Calls: 4, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 2 calls (0.5)</p>
+                <p><button class="input"><span>&#8594;</span> cookiecutter_dict</button> OrderedDict (1) dict (1) </p>
+                <p><button class="input"><span>&#8594;</span> env</button> StrictEnvironment (2) </p>
+                <p><button class="input"><span>&#8594;</span> key</button> 'pkg_name' (1) 'orientation' (1) </p>
+                <p><button class="input"><span>&#8594;</span> options</button> ['foo', '{{ cookiecutter.project_name|lower|replace(" ", "") }}', 'bar'] (1) ['landscape', 'portrait', 'all'] (1) </p>
+                <p><button class="input"><span>&#8594;</span> no_input</button> False (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'anewproject' (1) 'all' (1) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">prompt_choice_for_config</span><span class="p">(</span><span class="n">cookiecutter_dict</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">no_input</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Prompt user with a set of options to choose from.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    :param no_input: Do not prompt for user input and return the first available option.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">rendered_options</span> <span class="o">=</span> <span class="p">[</span><span class="n">render_variable</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">raw</span><span class="p">,</span> <span class="n">cookiecutter_dict</span><span class="p">)</span> <span class="k">for</span> <span class="n">raw</span> <span class="ow">in</span> <span class="n">options</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">if</span> <span class="n">no_input</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">rendered_options</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">    <span class="k">return</span> <span class="n">read_user_choice</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">rendered_options</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1 calls (0.25)</p>
+                <p><button class="input"><span>&#8594;</span> cookiecutter_dict</button> dict (1) </p>
+                <p><button class="input"><span>&#8594;</span> env</button> StrictEnvironment (1) </p>
+                <p><button class="input"><span>&#8594;</span> key</button> 'orientation' (1) </p>
+                <p><button class="input"><span>&#8594;</span> options</button> ['landscape', 'portrait', 'all'] (1) </p>
+                <p><button class="input"><span>&#8594;</span> no_input</button> True (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'landscape' (1) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">prompt_choice_for_config</span><span class="p">(</span><span class="n">cookiecutter_dict</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">no_input</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Prompt user with a set of options to choose from.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    :param no_input: Do not prompt for user input and return the first available option.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">rendered_options</span> <span class="o">=</span> <span class="p">[</span><span class="n">render_variable</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">raw</span><span class="p">,</span> <span class="n">cookiecutter_dict</span><span class="p">)</span> <span class="k">for</span> <span class="n">raw</span> <span class="ow">in</span> <span class="n">options</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="k">if</span> <span class="n">no_input</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">return</span> <span class="n">rendered_options</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">read_user_choice</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">rendered_options</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.25)</p>
+                <p><button class="input"><span>&#8594;</span> cookiecutter_dict</button> OrderedDict (1) </p>
+                <p><button class="input"><span>&#8594;</span> env</button> StrictEnvironment (1) </p>
+                <p><button class="input"><span>&#8594;</span> key</button> 'foo' (1) </p>
+                <p><button class="input"><span>&#8594;</span> options</button> ['123', '{{cookiecutter.nope}}', '456'] (1) </p>
+                <p><button class="input"><span>&#8594;</span> no_input</button> True (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UndefinedError (1) </p>
+            <button class="run" title="lines run...">1 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">prompt_choice_for_config</span><span class="p">(</span><span class="n">cookiecutter_dict</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">no_input</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Prompt user with a set of options to choose from.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    :param no_input: Do not prompt for user input and return the first available option.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">rendered_options</span> <span class="o">=</span> <span class="p">[</span><span class="n">render_variable</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">raw</span><span class="p">,</span> <span class="n">cookiecutter_dict</span><span class="p">)</span> <span class="k">for</span> <span class="n">raw</span> <span class="ow">in</span> <span class="n">options</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">    <span class="k">if</span> <span class="n">no_input</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">rendered_options</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">read_user_choice</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">rendered_options</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

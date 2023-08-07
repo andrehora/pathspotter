@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>requests.sessions.SessionRedirectMixin.rebuild_method</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: requests.sessions.SessionRedirectMixin.rebuild_method</h1>
+                <span>Calls: 139, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 120 calls (0.86)</p>
+                <p><button class="input"><span>&#8594;</span> prepared_request</button> PreparedRequest (120) </p>
+                <p><button class="input"><span>&#8594;</span> response</button> Response (120) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">rebuild_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prepared_request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;When being redirected we may want to change the method of the request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        based on certain specs or browser behavior.</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">method</span> <span class="o">=</span> <span class="n">prepared_request</span><span class="o">.</span><span class="n">method</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># https://tools.ietf.org/html/rfc7231#section-6.4.4</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">codes</span><span class="o">.</span><span class="n">see_other</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">!=</span> <span class="s2">&quot;HEAD&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Do what the browsers do, despite standards...</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># First, turn 302s into GETs.</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">codes</span><span class="o">.</span><span class="n">found</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">!=</span> <span class="s2">&quot;HEAD&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># Second, if a POST is responded to with a 301, turn it into a GET.</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># This bizarre behaviour is explained in Issue 1704.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">codes</span><span class="o">.</span><span class="n">moved</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">prepared_request</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span></span>
+            </pre>
+            <p><b>Path 2</b>: 16 calls (0.12)</p>
+                <p><button class="input"><span>&#8594;</span> prepared_request</button> PreparedRequest (16) </p>
+                <p><button class="input"><span>&#8594;</span> response</button> Response (16) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">rebuild_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prepared_request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;When being redirected we may want to change the method of the request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        based on certain specs or browser behavior.</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">method</span> <span class="o">=</span> <span class="n">prepared_request</span><span class="o">.</span><span class="n">method</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># https://tools.ietf.org/html/rfc7231#section-6.4.4</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">codes</span><span class="o">.</span><span class="n">see_other</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">!=</span> <span class="s2">&quot;HEAD&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Do what the browsers do, despite standards...</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># First, turn 302s into GETs.</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">codes</span><span class="o">.</span><span class="n">found</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">!=</span> <span class="s2">&quot;HEAD&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># Second, if a POST is responded to with a 301, turn it into a GET.</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># This bizarre behaviour is explained in Issue 1704.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">codes</span><span class="o">.</span><span class="n">moved</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">prepared_request</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> prepared_request</button> PreparedRequest (2) </p>
+                <p><button class="input"><span>&#8594;</span> response</button> Response (2) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">rebuild_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prepared_request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;When being redirected we may want to change the method of the request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        based on certain specs or browser behavior.</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">method</span> <span class="o">=</span> <span class="n">prepared_request</span><span class="o">.</span><span class="n">method</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># https://tools.ietf.org/html/rfc7231#section-6.4.4</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">codes</span><span class="o">.</span><span class="n">see_other</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">!=</span> <span class="s2">&quot;HEAD&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Do what the browsers do, despite standards...</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># First, turn 302s into GETs.</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">codes</span><span class="o">.</span><span class="n">found</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">!=</span> <span class="s2">&quot;HEAD&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># Second, if a POST is responded to with a 301, turn it into a GET.</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># This bizarre behaviour is explained in Issue 1704.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">codes</span><span class="o">.</span><span class="n">moved</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">prepared_request</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> prepared_request</button> PreparedRequest (1) </p>
+                <p><button class="input"><span>&#8594;</span> response</button> Response (1) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">rebuild_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prepared_request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;When being redirected we may want to change the method of the request</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        based on certain specs or browser behavior.</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">method</span> <span class="o">=</span> <span class="n">prepared_request</span><span class="o">.</span><span class="n">method</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span>        <span class="c1"># https://tools.ietf.org/html/rfc7231#section-6.4.4</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">codes</span><span class="o">.</span><span class="n">see_other</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">!=</span> <span class="s2">&quot;HEAD&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Do what the browsers do, despite standards...</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># First, turn 302s into GETs.</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">codes</span><span class="o">.</span><span class="n">found</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">!=</span> <span class="s2">&quot;HEAD&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1"># Second, if a POST is responded to with a 301, turn it into a GET.</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># This bizarre behaviour is explained in Issue 1704.</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">codes</span><span class="o">.</span><span class="n">moved</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">prepared_request</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

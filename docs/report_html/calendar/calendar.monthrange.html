@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>calendar.monthrange</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: calendar.monthrange</h1>
+                <span>Calls: 221, </span>
+                <span>Exceptions: 3, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 218 calls (0.99)</p>
+                <p><button class="input"><span>&#8594;</span> year</button> 2004 (103) 2017 (27) 0 (25) 9999 (15) 1 (14) 2001 (2) 1995 (2) 1987 (2) 1988 (2) 1999 (2) </p>
+                <p><button class="input"><span>&#8594;</span> month</button> 12 (40) 1 (29) 2 (29) 4 (22) 5 (14) 3 (12) 6 (12) 7 (12) 8 (12) 9 (12) </p>
+                <p><button class="output"><span>&#8617; return</span></button> (0, 31) (30) (2, 31) (29) (3, 31) (21) (6, 31) (16) (5, 31) (16) (4, 31) (14) (3, 30) (13) (2, 30) (12) (6, 29) (11) (0, 30) (10) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">monthrange</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return weekday (0-6 ~ Mon-Sun) and number of days (28-31) for</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">       year, month.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">month</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">        <span class="k">raise</span> <span class="n">IllegalMonthError</span><span class="p">(</span><span class="n">month</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">day1</span> <span class="o">=</span> <span class="n">weekday</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">ndays</span> <span class="o">=</span> <span class="n">mdays</span><span class="p">[</span><span class="n">month</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">month</span> <span class="o">==</span> <span class="n">February</span> <span class="ow">and</span> <span class="n">isleap</span><span class="p">(</span><span class="n">year</span><span class="p">))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">return</span> <span class="n">day1</span><span class="p">,</span> <span class="n">ndays</span></span>
+            </pre>
+            <p><b>Path 2</b>: 3 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> year</button> 2004 (3) </p>
+                <p><button class="input"><span>&#8594;</span> month</button> 65 (1) 13 (1) 0 (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> IllegalMonthError (3) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">monthrange</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return weekday (0-6 ~ Mon-Sun) and number of days (28-31) for</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">       year, month.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">month</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">:</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="k">raise</span> <span class="n">IllegalMonthError</span><span class="p">(</span><span class="n">month</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">    <span class="n">day1</span> <span class="o">=</span> <span class="n">weekday</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">    <span class="n">ndays</span> <span class="o">=</span> <span class="n">mdays</span><span class="p">[</span><span class="n">month</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">month</span> <span class="o">==</span> <span class="n">February</span> <span class="ow">and</span> <span class="n">isleap</span><span class="p">(</span><span class="n">year</span><span class="p">))</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">day1</span><span class="p">,</span> <span class="n">ndays</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

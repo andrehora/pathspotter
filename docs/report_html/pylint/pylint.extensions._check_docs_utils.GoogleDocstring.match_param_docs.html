@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.extensions._check_docs_utils.GoogleDocstring.match_param_docs</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.extensions._check_docs_utils.GoogleDocstring.match_param_docs</h1>
+                <span>Calls: 84, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 46 calls (0.55)</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (46) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">match_param_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">params_with_doc</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">params_with_type</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">entries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re_param_section</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">entries</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parse_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re_keyword_param_section</span><span class="p">))</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">re_param_line</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">param_name</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># Remove escape characters necessary for asterisks</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="n">param_name</span> <span class="o">=</span> <span class="n">param_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">param_type</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="n">param_desc</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">param_type</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="n">params_with_type</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">param_desc</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">params_with_doc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">return</span> <span class="n">params_with_doc</span><span class="p">,</span> <span class="n">params_with_type</span></span>
+            </pre>
+            <p><b>Path 2</b>: 24 calls (0.29)</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (24) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">match_param_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">params_with_doc</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">params_with_type</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">entries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re_param_section</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">entries</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parse_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re_keyword_param_section</span><span class="p">))</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">re_param_line</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">param_name</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># Remove escape characters necessary for asterisks</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="n">param_name</span> <span class="o">=</span> <span class="n">param_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">param_type</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">param_desc</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">if</span> <span class="n">param_type</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="n">params_with_type</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">param_desc</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">params_with_doc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">return</span> <span class="n">params_with_doc</span><span class="p">,</span> <span class="n">params_with_type</span></span>
+            </pre>
+            <p><b>Path 3</b>: 14 calls (0.17)</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (14) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">match_param_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="n">params_with_doc</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="n">params_with_type</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">        <span class="n">entries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re_param_section</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">entries</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parse_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re_keyword_param_section</span><span class="p">))</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">re_param_line</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">                <span class="k">continue</span></span>
+<span class="num"><a href="#11">11</a></span><span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">param_name</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># Remove escape characters necessary for asterisks</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="n">param_name</span> <span class="o">=</span> <span class="n">param_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">param_type</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="n">param_desc</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">            <span class="k">if</span> <span class="n">param_type</span><span class="p">:</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="n">params_with_type</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span></span>
+<span class="num"><a href="#21">21</a></span><span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">param_desc</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">params_with_doc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">        <span class="k">return</span> <span class="n">params_with_doc</span><span class="p">,</span> <span class="n">params_with_type</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

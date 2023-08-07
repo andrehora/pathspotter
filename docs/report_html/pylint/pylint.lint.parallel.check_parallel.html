@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.lint.parallel.check_parallel</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.lint.parallel.check_parallel</h1>
+                <span>Calls: 39, </span>
+                <span>Exceptions: 1, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 33 calls (0.85)</p>
+                <p><button class="input"><span>&#8594;</span> linter</button> PyLinter (33) </p>
+                <p><button class="input"><span>&#8594;</span> jobs</button> 2 (25) 1 (8) </p>
+                <p><button class="input"><span>&#8594;</span> files</button> list (28) PyLinter._iterate_file_descrs def (3) list_iterator (2) </p>
+                <p><button class="input"><span>&#8594;</span> arguments</button> None (29) ['--enable', 'R9999'] (1) ['test_directory'] (1) ['/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/regrtest_data/regression...</p>
+            <button class="run" title="lines run...">27 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">check_parallel</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">linter</span><span class="p">:</span> <span class="n">PyLinter</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">jobs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">files</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">FileItem</span><span class="p">],</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">arguments</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Use the given linter to lint the files with given amount of workers (jobs).</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    This splits the work filestream-by-filestream. If you need to do work across</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    multiple files, as in the similarity-checker, then implement the map/reduce mixin functionality.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>    <span class="c1"># The linter is inherited by all the pool&#39;s workers, i.e. the linter</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="c1"># is identical to the linter object here. This is required so that</span></span>
+<span class="num"><a href="#14">14</a></span><span>    <span class="c1"># a custom PyLinter object can be used.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="n">initializer</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">_worker_initialize</span><span class="p">,</span> <span class="n">arguments</span><span class="o">=</span><span class="n">arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">with</span> <span class="n">ProcessPoolExecutor</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">max_workers</span><span class="o">=</span><span class="n">jobs</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span> <span class="n">initargs</span><span class="o">=</span><span class="p">(</span><span class="n">dill</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">linter</span><span class="p">),)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">linter</span><span class="o">.</span><span class="n">open</span><span class="p">()</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">all_stats</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">all_mapreduce_data</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">[</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">defaultdict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Maps each file to be worked on by a single _worker_check_single_file() call,</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># collecting any map/reduce data by checker module so that we can &#39;reduce&#39; it</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># later.</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">for</span> <span class="p">(</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="n">worker_idx</span><span class="p">,</span>  <span class="c1"># used to merge map/reduce data across workers</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">module</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="n">file_path</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="n">base_name</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">messages</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">stats</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">msg_status</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="n">mapreduce_data</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="p">)</span> <span class="ow">in</span> <span class="n">executor</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">_worker_check_single_file</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span> <span class="o">=</span> <span class="n">base_name</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_is_base_filestate</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="n">linter</span><span class="o">.</span><span class="n">set_current_module</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">linter</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">handle_message</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="n">all_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">            <span class="n">all_mapreduce_data</span><span class="p">[</span><span class="n">worker_idx</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mapreduce_data</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="n">linter</span><span class="o">.</span><span class="n">msg_status</span> <span class="o">|=</span> <span class="n">msg_status</span></span>
+<span class="num"><a href="#46">46</a></span><span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">    <span class="n">_merge_mapreduce_data</span><span class="p">(</span><span class="n">linter</span><span class="p">,</span> <span class="n">all_mapreduce_data</span><span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">    <span class="n">linter</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">merge_stats</span><span class="p">([</span><span class="n">linter</span><span class="o">.</span><span class="n">stats</span><span class="p">]</span> <span class="o">+</span> <span class="n">all_stats</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 4 calls (0.1)</p>
+                <p><button class="input"><span>&#8594;</span> linter</button> PyLinter (3) _CustomPyLinter (1) </p>
+                <p><button class="input"><span>&#8594;</span> jobs</button> 2 (4) </p>
+                <p><button class="input"><span>&#8594;</span> files</button> PyLinter._iterate_file_descrs def (4) </p>
+                <p><button class="input"><span>&#8594;</span> arguments</button> ['/Users/andrehora/Documents/git/projects-pathspotter/pylint/tests/functional/a/arguments.py'] (1) ['/Users/andrehora/Documents/git/projects-pathspott...</p>
+            <button class="run" title="lines run...">28 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">check_parallel</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">linter</span><span class="p">:</span> <span class="n">PyLinter</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">jobs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">files</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">FileItem</span><span class="p">],</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">arguments</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Use the given linter to lint the files with given amount of workers (jobs).</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    This splits the work filestream-by-filestream. If you need to do work across</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    multiple files, as in the similarity-checker, then implement the map/reduce mixin functionality.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>    <span class="c1"># The linter is inherited by all the pool&#39;s workers, i.e. the linter</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="c1"># is identical to the linter object here. This is required so that</span></span>
+<span class="num"><a href="#14">14</a></span><span>    <span class="c1"># a custom PyLinter object can be used.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="n">initializer</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">_worker_initialize</span><span class="p">,</span> <span class="n">arguments</span><span class="o">=</span><span class="n">arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">with</span> <span class="n">ProcessPoolExecutor</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">max_workers</span><span class="o">=</span><span class="n">jobs</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span> <span class="n">initargs</span><span class="o">=</span><span class="p">(</span><span class="n">dill</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">linter</span><span class="p">),)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">linter</span><span class="o">.</span><span class="n">open</span><span class="p">()</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">all_stats</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">all_mapreduce_data</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">[</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">defaultdict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Maps each file to be worked on by a single _worker_check_single_file() call,</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># collecting any map/reduce data by checker module so that we can &#39;reduce&#39; it</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># later.</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">for</span> <span class="p">(</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="n">worker_idx</span><span class="p">,</span>  <span class="c1"># used to merge map/reduce data across workers</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">module</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">            <span class="n">file_path</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="n">base_name</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">            <span class="n">messages</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">stats</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">msg_status</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="n">mapreduce_data</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="p">)</span> <span class="ow">in</span> <span class="n">executor</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">_worker_check_single_file</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">            <span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span> <span class="o">=</span> <span class="n">base_name</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">            <span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_is_base_filestate</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">            <span class="n">linter</span><span class="o">.</span><span class="n">set_current_module</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">                <span class="n">linter</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">handle_message</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full run">            <span class="n">all_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">            <span class="n">all_mapreduce_data</span><span class="p">[</span><span class="n">worker_idx</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mapreduce_data</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">            <span class="n">linter</span><span class="o">.</span><span class="n">msg_status</span> <span class="o">|=</span> <span class="n">msg_status</span></span>
+<span class="num"><a href="#46">46</a></span><span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">    <span class="n">_merge_mapreduce_data</span><span class="p">(</span><span class="n">linter</span><span class="p">,</span> <span class="n">all_mapreduce_data</span><span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">    <span class="n">linter</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">merge_stats</span><span class="p">([</span><span class="n">linter</span><span class="o">.</span><span class="n">stats</span><span class="p">]</span> <span class="o">+</span> <span class="n">all_stats</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 1 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> linter</button> PyLinter (1) </p>
+                <p><button class="input"><span>&#8594;</span> jobs</button> 1 (1) </p>
+                <p><button class="input"><span>&#8594;</span> files</button> list_iterator (1) </p>
+                <p><button class="input"><span>&#8594;</span> arguments</button> 1 (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> BrokenProcessPool (1) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">check_parallel</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">linter</span><span class="p">:</span> <span class="n">PyLinter</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">jobs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">files</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">FileItem</span><span class="p">],</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">arguments</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Use the given linter to lint the files with given amount of workers (jobs).</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    This splits the work filestream-by-filestream. If you need to do work across</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    multiple files, as in the similarity-checker, then implement the map/reduce mixin functionality.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>    <span class="c1"># The linter is inherited by all the pool&#39;s workers, i.e. the linter</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="c1"># is identical to the linter object here. This is required so that</span></span>
+<span class="num"><a href="#14">14</a></span><span>    <span class="c1"># a custom PyLinter object can be used.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="n">initializer</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">_worker_initialize</span><span class="p">,</span> <span class="n">arguments</span><span class="o">=</span><span class="n">arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">with</span> <span class="n">ProcessPoolExecutor</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">max_workers</span><span class="o">=</span><span class="n">jobs</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span> <span class="n">initargs</span><span class="o">=</span><span class="p">(</span><span class="n">dill</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">linter</span><span class="p">),)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">linter</span><span class="o">.</span><span class="n">open</span><span class="p">()</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">all_stats</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">all_mapreduce_data</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">[</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">defaultdict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Maps each file to be worked on by a single _worker_check_single_file() call,</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># collecting any map/reduce data by checker module so that we can &#39;reduce&#39; it</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># later.</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">for</span> <span class="p">(</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="n">worker_idx</span><span class="p">,</span>  <span class="c1"># used to merge map/reduce data across workers</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">module</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="n">file_path</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">base_name</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">messages</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">stats</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg_status</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="n">mapreduce_data</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="p">)</span> <span class="ow">in</span> <span class="n">executor</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">_worker_check_single_file</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span> <span class="o">=</span> <span class="n">base_name</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">            <span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_is_base_filestate</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">linter</span><span class="o">.</span><span class="n">set_current_module</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">linter</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">handle_message</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">            <span class="n">all_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">            <span class="n">all_mapreduce_data</span><span class="p">[</span><span class="n">worker_idx</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mapreduce_data</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="n">linter</span><span class="o">.</span><span class="n">msg_status</span> <span class="o">|=</span> <span class="n">msg_status</span></span>
+<span class="num"><a href="#46">46</a></span><span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">    <span class="n">_merge_mapreduce_data</span><span class="p">(</span><span class="n">linter</span><span class="p">,</span> <span class="n">all_mapreduce_data</span><span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">    <span class="n">linter</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">merge_stats</span><span class="p">([</span><span class="n">linter</span><span class="o">.</span><span class="n">stats</span><span class="p">]</span> <span class="o">+</span> <span class="n">all_stats</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> linter</button> PyLinter (1) </p>
+                <p><button class="input"><span>&#8594;</span> jobs</button> 2 (1) </p>
+                <p><button class="input"><span>&#8594;</span> files</button> PyLinter._iterate_file_descrs def (1) </p>
+                <p><button class="input"><span>&#8594;</span> arguments</button> ['not_here', 'not_here_too'] (1) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">16 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">check_parallel</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="n">linter</span><span class="p">:</span> <span class="n">PyLinter</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>    <span class="n">jobs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>    <span class="n">files</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">FileItem</span><span class="p">],</span></span>
+<span class="num"><a href="#5">5</a></span><span>    <span class="n">arguments</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Use the given linter to lint the files with given amount of workers (jobs).</span></span>
+<span class="num"><a href="#8">8</a></span><span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">    This splits the work filestream-by-filestream. If you need to do work across</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">    multiple files, as in the similarity-checker, then implement the map/reduce mixin functionality.</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>    <span class="c1"># The linter is inherited by all the pool&#39;s workers, i.e. the linter</span></span>
+<span class="num"><a href="#13">13</a></span><span>    <span class="c1"># is identical to the linter object here. This is required so that</span></span>
+<span class="num"><a href="#14">14</a></span><span>    <span class="c1"># a custom PyLinter object can be used.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="n">initializer</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">_worker_initialize</span><span class="p">,</span> <span class="n">arguments</span><span class="o">=</span><span class="n">arguments</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">    <span class="k">with</span> <span class="n">ProcessPoolExecutor</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">max_workers</span><span class="o">=</span><span class="n">jobs</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span> <span class="n">initargs</span><span class="o">=</span><span class="p">(</span><span class="n">dill</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">linter</span><span class="p">),)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">    <span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">linter</span><span class="o">.</span><span class="n">open</span><span class="p">()</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="n">all_stats</span> <span class="o">=</span> <span class="p">[]</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="n">all_mapreduce_data</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">[</span></span>
+<span class="num"><a href="#22">22</a></span><span>            <span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">defaultdict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1"># Maps each file to be worked on by a single _worker_check_single_file() call,</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># collecting any map/reduce data by checker module so that we can &#39;reduce&#39; it</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># later.</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">for</span> <span class="p">(</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">            <span class="n">worker_idx</span><span class="p">,</span>  <span class="c1"># used to merge map/reduce data across workers</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">module</span><span class="p">,</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">            <span class="n">file_path</span><span class="p">,</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">base_name</span><span class="p">,</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">            <span class="n">messages</span><span class="p">,</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">stats</span><span class="p">,</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg_status</span><span class="p">,</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="n">mapreduce_data</span><span class="p">,</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">        <span class="p">)</span> <span class="ow">in</span> <span class="n">executor</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">_worker_check_single_file</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">            <span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">base_name</span> <span class="o">=</span> <span class="n">base_name</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">            <span class="n">linter</span><span class="o">.</span><span class="n">file_state</span><span class="o">.</span><span class="n">_is_base_filestate</span> <span class="o">=</span> <span class="kc">False</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">            <span class="n">linter</span><span class="o">.</span><span class="n">set_current_module</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                <span class="n">linter</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">handle_message</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></span>
+<span class="num"><a href="#43">43</a></span><span class="full not_run">            <span class="n">all_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">            <span class="n">all_mapreduce_data</span><span class="p">[</span><span class="n">worker_idx</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mapreduce_data</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">            <span class="n">linter</span><span class="o">.</span><span class="n">msg_status</span> <span class="o">|=</span> <span class="n">msg_status</span></span>
+<span class="num"><a href="#46">46</a></span><span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">    <span class="n">_merge_mapreduce_data</span><span class="p">(</span><span class="n">linter</span><span class="p">,</span> <span class="n">all_mapreduce_data</span><span class="p">)</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">    <span class="n">linter</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">merge_stats</span><span class="p">([</span><span class="n">linter</span><span class="o">.</span><span class="n">stats</span><span class="p">]</span> <span class="o">+</span> <span class="n">all_stats</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

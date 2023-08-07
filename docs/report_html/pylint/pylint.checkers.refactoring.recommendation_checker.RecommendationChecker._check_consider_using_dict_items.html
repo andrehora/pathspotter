@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.refactoring.recommendation_checker.RecommendationChecker._check_consider_using_dict_items</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.refactoring.recommendation_checker.RecommendationChecker._check_consider_using_dict_items</h1>
+                <span>Calls: 512, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 9</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 483 calls (0.94)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> For (483) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (483) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">21 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_dict_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add message when accessing dict values by index lookup.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># Verify that we have a .keys() call and</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># that the object which is iterated is used as a subscript in the</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># body of the for.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">iterating_object_name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_iterating_dictionary_name</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">iterating_object_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Verify that the body of the for loop uses a subscript</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># with the object that was iterated. This uses some heuristics</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># in order to make sure that the same object is used in the</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># for body.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Subscript</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="n">value</span> <span class="o">=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">slice</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">iterating_object_name</span> <span class="o">!=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="n">last_definition_lineno</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">last_definition_lineno</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>                    <span class="c1"># Ignore this subscript if it has been redefined after</span></span>
+<span class="num"><a href="#30">30</a></span><span>                    <span class="c1"># the for loop. This checks for the line number using .lookup()</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="c1"># to get the line number where the iterating object was last</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="c1"># defined and compare that to the for loop&#39;s line number</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">targets</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AugAssign</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="o">==</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">target</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="c1"># Ignore this subscript if it is the target of an assignment</span></span>
+<span class="num"><a href="#41">41</a></span><span>                    <span class="c1"># Early termination as dict index lookup is necessary</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;consider-using-dict-items&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="k">return</span></span>
+            </pre>
+            <p><b>Path 2</b>: 9 calls (0.02)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> For (9) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">20 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_dict_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add message when accessing dict values by index lookup.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># Verify that we have a .keys() call and</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># that the object which is iterated is used as a subscript in the</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># body of the for.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">iterating_object_name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_iterating_dictionary_name</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">iterating_object_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Verify that the body of the for loop uses a subscript</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># with the object that was iterated. This uses some heuristics</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># in order to make sure that the same object is used in the</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># for body.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">for</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Subscript</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">                <span class="n">value</span> <span class="o">=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">slice</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">iterating_object_name</span> <span class="o">!=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="n">last_definition_lineno</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">last_definition_lineno</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>                    <span class="c1"># Ignore this subscript if it has been redefined after</span></span>
+<span class="num"><a href="#30">30</a></span><span>                    <span class="c1"># the for loop. This checks for the line number using .lookup()</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="c1"># to get the line number where the iterating object was last</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="c1"># defined and compare that to the for loop&#39;s line number</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">targets</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AugAssign</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="o">==</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">target</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="c1"># Ignore this subscript if it is the target of an assignment</span></span>
+<span class="num"><a href="#41">41</a></span><span>                    <span class="c1"># Early termination as dict index lookup is necessary</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;consider-using-dict-items&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="k">return</span></span>
+            </pre>
+            <p><b>Path 3</b>: 4 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> For (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (4) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_dict_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add message when accessing dict values by index lookup.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># Verify that we have a .keys() call and</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># that the object which is iterated is used as a subscript in the</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># body of the for.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">iterating_object_name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_iterating_dictionary_name</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">iterating_object_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Verify that the body of the for loop uses a subscript</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># with the object that was iterated. This uses some heuristics</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># in order to make sure that the same object is used in the</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># for body.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">for</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Subscript</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">slice</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">iterating_object_name</span> <span class="o">!=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="n">last_definition_lineno</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">if</span> <span class="n">last_definition_lineno</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>                    <span class="c1"># Ignore this subscript if it has been redefined after</span></span>
+<span class="num"><a href="#30">30</a></span><span>                    <span class="c1"># the for loop. This checks for the line number using .lookup()</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="c1"># to get the line number where the iterating object was last</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="c1"># defined and compare that to the for loop&#39;s line number</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">targets</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                    <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AugAssign</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="o">==</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">target</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="c1"># Ignore this subscript if it is the target of an assignment</span></span>
+<span class="num"><a href="#41">41</a></span><span>                    <span class="c1"># Early termination as dict index lookup is necessary</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;consider-using-dict-items&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">                <span class="k">return</span></span>
+            </pre>
+            <p><b>Path 4</b>: 4 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> For (4) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (4) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_dict_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add message when accessing dict values by index lookup.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># Verify that we have a .keys() call and</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># that the object which is iterated is used as a subscript in the</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># body of the for.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">iterating_object_name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_iterating_dictionary_name</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">iterating_object_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Verify that the body of the for loop uses a subscript</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># with the object that was iterated. This uses some heuristics</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># in order to make sure that the same object is used in the</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># for body.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">for</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Subscript</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">slice</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">iterating_object_name</span> <span class="o">!=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="n">last_definition_lineno</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">if</span> <span class="n">last_definition_lineno</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>                    <span class="c1"># Ignore this subscript if it has been redefined after</span></span>
+<span class="num"><a href="#30">30</a></span><span>                    <span class="c1"># the for loop. This checks for the line number using .lookup()</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="c1"># to get the line number where the iterating object was last</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="c1"># defined and compare that to the for loop&#39;s line number</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">targets</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                    <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AugAssign</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="o">==</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">target</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="c1"># Ignore this subscript if it is the target of an assignment</span></span>
+<span class="num"><a href="#41">41</a></span><span>                    <span class="c1"># Early termination as dict index lookup is necessary</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;consider-using-dict-items&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full run">                <span class="k">return</span></span>
+            </pre>
+            <p><b>Path 5</b>: 4 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> For (4) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_dict_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add message when accessing dict values by index lookup.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># Verify that we have a .keys() call and</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># that the object which is iterated is used as a subscript in the</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># body of the for.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">iterating_object_name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_iterating_dictionary_name</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">iterating_object_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Verify that the body of the for loop uses a subscript</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># with the object that was iterated. This uses some heuristics</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># in order to make sure that the same object is used in the</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># for body.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">for</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Subscript</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">slice</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">iterating_object_name</span> <span class="o">!=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="n">last_definition_lineno</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">last_definition_lineno</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>                    <span class="c1"># Ignore this subscript if it has been redefined after</span></span>
+<span class="num"><a href="#30">30</a></span><span>                    <span class="c1"># the for loop. This checks for the line number using .lookup()</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="c1"># to get the line number where the iterating object was last</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="c1"># defined and compare that to the for loop&#39;s line number</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">targets</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AugAssign</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="o">==</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">target</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="c1"># Ignore this subscript if it is the target of an assignment</span></span>
+<span class="num"><a href="#41">41</a></span><span>                    <span class="c1"># Early termination as dict index lookup is necessary</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;consider-using-dict-items&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="k">return</span></span>
+            </pre>
+            <p><b>Path 6</b>: 3 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> For (3) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (3) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_dict_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add message when accessing dict values by index lookup.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># Verify that we have a .keys() call and</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># that the object which is iterated is used as a subscript in the</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># body of the for.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">iterating_object_name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_iterating_dictionary_name</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">iterating_object_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Verify that the body of the for loop uses a subscript</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># with the object that was iterated. This uses some heuristics</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># in order to make sure that the same object is used in the</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># for body.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">for</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Subscript</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">slice</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">iterating_object_name</span> <span class="o">!=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="n">last_definition_lineno</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">if</span> <span class="n">last_definition_lineno</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>                    <span class="c1"># Ignore this subscript if it has been redefined after</span></span>
+<span class="num"><a href="#30">30</a></span><span>                    <span class="c1"># the for loop. This checks for the line number using .lookup()</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="c1"># to get the line number where the iterating object was last</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="c1"># defined and compare that to the for loop&#39;s line number</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">targets</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AugAssign</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="o">==</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">target</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="c1"># Ignore this subscript if it is the target of an assignment</span></span>
+<span class="num"><a href="#41">41</a></span><span>                    <span class="c1"># Early termination as dict index lookup is necessary</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">                    <span class="k">return</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;consider-using-dict-items&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="k">return</span></span>
+            </pre>
+            <p><b>Path 7</b>: 2 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> For (2) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (2) </p>
+            <button class="run" title="lines run...">17 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_dict_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add message when accessing dict values by index lookup.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># Verify that we have a .keys() call and</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># that the object which is iterated is used as a subscript in the</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># body of the for.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">iterating_object_name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_iterating_dictionary_name</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">iterating_object_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Verify that the body of the for loop uses a subscript</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># with the object that was iterated. This uses some heuristics</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># in order to make sure that the same object is used in the</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># for body.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">for</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Subscript</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">slice</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">iterating_object_name</span> <span class="o">!=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="n">last_definition_lineno</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">if</span> <span class="n">last_definition_lineno</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>                    <span class="c1"># Ignore this subscript if it has been redefined after</span></span>
+<span class="num"><a href="#30">30</a></span><span>                    <span class="c1"># the for loop. This checks for the line number using .lookup()</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="c1"># to get the line number where the iterating object was last</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="c1"># defined and compare that to the for loop&#39;s line number</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">targets</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                    <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AugAssign</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="o">==</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">target</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="c1"># Ignore this subscript if it is the target of an assignment</span></span>
+<span class="num"><a href="#41">41</a></span><span>                    <span class="c1"># Early termination as dict index lookup is necessary</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">                    <span class="k">return</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;consider-using-dict-items&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="k">return</span></span>
+            </pre>
+            <p><b>Path 8</b>: 2 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> For (2) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">14 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_dict_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add message when accessing dict values by index lookup.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># Verify that we have a .keys() call and</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># that the object which is iterated is used as a subscript in the</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># body of the for.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">iterating_object_name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_iterating_dictionary_name</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">iterating_object_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Verify that the body of the for loop uses a subscript</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># with the object that was iterated. This uses some heuristics</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># in order to make sure that the same object is used in the</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># for body.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">for</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Subscript</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">slice</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="n">iterating_object_name</span> <span class="o">!=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">                <span class="n">last_definition_lineno</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">                <span class="k">if</span> <span class="n">last_definition_lineno</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>                    <span class="c1"># Ignore this subscript if it has been redefined after</span></span>
+<span class="num"><a href="#30">30</a></span><span>                    <span class="c1"># the for loop. This checks for the line number using .lookup()</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="c1"># to get the line number where the iterating object was last</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="c1"># defined and compare that to the for loop&#39;s line number</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">targets</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AugAssign</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="o">==</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">target</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="c1"># Ignore this subscript if it is the target of an assignment</span></span>
+<span class="num"><a href="#41">41</a></span><span>                    <span class="c1"># Early termination as dict index lookup is necessary</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;consider-using-dict-items&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="k">return</span></span>
+            </pre>
+            <p><b>Path 9</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> For (1) </p>
+            <button class="run" title="lines run...">13 run</button>
+            <button class="not_run" title="lines not run...">11 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_check_consider_using_dict_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">For</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add message when accessing dict values by index lookup.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="c1"># Verify that we have a .keys() call and</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="c1"># that the object which is iterated is used as a subscript in the</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="c1"># body of the for.</span></span>
+<span class="num"><a href="#6">6</a></span><span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">iterating_object_name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_iterating_dictionary_name</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">if</span> <span class="n">iterating_object_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#10">10</a></span><span></span>
+<span class="num"><a href="#11">11</a></span><span>        <span class="c1"># Verify that the body of the for loop uses a subscript</span></span>
+<span class="num"><a href="#12">12</a></span><span>        <span class="c1"># with the object that was iterated. This uses some heuristics</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># in order to make sure that the same object is used in the</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># for body.</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="k">for</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">nodes_of_class</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Subscript</span><span class="p">):</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Attribute</span><span class="p">)):</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">                <span class="n">value</span> <span class="o">=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">slice</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">name</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                    <span class="ow">or</span> <span class="n">iterating_object_name</span> <span class="o">!=</span> <span class="n">subscript</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_string</span><span class="p">()</span></span>
+<span class="num"><a href="#25">25</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">                <span class="n">last_definition_lineno</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">                <span class="k">if</span> <span class="n">last_definition_lineno</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span>                    <span class="c1"># Ignore this subscript if it has been redefined after</span></span>
+<span class="num"><a href="#30">30</a></span><span>                    <span class="c1"># the for loop. This checks for the line number using .lookup()</span></span>
+<span class="num"><a href="#31">31</a></span><span>                    <span class="c1"># to get the line number where the iterating object was last</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="c1"># defined and compare that to the for loop&#39;s line number</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">                <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Assign</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">targets</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                    <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">AugAssign</span><span class="p">)</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="ow">and</span> <span class="n">subscript</span> <span class="o">==</span> <span class="n">subscript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">target</span></span>
+<span class="num"><a href="#39">39</a></span><span>                <span class="p">):</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="c1"># Ignore this subscript if it is the target of an assignment</span></span>
+<span class="num"><a href="#41">41</a></span><span>                    <span class="c1"># Early termination as dict index lookup is necessary</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">                    <span class="k">return</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;consider-using-dict-items&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#45">45</a></span><span class="full not_run">                <span class="k">return</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

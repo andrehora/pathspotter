@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>argparse.ArgumentParser._parse_optional</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: argparse.ArgumentParser._parse_optional</h1>
+                <span>Calls: 6774, </span>
+                <span>Exceptions: 114, </span>
+                <span>Paths: 12</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 3370 calls (0.5)</p>
+                <p><button class="input"><span>&#8594;</span> arg_string</button> 'a' (1212) 'b' (509) 'X' (201) 'c' (176) 'B' (115) 'foo' (98) '2' (88) 'bar' (81) '1' (75) 'Y' (75) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (3370) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">27 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parse_optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># if it&#39;s an empty string, it was meant to be a positional</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># if it doesn&#39;t start with a prefix, it was meant to be positional</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># if the option string is present in the parser, return the action</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">arg_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">arg_string</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># if it&#39;s just a single character, it was meant to be positional</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># if the option string before the &quot;=&quot; is present, return the action</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="o">=</span> <span class="n">arg_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">option_string</span><span class="p">]</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># search through all possible prefixes of the option string</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># and all actions in the parser for possible interpretations</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="n">option_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_option_tuples</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># if multiple actions match, the option string was ambiguous</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">option_string</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="ow">in</span> <span class="n">option_tuples</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="n">arg_string</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">}</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;ambiguous option: </span><span class="si">%(option)s</span><span class="s1"> could match </span><span class="si">%(matches)s</span><span class="s1">&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># if exactly one action matched, this segmentation is good,</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># so return the parsed action</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">option_tuple</span><span class="p">,</span> <span class="o">=</span> <span class="n">option_tuples</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">option_tuple</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># if it was not found as an option, but it looks like a negative</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># number, it was meant to be positional</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># unless there are negative-number-like options</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#50">50</a></span><span></span>
+<span class="num"><a href="#51">51</a></span><span>        <span class="c1"># if it contains a space, it was meant to be a positional</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># it was meant to be an optional but there is no such option</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># in this parser (though it might be a valid option in a subparser)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 2</b>: 2011 calls (0.3)</p>
+                <p><button class="input"><span>&#8594;</span> arg_string</button> '-x' (529) '--baz' (166) '--foo' (126) '-y' (115) '-b' (102) '-z' (79) '-a' (74) '-c' (68) '-f' (54) '+f' (48) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (2011) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">25 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parse_optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># if it&#39;s an empty string, it was meant to be a positional</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># if it doesn&#39;t start with a prefix, it was meant to be positional</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># if the option string is present in the parser, return the action</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">arg_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">arg_string</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># if it&#39;s just a single character, it was meant to be positional</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># if the option string before the &quot;=&quot; is present, return the action</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="o">=</span> <span class="n">arg_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">option_string</span><span class="p">]</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># search through all possible prefixes of the option string</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># and all actions in the parser for possible interpretations</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="n">option_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_option_tuples</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># if multiple actions match, the option string was ambiguous</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">option_string</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="ow">in</span> <span class="n">option_tuples</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="n">arg_string</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">}</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;ambiguous option: </span><span class="si">%(option)s</span><span class="s1"> could match </span><span class="si">%(matches)s</span><span class="s1">&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># if exactly one action matched, this segmentation is good,</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># so return the parsed action</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">option_tuple</span><span class="p">,</span> <span class="o">=</span> <span class="n">option_tuples</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">option_tuple</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># if it was not found as an option, but it looks like a negative</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># number, it was meant to be positional</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># unless there are negative-number-like options</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#50">50</a></span><span></span>
+<span class="num"><a href="#51">51</a></span><span>        <span class="c1"># if it contains a space, it was meant to be a positional</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># it was meant to be an optional but there is no such option</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># in this parser (though it might be a valid option in a subparser)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 3</b>: 550 calls (0.08)</p>
+                <p><button class="input"><span>&#8594;</span> arg_string</button> '--foo' (187) '-x' (84) '-y' (33) '--bar' (19) '-w' (14) '--food' (12) '++food' (12) '-f' (12) '-b' (10) '-a' (9) </p>
+                <p><button class="output"><span>&#8617; return</span></button> (None, '--foo', None) (187) (None, '-x', None) (84) (None, '-y', None) (33) (None, '--bar', None) (19) (None, '-w', None) (14) (None, '--food', None) ...</p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">19 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parse_optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># if it&#39;s an empty string, it was meant to be a positional</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># if it doesn&#39;t start with a prefix, it was meant to be positional</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># if the option string is present in the parser, return the action</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">arg_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">arg_string</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># if it&#39;s just a single character, it was meant to be positional</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># if the option string before the &quot;=&quot; is present, return the action</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="o">=</span> <span class="n">arg_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">option_string</span><span class="p">]</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># search through all possible prefixes of the option string</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># and all actions in the parser for possible interpretations</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">option_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_option_tuples</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># if multiple actions match, the option string was ambiguous</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">option_string</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="ow">in</span> <span class="n">option_tuples</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="n">arg_string</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">}</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;ambiguous option: </span><span class="si">%(option)s</span><span class="s1"> could match </span><span class="si">%(matches)s</span><span class="s1">&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># if exactly one action matched, this segmentation is good,</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># so return the parsed action</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">option_tuple</span><span class="p">,</span> <span class="o">=</span> <span class="n">option_tuples</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">option_tuple</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># if it was not found as an option, but it looks like a negative</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># number, it was meant to be positional</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># unless there are negative-number-like options</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#50">50</a></span><span></span>
+<span class="num"><a href="#51">51</a></span><span>        <span class="c1"># if it contains a space, it was meant to be a positional</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># it was meant to be an optional but there is no such option</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># in this parser (though it might be a valid option in a subparser)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 4</b>: 492 calls (0.07)</p>
+                <p><button class="input"><span>&#8594;</span> arg_string</button> '-3.5' (24) '-za' (24) '--badge' (24) '-xa' (18) '-ra' (12) '-cc' (12) '+ra' (12) '+cc' (12) '-bx' (12) '-cx' (12) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (492) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">20 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parse_optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># if it&#39;s an empty string, it was meant to be a positional</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># if it doesn&#39;t start with a prefix, it was meant to be positional</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># if the option string is present in the parser, return the action</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">arg_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">arg_string</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># if it&#39;s just a single character, it was meant to be positional</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># if the option string before the &quot;=&quot; is present, return the action</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="o">=</span> <span class="n">arg_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">option_string</span><span class="p">]</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># search through all possible prefixes of the option string</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># and all actions in the parser for possible interpretations</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">option_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_option_tuples</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># if multiple actions match, the option string was ambiguous</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">option_string</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="ow">in</span> <span class="n">option_tuples</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="n">arg_string</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">}</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;ambiguous option: </span><span class="si">%(option)s</span><span class="s1"> could match </span><span class="si">%(matches)s</span><span class="s1">&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># if exactly one action matched, this segmentation is good,</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># so return the parsed action</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full run">            <span class="n">option_tuple</span><span class="p">,</span> <span class="o">=</span> <span class="n">option_tuples</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full run">            <span class="k">return</span> <span class="n">option_tuple</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># if it was not found as an option, but it looks like a negative</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># number, it was meant to be positional</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># unless there are negative-number-like options</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#50">50</a></span><span></span>
+<span class="num"><a href="#51">51</a></span><span>        <span class="c1"># if it contains a space, it was meant to be a positional</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># it was meant to be an optional but there is no such option</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># in this parser (though it might be a valid option in a subparser)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 5</b>: 96 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> arg_string</button> '-foo' (24) '--foob' (12) '--b' (12) '-f' (12) '-fo' (12) '--ba' (6) '-foob' (6) '-fooba' (6) '-foora' (6) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> SystemExit (96) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parse_optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># if it&#39;s an empty string, it was meant to be a positional</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># if it doesn&#39;t start with a prefix, it was meant to be positional</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># if the option string is present in the parser, return the action</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">arg_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">arg_string</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># if it&#39;s just a single character, it was meant to be positional</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># if the option string before the &quot;=&quot; is present, return the action</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="o">=</span> <span class="n">arg_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">option_string</span><span class="p">]</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># search through all possible prefixes of the option string</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># and all actions in the parser for possible interpretations</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">option_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_option_tuples</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># if multiple actions match, the option string was ambiguous</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">option_string</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="ow">in</span> <span class="n">option_tuples</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="n">arg_string</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">}</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;ambiguous option: </span><span class="si">%(option)s</span><span class="s1"> could match </span><span class="si">%(matches)s</span><span class="s1">&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># if exactly one action matched, this segmentation is good,</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># so return the parsed action</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">option_tuple</span><span class="p">,</span> <span class="o">=</span> <span class="n">option_tuples</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">option_tuple</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># if it was not found as an option, but it looks like a negative</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># number, it was meant to be positional</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># unless there are negative-number-like options</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#50">50</a></span><span></span>
+<span class="num"><a href="#51">51</a></span><span>        <span class="c1"># if it contains a space, it was meant to be a positional</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># it was meant to be an optional but there is no such option</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># in this parser (though it might be a valid option in a subparser)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 6</b>: 72 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> arg_string</button> '-' (72) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (72) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">25 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parse_optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># if it&#39;s an empty string, it was meant to be a positional</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># if it doesn&#39;t start with a prefix, it was meant to be positional</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># if the option string is present in the parser, return the action</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">arg_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">arg_string</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># if it&#39;s just a single character, it was meant to be positional</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># if the option string before the &quot;=&quot; is present, return the action</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="o">=</span> <span class="n">arg_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">option_string</span><span class="p">]</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># search through all possible prefixes of the option string</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># and all actions in the parser for possible interpretations</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="n">option_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_option_tuples</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># if multiple actions match, the option string was ambiguous</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">option_string</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="ow">in</span> <span class="n">option_tuples</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="n">arg_string</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">}</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;ambiguous option: </span><span class="si">%(option)s</span><span class="s1"> could match </span><span class="si">%(matches)s</span><span class="s1">&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># if exactly one action matched, this segmentation is good,</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># so return the parsed action</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">option_tuple</span><span class="p">,</span> <span class="o">=</span> <span class="n">option_tuples</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">option_tuple</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># if it was not found as an option, but it looks like a negative</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># number, it was meant to be positional</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># unless there are negative-number-like options</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#50">50</a></span><span></span>
+<span class="num"><a href="#51">51</a></span><span>        <span class="c1"># if it contains a space, it was meant to be a positional</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># it was meant to be an optional but there is no such option</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># in this parser (though it might be a valid option in a subparser)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 7</b>: 54 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> arg_string</button> '-1' (18) '-2.5' (12) '-2' (12) '-.5' (6) '-315' (6) </p>
+                <p><button class="output"><span>&#8617; return</span></button> (None, '-1', None) (18) (None, '-2.5', None) (12) (None, '-2', None) (12) (None, '-.5', None) (6) (None, '-315', None) (6) </p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">18 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parse_optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># if it&#39;s an empty string, it was meant to be a positional</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># if it doesn&#39;t start with a prefix, it was meant to be positional</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># if the option string is present in the parser, return the action</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">arg_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">arg_string</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># if it&#39;s just a single character, it was meant to be positional</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># if the option string before the &quot;=&quot; is present, return the action</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="o">=</span> <span class="n">arg_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">option_string</span><span class="p">]</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># search through all possible prefixes of the option string</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># and all actions in the parser for possible interpretations</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">option_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_option_tuples</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># if multiple actions match, the option string was ambiguous</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">option_string</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="ow">in</span> <span class="n">option_tuples</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="n">arg_string</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">}</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;ambiguous option: </span><span class="si">%(option)s</span><span class="s1"> could match </span><span class="si">%(matches)s</span><span class="s1">&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># if exactly one action matched, this segmentation is good,</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># so return the parsed action</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">option_tuple</span><span class="p">,</span> <span class="o">=</span> <span class="n">option_tuples</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">option_tuple</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># if it was not found as an option, but it looks like a negative</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># number, it was meant to be positional</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># unless there are negative-number-like options</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#50">50</a></span><span></span>
+<span class="num"><a href="#51">51</a></span><span>        <span class="c1"># if it contains a space, it was meant to be a positional</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># it was meant to be an optional but there is no such option</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># in this parser (though it might be a valid option in a subparser)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full run">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 8</b>: 50 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> arg_string</button> '--foo=bar' (6) '--yyy=a badger' (6) '--yyy=-a badger' (6) '--apple=b' (6) '--foo=a' (6) '--foo=-2.5' (6) '--ba=X' (6) '--eggs=42' (6) '-req_opt=1' (1...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (50) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">21 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parse_optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># if it&#39;s an empty string, it was meant to be a positional</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># if it doesn&#39;t start with a prefix, it was meant to be positional</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># if the option string is present in the parser, return the action</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">arg_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">arg_string</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># if it&#39;s just a single character, it was meant to be positional</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># if the option string before the &quot;=&quot; is present, return the action</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="o">=</span> <span class="n">arg_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">option_string</span><span class="p">]</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># search through all possible prefixes of the option string</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># and all actions in the parser for possible interpretations</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="n">option_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_option_tuples</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># if multiple actions match, the option string was ambiguous</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">option_string</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="ow">in</span> <span class="n">option_tuples</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="n">arg_string</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">}</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;ambiguous option: </span><span class="si">%(option)s</span><span class="s1"> could match </span><span class="si">%(matches)s</span><span class="s1">&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># if exactly one action matched, this segmentation is good,</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># so return the parsed action</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">option_tuple</span><span class="p">,</span> <span class="o">=</span> <span class="n">option_tuples</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">option_tuple</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># if it was not found as an option, but it looks like a negative</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># number, it was meant to be positional</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># unless there are negative-number-like options</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#50">50</a></span><span></span>
+<span class="num"><a href="#51">51</a></span><span>        <span class="c1"># if it contains a space, it was meant to be a positional</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># it was meant to be an optional but there is no such option</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># in this parser (though it might be a valid option in a subparser)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 9</b>: 31 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> arg_string</button> '-1' (12) '-2' (6) '-2.5' (6) '-3' (6) '-1.5' (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (31) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">19 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parse_optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># if it&#39;s an empty string, it was meant to be a positional</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># if it doesn&#39;t start with a prefix, it was meant to be positional</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># if the option string is present in the parser, return the action</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">arg_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">arg_string</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># if it&#39;s just a single character, it was meant to be positional</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># if the option string before the &quot;=&quot; is present, return the action</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="o">=</span> <span class="n">arg_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">option_string</span><span class="p">]</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># search through all possible prefixes of the option string</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># and all actions in the parser for possible interpretations</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">option_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_option_tuples</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># if multiple actions match, the option string was ambiguous</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">option_string</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="ow">in</span> <span class="n">option_tuples</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="n">arg_string</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">}</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;ambiguous option: </span><span class="si">%(option)s</span><span class="s1"> could match </span><span class="si">%(matches)s</span><span class="s1">&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># if exactly one action matched, this segmentation is good,</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># so return the parsed action</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">option_tuple</span><span class="p">,</span> <span class="o">=</span> <span class="n">option_tuples</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">option_tuple</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># if it was not found as an option, but it looks like a negative</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># number, it was meant to be positional</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># unless there are negative-number-like options</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full run">                <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#50">50</a></span><span></span>
+<span class="num"><a href="#51">51</a></span><span>        <span class="c1"># if it contains a space, it was meant to be a positional</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># it was meant to be an optional but there is no such option</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># in this parser (though it might be a valid option in a subparser)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 10</b>: 18 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> arg_string</button> '' (18) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (18) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">28 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parse_optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># if it&#39;s an empty string, it was meant to be a positional</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># if it doesn&#39;t start with a prefix, it was meant to be positional</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># if the option string is present in the parser, return the action</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">arg_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">arg_string</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># if it&#39;s just a single character, it was meant to be positional</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># if the option string before the &quot;=&quot; is present, return the action</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="o">=</span> <span class="n">arg_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">option_string</span><span class="p">]</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># search through all possible prefixes of the option string</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># and all actions in the parser for possible interpretations</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">        <span class="n">option_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_option_tuples</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># if multiple actions match, the option string was ambiguous</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">option_string</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="ow">in</span> <span class="n">option_tuples</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="n">arg_string</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">}</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;ambiguous option: </span><span class="si">%(option)s</span><span class="s1"> could match </span><span class="si">%(matches)s</span><span class="s1">&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># if exactly one action matched, this segmentation is good,</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># so return the parsed action</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">option_tuple</span><span class="p">,</span> <span class="o">=</span> <span class="n">option_tuples</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">option_tuple</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># if it was not found as an option, but it looks like a negative</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># number, it was meant to be positional</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># unless there are negative-number-like options</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#50">50</a></span><span></span>
+<span class="num"><a href="#51">51</a></span><span>        <span class="c1"># if it contains a space, it was meant to be a positional</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># it was meant to be an optional but there is no such option</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># in this parser (though it might be a valid option in a subparser)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 11</b>: 18 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> arg_string</button> '--b=2' (12) '--ba=4' (6) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> SystemExit (18) </p>
+            <button class="run" title="lines run...">14 run</button>
+            <button class="not_run" title="lines not run...">16 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parse_optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># if it&#39;s an empty string, it was meant to be a positional</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># if it doesn&#39;t start with a prefix, it was meant to be positional</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># if the option string is present in the parser, return the action</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">arg_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">arg_string</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># if it&#39;s just a single character, it was meant to be positional</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># if the option string before the &quot;=&quot; is present, return the action</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="o">=</span> <span class="n">arg_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">            <span class="k">if</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">option_string</span><span class="p">]</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># search through all possible prefixes of the option string</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># and all actions in the parser for possible interpretations</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">option_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_option_tuples</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># if multiple actions match, the option string was ambiguous</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">option_string</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full run">                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="ow">in</span> <span class="n">option_tuples</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="n">arg_string</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">}</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;ambiguous option: </span><span class="si">%(option)s</span><span class="s1"> could match </span><span class="si">%(matches)s</span><span class="s1">&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># if exactly one action matched, this segmentation is good,</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># so return the parsed action</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full not_run">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">option_tuple</span><span class="p">,</span> <span class="o">=</span> <span class="n">option_tuples</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">option_tuple</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># if it was not found as an option, but it looks like a negative</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># number, it was meant to be positional</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># unless there are negative-number-like options</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full not_run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#50">50</a></span><span></span>
+<span class="num"><a href="#51">51</a></span><span>        <span class="c1"># if it contains a space, it was meant to be a positional</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full not_run">        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># it was meant to be an optional but there is no such option</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># in this parser (though it might be a valid option in a subparser)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+            <p><b>Path 12</b>: 12 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> arg_string</button> '-a badger' (12) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (12) </p>
+            <button class="run" title="lines run...">11 run</button>
+            <button class="not_run" title="lines not run...">19 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_parse_optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="c1"># if it&#39;s an empty string, it was meant to be a positional</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="c1"># if it doesn&#39;t start with a prefix, it was meant to be positional</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="ow">not</span> <span class="n">arg_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix_chars</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#9">9</a></span><span></span>
+<span class="num"><a href="#10">10</a></span><span>        <span class="c1"># if the option string is present in the parser, return the action</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">arg_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">arg_string</span><span class="p">]</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+<span class="num"><a href="#14">14</a></span><span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># if it&#39;s just a single character, it was meant to be positional</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#18">18</a></span><span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># if the option string before the &quot;=&quot; is present, return the action</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="o">=</span> <span class="n">arg_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">:</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_string_actions</span><span class="p">[</span><span class="n">option_string</span><span class="p">]</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span></span>
+<span class="num"><a href="#25">25</a></span><span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># search through all possible prefixes of the option string</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># and all actions in the parser for possible interpretations</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="n">option_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_option_tuples</span><span class="p">(</span><span class="n">arg_string</span><span class="p">)</span></span>
+<span class="num"><a href="#29">29</a></span><span></span>
+<span class="num"><a href="#30">30</a></span><span>        <span class="c1"># if multiple actions match, the option string was ambiguous</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">option_string</span></span>
+<span class="num"><a href="#33">33</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">option_string</span><span class="p">,</span> <span class="n">explicit_arg</span> <span class="ow">in</span> <span class="n">option_tuples</span><span class="p">])</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="n">arg_string</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="n">options</span><span class="p">}</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;ambiguous option: </span><span class="si">%(option)s</span><span class="s1"> could match </span><span class="si">%(matches)s</span><span class="s1">&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#36">36</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span></span>
+<span class="num"><a href="#37">37</a></span><span></span>
+<span class="num"><a href="#38">38</a></span><span>        <span class="c1"># if exactly one action matched, this segmentation is good,</span></span>
+<span class="num"><a href="#39">39</a></span><span>        <span class="c1"># so return the parsed action</span></span>
+<span class="num"><a href="#40">40</a></span><span class="full run">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">option_tuples</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#41">41</a></span><span class="full not_run">            <span class="n">option_tuple</span><span class="p">,</span> <span class="o">=</span> <span class="n">option_tuples</span></span>
+<span class="num"><a href="#42">42</a></span><span class="full not_run">            <span class="k">return</span> <span class="n">option_tuple</span></span>
+<span class="num"><a href="#43">43</a></span><span></span>
+<span class="num"><a href="#44">44</a></span><span>        <span class="c1"># if it was not found as an option, but it looks like a negative</span></span>
+<span class="num"><a href="#45">45</a></span><span>        <span class="c1"># number, it was meant to be positional</span></span>
+<span class="num"><a href="#46">46</a></span><span>        <span class="c1"># unless there are negative-number-like options</span></span>
+<span class="num"><a href="#47">47</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_number_matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">arg_string</span><span class="p">):</span></span>
+<span class="num"><a href="#48">48</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_negative_number_optionals</span><span class="p">:</span></span>
+<span class="num"><a href="#49">49</a></span><span class="full not_run">                <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#50">50</a></span><span></span>
+<span class="num"><a href="#51">51</a></span><span>        <span class="c1"># if it contains a space, it was meant to be a positional</span></span>
+<span class="num"><a href="#52">52</a></span><span class="full run">        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">arg_string</span><span class="p">:</span></span>
+<span class="num"><a href="#53">53</a></span><span class="full run">            <span class="k">return</span> <span class="kc">None</span></span>
+<span class="num"><a href="#54">54</a></span><span></span>
+<span class="num"><a href="#55">55</a></span><span>        <span class="c1"># it was meant to be an optional but there is no such option</span></span>
+<span class="num"><a href="#56">56</a></span><span>        <span class="c1"># in this parser (though it might be a valid option in a subparser)</span></span>
+<span class="num"><a href="#57">57</a></span><span class="full not_run">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg_string</span><span class="p">,</span> <span class="kc">None</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

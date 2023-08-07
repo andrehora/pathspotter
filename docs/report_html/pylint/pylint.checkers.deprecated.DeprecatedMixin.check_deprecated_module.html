@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.deprecated.DeprecatedMixin.check_deprecated_module</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.deprecated.DeprecatedMixin.check_deprecated_module</h1>
+                <span>Calls: 2507, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 1266 calls (0.5)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ImportFrom (651) Import (615) </p>
+                <p><button class="input"><span>&#8594;</span> mod_path</button> 'typing' (153) 'os' (86) 'collections' (63) 'sys' (56) '__future__' (52) 'abc' (37) 're' (32) 'dataclasses' (29) 'enum' (23) 'collections.abc' (23) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">check_deprecated_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Import</span><span class="p">,</span> <span class="n">mod_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks if the module is deprecated.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">mod_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">deprecated_modules</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">if</span> <span class="n">mod_path</span> <span class="o">==</span> <span class="n">mod_name</span> <span class="ow">or</span> <span class="n">mod_path</span> <span class="ow">and</span> <span class="n">mod_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">mod_name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;deprecated-module&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">mod_path</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 1222 calls (0.49)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> ImportFrom (632) Import (590) </p>
+                <p><button class="input"><span>&#8594;</span> mod_path</button> 'typing' (150) 'os' (83) 'collections' (63) 'sys' (54) '__future__' (52) 'abc' (37) 're' (32) 'dataclasses' (29) 'enum' (23) 'collections.abc' (23) </p>
+            <button class="run" title="lines run...">1 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">check_deprecated_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Import</span><span class="p">,</span> <span class="n">mod_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks if the module is deprecated.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">mod_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">deprecated_modules</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">mod_path</span> <span class="o">==</span> <span class="n">mod_name</span> <span class="ow">or</span> <span class="n">mod_path</span> <span class="ow">and</span> <span class="n">mod_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">mod_name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;deprecated-module&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">mod_path</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 19 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Import (11) ImportFrom (8) </p>
+                <p><button class="input"><span>&#8594;</span> mod_path</button> 'optparse' (6) 'distutils' (2) 'deprecated' (2) 'uninstalled' (2) 'deprecated_module' (2) 'xml.etree.cElementTree' (1) 'imp' (1) 'distutils.version' (...</p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">check_deprecated_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Import</span><span class="p">,</span> <span class="n">mod_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks if the module is deprecated.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">mod_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">deprecated_modules</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">if</span> <span class="n">mod_path</span> <span class="o">==</span> <span class="n">mod_name</span> <span class="ow">or</span> <span class="n">mod_path</span> <span class="ow">and</span> <span class="n">mod_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">mod_name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">):</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="s2">&quot;deprecated-module&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">mod_path</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.pyreverse.diagrams.ClassDiagram.extract_relationships</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.pyreverse.diagrams.ClassDiagram.extract_relationships</h1>
+                <span>Calls: 46, </span>
+                <span>Exceptions: 30, </span>
+                <span>Paths: 7</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 17 calls (0.37)</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (17) </p>
+            <button class="run" title="lines run...">25 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extract_relationships</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract relationships between nodes in the diagram.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">node</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">node</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attrs</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">methods</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_methods</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># shape</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_interface</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;interface&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># inheritance link</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">for</span> <span class="n">par_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ancestors</span><span class="p">(</span><span class="n">recurs</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="n">par_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">par_node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">par_obj</span><span class="p">,</span> <span class="s2">&quot;specialization&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># implements link</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">for</span> <span class="n">impl_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">implements</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="n">impl_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">impl_node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">impl_obj</span><span class="p">,</span> <span class="s2">&quot;implements&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># associations &amp; aggregations links</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">aggregations_type</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;aggregation&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">associations_type</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="n">node</span><span class="o">.</span><span class="n">locals_type</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></span>
+<span class="num"><a href="#36">36</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;association&quot;</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 16 calls (0.35)</p>
+            <button class="run" title="lines run...">1 run</button>
+            <button class="not_run" title="lines not run...">27 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extract_relationships</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract relationships between nodes in the diagram.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="n">node</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">node</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full not_run">            <span class="n">obj</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attrs</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="n">obj</span><span class="o">.</span><span class="n">methods</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_methods</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># shape</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">is_interface</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;interface&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># inheritance link</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">par_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ancestors</span><span class="p">(</span><span class="n">recurs</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">                    <span class="n">par_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">par_node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">par_obj</span><span class="p">,</span> <span class="s2">&quot;specialization&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># implements link</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">impl_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">implements</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="n">impl_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">impl_node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">impl_obj</span><span class="p">,</span> <span class="s2">&quot;implements&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># associations &amp; aggregations links</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">aggregations_type</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;aggregation&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">associations_type</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full not_run">                <span class="n">node</span><span class="o">.</span><span class="n">locals_type</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></span>
+<span class="num"><a href="#36">36</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;association&quot;</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 5 calls (0.11)</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (5) </p>
+            <button class="run" title="lines run...">18 run</button>
+            <button class="not_run" title="lines not run...">10 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extract_relationships</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract relationships between nodes in the diagram.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">node</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">node</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attrs</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">methods</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_methods</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># shape</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_interface</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;interface&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># inheritance link</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">for</span> <span class="n">par_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ancestors</span><span class="p">(</span><span class="n">recurs</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="n">par_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">par_node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">par_obj</span><span class="p">,</span> <span class="s2">&quot;specialization&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># implements link</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">for</span> <span class="n">impl_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">implements</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="n">impl_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">impl_node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">impl_obj</span><span class="p">,</span> <span class="s2">&quot;implements&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># associations &amp; aggregations links</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">aggregations_type</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;aggregation&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">associations_type</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="n">node</span><span class="o">.</span><span class="n">locals_type</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></span>
+<span class="num"><a href="#36">36</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;association&quot;</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 3 calls (0.07)</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (3) </p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extract_relationships</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract relationships between nodes in the diagram.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">node</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">node</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attrs</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">methods</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_methods</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># shape</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_interface</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;interface&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># inheritance link</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">for</span> <span class="n">par_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ancestors</span><span class="p">(</span><span class="n">recurs</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="n">par_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">par_node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">par_obj</span><span class="p">,</span> <span class="s2">&quot;specialization&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># implements link</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">for</span> <span class="n">impl_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">implements</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="n">impl_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">impl_node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">impl_obj</span><span class="p">,</span> <span class="s2">&quot;implements&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># associations &amp; aggregations links</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">aggregations_type</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;aggregation&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">associations_type</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="n">node</span><span class="o">.</span><span class="n">locals_type</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></span>
+<span class="num"><a href="#36">36</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;association&quot;</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 3 calls (0.07)</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (3) </p>
+            <button class="run" title="lines run...">21 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extract_relationships</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract relationships between nodes in the diagram.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">node</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">node</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attrs</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">methods</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_methods</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># shape</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_interface</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;interface&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># inheritance link</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">for</span> <span class="n">par_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ancestors</span><span class="p">(</span><span class="n">recurs</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="n">par_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">par_node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">par_obj</span><span class="p">,</span> <span class="s2">&quot;specialization&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># implements link</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">for</span> <span class="n">impl_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">implements</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="n">impl_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">impl_node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">impl_obj</span><span class="p">,</span> <span class="s2">&quot;implements&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># associations &amp; aggregations links</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">aggregations_type</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;aggregation&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">associations_type</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="n">node</span><span class="o">.</span><span class="n">locals_type</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></span>
+<span class="num"><a href="#36">36</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;association&quot;</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 6</b>: 1 calls (0.02)</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (1) </p>
+            <button class="run" title="lines run...">25 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extract_relationships</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract relationships between nodes in the diagram.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">node</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">node</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attrs</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">methods</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_methods</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># shape</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_interface</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;interface&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># inheritance link</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">for</span> <span class="n">par_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ancestors</span><span class="p">(</span><span class="n">recurs</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="n">par_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">par_node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">par_obj</span><span class="p">,</span> <span class="s2">&quot;specialization&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># implements link</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">for</span> <span class="n">impl_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">implements</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                    <span class="n">impl_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">impl_node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">impl_obj</span><span class="p">,</span> <span class="s2">&quot;implements&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># associations &amp; aggregations links</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">aggregations_type</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;aggregation&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">associations_type</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="n">node</span><span class="o">.</span><span class="n">locals_type</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></span>
+<span class="num"><a href="#36">36</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;association&quot;</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 7</b>: 1 calls (0.02)</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> KeyError (1) </p>
+            <button class="run" title="lines run...">16 run</button>
+            <button class="not_run" title="lines not run...">12 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">extract_relationships</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract relationships between nodes in the diagram.&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">():</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="n">node</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">node</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attrs</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="n">obj</span><span class="o">.</span><span class="n">methods</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_methods</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span>            <span class="c1"># shape</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="k">if</span> <span class="n">is_interface</span><span class="p">(</span><span class="n">node</span><span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;interface&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span>            <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="n">obj</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span></span>
+<span class="num"><a href="#12">12</a></span><span>            <span class="c1"># inheritance link</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">            <span class="k">for</span> <span class="n">par_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">ancestors</span><span class="p">(</span><span class="n">recurs</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">                    <span class="n">par_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">par_node</span><span class="p">)</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">par_obj</span><span class="p">,</span> <span class="s2">&quot;specialization&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># implements link</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">            <span class="k">for</span> <span class="n">impl_node</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">implements</span><span class="p">:</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">                <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                    <span class="n">impl_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_from_node</span><span class="p">(</span><span class="n">impl_node</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">add_relationship</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">impl_obj</span><span class="p">,</span> <span class="s2">&quot;implements&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                    <span class="k">continue</span></span>
+<span class="num"><a href="#26">26</a></span><span></span>
+<span class="num"><a href="#27">27</a></span><span>            <span class="c1"># associations &amp; aggregations links</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">aggregations_type</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;aggregation&quot;</span></span>
+<span class="num"><a href="#32">32</a></span><span>                    <span class="p">)</span></span>
+<span class="num"><a href="#33">33</a></span><span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">associations_type</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">                <span class="n">node</span><span class="o">.</span><span class="n">locals_type</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></span>
+<span class="num"><a href="#36">36</a></span><span>            <span class="p">):</span></span>
+<span class="num"><a href="#37">37</a></span><span class="full not_run">                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></span>
+<span class="num"><a href="#38">38</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">assign_association_relationship</span><span class="p">(</span></span>
+<span class="num"><a href="#39">39</a></span><span class="full not_run">                        <span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;association&quot;</span></span>
+<span class="num"><a href="#40">40</a></span><span>                    <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

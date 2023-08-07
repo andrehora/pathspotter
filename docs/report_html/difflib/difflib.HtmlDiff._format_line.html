@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>difflib.HtmlDiff._format_line</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: difflib.HtmlDiff._format_line</h1>
+                <span>Calls: 686, </span>
+                <span>Exceptions: 104, </span>
+                <span>Paths: 2</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 582 calls (0.85)</p>
+                <p><button class="input"><span>&#8594;</span> side</button> 0 (291) 1 (291) </p>
+                <p><button class="input"><span>&#8594;</span> flag</button> False (364) True (218) </p>
+                <p><button class="input"><span>&#8594;</span> linenum</button> 4 (26) 2 (24) 3 (24) 5 (24) 1 (22) 6 (18) 7 (16) 8 (16) 10 (16) 12 (16) </p>
+                <p><button class="input"><span>&#8594;</span> text</button> '123' (264) '' (40) '   3. Simple is better than complex.' (23) '\x00-   4. Complex is better than complicated.\x01' (18) '\x00+   5. Flat is better t...</p>
+                <p><button class="output"><span>&#8617; return</span></button> '<td class="diff_header" id="from0_1">1</td><td nowrap="nowrap"></td>' (1) '<td class="diff_header" id="to0_1">1</td><td nowrap="nowrap"></td>' (1) '<...</p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_format_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">side</span><span class="p">,</span><span class="n">flag</span><span class="p">,</span><span class="n">linenum</span><span class="p">,</span><span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns HTML markup of &quot;from&quot; / &quot;to&quot; text lines</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        side -- 0 or 1 indicating &quot;from&quot; or &quot;to&quot; text</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        flag -- indicates if difference on line</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        linenum -- line number (used for line number column)</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        text -- line text to be marked up</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">linenum</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">linenum</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">            <span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39; id=&quot;</span><span class="si">%s%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">[</span><span class="n">side</span><span class="p">],</span><span class="n">linenum</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># handle blank lines where linenum is &#39;&gt;&#39; or &#39;&#39;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">            <span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># replace those things that would get confused with HTML symbols</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">,</span><span class="s2">&quot;&amp;amp;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span><span class="s2">&quot;&amp;gt;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span><span class="s2">&quot;&amp;lt;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># make space non-breakable so they don&#39;t get compressed or line wrapped</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&amp;nbsp;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">return</span> <span class="s1">&#39;&lt;td class=&quot;diff_header&quot;</span><span class="si">%s</span><span class="s1">&gt;</span><span class="si">%s</span><span class="s1">&lt;/td&gt;&lt;td nowrap=&quot;nowrap&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/td&gt;&#39;</span> \</span>
+<span class="num"><a href="#22">22</a></span><span class="full run">               <span class="o">%</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span><span class="n">linenum</span><span class="p">,</span><span class="n">text</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 104 calls (0.15)</p>
+                <p><button class="input"><span>&#8594;</span> side</button> 1 (52) 0 (52) </p>
+                <p><button class="input"><span>&#8594;</span> flag</button> True (96) False (8) </p>
+                <p><button class="input"><span>&#8594;</span> linenum</button> '' (54) '>' (50) </p>
+                <p><button class="input"><span>&#8594;</span> text</button> '\n' (36) ' ' (18) '\x00^e\x01d' (6) '\x00^E\x01d' (6) '\x00^\x01ed' (6) '56789012345689' (4) '012345' (4) '\x00+d\x01' (3) '\x00-cted\x01' (3) '\x00-...</p>
+                <p><button class="output"><span>&#8617; return</span></button> '<td class="diff_header"></td><td nowrap="nowrap"></td>' (36) '<td class="diff_header"></td><td nowrap="nowrap">&nbsp;</td>' (18) '<td class="diff_hea...</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> TypeError (104) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_format_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">side</span><span class="p">,</span><span class="n">flag</span><span class="p">,</span><span class="n">linenum</span><span class="p">,</span><span class="n">text</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns HTML markup of &quot;from&quot; / &quot;to&quot; text lines</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        side -- 0 or 1 indicating &quot;from&quot; or &quot;to&quot; text</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        flag -- indicates if difference on line</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        linenum -- line number (used for line number column)</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        text -- line text to be marked up</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">try</span><span class="p">:</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="n">linenum</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">linenum</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">            <span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39; id=&quot;</span><span class="si">%s%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">[</span><span class="n">side</span><span class="p">],</span><span class="n">linenum</span><span class="p">)</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span></span>
+<span class="num"><a href="#13">13</a></span><span>            <span class="c1"># handle blank lines where linenum is &#39;&gt;&#39; or &#39;&#39;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">            <span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># replace those things that would get confused with HTML symbols</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">        <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">,</span><span class="s2">&quot;&amp;amp;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span><span class="s2">&quot;&amp;gt;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span><span class="s2">&quot;&amp;lt;&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># make space non-breakable so they don&#39;t get compressed or line wrapped</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&amp;nbsp;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></span>
+<span class="num"><a href="#20">20</a></span><span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">        <span class="k">return</span> <span class="s1">&#39;&lt;td class=&quot;diff_header&quot;</span><span class="si">%s</span><span class="s1">&gt;</span><span class="si">%s</span><span class="s1">&lt;/td&gt;&lt;td nowrap=&quot;nowrap&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/td&gt;&#39;</span> \</span>
+<span class="num"><a href="#22">22</a></span><span class="full run">               <span class="o">%</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span><span class="n">linenum</span><span class="p">,</span><span class="n">text</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

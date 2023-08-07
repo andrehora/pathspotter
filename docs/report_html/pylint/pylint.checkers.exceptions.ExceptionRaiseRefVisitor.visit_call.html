@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.exceptions.ExceptionRaiseRefVisitor.visit_call</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.exceptions.ExceptionRaiseRefVisitor.visit_call</h1>
+                <span>Calls: 208, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 183 calls (0.88)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (183) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">visit_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">visit_name</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">if</span> <span class="s2">&quot;%&quot;</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">&quot;{&quot;</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">and</span> <span class="s2">&quot;}&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="s2">&quot;raising-format-tuple&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 15 calls (0.07)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (15) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">visit_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">visit_name</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">if</span> <span class="s2">&quot;%&quot;</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">&quot;{&quot;</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">and</span> <span class="s2">&quot;}&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="s2">&quot;raising-format-tuple&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 6 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (6) </p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">visit_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">visit_name</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="s2">&quot;%&quot;</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">&quot;{&quot;</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">and</span> <span class="s2">&quot;}&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                    <span class="s2">&quot;raising-format-tuple&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 3 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (3) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">visit_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">visit_name</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="k">if</span> <span class="s2">&quot;%&quot;</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">&quot;{&quot;</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">and</span> <span class="s2">&quot;}&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">                <span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">                    <span class="s2">&quot;raising-format-tuple&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (1) </p>
+            <button class="run" title="lines run...">9 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">visit_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#2">2</a></span><span class="full run">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Name</span><span class="p">):</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">visit_name</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">)</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">            <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">            <span class="n">msg</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="k">if</span> <span class="s2">&quot;%&quot;</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">&quot;{&quot;</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">and</span> <span class="s2">&quot;}&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">):</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">                <span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">                    <span class="s2">&quot;raising-format-tuple&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">HIGH</span></span>
+<span class="num"><a href="#13">13</a></span><span>                <span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.utils.file_state.FileState._set_state_on_block_lines</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.utils.file_state.FileState._set_state_on_block_lines</h1>
+                <span>Calls: 514242, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 259510 calls (0.5)</p>
+                <p><button class="input"><span>&#8594;</span> msgs_store</button> MessageDefinitionStore (259510) </p>
+                <p><button class="input"><span>&#8594;</span> node</button> Name (108642) Const (61526) AssignName (60325) Pass (9564) Arguments (6924) ImportFrom (3761) Import (3494) List (1196) Dict (1144) Break (893) </p>
+                <p><button class="input"><span>&#8594;</span> msg</button> MessageDefinition (259510) </p>
+                <p><button class="input"><span>&#8594;</span> msg_state</button> {1: False} (84445) {2: False} (60962) {3: False} (40320) {4: False} (18071) {} (10093) {5: False} (9001) {6: False} (6201) {7: False} (4155) {9: False...</p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_set_state_on_block_lines</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">msgs_store</span><span class="p">:</span> <span class="n">MessageDefinitionStore</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">msg</span><span class="p">:</span> <span class="n">MessageDefinition</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">msg_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Recursively walk (depth first) AST to collect block level options</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        line numbers and set the state correctly.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_set_state_on_block_lines</span><span class="p">(</span><span class="n">msgs_store</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">msg_state</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># first child line number used to distinguish between disable</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># which are the first child of scoped node with those defined later.</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># For instance in the code below:</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># 1.   def meth8(self):</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># 2.        &quot;&quot;&quot;test late disabling&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># 3.        pylint: disable=not-callable, useless-suppression</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># 4.        print(self.blip)</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># 5.        pylint: disable=no-member, useless-suppression</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># 6.        print(self.bla)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># E1102 should be disabled from line 1 to 6 while E1101 from line 5 to 6</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># this is necessary to disable locally messages applying to class /</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># function using their fromlineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">))</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">firstchildlineno</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fromlineno</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">firstchildlineno</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">tolineno</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_set_message_state_in_block</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">msg_state</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">firstchildlineno</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 215937 calls (0.42)</p>
+                <p><button class="input"><span>&#8594;</span> msgs_store</button> MessageDefinitionStore (215937) </p>
+                <p><button class="input"><span>&#8594;</span> node</button> Call (36838) Assign (22228) Attribute (20943) Expr (20858) Arguments (19146) Return (12126) If (9004) Compare (8771) Subscript (8377) Tuple (6544) </p>
+                <p><button class="input"><span>&#8594;</span> msg</button> MessageDefinition (215937) </p>
+                <p><button class="input"><span>&#8594;</span> msg_state</button> {1: False} (70690) {2: False} (50860) {3: False} (34315) {4: False} (15212) {} (8594) {5: False} (6836) {6: False} (5090) {7: False} (3146) {151: Fals...</p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_set_state_on_block_lines</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">msgs_store</span><span class="p">:</span> <span class="n">MessageDefinitionStore</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">msg</span><span class="p">:</span> <span class="n">MessageDefinition</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">msg_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Recursively walk (depth first) AST to collect block level options</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        line numbers and set the state correctly.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_set_state_on_block_lines</span><span class="p">(</span><span class="n">msgs_store</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">msg_state</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># first child line number used to distinguish between disable</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># which are the first child of scoped node with those defined later.</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># For instance in the code below:</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># 1.   def meth8(self):</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># 2.        &quot;&quot;&quot;test late disabling&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># 3.        pylint: disable=not-callable, useless-suppression</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># 4.        print(self.blip)</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># 5.        pylint: disable=no-member, useless-suppression</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># 6.        print(self.bla)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># E1102 should be disabled from line 1 to 6 while E1101 from line 5 to 6</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># this is necessary to disable locally messages applying to class /</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># function using their fromlineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">))</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">firstchildlineno</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fromlineno</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">firstchildlineno</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">tolineno</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_set_message_state_in_block</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">msg_state</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">firstchildlineno</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 37078 calls (0.07)</p>
+                <p><button class="input"><span>&#8594;</span> msgs_store</button> MessageDefinitionStore (37078) </p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (23336) ClassDef (9938) Module (3546) AsyncFunctionDef (258) </p>
+                <p><button class="input"><span>&#8594;</span> msg</button> MessageDefinition (37078) </p>
+                <p><button class="input"><span>&#8594;</span> msg_state</button> {1: False} (12002) {2: False} (7572) {3: False} (5899) {4: False} (3146) {5: False} (1420) {} (1331) {6: False} (806) {7: False} (550) {9: False} (293...</p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_set_state_on_block_lines</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">msgs_store</span><span class="p">:</span> <span class="n">MessageDefinitionStore</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">msg</span><span class="p">:</span> <span class="n">MessageDefinition</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">msg_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Recursively walk (depth first) AST to collect block level options</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        line numbers and set the state correctly.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_set_state_on_block_lines</span><span class="p">(</span><span class="n">msgs_store</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">msg_state</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># first child line number used to distinguish between disable</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># which are the first child of scoped node with those defined later.</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># For instance in the code below:</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># 1.   def meth8(self):</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># 2.        &quot;&quot;&quot;test late disabling&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># 3.        pylint: disable=not-callable, useless-suppression</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># 4.        print(self.blip)</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># 5.        pylint: disable=no-member, useless-suppression</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># 6.        print(self.bla)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># E1102 should be disabled from line 1 to 6 while E1101 from line 5 to 6</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># this is necessary to disable locally messages applying to class /</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># function using their fromlineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">))</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full run">            <span class="n">firstchildlineno</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fromlineno</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full not_run">            <span class="n">firstchildlineno</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">tolineno</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_set_message_state_in_block</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">msg_state</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">firstchildlineno</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1389 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> msgs_store</button> MessageDefinitionStore (1389) </p>
+                <p><button class="input"><span>&#8594;</span> node</button> FunctionDef (1055) ClassDef (328) AsyncFunctionDef (6) </p>
+                <p><button class="input"><span>&#8594;</span> msg</button> MessageDefinition (1389) </p>
+                <p><button class="input"><span>&#8594;</span> msg_state</button> {2: False} (308) {1: False} (301) {3: False} (201) {4: False} (127) {5: False} (91) {} (89) {85: False} (36) {7: False} (34) {8: False} (27) {9: False...</p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_set_state_on_block_lines</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">msgs_store</span><span class="p">:</span> <span class="n">MessageDefinitionStore</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">msg</span><span class="p">:</span> <span class="n">MessageDefinition</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">msg_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Recursively walk (depth first) AST to collect block level options</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        line numbers and set the state correctly.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_set_state_on_block_lines</span><span class="p">(</span><span class="n">msgs_store</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">msg_state</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># first child line number used to distinguish between disable</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># which are the first child of scoped node with those defined later.</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># For instance in the code below:</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># 1.   def meth8(self):</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># 2.        &quot;&quot;&quot;test late disabling&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># 3.        pylint: disable=not-callable, useless-suppression</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># 4.        print(self.blip)</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># 5.        pylint: disable=no-member, useless-suppression</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># 6.        print(self.bla)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># E1102 should be disabled from line 1 to 6 while E1101 from line 5 to 6</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># this is necessary to disable locally messages applying to class /</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># function using their fromlineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">))</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">firstchildlineno</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fromlineno</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">firstchildlineno</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">tolineno</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_set_message_state_in_block</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">msg_state</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">firstchildlineno</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 5</b>: 328 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> msgs_store</button> MessageDefinitionStore (328) </p>
+                <p><button class="input"><span>&#8594;</span> node</button> ClassDef (326) Module (2) </p>
+                <p><button class="input"><span>&#8594;</span> msg</button> MessageDefinition (328) </p>
+                <p><button class="input"><span>&#8594;</span> msg_state</button> {1: False} (84) {2: False} (66) {3: False} (54) {4: False} (39) {85: False} (24) {} (13) {5: False} (9) {13: False} (3) {10: True} (3) {18: False} (3)...</p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">_set_state_on_block_lines</span><span class="p">(</span></span>
+<span class="num"><a href="#2">2</a></span><span>        <span class="bp">self</span><span class="p">,</span></span>
+<span class="num"><a href="#3">3</a></span><span>        <span class="n">msgs_store</span><span class="p">:</span> <span class="n">MessageDefinitionStore</span><span class="p">,</span></span>
+<span class="num"><a href="#4">4</a></span><span>        <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">,</span></span>
+<span class="num"><a href="#5">5</a></span><span>        <span class="n">msg</span><span class="p">:</span> <span class="n">MessageDefinition</span><span class="p">,</span></span>
+<span class="num"><a href="#6">6</a></span><span>        <span class="n">msg_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span></span>
+<span class="num"><a href="#7">7</a></span><span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Recursively walk (depth first) AST to collect block level options</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        line numbers and set the state correctly.</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_set_state_on_block_lines</span><span class="p">(</span><span class="n">msgs_store</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">msg_state</span><span class="p">)</span></span>
+<span class="num"><a href="#13">13</a></span><span>        <span class="c1"># first child line number used to distinguish between disable</span></span>
+<span class="num"><a href="#14">14</a></span><span>        <span class="c1"># which are the first child of scoped node with those defined later.</span></span>
+<span class="num"><a href="#15">15</a></span><span>        <span class="c1"># For instance in the code below:</span></span>
+<span class="num"><a href="#16">16</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#17">17</a></span><span>        <span class="c1"># 1.   def meth8(self):</span></span>
+<span class="num"><a href="#18">18</a></span><span>        <span class="c1"># 2.        &quot;&quot;&quot;test late disabling&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#19">19</a></span><span>        <span class="c1"># 3.        pylint: disable=not-callable, useless-suppression</span></span>
+<span class="num"><a href="#20">20</a></span><span>        <span class="c1"># 4.        print(self.blip)</span></span>
+<span class="num"><a href="#21">21</a></span><span>        <span class="c1"># 5.        pylint: disable=no-member, useless-suppression</span></span>
+<span class="num"><a href="#22">22</a></span><span>        <span class="c1"># 6.        print(self.bla)</span></span>
+<span class="num"><a href="#23">23</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#24">24</a></span><span>        <span class="c1"># E1102 should be disabled from line 1 to 6 while E1101 from line 5 to 6</span></span>
+<span class="num"><a href="#25">25</a></span><span>        <span class="c1">#</span></span>
+<span class="num"><a href="#26">26</a></span><span>        <span class="c1"># this is necessary to disable locally messages applying to class /</span></span>
+<span class="num"><a href="#27">27</a></span><span>        <span class="c1"># function using their fromlineno</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">        <span class="k">if</span> <span class="p">(</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">))</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span></span>
+<span class="num"><a href="#31">31</a></span><span>        <span class="p">):</span></span>
+<span class="num"><a href="#32">32</a></span><span class="full not_run">            <span class="n">firstchildlineno</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fromlineno</span></span>
+<span class="num"><a href="#33">33</a></span><span>        <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#34">34</a></span><span class="full run">            <span class="n">firstchildlineno</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">tolineno</span></span>
+<span class="num"><a href="#35">35</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">_set_message_state_in_block</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">msg_state</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">firstchildlineno</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

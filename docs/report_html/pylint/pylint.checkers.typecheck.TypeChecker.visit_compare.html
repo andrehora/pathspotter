@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pylint.checkers.typecheck.TypeChecker.visit_compare</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: pylint.checkers.typecheck.TypeChecker.visit_compare</h1>
+                <span>Calls: 1143, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 3</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 932 calls (0.82)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (932) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@only_required_for_messages</span><span class="p">(</span><span class="s2">&quot;unsupported-membership-test&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="k">def</span> <span class="nf">visit_compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">op</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">op</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;in&quot;</span><span class="p">,</span> <span class="s2">&quot;not in&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_membership_test</span><span class="p">(</span><span class="n">right</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 2</b>: 174 calls (0.15)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (174) </p>
+            <button class="run" title="lines run...">4 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@only_required_for_messages</span><span class="p">(</span><span class="s2">&quot;unsupported-membership-test&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="k">def</span> <span class="nf">visit_compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full not_run">            <span class="k">return</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">op</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="k">if</span> <span class="n">op</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;in&quot;</span><span class="p">,</span> <span class="s2">&quot;not in&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_membership_test</span><span class="p">(</span><span class="n">right</span><span class="p">)</span></span>
+            </pre>
+            <p><b>Path 3</b>: 37 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> node</button> Compare (37) </p>
+                <p><button class="output"><span>&#8617; return</span></button> None (37) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="nd">@only_required_for_messages</span><span class="p">(</span><span class="s2">&quot;unsupported-membership-test&quot;</span><span class="p">)</span></span>
+<span class="num"><a href="#2">2</a></span><span>    <span class="k">def</span> <span class="nf">visit_compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Compare</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></span>
+<span class="num"><a href="#3">3</a></span><span class="full run">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span></span>
+<span class="num"><a href="#4">4</a></span><span class="full run">            <span class="k">return</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span class="full not_run">        <span class="n">op</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">op</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;in&quot;</span><span class="p">,</span> <span class="s2">&quot;not in&quot;</span><span class="p">}:</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">            <span class="bp">self</span><span class="o">.</span><span class="n">_check_membership_test</span><span class="p">(</span><span class="n">right</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

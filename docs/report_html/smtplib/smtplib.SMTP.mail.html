@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>smtplib.SMTP.mail</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: smtplib.SMTP.mail</h1>
+                <span>Calls: 24, </span>
+                <span>Exceptions: 7, </span>
+                <span>Paths: 5</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 17 calls (0.71)</p>
+                <p><button class="input"><span>&#8594;</span> sender</button> 'John' (7) 'foo@bar.com' (2) 'holy@grail.net' (1) 'the_rescuers@Rescue-Aid-Society.com' (1) 'joe@example.com' (1) '<>' (1) 'hi@me.com' (1) 'John@foo.o...</p>
+                <p><button class="input"><span>&#8594;</span> options</button> ['size=12'] (4) ['size=14'] (3) ['size=153'] (2) ['size=114'] (1) ['size=285'] (1) ['size=160'] (1) ['size=202'] (1) ['size=19'] (1) ['size=17'] (1) [...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (17) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">mail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">()):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;SMTP &#39;mail&#39; command -- begins mail xfer session.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This method may raise the following exceptions:</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">         SMTPNotSupportedError  The options parameter includes &#39;SMTPUTF8&#39;</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">                                but the SMTPUTF8 extension is not supported by</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">                                the server.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">optionlist</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">options</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">does_esmtp</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;smtputf8&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">options</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_extn</span><span class="p">(</span><span class="s1">&#39;smtputf8&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">command_encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span></span>
+<span class="num"><a href="#15">15</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="k">raise</span> <span class="n">SMTPNotSupportedError</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                        <span class="s1">&#39;SMTPUTF8 not supported by server&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="n">optionlist</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">putcmd</span><span class="p">(</span><span class="s2">&quot;mail&quot;</span><span class="p">,</span> <span class="s2">&quot;FROM:</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">quoteaddr</span><span class="p">(</span><span class="n">sender</span><span class="p">),</span> <span class="n">optionlist</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getreply</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 2</b>: 3 calls (0.12)</p>
+                <p><button class="input"><span>&#8594;</span> sender</button> 'f&#337;o@bar.com' (1) 'J&#337;' (1) 'J&#337;hn' (1) </p>
+                <p><button class="input"><span>&#8594;</span> options</button> ['size=230', 'SMTPUTF8', 'BODY=8BITMIME'] (1) ['BODY=8BITMIME', 'SMTPUTF8'] (1) ['size=36', 'BODY=8BITMIME', 'SMTPUTF8'] (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (3) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> GeneratorExit (3) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">2 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">mail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">()):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;SMTP &#39;mail&#39; command -- begins mail xfer session.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This method may raise the following exceptions:</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">         SMTPNotSupportedError  The options parameter includes &#39;SMTPUTF8&#39;</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">                                but the SMTPUTF8 extension is not supported by</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">                                the server.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">optionlist</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">options</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">does_esmtp</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;smtputf8&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">options</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_extn</span><span class="p">(</span><span class="s1">&#39;smtputf8&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">                    <span class="bp">self</span><span class="o">.</span><span class="n">command_encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span></span>
+<span class="num"><a href="#15">15</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="k">raise</span> <span class="n">SMTPNotSupportedError</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                        <span class="s1">&#39;SMTPUTF8 not supported by server&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="n">optionlist</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">putcmd</span><span class="p">(</span><span class="s2">&quot;mail&quot;</span><span class="p">,</span> <span class="s2">&quot;FROM:</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">quoteaddr</span><span class="p">(</span><span class="n">sender</span><span class="p">),</span> <span class="n">optionlist</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getreply</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 3</b>: 2 calls (0.08)</p>
+                <p><button class="input"><span>&#8594;</span> sender</button> 'John' (2) </p>
+                <p><button class="input"><span>&#8594;</span> options</button> ['size=0', 'BODY=8BITMIME', 'SMTPUTF8'] (1) ['BODY=8BITMIME', 'SMTPUTF8'] (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> SMTPNotSupportedError (2) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">mail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">()):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;SMTP &#39;mail&#39; command -- begins mail xfer session.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This method may raise the following exceptions:</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">         SMTPNotSupportedError  The options parameter includes &#39;SMTPUTF8&#39;</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">                                but the SMTPUTF8 extension is not supported by</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">                                the server.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">optionlist</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">options</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">does_esmtp</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;smtputf8&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">options</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_extn</span><span class="p">(</span><span class="s1">&#39;smtputf8&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">command_encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span></span>
+<span class="num"><a href="#15">15</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">                    <span class="k">raise</span> <span class="n">SMTPNotSupportedError</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">                        <span class="s1">&#39;SMTPUTF8 not supported by server&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="n">optionlist</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full not_run">        <span class="bp">self</span><span class="o">.</span><span class="n">putcmd</span><span class="p">(</span><span class="s2">&quot;mail&quot;</span><span class="p">,</span> <span class="s2">&quot;FROM:</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">quoteaddr</span><span class="p">(</span><span class="n">sender</span><span class="p">),</span> <span class="n">optionlist</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getreply</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 4</b>: 1 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> sender</button> 'hi@me.com' (1) </p>
+                <p><button class="input"><span>&#8594;</span> options</button> ['X-OPTION\nX-INJECTED-1', 'X-OPTION2\nX-INJECTED-2'] (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (1) </p>
+            <button class="run" title="lines run...">5 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">mail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">()):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;SMTP &#39;mail&#39; command -- begins mail xfer session.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This method may raise the following exceptions:</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">         SMTPNotSupportedError  The options parameter includes &#39;SMTPUTF8&#39;</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">                                but the SMTPUTF8 extension is not supported by</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">                                the server.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">optionlist</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">options</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">does_esmtp</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;smtputf8&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">options</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_extn</span><span class="p">(</span><span class="s1">&#39;smtputf8&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">command_encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span></span>
+<span class="num"><a href="#15">15</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="k">raise</span> <span class="n">SMTPNotSupportedError</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                        <span class="s1">&#39;SMTPUTF8 not supported by server&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">            <span class="n">optionlist</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">putcmd</span><span class="p">(</span><span class="s2">&quot;mail&quot;</span><span class="p">,</span> <span class="s2">&quot;FROM:</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">quoteaddr</span><span class="p">(</span><span class="n">sender</span><span class="p">),</span> <span class="n">optionlist</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getreply</span><span class="p">()</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (0.04)</p>
+                <p><button class="input"><span>&#8594;</span> sender</button> '&#196;lice' (1) </p>
+                <p><button class="input"><span>&#8594;</span> options</button> () (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> UnicodeEncodeError (1) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">7 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">mail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">()):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;SMTP &#39;mail&#39; command -- begins mail xfer session.</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        This method may raise the following exceptions:</span></span>
+<span class="num"><a href="#5">5</a></span><span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">         SMTPNotSupportedError  The options parameter includes &#39;SMTPUTF8&#39;</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">                                but the SMTPUTF8 extension is not supported by</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">                                the server.</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">optionlist</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">if</span> <span class="n">options</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">does_esmtp</span><span class="p">:</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;smtputf8&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">options</span><span class="p">):</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_extn</span><span class="p">(</span><span class="s1">&#39;smtputf8&#39;</span><span class="p">):</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">                    <span class="bp">self</span><span class="o">.</span><span class="n">command_encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span></span>
+<span class="num"><a href="#15">15</a></span><span>                <span class="k">else</span><span class="p">:</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">                    <span class="k">raise</span> <span class="n">SMTPNotSupportedError</span><span class="p">(</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full not_run">                        <span class="s1">&#39;SMTPUTF8 not supported by server&#39;</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">            <span class="n">optionlist</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></span>
+<span class="num"><a href="#19">19</a></span><span class="full run">        <span class="bp">self</span><span class="o">.</span><span class="n">putcmd</span><span class="p">(</span><span class="s2">&quot;mail&quot;</span><span class="p">,</span> <span class="s2">&quot;FROM:</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">quoteaddr</span><span class="p">(</span><span class="n">sender</span><span class="p">),</span> <span class="n">optionlist</span><span class="p">))</span></span>
+<span class="num"><a href="#20">20</a></span><span class="full not_run">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getreply</span><span class="p">()</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

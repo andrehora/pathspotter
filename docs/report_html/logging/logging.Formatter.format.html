@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>logging.Formatter.format</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: logging.Formatter.format</h1>
+                <span>Calls: 4350, </span>
+                <span>Exceptions: 6, </span>
+                <span>Paths: 6</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 3503 calls (0.81)</p>
+                <p><button class="input"><span>&#8594;</span> record</button> LogRecord (3503) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '2023-08-02 15:24:10.245 Message 1' (1) '2023-08-02 15:24:10.247 Message 2' (1) '2023-08-02 15:24:10.248 Message 3' (1) '2023-08-02 15:24:10.250 Messa...</p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">8 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Format the specified record as text.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        The record&#39;s attribute dictionary is used as the operand to a</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        string formatting operation which yields the returned string.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        Before formatting the dictionary, a couple of preparatory steps</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        are carried out. The message attribute of the record is computed</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        using LogRecord.getMessage(). If the formatting string uses the</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        time (as determined by a call to usesTime(), formatTime() is</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        called to format the event time. If there is exception information,</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        it is formatted using formatException() and appended to the message.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">record</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getMessage</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">usesTime</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full run">            <span class="n">record</span><span class="o">.</span><span class="n">asctime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatTime</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">datefmt</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatMessage</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># Cache the traceback text to avoid converting it multiple times</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># (it&#39;s constant anyway)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatException</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatStack</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">s</span></span>
+            </pre>
+            <p><b>Path 2</b>: 833 calls (0.19)</p>
+                <p><button class="input"><span>&#8594;</span> record</button> LogRecord (832) DerivedLogRecord (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'one' (62) 'two' (62) 'three' (60) 'four' (60) 'five' (60) 'ERROR ++ 2' (14) 'INFO ++ 1' (11) '1' (10) 'sp&#228;m' (9) '2' (7) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Format the specified record as text.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        The record&#39;s attribute dictionary is used as the operand to a</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        string formatting operation which yields the returned string.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        Before formatting the dictionary, a couple of preparatory steps</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        are carried out. The message attribute of the record is computed</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        using LogRecord.getMessage(). If the formatting string uses the</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        time (as determined by a call to usesTime(), formatTime() is</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        called to format the event time. If there is exception information,</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        it is formatted using formatException() and appended to the message.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">record</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getMessage</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">usesTime</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">record</span><span class="o">.</span><span class="n">asctime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatTime</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">datefmt</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatMessage</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># Cache the traceback text to avoid converting it multiple times</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># (it&#39;s constant anyway)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatException</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatStack</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">s</span></span>
+            </pre>
+            <p><b>Path 3</b>: 6 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> record</button> LogRecord (6) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'ERROR:root:just testing\nGot a [RuntimeError]' (3) 'Never sent\nTraceback (most recent call last):\n  File "/Library/Frameworks/Python.framework/Vers...</p>
+            <button class="run" title="lines run...">12 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Format the specified record as text.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        The record&#39;s attribute dictionary is used as the operand to a</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        string formatting operation which yields the returned string.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        Before formatting the dictionary, a couple of preparatory steps</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        are carried out. The message attribute of the record is computed</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        using LogRecord.getMessage(). If the formatting string uses the</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        time (as determined by a call to usesTime(), formatTime() is</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        called to format the event time. If there is exception information,</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        it is formatted using formatException() and appended to the message.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">record</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getMessage</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">usesTime</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">record</span><span class="o">.</span><span class="n">asctime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatTime</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">datefmt</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatMessage</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># Cache the traceback text to avoid converting it multiple times</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># (it&#39;s constant anyway)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatException</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatStack</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">s</span></span>
+            </pre>
+            <p><b>Path 4</b>: 6 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> record</button> LogRecord (6) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> ValueError (6) </p>
+            <button class="run" title="lines run...">3 run</button>
+            <button class="not_run" title="lines not run...">13 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Format the specified record as text.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        The record&#39;s attribute dictionary is used as the operand to a</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        string formatting operation which yields the returned string.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        Before formatting the dictionary, a couple of preparatory steps</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        are carried out. The message attribute of the record is computed</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        using LogRecord.getMessage(). If the formatting string uses the</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        time (as determined by a call to usesTime(), formatTime() is</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        called to format the event time. If there is exception information,</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        it is formatted using formatException() and appended to the message.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">record</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getMessage</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">usesTime</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">record</span><span class="o">.</span><span class="n">asctime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatTime</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">datefmt</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatMessage</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># Cache the traceback text to avoid converting it multiple times</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># (it&#39;s constant anyway)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatException</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full not_run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full not_run">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatStack</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">s</span></span>
+            </pre>
+            <p><b>Path 5</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> record</button> LogRecord (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> 'root -> ERROR: failed\nTraceback (most recent call last):\n  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/test/test_loggin...</p>
+            <button class="run" title="lines run...">15 run</button>
+            <button class="not_run" title="lines not run...">1 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Format the specified record as text.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        The record&#39;s attribute dictionary is used as the operand to a</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        string formatting operation which yields the returned string.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        Before formatting the dictionary, a couple of preparatory steps</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        are carried out. The message attribute of the record is computed</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        using LogRecord.getMessage(). If the formatting string uses the</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        time (as determined by a call to usesTime(), formatTime() is</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        called to format the event time. If there is exception information,</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        it is formatted using formatException() and appended to the message.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">record</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getMessage</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">usesTime</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">record</span><span class="o">.</span><span class="n">asctime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatTime</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">datefmt</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatMessage</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># Cache the traceback text to avoid converting it multiple times</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># (it&#39;s constant anyway)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full run">                <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatException</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full run">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full run">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatStack</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">s</span></span>
+            </pre>
+            <p><b>Path 6</b>: 1 calls (0.0)</p>
+                <p><button class="input"><span>&#8594;</span> record</button> LogRecord (1) </p>
+                <p><button class="output"><span>&#8617; return</span></button> '2\nStack (most recent call last):\n  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/runpy.py", line 196, in _run_module_as_m...</p>
+            <button class="run" title="lines run...">10 run</button>
+            <button class="not_run" title="lines not run...">6 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Format the specified record as text.</span></span>
+<span class="num"><a href="#4">4</a></span><span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        The record&#39;s attribute dictionary is used as the operand to a</span></span>
+<span class="num"><a href="#6">6</a></span><span><span class="sd">        string formatting operation which yields the returned string.</span></span>
+<span class="num"><a href="#7">7</a></span><span><span class="sd">        Before formatting the dictionary, a couple of preparatory steps</span></span>
+<span class="num"><a href="#8">8</a></span><span><span class="sd">        are carried out. The message attribute of the record is computed</span></span>
+<span class="num"><a href="#9">9</a></span><span><span class="sd">        using LogRecord.getMessage(). If the formatting string uses the</span></span>
+<span class="num"><a href="#10">10</a></span><span><span class="sd">        time (as determined by a call to usesTime(), formatTime() is</span></span>
+<span class="num"><a href="#11">11</a></span><span><span class="sd">        called to format the event time. If there is exception information,</span></span>
+<span class="num"><a href="#12">12</a></span><span><span class="sd">        it is formatted using formatException() and appended to the message.</span></span>
+<span class="num"><a href="#13">13</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">        <span class="n">record</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getMessage</span><span class="p">()</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">usesTime</span><span class="p">():</span></span>
+<span class="num"><a href="#16">16</a></span><span class="full not_run">            <span class="n">record</span><span class="o">.</span><span class="n">asctime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatTime</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">datefmt</span><span class="p">)</span></span>
+<span class="num"><a href="#17">17</a></span><span class="full run">        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatMessage</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></span>
+<span class="num"><a href="#18">18</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">:</span></span>
+<span class="num"><a href="#19">19</a></span><span>            <span class="c1"># Cache the traceback text to avoid converting it multiple times</span></span>
+<span class="num"><a href="#20">20</a></span><span>            <span class="c1"># (it&#39;s constant anyway)</span></span>
+<span class="num"><a href="#21">21</a></span><span class="full not_run">            <span class="k">if</span> <span class="ow">not</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span><span class="p">:</span></span>
+<span class="num"><a href="#22">22</a></span><span class="full not_run">                <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatException</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">)</span></span>
+<span class="num"><a href="#23">23</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span><span class="p">:</span></span>
+<span class="num"><a href="#24">24</a></span><span class="full not_run">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#25">25</a></span><span class="full not_run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#26">26</a></span><span class="full not_run">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_text</span></span>
+<span class="num"><a href="#27">27</a></span><span class="full run">        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">:</span></span>
+<span class="num"><a href="#28">28</a></span><span class="full run">            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span></span>
+<span class="num"><a href="#29">29</a></span><span class="full run">                <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></span>
+<span class="num"><a href="#30">30</a></span><span class="full run">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatStack</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">)</span></span>
+<span class="num"><a href="#31">31</a></span><span class="full run">        <span class="k">return</span> <span class="n">s</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>

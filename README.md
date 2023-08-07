@@ -49,4 +49,4 @@ PathSpotter HTML report: ./report_html/gzip
 PathSpotter CSV report: ./report_csv/gzip
 ```
 
-Now, check the HTML and CSV reports in `report_html/gzip` and `report_csv/gzip`.
+Then, open the folders `report_html/gzip` and `report_csv/gzip` to see a [HTML report like this](https://andrehora.github.io/pathspotter/report_html/gzip) and [CSV report like this](https://github.com/andrehora/pathspotter/tree/main/docs/report_csv/gzip).

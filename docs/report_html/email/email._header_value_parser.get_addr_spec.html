@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>email._header_value_parser.get_addr_spec</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: email._header_value_parser.get_addr_spec</h1>
+                <span>Calls: 417, </span>
+                <span>Exceptions: 18, </span>
+                <span>Paths: 4</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 388 calls (0.93)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'foo@bar.com' (73) 'bar@foo.com' (73) 'nobody_you_want_to_know@example.com' (20) 'whom_it_may_concern@example.com' (14) 'foo@example.com' (10) 'a@b.co...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (388) </p>
+            <button class="run" title="lines run...">8 run</button>
+            <button class="not_run" title="lines not run...">3 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_addr_spec</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot; addr-spec = local-part &quot;@&quot; domain</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">addr_spec</span> <span class="o">=</span> <span class="n">AddrSpec</span><span class="p">()</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_local_part</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">addr_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">or</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;@&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="n">addr_spec</span><span class="o">.</span><span class="n">defects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">errors</span><span class="o">.</span><span class="n">InvalidHeaderDefect</span><span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="s2">&quot;addr-spec local part with no domain&quot;</span><span class="p">))</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">addr_spec</span><span class="p">,</span> <span class="n">value</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">addr_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ValueTerminal</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="s1">&#39;address-at-symbol&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_domain</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full run">    <span class="n">addr_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full run">    <span class="k">return</span> <span class="n">addr_spec</span><span class="p">,</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 2</b>: 13 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> '(Recipient list suppressed)' (1) '@example.com, (bird) @two.example.com: dinsdale@example.com> (bar) ' (1) ', bar' (1) ', (foo),,(bar)' (1) ' (foo),,...</p>
+                <p><button class="warning"><span>&#9888; exception</span></button> HeaderParseError (13) </p>
+            <button class="run" title="lines run...">2 run</button>
+            <button class="not_run" title="lines not run...">9 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_addr_spec</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot; addr-spec = local-part &quot;@&quot; domain</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">addr_spec</span> <span class="o">=</span> <span class="n">AddrSpec</span><span class="p">()</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_local_part</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full not_run">    <span class="n">addr_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full not_run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">or</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;@&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="n">addr_spec</span><span class="o">.</span><span class="n">defects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">errors</span><span class="o">.</span><span class="n">InvalidHeaderDefect</span><span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="s2">&quot;addr-spec local part with no domain&quot;</span><span class="p">))</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">addr_spec</span><span class="p">,</span> <span class="n">value</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">    <span class="n">addr_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ValueTerminal</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="s1">&#39;address-at-symbol&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_domain</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">    <span class="n">addr_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">addr_spec</span><span class="p">,</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 3</b>: 11 calls (0.03)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'foo' (3) 'bar' (3) 'ping example.com, next' (1) '(bird)example.(bad)com>' (1) '"Roy A. Bear"[] dinsdale@example.com, "Fred Flintstone" <dinsdale@test...</p>
+                <p><button class="output"><span>&#8617; return</span></button> tuple (11) </p>
+            <button class="run" title="lines run...">7 run</button>
+            <button class="not_run" title="lines not run...">4 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_addr_spec</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot; addr-spec = local-part &quot;@&quot; domain</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">addr_spec</span> <span class="o">=</span> <span class="n">AddrSpec</span><span class="p">()</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_local_part</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">addr_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">or</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;@&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="n">addr_spec</span><span class="o">.</span><span class="n">defects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">errors</span><span class="o">.</span><span class="n">InvalidHeaderDefect</span><span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">            <span class="s2">&quot;addr-spec local part with no domain&quot;</span><span class="p">))</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">return</span> <span class="n">addr_spec</span><span class="p">,</span> <span class="n">value</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full not_run">    <span class="n">addr_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ValueTerminal</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="s1">&#39;address-at-symbol&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full not_run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_domain</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">    <span class="n">addr_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">addr_spec</span><span class="p">,</span> <span class="n">value</span></span>
+            </pre>
+            <p><b>Path 4</b>: 5 calls (0.01)</p>
+                <p><button class="input"><span>&#8594;</span> value</button> 'a@fairly@@invalid@address' (2) 'star@a.star@example.com' (1) 'star@a@example.com' (1) 'star@172.17.0.1@example.com' (1) </p>
+                <p><button class="warning"><span>&#9888; exception</span></button> HeaderParseError (5) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">5 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">get_addr_spec</span><span class="p">(</span><span class="n">value</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">    </span><span class="sd">&quot;&quot;&quot; addr-spec = local-part &quot;@&quot; domain</span></span>
+<span class="num"><a href="#3">3</a></span><span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#5">5</a></span><span class="full run">    <span class="n">addr_spec</span> <span class="o">=</span> <span class="n">AddrSpec</span><span class="p">()</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_local_part</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">    <span class="n">addr_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">or</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;@&#39;</span><span class="p">:</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full not_run">        <span class="n">addr_spec</span><span class="o">.</span><span class="n">defects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">errors</span><span class="o">.</span><span class="n">InvalidHeaderDefect</span><span class="p">(</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full not_run">            <span class="s2">&quot;addr-spec local part with no domain&quot;</span><span class="p">))</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full not_run">        <span class="k">return</span> <span class="n">addr_spec</span><span class="p">,</span> <span class="n">value</span></span>
+<span class="num"><a href="#12">12</a></span><span class="full run">    <span class="n">addr_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ValueTerminal</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="s1">&#39;address-at-symbol&#39;</span><span class="p">))</span></span>
+<span class="num"><a href="#13">13</a></span><span class="full run">    <span class="n">token</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">get_domain</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span></span>
+<span class="num"><a href="#14">14</a></span><span class="full not_run">    <span class="n">addr_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></span>
+<span class="num"><a href="#15">15</a></span><span class="full not_run">    <span class="k">return</span> <span class="n">addr_spec</span><span class="p">,</span> <span class="n">value</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>
