@@ -1,10 +1,8 @@
 import os
-import re
+from pathspotter import export_dir
 from spotflow.libs.templite import Templite
-from spotflow.utils import full_filename, full_dir, ensure_dir, copy_files, read_file
-from pygments import highlight
-from pygments.lexers import get_lexer_by_name
-from pygments.formatters import get_formatter_by_name
+from spotflow.utils import full_filename, ensure_dir, copy_files, read_file
+from spotflow.utils_html import write_html
 
 
 REPORT_DIR = 'pathspotter_html'
@@ -19,28 +17,6 @@ STATIC_FILES = [
 ]
 
 
-def write_html(filename, content):
-    html = re.sub(r"(\A\s+)|(\s+$)", "", content, flags=re.MULTILINE) + "\n"
-    with open(filename, "wb") as fout:
-        fout.write(html.encode("ascii", "xmlcharrefreplace"))
-
-
-def get_html_lines(code):
-    html = html_for_code(code)
-    lines = []
-    for line in html.splitlines():
-        line = line.replace('<div class="highlight"><pre><span></span>', "")
-        line = line.replace("</pre></div>", "")
-        lines.append(line)
-    return lines
-
-
-def html_for_code(code):
-    lexer = get_lexer_by_name("python", stripall=True)
-    formatter = get_formatter_by_name("html", style="friendly")
-    return highlight(code, lexer, formatter)
-
-
 class HTMLCodeReport:
 
     def __init__(self, monitored_method, report_dir=None):
@@ -51,7 +27,7 @@ class HTMLCodeReport:
             self.report_dir = REPORT_DIR
 
         pyfile = full_filename(LOCAL_DIR, PY_FILE, __file__)
-        self.report_dir = full_dir(self.report_dir, __file__)
+        self.report_dir = export_dir(self.report_dir, __file__)
         ensure_dir(self.report_dir)
         copy_files(LOCAL_DIR, STATIC_FILES, self.report_dir, __file__)
 
@@ -76,7 +52,7 @@ class HTMLIndexReport:
             self.report_dir = REPORT_DIR
 
         index_path = full_filename(LOCAL_DIR, INDEX_FILE, __file__)
-        self.report_dir = full_dir(self.report_dir, __file__)
+        self.report_dir = export_dir(self.report_dir, __file__)
         ensure_dir(self.report_dir)
         # copy_files(LOCAL_DIR, STATIC_FILES, REPORT_DIR)
 
