@@ -18,37 +18,25 @@ git clone https://github.com/andrehora/pathspotter
 pip install -e ./pathspotter
 ```
 
-## Quick example: exporting the tested paths
+## Quick example
 
-First, let's export the tested paths of test suite `test_gzip` of the Python Standard Library:
-
-```
-$ python -m spotflow -t gzip -s pathspotter/pathspotter/runner.py -arg gzip test.test_gzip
-```
-
-This command should export the tested paths in HTML and CSV formats.
-
-The following output should be generated, indicating that the HTML and CSV reports were successfully exported:
+First, let's export the tested paths of test suite `test_gzip` of the Python Standard Library.
+This command should generate reports in HTML and CSV formats:
 
 ```
-Running and monitoring: test.test_gzip
-............s................................................
-----------------------------------------------------------------------
-Ran 61 tests in 2.511s
-
-OK (skipped=1)
-Report size: 32
-1. gzip.open
-2. gzip.GzipFile.__init__
-3. gzip.GzipFile._init_write
-4. gzip.GzipFile._write_gzip_header
-5. gzip.write32u
-...
-PathSpotter HTML report: ./report_html/gzip
-PathSpotter CSV report: ./report_csv/gzip
+python -m spotflow -t gzip -s pathspotter/pathspotter/runner.py -arg gzip test.test_gzip
 ```
 
 Then, open the folders `report_html/gzip` and `report_csv/gzip` to see reports like these: [HTML](https://andrehora.github.io/pathspotter/report_html/gzip) and [CSV](https://github.com/andrehora/pathspotter/tree/main/report_csv/gzip).
+
+
+Other examples for the test suites `test_calendar`, `test_csv`, and `test_os`:
+
+```
+python -m spotflow -t calendar -s pathspotter/pathspotter/runner.py -arg calendar test.test_calendar
+python -m spotflow -t csv -s pathspotter/pathspotter/runner.py -arg csv test.test_csv
+python3 -m spotflow -t os -s pathspotter/pathspotter/runner.py -arg os test.test_os
+```
 
 ## See more real-world exported reports
 
@@ -74,7 +62,7 @@ Then, open the folders `report_html/gzip` and `report_csv/gzip` to see reports l
 
 - [DateUtil](https://andrehora.github.io/pathspotter/report_html/dateutil)
 - [TheFuck](https://andrehora.github.io/pathspotter/report_html/thefuck)
-- [PyLint](https://andrehora.github.io/pathspotter/report_html/pylint)
+- [Pylint](https://andrehora.github.io/pathspotter/report_html/pylint)
 - [Rich](https://andrehora.github.io/pathspotter/report_html/rich)
 - [Requests](https://andrehora.github.io/pathspotter/report_html/requests)
 - [Flask](https://andrehora.github.io/pathspotter/report_html/flask)
