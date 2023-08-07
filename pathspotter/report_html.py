@@ -5,7 +5,7 @@ from spotflow.utils import full_filename, ensure_dir, copy_files, read_file
 from spotflow.utils_html import write_html
 
 
-REPORT_DIR = 'pathspotter_html'
+REPORT_DIR = 'report_html'
 LOCAL_DIR = 'htmlfiles'
 INDEX_FILE = 'index.html'
 PY_FILE = 'pyfile2.html'

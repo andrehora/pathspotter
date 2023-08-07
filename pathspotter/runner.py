@@ -16,14 +16,14 @@ def spotflow_after(monitored_program, *args):
     compute_paths(monitored_program)
 
     if report_type == 'both' or report_type == 'html':
-        html_dir = './pathspotter_html/' + project_name
+        html_dir = './report_html/' + project_name
         html_report(monitored_program, html_dir)
-        print(f"PathSpotter HTML exported in: {html_dir}")
+        print(f"PathSpotter HTML report: {html_dir}")
 
     if report_type == 'both' or report_type == 'csv':
-        csv_dir = './pathspotter_csv/' + project_name
+        csv_dir = './report_csv/' + project_name
         csv_report(monitored_program, csv_dir)
-        print(f"PathSpotter CSV exported in: {csv_dir}")
+        print(f"PathSpotter CSV report: {csv_dir}")
 
 
 

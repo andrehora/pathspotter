@@ -3,7 +3,7 @@ from pathspotter.utils import export_dir
 from spotflow.utils import write_csv, ensure_dir
 
 
-REPORT_DIR = 'pathspotter_csv'
+REPORT_DIR = 'report_csv'
 INDEX_FILE = 'index.csv'
 
 
