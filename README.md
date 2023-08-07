@@ -2,7 +2,7 @@
 
 PathSpotter provides metrics and code visualization to better support understanding tested paths, including the most and least tested paths as well as their executed lines of code, inputs, outputs, and thrown exceptions.
 
-PathSpotter generates [HTML reports like this](https://andrehora.github.io/pathspotter/report_html/gzip).
+PathSpotter generates [HTML reports like this](https://andrehora.github.io/pathspotter/report_html/calendar).
 
 ## Install
 
