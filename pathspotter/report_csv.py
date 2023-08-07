@@ -26,7 +26,7 @@ class CSVCodeReport:
                     path.path_info.run_count, path.path_info.not_run_count]
             content.append(line)
 
-        self.report_dir = full_dir(self.report_dir, __file__)
+        # self.report_dir = full_dir(self.report_dir, __file__)
         ensure_dir(self.report_dir)
 
         pyfile = os.path.join(self.report_dir, self.monitored_method.info.full_name + '.csv')
@@ -78,7 +78,7 @@ class CSVIndexReport:
 
             content.append(line)
 
-        self.report_dir = full_dir(self.report_dir, __file__)
+        # self.report_dir = full_dir(self.report_dir, __file__)
         ensure_dir(self.report_dir)
 
         index_file = os.path.join(self.report_dir, INDEX_FILE)
