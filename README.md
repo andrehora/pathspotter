@@ -10,23 +10,24 @@ git clone https://github.com/andrehora/spotflow
 pip install -e ./spotflow
 ```
 
-Next, clone PathSpotter:
+Next, clone and install PathSpotter:
 ```
 git clone https://github.com/andrehora/pathspotter
-pip install -e pathspotter
+pip install -e ./pathspotter
+cd pathspotter
 ```
 
 ## Quick example
 
 ### Exporting the tested paths
 
-First, let's export the tested paths of test suite `test_gzip` of Python Standard Library:
+First, let's export the tested paths of test suite `test_gzip` of the Python Standard Library:
 
 ```
-$ python -m spotflow -t gzip -s pathspotter.runner -arg gzip test.test_gzip
+$ python -m spotflow -t gzip -s pathspotter/runner.py -arg gzip test.test_gzip
 ```
 
-This should produce the following output:
+That should produce something like the following output, indicating that the tested paths were successfully exported:
 
 ```
 Running and monitoring: test.test_gzip
