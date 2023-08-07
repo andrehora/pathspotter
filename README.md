@@ -30,14 +30,6 @@ python -m spotflow -t gzip -s pathspotter/pathspotter/runner.py -arg gzip test.t
 Then, open the folders `report_html/gzip` and `report_csv/gzip` to see reports like these: [HTML](https://andrehora.github.io/pathspotter/report_html/gzip) and [CSV](https://github.com/andrehora/pathspotter/tree/main/report_csv/gzip).
 
 
-Other examples for the test suites `test_calendar`, `test_csv`, and `test_os`:
-
-```
-python -m spotflow -t calendar -s pathspotter/pathspotter/runner.py -arg calendar test.test_calendar
-python -m spotflow -t csv -s pathspotter/pathspotter/runner.py -arg csv test.test_csv
-python3 -m spotflow -t os -s pathspotter/pathspotter/runner.py -arg os test.test_os
-```
-
 ## See more real-world exported reports
 
 ### Python Standard Library
