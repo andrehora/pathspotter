@@ -43,7 +43,7 @@ Open the folder `report_csv/gzip` to see a [CSV report like this](https://github
 
 ## Usage details
 
-This command line runs and monitors a test suite called `<test_suite>` with [SpotFlow](https://github.com/andrehora/spotflow) and generates PathSpotter reports:
+This command runs and monitors a test suite called `<test_suite>` with [SpotFlow](https://github.com/andrehora/spotflow) and generates PathSpotter reports:
 
 ```shell
 python3 -m spotflow -t <target_sut> -s <pathspotter_script> -arg <report_folder_name> <test_suite>
