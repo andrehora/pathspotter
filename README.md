@@ -62,4 +62,4 @@ The final argument (`<test_suite>`) is the command to execute the test suite.
 
 ## Reports of other systems
 
-See the repository [tested_paths_dataset](https://github.com/andrehora/tested_paths_dataset) for more reports, like [Rich](xxx), [Flask](xxx), [Pylint](xxx), and many other popular projects.
+See the repository [tested_paths_dataset](https://github.com/andrehora/tested_paths_dataset) for more reports of popular projects, like [Rich](xxx), [Flask](xxx), and [Pylint](xxx).
