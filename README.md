@@ -30,15 +30,36 @@ pip install -e ./pathspotter
 
 ## Quick usage
 
-Let's export the tested paths of the test suite `test_gzip` of the Python Standard Library.
-This command should generate reports in HTML and CSV formats:
+Let's export the tested paths for the test suite `test_gzip` of the Python Standard Library.
+This command generates reports in HTML and CSV formats:
 
 ```
 python3 -m spotflow -t gzip -s pathspotter/pathspotter/runner.py -arg gzip test.test_gzip
 ```
 
-Then, open the file `report_html/gzip/index.html` to see reports [like this](https://andrehora.github.io/pathspotter/examples/report_html/gzip).
+Then, open the file `report_html/gzip/index.html` to see an [HTML report like this](https://andrehora.github.io/pathspotter/examples/report_html/gzip).
+Open the folder `report_csv/gzip` to see a [CSV report like this](https://github.com/andrehora/pathspotter/blob/main/examples/report_csv/gzip).
 
 
+## Usage details
 
-## Detailed usage
+This command line runs and monitors a test suite called `<test_suite>` with [SpotFlow](https://github.com/andrehora/spotflow) and generates PathSpotter reports:
+
+```
+python3 -m spotflow -t <target_sut> -s <pathspotter_script> -arg <report_folder_name> <test_suite>
+
+# Examples
+python3 -m spotflow -t gzip -s pathspotter/pathspotter/runner.py -arg gzip test.test_gzip
+python3 -m spotflow -t csv -s pathspotter/pathspotter/runner.py -arg csv test.test_csv
+python3 -m spotflow -t calendar -s pathspotter/pathspotter/runner.py -arg calendar test.test_calendar
+```
+
+The first argument `-t` sets the target SUT to be monitored.
+The second argument `-s` sets the PathSpotter script that is executed to generate CSV and HTML reports.
+The third argument `-arg` sets the report folder name.
+The final argument (`<test_suite>`) is command to actually execute the test suite, which is `test.test_gzip` in the example.
+
+
+## Reports of other systems
+
+See the repository [tested_paths_dataset](https://github.com/andrehora/tested_paths_dataset) for more reports, like [Rich](xxx), [Flask](xxx), [Pylint](xxx), and many other popular projects.
