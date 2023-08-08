@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>calendar.Calendar.itermonthdays</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<!--    <link rel="icon" sizes="32x32" href="favicon_32.png">-->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128270;</text></svg>">
+    <link rel="stylesheet" href="highlight.css" type="text/css">
+</head>
+<body class="pyfile">
+<div id="source">
+    <div class="highlight">
+        <div id="header">
+            <div class="content">
+                <h1>Method: calendar.Calendar.itermonthdays</h1>
+                <span>Calls: 200, </span>
+                <span>Exceptions: 0, </span>
+                <span>Paths: 1</span>
+                <br><a href="index.html">Back</a>
+            </div>
+        </div>
+            <p><b>Path 1</b>: 200 calls (1.0)</p>
+                <p><button class="input"><span>&#8594;</span> year</button> 2004 (88) 2017 (27) 0 (25) 1 (14) 9999 (14) 1995 (2) 1987 (2) 1988 (2) 1999 (2) 1923 (2) </p>
+                <p><button class="input"><span>&#8594;</span> month</button> 12 (37) 1 (27) 2 (25) 4 (21) 5 (13) 3 (11) 6 (11) 7 (11) 8 (11) 9 (11) </p>
+                <p><button class="output"><span>&#8647; yield</span></button> 0 (1172) 1 (200) 2 (200) 3 (200) 4 (200) 5 (200) 6 (200) 7 (200) 8 (200) 9 (200) </p>
+            <button class="run" title="lines run...">6 run</button>
+            <button class="not_run" title="lines not run...">0 not run</button>
+            <pre>
+<span class="num"><a href="#1">1</a></span><span><span class="k">def</span> <span class="nf">itermonthdays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span></span>
+<span class="num"><a href="#2">2</a></span><span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></span>
+<span class="num"><a href="#3">3</a></span><span><span class="sd">        Like itermonthdates(), but will yield day numbers. For days outside</span></span>
+<span class="num"><a href="#4">4</a></span><span><span class="sd">        the specified month the day number is 0.</span></span>
+<span class="num"><a href="#5">5</a></span><span><span class="sd">        &quot;&quot;&quot;</span></span>
+<span class="num"><a href="#6">6</a></span><span class="full run">        <span class="n">day1</span><span class="p">,</span> <span class="n">ndays</span> <span class="o">=</span> <span class="n">monthrange</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)</span></span>
+<span class="num"><a href="#7">7</a></span><span class="full run">        <span class="n">days_before</span> <span class="o">=</span> <span class="p">(</span><span class="n">day1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">firstweekday</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span></span>
+<span class="num"><a href="#8">8</a></span><span class="full run">        <span class="k">yield from</span> <span class="n">repeat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">days_before</span><span class="p">)</span></span>
+<span class="num"><a href="#9">9</a></span><span class="full run">        <span class="k">yield from</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ndays</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="num"><a href="#10">10</a></span><span class="full run">        <span class="n">days_after</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firstweekday</span> <span class="o">-</span> <span class="n">day1</span> <span class="o">-</span> <span class="n">ndays</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span></span>
+<span class="num"><a href="#11">11</a></span><span class="full run">        <span class="k">yield from</span> <span class="n">repeat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">days_after</span><span class="p">)</span></span>
+            </pre>
+    </div>
+</div>
+<i class="bi bi-arrow-down"></i>
+</body>
+</html>
