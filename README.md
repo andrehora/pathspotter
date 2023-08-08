@@ -11,7 +11,7 @@ PathSpotter generates [HTML reports like this](https://andrehora.github.io/paths
 
 First, create a virtual environment (and activate it):
 
-```
+```shell
 python3 -m venv .venv			
 source .venv/bin/activate
 ```
@@ -33,7 +33,7 @@ pip install -e ./pathspotter
 Let's export the tested paths for the test suite `test_gzip` of the Python Standard Library.
 This command generates reports in HTML and CSV formats:
 
-```
+```shell
 python3 -m spotflow -t gzip -s pathspotter/pathspotter/runner.py -arg gzip test.test_gzip
 ```
 
