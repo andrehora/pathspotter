@@ -60,6 +60,6 @@ The third argument `-arg` sets the report folder name.
 The final argument (`<test_suite>`) is the command to execute the test suite.
 
 
-## Reports of other systems
+## More reports
 
 See the repository [tested_paths_dataset](https://github.com/andrehora/tested_paths_dataset) for more reports of popular projects, like [Rich](xxx), [Flask](xxx), and [Pylint](xxx).
