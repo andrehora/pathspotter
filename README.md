@@ -5,7 +5,7 @@
 PathSpotter provides metrics and code visualization to support understanding the *tested paths* of a Python method.
 A *tested path* of a method represents a set of input values that will make the method behave in the same way, that is, execute the same lines of code.
 
-PathSpotter generates CSV and [HTML reports like this](https://andrehora.github.io/pathspotter/report_html/calendar).
+PathSpotter generates [HTML reports like this](https://andrehora.github.io/pathspotter/examples/report_html/calendar).
 
 ## Install
 
@@ -37,40 +37,8 @@ This command should generate reports in HTML and CSV formats:
 python3 -m spotflow -t gzip -s pathspotter/pathspotter/runner.py -arg gzip test.test_gzip
 ```
 
-Then, open the folders `report_html/gzip` and `report_csv/gzip` to see reports like these: [HTML](https://andrehora.github.io/pathspotter/report_html/gzip) and [CSV](https://github.com/andrehora/pathspotter/tree/main/report_csv/gzip).
-
-See more examples [here](https://github.com/andrehora/pathspotter/blob/main/examples/python_libs.sh).
+Then, open the file `report_html/gzip/index.html` to see reports [like this](https://andrehora.github.io/pathspotter/examples/report_html/gzip).
 
 
-## Explore the tested paths of other systems
 
-### Python Standard Library
-
-- [argparse](https://andrehora.github.io/pathspotter/report_html/argparse)
-- [email](https://andrehora.github.io/pathspotter/report_html/email)
-- [tarfile](https://andrehora.github.io/pathspotter/report_html/tarfile)
-- [pathlib](https://andrehora.github.io/pathspotter/report_html/pathlib)
-- [configparser](https://andrehora.github.io/pathspotter/report_html/configparser)
-- [os](https://andrehora.github.io/pathspotter/report_html/os)
-- [logging](https://andrehora.github.io/pathspotter/report_html/logging)
-- [csv](https://andrehora.github.io/pathspotter/report_html/csv)
-- [collections](https://andrehora.github.io/pathspotter/report_html/collections)
-- [imaplib](https://andrehora.github.io/pathspotter/report_html/imaplib)
-- [ftplib](https://andrehora.github.io/pathspotter/report_html/ftplib)
-- [smtplib](https://andrehora.github.io/pathspotter/report_html/smtplib)
-- [calendar](https://andrehora.github.io/pathspotter/report_html/calendar)
-- [gzip](https://andrehora.github.io/pathspotter/report_html/gzip)
-- [difflib](https://andrehora.github.io/pathspotter/report_html/difflib)
-
-### Popular projects
-
-- [DateUtil](https://andrehora.github.io/pathspotter/report_html/dateutil)
-- [TheFuck](https://andrehora.github.io/pathspotter/report_html/thefuck)
-- [Pylint](https://andrehora.github.io/pathspotter/report_html/pylint)
-- [Rich](https://andrehora.github.io/pathspotter/report_html/rich)
-- [Requests](https://andrehora.github.io/pathspotter/report_html/requests)
-- [Flask](https://andrehora.github.io/pathspotter/report_html/flask)
-- [Cookiecutter](https://andrehora.github.io/pathspotter/report_html/cookiecutter)
-- [Six](https://andrehora.github.io/pathspotter/report_html/six)
-- [BentoML](https://andrehora.github.io/pathspotter/report_html/bentoml)
-- [Jupyter Client](https://andrehora.github.io/pathspotter/report_html/jupyter_client)
+## Detailed usage
