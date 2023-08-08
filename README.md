@@ -57,7 +57,7 @@ python3 -m spotflow -t calendar -s pathspotter/pathspotter/runner.py -arg calend
 The first argument `-t` sets the target SUT to be monitored.
 The second argument `-s` sets the PathSpotter script that is executed to generate CSV and HTML reports.
 The third argument `-arg` sets the report folder name.
-The final argument (`<test_suite>`) is command to actually execute the test suite, which is `test.test_gzip` in the example.
+The final argument (`<test_suite>`) is the command to execute the test suite.
 
 
 ## Reports of other systems
