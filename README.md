@@ -2,7 +2,7 @@
 
 # PathSpotter
 
-PathSpotter is a tool computing *tested paths* of Python methods.
+PathSpotter is a tool for computing and exploring *tested paths* of Python methods.
 A *tested path* of a method represents a set of input values that will make the method behave in the same way, that is, execute the same lines of code.
 
 PathSpotter generates [HTML reports like this](https://andrehora.github.io/pathspotter/examples/report_html/calendar).
