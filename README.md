@@ -5,7 +5,7 @@
 PathSpotter is a tool for computing and exploring *tested paths* of Python methods.
 A *tested path* of a method represents a set of input values that will make the method behave in the same way, that is, execute the same lines of code.
 
-PathSpotter generates [HTML reports like this](https://andrehora.github.io/pathspotter/examples/report_html/calendar).
+PathSpotter generates HTML reports like these: [calendar](https://andrehora.github.io/pathspotter/examples/report_html/calendar), [csv](https://andrehora.github.io/pathspotter/examples/report_html/csv), and [gzip](https://andrehora.github.io/pathspotter/examples/report_html/gzip).
 
 ## Install
 
